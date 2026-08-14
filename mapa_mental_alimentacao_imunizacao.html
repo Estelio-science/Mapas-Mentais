@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Mapa Mental — Alimentação e Imunização na Infância</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:460px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure img{max-width:100%;height:auto;border-radius:6px;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;margin-top:6px;font-size:.68rem;color:#444;}
+  .legend span{display:flex;align-items:center;gap:4px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Alimentação e Imunização na Infância</h1>
+    <p>Objetivos do Problema 2 · Baseado nos tópicos do enunciado</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Alimentação e Imunização na Infância</h2>
+    <div class="sub">Aleitamento · Leite de Vaca · Orientação Materna · Situações Especiais · Alimentação Complementar · Vacinação</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Tipos de Aleitamento e Benefícios</div>
+      <div class="body">
+
+        <details open>
+          <summary>Classificação do Aleitamento <span class="pill">OMS/MS</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Tipos de aleitamento materno (OMS/Ministério da Saúde)</caption>
+              <thead><tr><th>Tipo</th><th>Definição</th></tr></thead>
+              <tbody>
+                <tr><td><b>Exclusivo (AME)</b></td><td>Só leite materno (direto da mama ou ordenhado), sem outros líquidos ou sólidos — exceto gotas/xaropes de vitaminas, minerais ou medicamentos</td></tr>
+                <tr><td><b>Predominante</b></td><td>Leite materno + água, chás ou sucos (fluidos não lácteos), sem outro leite</td></tr>
+                <tr><td><b>Complementado</b></td><td>Leite materno + alimentos sólidos/semissólidos, incluindo outros tipos de leite, como complemento (não substituição)</td></tr>
+                <tr><td><b>Misto ou parcial</b></td><td>Leite materno + outro(s) tipo(s) de leite</td></tr>
+                <tr><td><b>Materno</b></td><td>Criança recebe leite materno, independentemente de receber ou não qualquer outro alimento</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Recomendação e Linha do Tempo</summary>
+          <div class="content">
+            <ul>
+              <li>OMS, Ministério da Saúde e SBP recomendam <b>AME até os 6 meses</b> de vida</li>
+              <li>Após os 6 meses: aleitamento <b>complementado até os 2 anos ou mais</b>, sem limite superior definido</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg">
+                <line x1="20" y1="55" x2="300" y2="55" stroke="#c9d3e6" stroke-width="10" stroke-linecap="round"/>
+                <rect x="20" y="50" width="110" height="10" rx="5" fill="#2563eb"/>
+                <rect x="130" y="50" width="170" height="10" rx="5" fill="#93c5fd"/>
+                <circle cx="20" cy="55" r="4" fill="#1d4ed8"/>
+                <circle cx="130" cy="55" r="4" fill="#1d4ed8"/>
+                <circle cx="300" cy="55" r="4" fill="#1d4ed8"/>
+                <text x="20" y="30" font-size="8" fill="#1d4ed8" text-anchor="middle">nascimento</text>
+                <text x="130" y="30" font-size="8" fill="#1d4ed8" text-anchor="middle">6 meses</text>
+                <text x="300" y="30" font-size="8" fill="#1d4ed8" text-anchor="middle">2 anos +</text>
+                <text x="75" y="80" font-size="8.5" fill="#1e3a8a" text-anchor="middle">AME</text>
+                <text x="215" y="80" font-size="8.5" fill="#1e3a8a" text-anchor="middle">Complementado</text>
+              </svg>
+              <div class="cap">Fig. 1 — Linha do tempo do aleitamento recomendado (OMS/MS/SBP)</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Benefícios do Aleitamento Exclusivo <span class="pill">criança e mãe</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Para a criança</b>: nutrição completa e sob medida; anticorpos e fatores imunológicos (IgA secretora); ↓ infecções respiratórias e diarreicas; ↓ risco de obesidade e doenças crônicas futuras; melhor desenvolvimento cognitivo (associação com ↑QI); ↓ mortalidade infantil</li>
+              <li><b>Para a mãe</b>: vínculo afetivo mãe-bebê; efeito contraceptivo natural (método LAM, sob condições específicas); ↓ risco de câncer de mama e ovário; auxilia retorno ao peso pré-gestacional; ↓ sangramento pós-parto</li>
+              <li><b>Para a sociedade</b>: ↓ custos com saúde; sustentabilidade ambiental (sem produção/embalagem de fórmulas)</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Aleitamento materno</a>, <a href="#ref2">SBP — Guia Prático de Aleitamento (2025/2026)</a>, <a href="#ref3">Brasil/MS — Caderno de Atenção Básica nº 23</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Uso Precoce do Leite de Vaca</div>
+      <div class="body">
+
+        <details open>
+          <summary>Por que o leite de vaca não é adequado antes de 1 ano</summary>
+          <div class="content">
+            <ul>
+              <li>Excesso de proteínas e minerais (cálcio, fósforo, sódio) → sobrecarga renal de soluto</li>
+              <li>Baixa biodisponibilidade de ferro e associação com micro-hemorragias intestinais</li>
+              <li>Ausência/insuficiência de vitamina A, vitamina E, zinco e ácidos graxos essenciais</li>
+              <li>Alto teor de gordura saturada, sem a composição lipídica adequada ao lactente</li>
+            </ul>
+            <table>
+              <caption>Tabela — Comparação simplificada leite humano × leite de vaca integral</caption>
+              <thead><tr><th>Componente</th><th>Leite humano</th><th>Leite de vaca</th></tr></thead>
+              <tbody>
+                <tr><td>Proteína</td><td>Baixa, predomínio de soro (fácil digestão)</td><td>Alta, predomínio de caseína (difícil digestão)</td></tr>
+                <tr><td>Ferro</td><td>Baixo teor, porém alta biodisponibilidade (~50%)</td><td>Baixa biodisponibilidade (~10%)</td></tr>
+                <tr><td>Sódio/minerais</td><td>Baixo</td><td>Alto — sobrecarga renal de soluto</td></tr>
+                <tr><td>Ác. graxos essenciais</td><td>Presentes (DHA/ARA)</td><td>Ausentes/insuficientes</td></tr>
+              </tbody>
+            </table>
+            <div class="figure">
+              <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+                <line x1="30" y1="10" x2="30" y2="115" stroke="#8892a3" stroke-width="1.5"/>
+                <line x1="30" y1="115" x2="290" y2="115" stroke="#8892a3" stroke-width="1.5"/>
+                <g font-size="7.5" fill="#7c3e00" text-anchor="middle">
+                  <rect x="45" y="55" width="16" height="60" fill="#2563eb"/>
+                  <rect x="65" y="35" width="16" height="80" fill="#fbbf24"/>
+                  <text x="63" y="126">Proteína</text>
+                  <rect x="105" y="70" width="16" height="45" fill="#2563eb"/>
+                  <rect x="125" y="95" width="16" height="20" fill="#fbbf24"/>
+                  <text x="123" y="126">Ferro absorv.</text>
+                  <rect x="170" y="90" width="16" height="25" fill="#2563eb"/>
+                  <rect x="190" y="30" width="16" height="85" fill="#fbbf24"/>
+                  <text x="188" y="126">Sódio</text>
+                  <rect x="230" y="45" width="16" height="70" fill="#2563eb"/>
+                  <rect x="250" y="108" width="16" height="7" fill="#fbbf24"/>
+                  <text x="248" y="126">DHA/ARA</text>
+                </g>
+                <text x="30" y="8" font-size="7" fill="#667">nível relativo</text>
+              </svg>
+              <div class="legend">
+                <span><i style="background:#2563eb;"></i>Leite humano</span>
+                <span><i style="background:#fbbf24;"></i>Leite de vaca</span>
+              </div>
+              <div class="cap">Fig. 4 — Comparação esquemática leite humano × leite de vaca (níveis relativos)</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Consequências Clínicas</summary>
+          <div class="content">
+            <ul>
+              <li><b>Anemia ferropriva</b>: principal consequência hematológica — baixa absorção de ferro somada a micro-hemorragias intestinais induzidas pelas proteínas do leite de vaca</li>
+              <li><b>Alergia à proteína do leite de vaca (APLV)</b>: principal causa de alergia alimentar em menores de 3 anos; pode cursar com vômitos, diarreia (com ou sem sangue), síndrome de má absorção, irritabilidade, baixo ganho ponderal, distúrbios hidroeletrolíticos</li>
+              <li><b>Sobrecarga renal de soluto</b>: risco de desidratação hipernatrêmica em situações de perda hídrica</li>
+              <li><b>Maior risco de obesidade</b>: relacionado ao alto teor proteico (hipótese da "programação metabólica" precoce)</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref14">Jornal de Pediatria — Consumo de leite de vaca e anemia ferropriva na infância</a>, <a href="#ref7">Brasil/MS — Guia Alimentar para Crianças Brasileiras Menores de 2 Anos</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Orientação Materna e Técnica de Amamentação</div>
+      <div class="body">
+
+        <details open>
+          <summary>Pega e Posicionamento Corretos <span class="pill">4 pontos-chave OMS</span></summary>
+          <div class="content">
+            <ul>
+              <li>Rosto do bebê de frente para a mama, com o nariz na altura do mamilo</li>
+              <li>Corpo do bebê bem próximo e apoiado (barriga com barriga)</li>
+              <li>Mãe confortável, relaxada, bem apoiada, sem se curvar sobre o bebê</li>
+              <li>Boca bem aberta abocanhando grande parte da aréola, lábio inferior evertido, queixo tocando a mama</li>
+            </ul>
+            <div class="figure">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Breastfeeding_-_Incorrect_vs_Correct_Latch-On.png" alt="Comparação entre pega incorreta e pega correta na amamentação">
+              <div class="cap">Fig. 2 — Pega incorreta × pega correta na amamentação. Fonte: <a href="https://commons.wikimedia.org/wiki/File:Breastfeeding_-_Incorrect_vs_Correct_Latch-On.png" target="_blank" rel="noopener">Wikimedia Commons</a> (imagem de acesso livre).</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Papel da Orientação Materna</summary>
+          <div class="content">
+            <ul>
+              <li>Orientação deve começar no pré-natal e continuar no puerpério (alojamento conjunto, consultas de puericultura)</li>
+              <li>Reconhecer sinais de fome precoces (não esperar o choro) e livre demanda</li>
+              <li>Ensinar ordenha manual e armazenamento do leite (para casos de retorno ao trabalho)</li>
+              <li>Desmistificar crenças que levam ao desmame precoce ("leite fraco", "pega errada" não identificada)</li>
+              <li>Suporte de bancos de leite humano (BLH) e apoio familiar são fatores associados a maior duração do AME</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Problemas Comuns e Manejo <span class="pill">tabela</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Intercorrências mamárias na lactação</caption>
+              <thead><tr><th>Problema</th><th>Causa principal</th><th>Manejo</th></tr></thead>
+              <tbody>
+                <tr><td>Ingurgitamento mamário</td><td>Congestão vascular + acúmulo de leite + edema</td><td>Manter amamentação frequente, ordenha de alívio, compressas frias entre mamadas</td></tr>
+                <tr><td>Fissura mamilar</td><td>Pega incorreta, posicionamento inadequado (até 58% das puérperas nas 8 primeiras semanas)</td><td>Corrigir a pega; leite materno ordenhado no mamilo; evitar produtos irritantes</td></tr>
+                <tr><td>Mastite</td><td>Estase láctea associada a fissura mamilar; porta de entrada p/ <i>S. aureus</i></td><td>Manter esvaziamento da mama (amamentação + ordenha), analgesia, antibiótico se necessário</td></tr>
+                <tr><td>Candidíase mamilar</td><td>Infecção fúngica (dor em queimação, mamilo brilhante)</td><td>Antifúngico tópico mãe/bebê</td></tr>
+                <tr><td>Hipogalactia</td><td>Produção insuficiente (frequentemente por técnica inadequada)</td><td>Aumentar frequência das mamadas, corrigir pega, avaliar causas maternas</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref3">Brasil/MS — Caderno de Atenção Básica nº 23</a>, <a href="#ref15">Jornal de Pediatria — Problemas comuns na lactação e seu manejo</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Situações Especiais — Contraindicações e COVID-19</div>
+      <div class="body">
+
+        <details open>
+          <summary>Contraindicações Absolutas <span class="pill">raras</span></summary>
+          <div class="content">
+            <ul>
+              <li>Infecção materna por <b>HIV</b></li>
+              <li>Infecção materna por <b>HTLV-1 ou HTLV-2</b></li>
+              <li><b>Galactosemia clássica</b> no recém-nascido (erro inato do metabolismo)</li>
+            </ul>
+            <p style="font-size:.75rem;color:var(--muted);margin:4px 0 0;">Recomendação consonante entre OMS, Ministério da Saúde e SBP — situações raras; a grande maioria das condições maternas <b>não</b> contraindica a amamentação.</p>
+            <div class="figure">
+              <svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="80" cy="55" r="46" fill="#ffe9ee" stroke="#be123c" stroke-width="1.5"/>
+                <text x="80" y="40" font-size="8" text-anchor="middle" fill="#9f1239" font-weight="700">Absolutas</text>
+                <text x="80" y="55" font-size="7" text-anchor="middle" fill="#7a1030">HIV</text>
+                <text x="80" y="67" font-size="7" text-anchor="middle" fill="#7a1030">HTLV-1/2</text>
+                <text x="80" y="79" font-size="7" text-anchor="middle" fill="#7a1030">Galactosemia</text>
+                <circle cx="220" cy="55" r="52" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+                <text x="220" y="32" font-size="8" text-anchor="middle" fill="#c2410c" font-weight="700">Relativas / temporárias</text>
+                <text x="220" y="47" font-size="7" text-anchor="middle" fill="#7c3e00">Fármacos incompatíveis</text>
+                <text x="220" y="59" font-size="7" text-anchor="middle" fill="#7c3e00">Drogas ilícitas</text>
+                <text x="220" y="71" font-size="7" text-anchor="middle" fill="#7c3e00">TB ativa · Herpes mamário</text>
+                <text x="220" y="83" font-size="7" text-anchor="middle" fill="#7c3e00">Varicela periparto</text>
+                <text x="150" y="108" font-size="7" text-anchor="middle" fill="#667">Raras × reversíveis — a maioria das mães pode amamentar</text>
+              </svg>
+              <div class="cap">Fig. 5 — Contraindicações absolutas × relativas ao aleitamento</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Contraindicações Relativas / Temporárias <span class="pill">tabela</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Situações que contraindicam temporária ou parcialmente a amamentação</caption>
+              <thead><tr><th>Situação</th><th>Conduta</th></tr></thead>
+              <tbody>
+                <tr><td>Uso materno de medicamentos incompatíveis (antineoplásicos, radiofármacos)</td><td>Suspender a amamentação enquanto durar o uso; avaliar alternativa compatível</td></tr>
+                <tr><td>Uso de drogas ilícitas (cocaína, anfetaminas, ecstasy)</td><td>Suspender e descartar o leite por 24–36h após o uso</td></tr>
+                <tr><td>Tuberculose pulmonar ativa não tratada</td><td>Amamentação permitida com máscara; considerar afastamento breve nos primeiros dias de tratamento</td></tr>
+                <tr><td>Lesão herpética ativa na mama</td><td>Suspender amamentação apenas na mama afetada até cicatrização</td></tr>
+                <tr><td>Varicela materna periparto (5 dias antes a 2 dias após o parto)</td><td>Isolamento temporário mãe-filho; leite ordenhado pode ser oferecido</td></tr>
+                <tr><td>Distúrbio grave de consciência ou comportamento agressivo materno</td><td>Avaliação individualizada de segurança</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Amamentação e COVID-19 <span class="pill">atualizado</span></summary>
+          <div class="content">
+            <div class="note">
+              <b class="tag">Recomendação MS/SBP:</b> a infecção materna por SARS-CoV-2 <b>não contraindica</b> a amamentação — os benefícios superam o risco teórico de transmissão pelo leite (não demonstrada de forma consistente na literatura).
+            </div>
+            <ul>
+              <li>Manter amamentação direta ao seio, desde que a mãe esteja clinicamente apta e o deseje</li>
+              <li>Usar máscara cobrindo nariz e boca durante toda a mamada; trocar a máscara se molhada, ao tossir/espirrar ou a cada mamada</li>
+              <li>Higienizar as mãos antes do contato com o bebê e a mama</li>
+              <li>Se a mãe não se sentir segura para amamentar diretamente, o leite ordenhado pode ser oferecido por outro cuidador</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Brasil/MS — Amamentação e uso de medicamentos e outras substâncias</a>, <a href="#ref5">SBP — Uso de medicamentos e outras substâncias durante a amamentação</a>, <a href="#ref6">Brasil/MS + SBP — Nota técnica: Amamentação em tempos de COVID-19</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Alimentação Complementar após os 6 Meses</div>
+      <div class="body">
+
+        <details open>
+          <summary>10 Passos do Guia Alimentar <span class="pill">MS, 2019</span></summary>
+          <div class="content">
+            <ul>
+              <li>1. Amamentar até os 2 anos ou mais, exclusivamente até os 6 meses</li>
+              <li>2. Ao completar 6 meses, introduzir alimentos in natura ou minimamente processados, mantendo o leite materno</li>
+              <li>3. Oferecer água própria para consumo, em vez de sucos, refrigerantes e outras bebidas açucaradas</li>
+              <li>4. Oferecer a criança alimentos in natura ou minimamente processados, além do leite materno</li>
+              <li>5. Não oferecer açúcar nem preparações/produtos que contenham açúcar até os 2 anos de idade</li>
+              <li>6. Não oferecer alimentos ultraprocessados à criança</li>
+              <li>7. Cozinhar a mesma comida para a criança e para a família</li>
+              <li>8. Alimentar a criança em intervalos regulares, em ambiente adequado</li>
+              <li>9. Oferecer alimentos variados, de cores diferentes, de forma atrativa</li>
+              <li>10. Estimular a criança a comer devagar, com prazer, em ambiente tranquilo e com um adulto de referência</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Consistência e Progressão</summary>
+          <div class="content">
+            <ul>
+              <li>Início aos 6 meses: alimentos amassados/papas, sem necessidade de liquidificar ou peneirar</li>
+              <li>Progressão gradual da consistência conforme a criança desenvolve habilidade oral-motora (picados, em pedaços, alimentos que a própria criança pode segurar)</li>
+              <li>Janela imunológica: recomenda-se <b>não postergar</b> a introdução de alimentos potencialmente alergênicos (ovo, amendoim) após os 6 meses, o que pode reduzir o risco de alergia alimentar</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg">
+                <g font-size="8" fill="#166534" text-anchor="middle">
+                  <circle cx="40" cy="35" r="22" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="40" y="40">🥣</text><text x="40" y="70">6 meses: papas</text>
+                  <circle cx="150" cy="35" r="22" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="150" y="40">🍽️</text><text x="150" y="70">8–9 meses: picados</text>
+                  <circle cx="260" cy="35" r="22" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="260" y="40">🍎</text><text x="260" y="70">12 meses: comida da família</text>
+                </g>
+              </svg>
+              <div class="cap">Fig. 3 — Progressão da consistência alimentar</div>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">Brasil/MS — Guia Alimentar para Crianças Brasileiras Menores de 2 Anos</a>, <a href="#ref8">Brasil/MS — Guia Alimentar (versão integral)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> Vacinação, Eventos Adversos e o ECA</div>
+      <div class="body">
+
+        <details open>
+          <summary>Calendário Nacional de Vacinação da Criança <span class="pill">MS, 2026</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Calendário Nacional de Vacinação 2026 (0 a 9 anos, resumo)</caption>
+              <thead><tr><th>Idade</th><th>Vacinas</th></tr></thead>
+              <tbody>
+                <tr><td>Ao nascer</td><td>Hepatite B (1ª dose); BCG (dose única)</td></tr>
+                <tr><td>2 meses</td><td>Penta (DTP+Hib+HB); VIP (pólio inativada); Rotavírus; Pneumocócica 20-valente</td></tr>
+                <tr><td>3 meses</td><td>Meningocócica C (1ª dose)</td></tr>
+                <tr><td>4 meses</td><td>Penta, VIP, Rotavírus, Pneumocócica — 2ªs doses</td></tr>
+                <tr><td>5 meses</td><td>Meningocócica C (2ª dose)</td></tr>
+                <tr><td>6 meses</td><td>Penta e VIP (3ª dose); Covid-19 (1ª dose); Influenza (sazonal)</td></tr>
+                <tr><td>9 meses</td><td>Febre amarela (1 dose)</td></tr>
+                <tr><td>12 meses</td><td>Pneumocócica 20-valente (reforço); Meningocócica ACWY; Tríplice viral (1ª dose)</td></tr>
+                <tr><td>15 meses</td><td>DTP e VIP (1º reforço); Tríplice viral (2ª dose); Varicela (1ª dose); Hepatite A</td></tr>
+                <tr><td>4 anos</td><td>DTP e VIP (2º reforço); Varicela (2ª dose); Febre amarela (reforço)</td></tr>
+                <tr><td>9 anos</td><td>HPV (1 dose)</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Novidades 2025/2026: reforço com meningocócica ACWY aos 12 meses, nirsevimabe (anticorpo monoclonal) para prevenção de VSR em recém-nascidos, e incorporação da vacina de dengue em áreas endêmicas prioritárias.</p>
+            <div class="figure">
+              <svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+                <line x1="20" y1="45" x2="300" y2="45" stroke="#c4b5fd" stroke-width="3"/>
+                <g font-size="7" fill="#5b21b6" text-anchor="middle">
+                  <circle cx="20" cy="45" r="6" fill="#7c3aed"/><text x="20" y="65">Nasc.</text>
+                  <circle cx="70" cy="45" r="6" fill="#7c3aed"/><text x="70" y="65">2m</text>
+                  <circle cx="115" cy="45" r="6" fill="#7c3aed"/><text x="115" y="65">4m</text>
+                  <circle cx="160" cy="45" r="6" fill="#7c3aed"/><text x="160" y="65">6m</text>
+                  <circle cx="205" cy="45" r="6" fill="#7c3aed"/><text x="205" y="65">12m</text>
+                  <circle cx="245" cy="45" r="6" fill="#7c3aed"/><text x="245" y="65">15m</text>
+                  <circle cx="275" cy="45" r="6" fill="#7c3aed"/><text x="275" y="65">4a</text>
+                  <circle cx="300" cy="45" r="6" fill="#7c3aed"/><text x="300" y="65">9a</text>
+                </g>
+                <text x="160" y="20" font-size="8" text-anchor="middle" fill="#5b21b6" font-weight="700">Calendário vacinal — 0 a 9 anos</text>
+              </svg>
+              <div class="cap">Fig. 6 — Marcos etários do calendário vacinal da criança</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Eventos Adversos Pós-Vacinação (EAPV)</summary>
+          <div class="content">
+            <ul>
+              <li><b>Definição</b>: qualquer ocorrência médica indesejada após a vacinação, não necessariamente com relação causal comprovada com o imunobiológico</li>
+              <li><b>Esperados/leves</b>: dor, edema e vermelhidão no local; febre; irritabilidade; cansaço; cefaleia; mialgia</li>
+              <li><b>Mais graves (raros)</b>: convulsão febril; episódio hipotônico-hiporresponsivo (EHH); reações anafiláticas</li>
+              <li>Notificação e investigação seguem o <b>Manual de Vigilância Epidemiológica de EAPV</b> do Ministério da Saúde</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg">
+                <line x1="30" y1="10" x2="30" y2="90" stroke="#8892a3" stroke-width="1.5"/>
+                <line x1="30" y1="90" x2="280" y2="90" stroke="#8892a3" stroke-width="1.5"/>
+                <rect x="60" y="20" width="50" height="70" fill="#7c3aed"/>
+                <text x="85" y="15" font-size="7" text-anchor="middle" fill="#5b21b6">frequentes</text>
+                <text x="85" y="102" font-size="7" text-anchor="middle" fill="#5b21b6">dor · febre</text>
+                <text x="85" y="112" font-size="7" text-anchor="middle" fill="#5b21b6">local · irritab.</text>
+                <rect x="180" y="83" width="50" height="7" fill="#be123c"/>
+                <text x="205" y="15" font-size="7" text-anchor="middle" fill="#9f1239">raros</text>
+                <text x="205" y="102" font-size="7" text-anchor="middle" fill="#9f1239">convulsão · EHH</text>
+                <text x="205" y="112" font-size="7" text-anchor="middle" fill="#9f1239">anafilaxia</text>
+              </svg>
+              <div class="cap">Fig. 7 — Frequência relativa: eventos leves × eventos graves pós-vacinação</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>ECA e Princípios Bioéticos da Vacinação <span class="pill">bioética</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>ECA (Lei nº 8.069/1990), art. 7º</b>: direito à proteção da vida e da saúde, por meio de políticas públicas que garantam desenvolvimento digno</li>
+              <li><b>ECA, art. 14, §1º</b>: "é obrigatória a vacinação das crianças nos casos recomendados pelas autoridades sanitárias"</li>
+              <li><b>Doutrina da proteção integral</b>: a criança é sujeito de direitos, e não mero objeto de tutela — fundamento de todo o ECA</li>
+              <li><b>CF/1988, art. 227</b>: dever da família, sociedade e Estado de assegurar à criança, com absoluta prioridade, o direito à saúde</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Tensão entre os 4 princípios bioéticos (Beauchamp &amp; Childress):</b>
+              <ul>
+                <li><b>Autonomia</b>: exercida pelos responsáveis legais (a criança não tem autonomia decisória plena); pode entrar em conflito com a obrigatoriedade legal</li>
+                <li><b>Beneficência e não maleficência</b>: a vacina protege a criança (benefício), mas há insegurança percebida quanto a eventos adversos (risco)</li>
+                <li><b>Justiça</b>: prioriza o bem coletivo (imunidade de rebanho) sobre a exposição/escolha individual</li>
+              </ul>
+              A obrigatoriedade vacinal no Brasil se sustenta juridicamente no <b>princípio da supremacia do interesse público</b> e no melhor interesse da criança, ainda que gere debate bioético sobre os limites da autonomia parental.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref9">Brasil/MS — Calendário Nacional de Vacinação 2026</a>, <a href="#ref10">SBP — Calendário de Vacinação, Atualização 2025–2026</a>, <a href="#ref11">Brasil/MS — Manual de Vigilância Epidemiológica de EAPV</a>, <a href="#ref12">Brasil — Lei nº 8.069/1990 (ECA)</a>, <a href="#ref13">Brasil — Constituição Federal, art. 227</a>, <a href="#ref16">Beauchamp &amp; Childress — Princípios de Ética Biomédica</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Aleitamento materno</i>. Disponível em: <a href="https://www.sbp.com.br/pediatria-para-familias/nutricao/aleitamento-materno/" target="_blank" rel="noopener">sbp.com.br/pediatria-para-familias/nutricao/aleitamento-materno</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref2">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Guia Prático de Aleitamento Materno</i>, atualizado. São Paulo: SBP, 2025/2026. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/24585d-GPRATICO-GuiaPratico_de_AM-Atualizacao.pdf" target="_blank" rel="noopener">sbp.com.br/GuiaPratico_de_AM-Atualizacao.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref3">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Saúde da Criança: nutrição infantil — aleitamento materno e alimentação complementar</i>. Cadernos de Atenção Básica, n. 23. Brasília: Ministério da Saúde, 2015. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/saude_crianca_aleitamento_materno_cab23.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/saude_crianca_aleitamento_materno_cab23.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref4">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Amamentação e uso de medicamentos e outras substâncias</i>. 3. ed. Brasília: Ministério da Saúde, 2022. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/amamentacao_uso_medicamentos_outras_substancias_3ed.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/amamentacao_uso_medicamentos_outras_substancias_3ed.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref5">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Uso de medicamentos e outras substâncias pela mulher durante a amamentação</i>. Documento científico. São Paulo: SBP, 2017. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/Aleitamento_-__Uso_Medicam_durante_Amament.pdf" target="_blank" rel="noopener">sbp.com.br/Aleitamento_Uso_Medicam_durante_Amament.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref6">BRASIL. Ministério da Saúde; SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Amamentação em tempos de COVID-19: na maternidade e após a alta</i>. Nota técnica conjunta. Brasília/São Paulo, 2021. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/22467f-NA_-_AleitMat_tempos_COVID-19-_na_matern_e_apos_alta.pdf" target="_blank" rel="noopener">sbp.com.br/AleitMat_tempos_COVID-19.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref7">BRASIL. Ministério da Saúde. <i>Guia alimentar para crianças brasileiras menores de 2 anos — versão resumida</i>. Brasília: Ministério da Saúde, 2019. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/guia_alimentar_crianca_brasileira_versao_resumida.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/guia_alimentar_crianca_brasileira_versao_resumida.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref8">BRASIL. Ministério da Saúde. <i>Guia alimentar para crianças brasileiras menores de 2 anos</i>. Brasília: Ministério da Saúde, 2019. Disponível em: <a href="https://www.gov.br/saude/pt-br/assuntos/saude-brasil/eu-quero-me-alimentar-melhor/Documentos/pdf/guia-alimentar-para-criancas-brasileiras-menores-de-2-anos.pdf" target="_blank" rel="noopener">gov.br/saude — guia-alimentar-para-criancas-brasileiras-menores-de-2-anos.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref9">BRASIL. Ministério da Saúde. <i>Calendário Nacional de Vacinação 2026 — Vacinas da Criança</i>. Brasília: Ministério da Saúde, 2026. Disponível em: <a href="https://www.gov.br/saude/pt-br/vacinacao/arquivos/calendario-nacional-de-vacinacao-crianca" target="_blank" rel="noopener">gov.br/saude/vacinacao/calendario-nacional-de-vacinacao-crianca</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref10">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Imunizações. <i>Calendário de Vacinação da SBP — Atualização 2025–2026</i>. São Paulo: SBP, 2025. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/sbp/2025/outubro/21/25063d-DC_Calendario_Vacinacao_-_Atualizacao_2025-26.pdf" target="_blank" rel="noopener">sbp.com.br/DC_Calendario_Vacinacao_2025-26.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref11">BRASIL. Ministério da Saúde. Secretaria de Vigilância em Saúde. <i>Manual de Vigilância Epidemiológica de Eventos Adversos Pós-Vacinação</i>. Brasília: Ministério da Saúde. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/manual_vigilancia_epidemiologica_eventos_adversos_pos_vacinacao.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/manual_vigilancia_epidemiologica_eventos_adversos_pos_vacinacao.pdf</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref12">BRASIL. <i>Lei nº 8.069, de 13 de julho de 1990</i>. Dispõe sobre o Estatuto da Criança e do Adolescente e dá outras providências (arts. 7º e 14, §1º). Diário Oficial da União, Brasília, DF, 16 jul. 1990. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/leis/l8069.htm" target="_blank" rel="noopener">planalto.gov.br/ccivil_03/leis/l8069.htm</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref13">BRASIL. <i>Constituição da República Federativa do Brasil de 1988</i> (art. 227). Brasília: Senado Federal, 1988. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noopener">planalto.gov.br/ccivil_03/constituicao/constituicao.htm</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref14">CONSUMO de leite de vaca e anemia ferropriva na infância. <i>Jornal de Pediatria</i>. Disponível em: <a href="https://www.scielo.br/j/jped/a/9BhbY9KV3ychYcjW3tytJzn/" target="_blank" rel="noopener">scielo.br/j/jped — consumo de leite de vaca e anemia ferropriva</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref15">PROBLEMAS comuns na lactação e seu manejo. <i>Jornal de Pediatria</i>. Disponível em: <a href="https://www.jped.com.br/en-download-pdf-X2255553604030240" target="_blank" rel="noopener">jped.com.br — problemas comuns na lactação e seu manejo</a>. <span class="accessed">Acesso em: 13 ago. 2026.</span></li>
+
+      <li id="ref16">BEAUCHAMP, T. L.; CHILDRESS, J. F. <i>Princípios de ética biomédica</i>. 4. ed. São Paulo: Loyola, 2002.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: este mapa foi elaborado a partir de fontes oficiais (SBP, Ministério da Saúde, legislação) e literatura indexada, sem um livro-texto único fornecido pelo usuário como base de verificação — diferentemente do mapa do Problema 1, que foi conferido contra o <i>Tratado de Pediatria</i> (SBP, 6. ed.).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Alimentação e Imunização na Infância<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
