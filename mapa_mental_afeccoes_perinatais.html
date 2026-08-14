@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Mapa Mental — Afecções Perinatais</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#be123c; --c3-bg:#ffe9ee;
+    --c4:#15803d; --c4-bg:#e8f7ec;
+    --c5:#7c3aed; --c5-bg:#f2ebff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:420px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#9f1239);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#166534);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#5b21b6);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.78rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;margin-top:6px;font-size:.68rem;color:#444;}
+  .legend span{display:flex;align-items:center;gap:4px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Afecções Perinatais</h1>
+    <p>Objetivos do Problema 1 · Baseado nos tópicos do enunciado</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Afecções Perinatais</h2>
+    <div class="sub">Avaliação do RN · Icterícia · TORCHS · Triagens · Método Canguru</div>
+  </div>
+
+  <div class="note" style="max-width:760px;margin:0 auto 20px;">
+    <b class="tag">Verificação contra o Tratado de Pediatria (SBP, 6. ed., 2025 — arquivos enviados):</b> os núcleos clínicos deste mapa (tríades de infecções congênitas, achados de imagem, condutas terapêuticas) foram <b>confirmados e detalhados</b> pelos capítulos de Oftalmologia, Radiologia Pediátrica, Hematologia, Otorrinolaringologia e Cirurgia Pediátrica do livro. Já os capítulos específicos de Neonatologia (Apgar, Capurro/Ballard, escala de Kramer, nomograma de Bhutani, Método Canguru) <b>não constam no material extraído</b> dos PDFs — essas seções seguem apoiadas nas fontes originais já citadas. Cada ramo abaixo tem um bloco "Confronto com o Tratado de Pediatria" detalhando complementos e divergências específicas.
+  </div>
+  <div class="connectors">✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Vitalidade e Maturidade do RN</div>
+      <div class="body">
+
+        <details open>
+          <summary>Avaliação da Vitalidade <span class="pill">Apgar</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Escore de Apgar</b> — feito no 1º e 5º minuto (repetir se &lt;7 até normalizar)</li>
+              <li>5 critérios (0–2 pts cada): <b>F</b>C, <b>E</b>sforço respiratório, <b>T</b>ônus muscular, <b>I</b>rritabilidade reflexa, <b>C</b>or</li>
+              <li>Não define reanimação — usada para prognóstico</li>
+              <li>Reanimação neonatal: baseada em respiração, tônus e FC ao nascer (fluxograma da SBP)</li>
+              <li>Clampeamento do cordão: tardio (1–3 min) se vigoroso</li>
+            </ul>
+            <table>
+              <caption>Tabela — Escore de Apgar (0 a 10 pontos)</caption>
+              <thead>
+                <tr><th>Sinal</th><th>0 pontos</th><th>1 ponto</th><th>2 pontos</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>FC</b></td><td>Ausente</td><td>&lt;100 bpm</td><td>≥100 bpm</td></tr>
+                <tr><td><b>Resp.</b></td><td>Ausente</td><td>Irregular/fraca</td><td>Choro forte</td></tr>
+                <tr><td><b>Tônus</b></td><td>Flácido</td><td>Flexão discreta</td><td>Movimento ativo</td></tr>
+                <tr><td><b>Irrit. reflexa</b></td><td>Ausente</td><td>Careta</td><td>Choro/espirro/tosse</td></tr>
+                <tr><td><b>Cor</b></td><td>Cianótico/pálido</td><td>Acrocianose</td><td>Rosado</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Avaliação da Maturidade</summary>
+          <div class="content">
+            <ul>
+              <li><b>Método de Capurro</b>: 4–5 parâmetros somáticos (± neurológicos) → estima IG</li>
+              <li><b>New Ballard Score</b>: critérios físicos + neuromusculares, mais preciso em pré-termos extremos</li>
+              <li>IG também por DUM e USG precoce (1º trimestre = padrão-ouro)</li>
+              <li>Classificação: pré-termo (&lt;37sem), termo (37–41sem6d), pós-termo (≥42sem)</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Classificação Peso × Idade Gestacional</summary>
+          <div class="content">
+            <ul>
+              <li><b>Curva de Lubchenco/Fenton</b>: PIG (&lt;p10), AIG (p10–p90), GIG (&gt;p90)</li>
+              <li>Peso ao nascer: baixo peso (&lt;2500g), muito baixo peso (&lt;1500g), extremo baixo peso (&lt;1000g)</li>
+              <li>Relevância: risco de hipoglicemia, policitemia, malformações (GIG); asfixia e desnutrição (PIG)</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+                <line x1="40" y1="10" x2="40" y2="160" stroke="#8892a3" stroke-width="1.5"/>
+                <line x1="40" y1="160" x2="310" y2="160" stroke="#8892a3" stroke-width="1.5"/>
+                <text x="6" y="14" font-size="8" fill="#667">peso</text>
+                <text x="280" y="175" font-size="8" fill="#667">IG</text>
+                <path d="M40,150 Q120,40 300,20" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+                <path d="M40,159 Q120,95 300,60" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 3"/>
+                <path d="M40,160 Q120,140 300,110" fill="none" stroke="#93c5fd" stroke-width="2"/>
+                <text x="230" y="24" font-size="8" fill="#1d4ed8">p90 (GIG↑)</text>
+                <text x="230" y="70" font-size="8" fill="#2563eb">p50 (AIG)</text>
+                <text x="230" y="122" font-size="8" fill="#3b82f6">p10 (PIG↓)</text>
+                <rect x="55" y="30" width="70" height="26" fill="#eaf0ff" stroke="#93c5fd"/>
+                <text x="60" y="46" font-size="7.5" fill="#1d4ed8">GIG: &gt;p90</text>
+                <rect x="55" y="130" width="70" height="26" fill="#eaf0ff" stroke="#93c5fd"/>
+                <text x="60" y="146" font-size="7.5" fill="#1d4ed8">PIG: &lt;p10</text>
+              </svg>
+              <div class="cap">Fig. 1 — Curvas de percentil peso × idade gestacional (Lubchenco/Fenton), esquemático</div>
+            </div>
+            <table>
+              <caption>Tabela — Classificação por peso de nascimento</caption>
+              <thead><tr><th>Categoria</th><th>Faixa de peso</th></tr></thead>
+              <tbody>
+                <tr><td>Baixo peso (BP)</td><td>&lt; 2.500 g</td></tr>
+                <tr><td>Muito baixo peso (MBP)</td><td>&lt; 1.500 g</td></tr>
+                <tr><td>Extremo baixo peso (EBP)</td><td>&lt; 1.000 g</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Confronto com o Tratado de Pediatria (SBP) <span class="pill">nota</span></summary>
+          <div class="content">
+            <div class="note-gap">
+              <b class="tag">Lacuna identificada:</b> os dois volumes do <i>Tratado de Pediatria</i> (SBP, 6. ed., 2025) enviados <b>não contêm</b> o capítulo "Assistência ao nascimento na sala de parto" (listado no sumário da Seção 10 – Neonatologia, mas ausente do conteúdo extraído). Não foi possível localizar nos arquivos os termos Apgar (como escore), Capurro, New Ballard, Silverman-Andersen ou "clampeamento do cordão" como conteúdo de capítulo. O material deste ramo permanece baseado nas diretrizes SBP de reanimação neonatal e no artigo original de Ballard <i>et al.</i> (já referenciados), e não pôde ser conferido diretamente contra o livro-texto.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">SBP (2026)</a>, <a href="#ref3">Ballard <i>et al.</i> (1991)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Icterícia do Recém-Nascido</div>
+      <div class="body">
+
+        <details open>
+          <summary>Fisiopatologia</summary>
+          <div class="content">
+            <ul>
+              <li>↑ Produção de bilirrubina: maior volume eritrocitário, vida média menor das hemácias fetais</li>
+              <li>↓ Conjugação hepática: imaturidade da glicuronil-transferase</li>
+              <li>↑ Circulação êntero-hepática (baixa flora intestinal, motilidade lenta)</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Fisiológica × Patológica</summary>
+          <div class="content">
+            <ul>
+              <li><b>Fisiológica</b>: início &gt;24h, pico 3º–5º dia, resolve em 1–2 semanas</li>
+              <li><b>Patológica</b>: início &lt;24h, elevação rápida (&gt;5mg/dL/dia), prolongada (&gt;2 sem) ou com colúria/acolia</li>
+              <li>Causas: incompatibilidade Rh/ABO, esferocitose, deficiência de G6PD, sepse, policitemia, icterícia do leite materno</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Escala de Kramer (ilustração)</summary>
+          <div class="content">
+            <p>Progressão cefalocaudal da icterícia — a extensão corporal se correlaciona (grosseiramente) com o nível de bilirrubina.</p>
+            <div class="figure">
+              <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="110" cy="35" rx="28" ry="30" fill="#fff2cc" stroke="#b45309"/>
+                <rect x="90" y="62" width="40" height="55" fill="#ffe3a3" stroke="#b45309"/>
+                <rect x="70" y="117" width="80" height="50" fill="#ffd27a" stroke="#b45309"/>
+                <rect x="60" y="167" width="40" height="45" fill="#ffbf4d" stroke="#b45309"/>
+                <rect x="120" y="167" width="40" height="45" fill="#ffbf4d" stroke="#b45309"/>
+                <rect x="30" y="70" width="35" height="18" fill="#ffe3a3" stroke="#b45309"/>
+                <rect x="155" y="70" width="35" height="18" fill="#ffe3a3" stroke="#b45309"/>
+                <text x="145" y="30" font-size="9" fill="#7c3e00">Zona 1</text>
+                <text x="145" y="88" font-size="9" fill="#7c3e00">Zona 2</text>
+                <text x="160" y="140" font-size="9" fill="#7c3e00">Zona 3</text>
+                <text x="165" y="190" font-size="9" fill="#7c3e00">Zonas 4–5</text>
+              </svg>
+              <div class="cap">Fig. 2 — Zonas de Kramer (cabeça → extremidades)</div>
+            </div>
+            <table>
+              <caption>Tabela — Zonas de Kramer × bilirrubina estimada (referencial)</caption>
+              <thead><tr><th>Zona</th><th>Extensão corporal</th><th>BT aprox.</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Face e pescoço</td><td>~5–6 mg/dL</td></tr>
+                <tr><td>2</td><td>+ Tronco (até umbigo)</td><td>~8–9 mg/dL</td></tr>
+                <tr><td>3</td><td>+ Abdome inferior/coxas</td><td>~11–12 mg/dL</td></tr>
+                <tr><td>4</td><td>+ Braços e pernas</td><td>~13–14 mg/dL</td></tr>
+                <tr><td>5</td><td>Palmas e plantas</td><td>&gt;15 mg/dL</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Nomograma de Bhutani (gráfico)</summary>
+          <div class="content">
+            <p>Bilirrubina sérica × horas de vida, estratificada em zonas de risco para hiperbilirrubinemia significativa.</p>
+            <div class="figure">
+              <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+                <line x1="35" y1="10" x2="35" y2="160" stroke="#8892a3" stroke-width="1.5"/>
+                <line x1="35" y1="160" x2="310" y2="160" stroke="#8892a3" stroke-width="1.5"/>
+                <text x="2" y="14" font-size="7.5" fill="#667">BT (mg/dL)</text>
+                <text x="255" y="175" font-size="7.5" fill="#667">horas de vida</text>
+                <path d="M35,150 C90,120 180,50 305,25" fill="none" stroke="#b91c1c" stroke-width="2"/>
+                <path d="M35,153 C90,130 180,72 305,45" fill="none" stroke="#d97706" stroke-width="2"/>
+                <path d="M35,156 C90,142 180,100 305,75" fill="none" stroke="#15803d" stroke-width="2"/>
+                <path d="M35,159 C90,150 180,125 305,105" fill="none" stroke="#2563eb" stroke-width="2"/>
+                <text x="235" y="22" font-size="7.5" fill="#b91c1c">Risco alto</text>
+                <text x="235" y="42" font-size="7.5" fill="#d97706">Risco intermediário alto</text>
+                <text x="215" y="72" font-size="7.5" fill="#15803d">Risco intermediário baixo</text>
+                <text x="240" y="102" font-size="7.5" fill="#2563eb">Risco baixo</text>
+              </svg>
+              <div class="cap">Fig. 3 — Nomograma de Bhutani, esquemático (percentis por hora de vida)</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Manejo — Fototerapia e Complicações</summary>
+          <div class="content">
+            <ul>
+              <li><b>Fototerapia</b>: indicada segundo curva de risco (idade em horas, IG, fatores agravantes — asfixia, sepse, acidose)</li>
+              <li><b>Exsanguineotransfusão</b>: casos graves/refratários ou sinais de encefalopatia aguda</li>
+              <li><b>Kernicterus</b>: encefalopatia bilirrubínica crônica — sequela a ser prevenida</li>
+            </ul>
+            <table>
+              <caption>Tabela — Fatores que aumentam o risco (independente do nível de BT)</caption>
+              <thead><tr><th>Fator</th><th>Efeito</th></tr></thead>
+              <tbody>
+                <tr><td>Prematuridade</td><td>↓ limiar para fototerapia</td></tr>
+                <tr><td>Incompatibilidade Rh/ABO</td><td>Hemólise → ↑ risco</td></tr>
+                <tr><td>Asfixia / acidose / sepse</td><td>↑ permeabilidade da BHE</td></tr>
+                <tr><td>Perda de peso &gt;7–10%</td><td>Sugere baixa oferta láctea</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Confronto com o Tratado de Pediatria (SBP) <span class="pill">nota</span></summary>
+          <div class="content">
+            <div class="note">
+              <b class="tag">Complemento (cap. "Deficiência de G6PD", Hematologia, v.2):</b> a icterícia neonatal por deficiência de G6PD costuma iniciar no 2º-3º dia, mas pode surgir antes de 24h e ser prolongada, associando-se a anemia grave. O tratamento (fototerapia e, se necessário, exsanguineotransfusão) deve ser precoce para prevenir a encefalopatia bilirrubínica aguda, cuja fase inicial cursa com sinais extrapiramidais, olhar fixo, distúrbios auditivos e déficits intelectuais variáveis — evoluindo para kernicterus se cronificar.
+            </div>
+            <div class="note-warn">
+              <b class="tag">Nota de divergência/cautela:</b> o Tratado cita que a icterícia por G6PD "pode estar associada ao uso da vitamina K para prevenção da doença hemorrágica do RN". Essa associação é histórica e refere-se aos análogos hidrossolúveis de vitamina K (menadiona/vitamina K3), hoje abandonados; a vitamina K1 (fitomenadiona) usada atualmente na profilaxia neonatal é considerada segura mesmo em deficiência de G6PD. Vale esclarecer esse ponto ao estudar o tema para não gerar receio infundado sobre a profilaxia padrão com vitamina K1.
+            </div>
+            <div class="note-gap">
+              <b class="tag">Lacuna identificada:</b> não foram localizados nos volumes enviados os termos "escala de Kramer" (zonas cefalocaudais) ou "nomograma de Bhutani" como conteúdo de capítulo — o capítulo dedicado "Icterícia neonatal" (Seção 10) não está presente no material extraído. Essas ferramentas permanecem referenciadas pelos artigos originais de Kramer (1969) e Bhutani <i>et al.</i> (1999), já citados.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Kramer (1969)</a>, <a href="#ref5">Bhutani, Johnson &amp; Sivieri (1999)</a>, <a href="#ref12">Campanaro &amp; Almeida (Tratado de Pediatria, 2025)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Infecções Congênitas — TORCHS+</div>
+      <div class="body">
+
+        <details open>
+          <summary>Toxoplasmose e Sífilis</summary>
+          <div class="content">
+            <ul>
+              <li><b>Toxoplasmose</b>: tríade — coriorretinite, calcificações difusas, hidrocefalia; risco maior se infecção materna no 3º trimestre</li>
+              <li><b>Sífilis congênita</b>: rastreio VDRL/teste rápido no pré-natal; pênfigo palmoplantar, rinite serosanguinolenta, periostite/osteocondrite; tratamento = penicilina</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Rubéola, CMV e Herpes</summary>
+          <div class="content">
+            <ul>
+              <li><b>Rubéola</b>: tríade clássica — catarata, surdez neurossensorial, cardiopatia (PCA)</li>
+              <li><b>CMV</b>: calcificações periventriculares, microcefalia, surdez — infecção congênita mais comum</li>
+              <li><b>Herpes simples</b>: forma cutânea, SNC ou disseminada; risco maior na transmissão intraparto</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>HIV, Zika, Chikungunya, COVID</summary>
+          <div class="content">
+            <ul>
+              <li><b>HIV</b>: profilaxia perinatal, TARV materna, definição da via de parto e uso de ARV no RN</li>
+              <li><b>Zika</b>: microcefalia, calcificações cerebrais, artrogripose (síndrome congênita do Zika)</li>
+              <li><b>Chikungunya</b>: transmissão vertical intraparto, quadro neonatal grave possível</li>
+              <li><b>COVID-19</b>: transmissão vertical rara; atenção a prematuridade associada</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Hepatites e Varicela</summary>
+          <div class="content">
+            <ul>
+              <li><b>Hepatite B</b>: imunoprofilaxia (vacina + imunoglobulina) nas primeiras 12–24h</li>
+              <li><b>Hepatite C</b>: sem imunoprofilaxia específica; seguimento sorológico</li>
+              <li><b>Varicela</b>: síndrome da varicela congênita (lesões cicatriciais, hipoplasia de membros) se infecção precoce; risco grave se materna periparto</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Quadro Comparativo — TORCHS+ <span class="pill">tabela</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Achados clássicos e conduta por agente</caption>
+              <thead>
+                <tr><th>Agente</th><th>Achados clássicos</th><th>Diagnóstico</th><th>Conduta</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Toxoplasmose</td><td>Retinocoroidite + calcificações difusas ("céu estrelado") + hidrocefalia (tríade clássica); ~90% assintomáticos ao nascer</td><td>IgM/IgG materno e do RN</td><td>Sulfadiazina 50mg/kg/dia + pirimetamina + ác. folínico até 1 ano; prednisolona se acometimento macular/SNC</td></tr>
+                <tr><td>Sífilis</td><td>Precoce: hepatoesplenomegalia, lesões cutâneas, periostite, icterícia. Tardia: tríade de Hutchinson (alt. dentárias, surdez, ceratite intersticial)</td><td>VDRL/RPR + FTA-Abs; VDRL do RN ≥4× o materno confirma; LCR se suspeita de neurossífilis</td><td>Penicilina G cristalina EV por 10–14 dias</td></tr>
+                <tr><td>Rubéola</td><td>Catarata (se 1º trim.), surdez, defeitos cardíacos, microcefalia, retinopatia "sal e pimenta"</td><td>IgM específica</td><td>Suporte; sem tratamento específico — prevenção por vacina (tríplice viral)</td></tr>
+                <tr><td>CMV</td><td>Calcificações periventriculares, cistos subcorticais temporais, microcefalia, surdez; 85–90% assintomáticos</td><td>PCR urina/saliva (3ª sem)</td><td>Valganciclovir oral 6 meses (preferencial) ou ganciclovir EV 3 semanas (alternativa)</td></tr>
+                <tr><td>Herpes</td><td>Vesículas cutâneas, encefalite (regiões frontotemporais), forma disseminada</td><td>PCR/cultura de lesões</td><td>Aciclovir IV</td></tr>
+                <tr><td>HIV</td><td>Geralmente assintomático ao nascer</td><td>Carga viral/PCR</td><td>ARV profilático no RN + TARV materna</td></tr>
+                <tr><td>Zika</td><td>Microcefalia, calcificações, artrogripose</td><td>Sorologia/PCR + neuroimagem</td><td>Suporte multidisciplinar</td></tr>
+                <tr><td>Chikungunya</td><td>Quadro neonatal grave (intraparto)</td><td>PCR/sorologia</td><td>Suporte</td></tr>
+                <tr><td>Hepatite B</td><td>Geralmente assintomático</td><td>HBsAg materno</td><td>Vacina + imunoglobulina em 12–24h</td></tr>
+                <tr><td>Varicela</td><td>Cicatrizes, hipoplasia de membros (se precoce)</td><td>Clínico + sorologia</td><td>Imunoglobulina/aciclovir conforme período</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Confronto com o Tratado de Pediatria (SBP) <span class="pill">nota</span></summary>
+          <div class="content">
+            <div class="note">
+              <b class="tag">Complementos confirmados (cap. "Uveítes na infância", Oftalmologia, e "Neurorradiologia", Radiologia Pediátrica, v.2):</b>
+              <ul>
+                <li>Toxoplasmose: tríade clássica confirmada; prevalência estimada no Brasil de 1:770 nascidos vivos (estudo de 2009); ~80% dos casos subclínicos têm lesão retinocoroidiana em ao menos um olho; achado de imagem "céu estrelado" (calcificações difusas) e polimicrogiria à RM.</li>
+                <li>Sífilis: o Tratado acrescenta a <b>tríade de Hutchinson</b> (alterações dentárias, surdez por lesão do VIII par, ceratite intersticial bilateral) como manifestação tardia — ausente na versão anterior deste mapa.</li>
+                <li>CMV: calcificações <b>periventriculares</b> confirmadas; achado adicional de cistos subcorticais nos polos temporais anteriores (relativamente típico, porém nem sempre presente).</li>
+                <li>Zika: síndrome da Zika congênita também inclui cutis gyrata, polidrâmnios, anasarca e perda auditiva, além de microcefalia/calcificações/artrogripose já citados.</li>
+                <li>Varicela: risco mais grave quando a infecção materna ocorre entre 5 dias antes e 2 dias após o parto (varicela neonatal grave/disseminada).</li>
+                <li>Hepatite B: reforça vacina + HBIG nas primeiras 12h; recém-nascidos &lt;2.000g ou &lt;33 semanas recebem uma 4ª dose de vacina.</li>
+              </ul>
+            </div>
+            <div class="note-warn">
+              <b class="tag">Nota de divergência/nuance:</b> para rubéola, o Tratado descreve a síndrome de forma mais ampla — "anormalidades oftalmológicas, otológicas e cardíacas, junto com microcefalia e deficiência mental" — sem citar especificamente a persistência do canal arterial (PCA). A associação com PCA é a mais consagrada na literatura pediátrica geral (mantida na tabela), mas o Tratado não a nomeia de forma isolada; trate "defeitos cardíacos" como termo mais genérico usado pelo livro.
+            </div>
+            <div class="note-gap">
+              <b class="tag">Lacunas identificadas:</b> não foram encontrados nos volumes enviados capítulos dedicados com detalhamento equivalente para HIV perinatal (profilaxia com zidovudina/TARV), chikungunya congênita, hepatite C vertical ou transmissão vertical do SARS-CoV-2 — esses tópicos do mapa permanecem apoiados nas fontes já citadas (MS/PCDT-IST, guias de vigilância), não no Tratado.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref6">Brasil/MS — PCDT IST (2022)</a>, <a href="#ref7">Brasil/MS — Guia Toxoplasmose (2019)</a>, <a href="#ref13">Frazão <i>et al.</i> (Tratado de Pediatria, 2025)</a>, <a href="#ref14">Ferraciolli <i>et al.</i> (Tratado de Pediatria, 2025)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Triagens Neonatais</div>
+      <div class="body">
+
+        <details open>
+          <summary>Teste da Orelhinha (TANU)</summary>
+          <div class="content">
+            <ul>
+              <li>Realizado entre 24–48h de vida (até 1º mês)</li>
+              <li>Métodos: <b>EOA</b> (emissões otoacústicas) e <b>PEATE</b> (potencial evocado auditivo do tronco encefálico)</li>
+              <li>Objetivo: detecção precoce de deficiência auditiva</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Teste do Pezinho</summary>
+          <div class="content">
+            <ul>
+              <li>Coleta entre 3º–5º dia de vida</li>
+              <li>Rastreia: fenilcetonúria, hipotireoidismo congênito, fibrose cística, hemoglobinopatias, hiperplasia adrenal congênita (versão ampliada inclui mais doenças)</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Olhinho, Coraçãozinho e Linguinha</summary>
+          <div class="content">
+            <ul>
+              <li><b>Teste do Olhinho</b>: reflexo do olho vermelho — rastreia catarata, glaucoma, retinoblastoma congênitos</li>
+              <li><b>Teste do Coraçãozinho</b>: oximetria de pulso (MSD e MI) antes da alta — cardiopatias congênitas críticas</li>
+              <li><b>Teste da Linguinha</b>: avalia frênulo lingual — rastreia anquiloglossia (impacto na amamentação)</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Quadro-Resumo das Triagens <span class="pill">tabela</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Quando fazer e o que cada teste rastreia</caption>
+              <thead><tr><th>Teste</th><th>Quando</th><th>Método</th><th>Rastreia</th></tr></thead>
+              <tbody>
+                <tr><td>Orelhinha (TANU)</td><td>24–48h (até 1º mês)</td><td>EOA / PEATE</td><td>Deficiência auditiva</td></tr>
+                <tr><td>Pezinho</td><td>3º–5º dia</td><td>Punção do calcâneo</td><td>Fenilcetonúria, hipotireoidismo, fibrose cística, hemoglobinopatias, hiperplasia adrenal</td></tr>
+                <tr><td>Olhinho</td><td>Antes da alta</td><td>Reflexo do olho vermelho</td><td>Catarata, glaucoma, retinoblastoma</td></tr>
+                <tr><td>Coraçãozinho</td><td>24–48h</td><td>Oximetria de pulso (MSD/MI)</td><td>Cardiopatias congênitas críticas</td></tr>
+                <tr><td>Linguinha</td><td>Antes da alta</td><td>Avaliação do frênulo</td><td>Anquiloglossia</td></tr>
+              </tbody>
+            </table>
+            <div class="figure">
+              <svg viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg">
+                <g font-size="8" fill="#166534" text-anchor="middle">
+                  <circle cx="30" cy="25" r="18" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="30" y="29">👂</text><text x="30" y="55">Orelhinha</text>
+                  <circle cx="90" cy="25" r="18" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="90" y="29">🦶</text><text x="90" y="55">Pezinho</text>
+                  <circle cx="150" cy="25" r="18" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="150" y="29">👁️</text><text x="150" y="55">Olhinho</text>
+                  <circle cx="210" cy="25" r="18" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="210" y="29">❤️</text><text x="210" y="55">Coraçãozinho</text>
+                  <circle cx="270" cy="25" r="18" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="270" y="29">👅</text><text x="270" y="55">Linguinha</text>
+                </g>
+              </svg>
+              <div class="cap">Fig. 4 — As 5 triagens neonatais básicas</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Confronto com o Tratado de Pediatria (SBP) <span class="pill">nota</span></summary>
+          <div class="content">
+            <div class="note">
+              <b class="tag">Complementos (caps. "Impacto da perda auditiva na infância", Otorrinolaringologia; "Íleo meconial", Cirurgia Pediátrica; "Deficiência de G6PD", Hematologia — v.2):</b>
+              <ul>
+                <li>Orelhinha: entre 2018–2020, 861 municípios registraram o procedimento no Datasus, com média de ~700 mil exames/ano — cerca de 25% dos nascidos vivos no Brasil (número subestimado, pois nem toda rede privada registra no sistema público). Mostra que a cobertura universal (TANU) ainda é uma meta, não uma realidade consolidada.</li>
+                <li>Pezinho: para fibrose cística, o teste ampliado detecta tripsina imunorreativa (IRT) elevada — considerado padrão-ouro de triagem — confirmado por teste do suor (cloro &gt;60mEq/L, coletado a partir de ~3 semanas de vida) ou análise genética.</li>
+                <li>Pezinho: alguns protocolos recentes passaram a incluir IgM para toxoplasmose no teste do pezinho, para detectar casos congênitos assintomáticos e iniciar tratamento precoce.</li>
+                <li>Olhinho: além de catarata e retinoblastoma, o reflexo vermelho ausente também é sinal de alerta para glaucoma congênito.</li>
+                <li>Hiperplasia adrenal congênita (rastreada no pezinho): a forma perdedora de sal é a mais grave, com risco de óbito neonatal por hiponatremia caso não detectada e tratada a tempo — reforça a importância da triagem precoce.</li>
+              </ul>
+            </div>
+            <div class="note-gap">
+              <b class="tag">Lacuna identificada:</b> não foi encontrado nos volumes enviados um capítulo ou seção dedicada ao "teste do coraçãozinho" (oximetria de pulso para triagem de cardiopatia congênita crítica) nem ao "teste da linguinha". Esses itens do mapa permanecem apoiados nas fontes SBP/MS já citadas.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref8">Brasil/MS — Triagem Neonatal (2002)</a>, <a href="#ref9">Lei nº 12.303/2010</a>, <a href="#ref10">SBP (2015)</a>, <a href="#ref11">Portaria MS nº 20/2014</a>, <a href="#ref15">Godinho, Simas &amp; Abrantes (Tratado de Pediatria, 2025)</a>, <a href="#ref16">Pereira &amp; Vilela (Tratado de Pediatria, 2025)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Método Canguru</div>
+      <div class="body">
+
+        <details open>
+          <summary>Conceito e Objetivos</summary>
+          <div class="content">
+            <ul>
+              <li>Contato pele a pele precoce entre RN pré-termo/baixo peso e mãe/pai</li>
+              <li>Objetivos: fortalecer vínculo, estimular aleitamento materno, melhorar termorregulação e desenvolvimento</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Três Etapas <span class="pill">linha do tempo</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg">
+                <line x1="40" y1="30" x2="290" y2="30" stroke="#c4b5fd" stroke-width="3"/>
+                <circle cx="55" cy="30" r="10" fill="#7c3aed"/>
+                <circle cx="165" cy="30" r="10" fill="#7c3aed"/>
+                <circle cx="275" cy="30" r="10" fill="#7c3aed"/>
+                <text x="55" y="18" font-size="8" text-anchor="middle" fill="#5b21b6">1ª etapa</text>
+                <text x="165" y="18" font-size="8" text-anchor="middle" fill="#5b21b6">2ª etapa</text>
+                <text x="275" y="18" font-size="8" text-anchor="middle" fill="#5b21b6">3ª etapa</text>
+                <text x="55" y="50" font-size="7.5" text-anchor="middle" fill="#333">UTI/UCI</text>
+                <text x="55" y="60" font-size="7.5" text-anchor="middle" fill="#333">Neonatal</text>
+                <text x="165" y="50" font-size="7.5" text-anchor="middle" fill="#333">Alojamento</text>
+                <text x="165" y="60" font-size="7.5" text-anchor="middle" fill="#333">Conjunto</text>
+                <text x="275" y="50" font-size="7.5" text-anchor="middle" fill="#333">Ambulatorial</text>
+                <text x="275" y="60" font-size="7.5" text-anchor="middle" fill="#333">(domicílio)</text>
+              </svg>
+              <div class="cap">Fig. 5 — As 3 etapas do Método Canguru</div>
+            </div>
+            <table>
+              <caption>Tabela — Características de cada etapa</caption>
+              <thead><tr><th>Etapa</th><th>Local</th><th>Características</th></tr></thead>
+              <tbody>
+                <tr><td>1ª</td><td>UTI/UCI Neonatal</td><td>Contato pele a pele conforme estabilidade; cuidados médicos intensivos mantidos</td></tr>
+                <tr><td>2ª</td><td>Unidade Canguru (alojamento conjunto)</td><td>Mãe/pai participam ativamente dos cuidados; RN geralmente estável, ganhando peso</td></tr>
+                <tr><td>3ª</td><td>Domicílio</td><td>Acompanhamento ambulatorial até ~2.500g e boa adaptação</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Critérios e Benefícios</summary>
+          <div class="content">
+            <ul>
+              <li>Elegibilidade: estabilidade clínica, independentemente do peso, com adesão familiar</li>
+              <li>Benefícios: menor tempo de internação, melhor ganho de peso, redução do estresse e da dor, maior taxa de aleitamento exclusivo</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="110" cy="90" rx="70" ry="45" fill="#f2ebff" stroke="#7c3aed"/>
+                <circle cx="90" cy="55" r="22" fill="#ffe3c2" stroke="#b45309"/>
+                <ellipse cx="120" cy="95" rx="30" ry="18" fill="#ffd9a3" stroke="#b45309"/>
+                <path d="M60,120 Q110,150 160,120" fill="none" stroke="#7c3aed" stroke-width="2"/>
+                <text x="110" y="20" font-size="9" text-anchor="middle" fill="#5b21b6">Contato pele a pele</text>
+                <text x="110" y="135" font-size="7.5" text-anchor="middle" fill="#5b21b6">Mãe/pai + RN</text>
+              </svg>
+              <div class="cap">Fig. 6 — Posição canguru (esquemático)</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Confronto com o Tratado de Pediatria (SBP) <span class="pill">nota</span></summary>
+          <div class="content">
+            <div class="note-gap">
+              <b class="tag">Lacuna importante:</b> o Método Canguru <b>não é mencionado em nenhum momento</b> nos dois volumes do <i>Tratado de Pediatria</i> (SBP, 6. ed., 2025) — buscas pelos termos "canguru", "kangaroo", "pele a pele" e "alojamento conjunto" não retornaram nenhuma ocorrência relevante (apenas 1 menção incidental, em uma biografia de autor). Isso não significa que o método seja incorreto ou controverso — apenas que este tema, de caráter mais assistencial/de política pública, não integra o recorte clínico deste tratado. Todo o conteúdo deste ramo permanece baseado exclusivamente no Manual Técnico do Ministério da Saúde (já citado), sem possibilidade de confronto direto com o livro-texto enviado.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fonte: <a href="#ref1">Brasil/MS — Manual Método Canguru, 3. ed. (2017)</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Atenção humanizada ao recém-nascido de baixo peso: Método Canguru</i>. 3. ed. Brasília: Ministério da Saúde, 2017. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/atencao_humanizada_metodo_canguru_manual_3ed.pdf" target="_blank" rel="noopener">https://bvsms.saude.gov.br/bvs/publicacoes/atencao_humanizada_metodo_canguru_manual_3ed.pdf</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref2">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Reanimação do recém-nascido ≥34 semanas em sala de parto: diretrizes 2026 da Sociedade Brasileira de Pediatria</i>. São Paulo: SBP, 2026. Disponível em: <a href="https://www.sbp.com.br/wp-content/uploads/2026/06/PRN-SBP-Diretrizes-2026-Reanimacao-RN-igual-maior-34-semanas-12junho2026.pdf" target="_blank" rel="noopener">sbp.com.br/PRN-Diretrizes-2026</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref3">BALLARD, J. L. <i>et al.</i> New Ballard Score, expanded to include extremely premature infants. <i>The Journal of Pediatrics</i>, v. 119, n. 3, p. 417-423, 1991. Disponível em: <a href="https://pubmed.ncbi.nlm.nih.gov/1880657/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/1880657</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref4">KRAMER, L. I. Advancement of dermal icterus in the jaundiced newborn. <i>American Journal of Diseases of Children</i>, v. 118, n. 3, p. 454-458, 1969. Disponível em: <a href="https://pubmed.ncbi.nlm.nih.gov/5817480/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/5817480</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref5">BHUTANI, V. K.; JOHNSON, L.; SIVIERI, E. M. Predictive ability of a predischarge hour-specific serum bilirubin for subsequent significant hyperbilirubinemia in healthy term and near-term newborns. <i>Pediatrics</i>, v. 103, n. 1, p. 6-14, 1999. Disponível em: <a href="https://pubmed.ncbi.nlm.nih.gov/9917432/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/9917432</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref6">BRASIL. Ministério da Saúde. <i>Protocolo Clínico e Diretrizes Terapêuticas para Atenção Integral às Pessoas com Infecções Sexualmente Transmissíveis</i> (inclui manejo da sífilis gestacional e congênita). Brasília: Ministério da Saúde, 2022. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/protocolo_clinico_diretrizes_terapeutica_atencao_integral_pessoas_infeccoes_sexualmente_transmissiveis.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/.../PCDT-IST</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref7">BRASIL. Ministério da Saúde. <i>Guia de Vigilância em Saúde: toxoplasmose adquirida na gestação e toxoplasmose congênita</i>. Brasília: Ministério da Saúde, 2019. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/guia_vigilancia_saude_2019.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/guia_vigilancia_saude_2019.pdf</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref8">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Triagem neonatal: manual de normas técnicas e rotinas operacionais</i>. Brasília: Ministério da Saúde, 2002. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/triagem_neonatal.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br/triagem_neonatal.pdf</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref9">BRASIL. <i>Lei nº 12.303, de 2 de agosto de 2010</i>. Dispõe sobre a obrigatoriedade de realização do exame denominado Emissões Otoacústicas Evocadas (Teste da Orelhinha) em todos os hospitais e maternidades. Diário Oficial da União, Brasília, DF, 3 ago. 2010. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12303.htm" target="_blank" rel="noopener">planalto.gov.br/lei/l12303.htm</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref10">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamentos Científicos de Cardiologia e Neonatologia. <i>Diagnóstico precoce de cardiopatia congênita crítica: triagem neonatal por oximetria de pulso</i> (Teste do Coraçãozinho). São Paulo: SBP, 2015. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/2015/02/diagnostico-precoce-oximetria.pdf" target="_blank" rel="noopener">sbp.com.br/diagnostico-precoce-oximetria.pdf</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref11">BRASIL. Ministério da Saúde. <i>Portaria nº 20, de 10 de junho de 2014</i>. Torna pública a decisão de incorporar a oximetria de pulso (Teste do Coraçãozinho) como triagem neonatal universal no SUS. Brasília: Ministério da Saúde, 2014. Disponível em: <a href="https://docs.bvsalud.org/biblioref/2017/11/875369/testecoracaozinho-final.pdf" target="_blank" rel="noopener">docs.bvsalud.org/.../testecoracaozinho-final.pdf</a>. <span class="accessed">Acesso em: 6 ago. 2026.</span></li>
+
+      <li id="ref12">CAMPANARO, C. M.; ALMEIDA, P. I. C. Deficiência de glicose-6-fosfato desidrogenase. In: SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Tratado de pediatria</i>. 6. ed. Barueri: Manole, 2025. v. 2, cap. 9 (Seção 27 – Hematologia e Hemoterapia). <span class="accessed">Material fornecido pelo usuário (arquivo local).</span></li>
+
+      <li id="ref13">FRAZÃO, M. A. M.; MORAIS, L. N. A.; MAGALHÃES, C. S.; BEREZIN, E. Reumatologia e infectologia no acometimento ocular: uveítes na infância. In: SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Tratado de pediatria</i>. 6. ed. Barueri: Manole, 2025. v. 2, cap. 11 (Seção 32 – Oftalmologia). <span class="accessed">Material fornecido pelo usuário (arquivo local).</span></li>
+
+      <li id="ref14">FERRACIOLLI, S. F.; BERTHOLDO, D. B.; SAMESHIMA, Y. T.; AYRES, A. S.; ARANTES, P. R.; SANTOS, T. C. C. R. S.; SANTOS, A. A. S.; CARDOSO, C. A. A. Neurorradiologia. In: SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Tratado de pediatria</i>. 6. ed. Barueri: Manole, 2025. v. 2, cap. 6 (Seção 41 – Radiologia Pediátrica). <span class="accessed">Material fornecido pelo usuário (arquivo local).</span></li>
+
+      <li id="ref15">GODINHO, R.; SIMAS, I.; ABRANTES, A. C. Impacto da perda auditiva na infância: quando e como avaliar. In: SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Tratado de pediatria</i>. 6. ed. Barueri: Manole, 2025. v. 2, cap. 2 (Seção 28 – Otorrinolaringologia). <span class="accessed">Material fornecido pelo usuário (arquivo local).</span></li>
+
+      <li id="ref16">PEREIRA, L. C.; VILELA, P. C. Íleo meconial. In: SOCIEDADE BRASILEIRA DE PEDIATRIA. <i>Tratado de pediatria</i>. 6. ed. Barueri: Manole, 2025. v. 2, cap. 5 (Seção 35 – Cirurgia Pediátrica). <span class="accessed">Material fornecido pelo usuário (arquivo local).</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: a ficha catalográfica dos arquivos enviados registra copyright de 2025 (ISBN 9788520458679), embora o nome dos arquivos indique "2024".</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Afecções Perinatais<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
