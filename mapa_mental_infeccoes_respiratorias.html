@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Mapa Mental — Infecções Respiratórias na Infância</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:460px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;margin-top:6px;font-size:.68rem;color:#444;}
+  .legend span{display:flex;align-items:center;gap:4px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note ul, .note-warn ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Infecções Respiratórias na Infância</h1>
+    <p>Objetivos do Problema 3 · Baseado nos tópicos do enunciado</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Infecções Respiratórias na Infância</h2>
+    <div class="sub">Resfriado e Rinossinusite · Faringite e Amigdalite · Otite Média Aguda · Bronquiolite · Pneumonia · Sibilância · Medidas Preventivas</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Resfriado Comum e Rinossinusite</div>
+      <div class="body">
+
+        <details open>
+          <summary>Resfriado Comum <span class="pill">IVAS viral</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Etiologia</b>: rinovírus (50–80% dos casos); também coronavírus, VSR, parainfluenza, influenza, adenovírus, metapneumovírus, bocavírus</li>
+              <li><b>Transmissão</b>: gotículas (tosse/espirro) e contato com mãos/superfícies contaminadas; incubação de 1 a 5 dias</li>
+              <li><b>Quadro clínico</b>: coriza serosa/mucosa, espirros, obstrução nasal, tosse seca leve, hiporexia, odinofagia; febre e cefaleia são menos comuns</li>
+              <li><b>Evolução</b>: autolimitado, dura em média 7–10 dias; crianças têm 6–8 episódios/ano nos primeiros 5 anos, com redução da incidência depois</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Rinossinusite Aguda — Viral × Bacteriana <span class="pill">critérios diagnósticos</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Viral</b> (grande maioria): mesma etiologia do resfriado comum; resolução em 7–10 dias</li>
+              <li>Apenas <b>0,5–2%</b> evoluem para rinossinusite bacteriana aguda</li>
+              <li><b>Bactérias mais comuns</b>: <i>S. pneumoniae</i>, <i>H. influenzae</i> não tipável, <i>M. catarrhalis</i></li>
+              <li>Diagnóstico é <b>clínico</b> — exames de imagem não distinguem viral de bacteriana e não devem ser solicitados</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Critérios diagnósticos de rinossinusite bacteriana (basta um):</b>
+              <ul>
+                <li><b>Sintomas persistentes</b>: secreção nasal e/ou tosse diurna por mais de 10 dias, sem melhora</li>
+                <li><b>Sintomas graves no início</b>: febre ≥39°C + secreção purulenta por ≥3–4 dias consecutivos</li>
+                <li><b>Piora sintomática</b>: piora aguda após período inicial de melhora ("dupla piora"), geralmente entre o 6º–7º dia</li>
+              </ul>
+            </div>
+            <table>
+              <caption>Tabela — Resfriado/rinossinusite viral × rinossinusite bacteriana</caption>
+              <thead><tr><th>Característica</th><th>Viral</th><th>Bacteriana</th></tr></thead>
+              <tbody>
+                <tr><td>Duração</td><td>≤10 dias, melhora progressiva</td><td>&gt;10 dias sem melhora, ou piora após melhora</td></tr>
+                <tr><td>Febre</td><td>Ausente ou baixa</td><td>Alta (≥39°C) persistente, ou retorno da febre</td></tr>
+                <tr><td>Secreção</td><td>Serosa → mucopurulenta (evolução normal)</td><td>Purulenta persistente</td></tr>
+              </tbody>
+            </table>
+            <div class="figure">
+              <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="20" width="96" height="50" rx="10" fill="#eaf0ff" stroke="#2563eb" stroke-width="1.2"/>
+                <text x="52" y="42" font-size="7.5" text-anchor="middle" fill="#1d4ed8" font-weight="700">IVAS viral</text>
+                <text x="52" y="54" font-size="7.5" text-anchor="middle" fill="#1d4ed8">(resfriado)</text>
+                <text x="110" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="118" y="12" width="100" height="66" rx="10" fill="#fff4e0" stroke="#b45309" stroke-width="1.2"/>
+                <text x="168" y="30" font-size="7" text-anchor="middle" fill="#92400e" font-weight="700">Critérios de</text>
+                <text x="168" y="41" font-size="7" text-anchor="middle" fill="#92400e">alarme? (&gt;10d /</text>
+                <text x="168" y="52" font-size="7" text-anchor="middle" fill="#92400e">febre+purulenta /</text>
+                <text x="168" y="63" font-size="7" text-anchor="middle" fill="#92400e">piora após melhora)</text>
+                <text x="228" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="236" y="20" width="82" height="50" rx="10" fill="#ffe9ee" stroke="#be123c" stroke-width="1.2"/>
+                <text x="277" y="40" font-size="7" text-anchor="middle" fill="#9f1239" font-weight="700">Rinossinusite</text>
+                <text x="277" y="51" font-size="7" text-anchor="middle" fill="#9f1239">bacteriana</text>
+                <text x="277" y="62" font-size="7" text-anchor="middle" fill="#9f1239">(&lt;10%)</text>
+              </svg>
+              <div class="cap">Fig. 1 — Do resfriado à suspeita de rinossinusite bacteriana</div>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Rinossinusite na infância</a>, <a href="#ref2">Guia do Episódio de Cuidado — Rinossinusite Bacteriana Aguda em Pediatria</a>, <a href="#ref3">Roteiros de Pediatria — Infecção respiratória (IVAS)</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Faringite e Amigdalite</div>
+      <div class="body">
+
+        <details open>
+          <summary>Etiologia — Viral × SBHGA <span class="pill">diferenciação clínica</span></summary>
+          <div class="content">
+            <ul>
+              <li>Infecção da faringe e tonsilas, <b>predominantemente viral</b> em todas as idades</li>
+              <li><b>Vírus</b>: adenovírus, influenza, parainfluenza, VSR, rinovírus, coronavírus, coxsackie, echovírus, Epstein-Barr, herpes</li>
+              <li><b>Bactéria principal</b>: <i>Streptococcus pyogenes</i> (SBHGA) — 20–30% dos casos em crianças (5–15% em adultos); raro em menores de 3 anos</li>
+              <li>Amigdalite aguda predomina entre <b>5–11 anos</b>; é rara abaixo de 2 anos</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="82" cy="55" r="48" fill="#fff4e0" stroke="#b45309" stroke-width="1.5"/>
+                <text x="82" y="35" font-size="8" text-anchor="middle" fill="#92400e" font-weight="700">Sugere viral</text>
+                <text x="82" y="49" font-size="7" text-anchor="middle" fill="#7c3e00">Tosse · coriza</text>
+                <text x="82" y="61" font-size="7" text-anchor="middle" fill="#7c3e00">Rouquidão</text>
+                <text x="82" y="73" font-size="7" text-anchor="middle" fill="#7c3e00">Conjuntivite</text>
+                <text x="82" y="85" font-size="7" text-anchor="middle" fill="#7c3e00">Diarreia · exantema</text>
+                <circle cx="222" cy="55" r="52" fill="#ffe9ee" stroke="#be123c" stroke-width="1.5"/>
+                <text x="222" y="30" font-size="8" text-anchor="middle" fill="#9f1239" font-weight="700">Sugere SBHGA</text>
+                <text x="222" y="44" font-size="7" text-anchor="middle" fill="#7a1030">Odinofagia súbita</text>
+                <text x="222" y="56" font-size="7" text-anchor="middle" fill="#7a1030">Febre &gt;38°C</text>
+                <text x="222" y="68" font-size="7" text-anchor="middle" fill="#7a1030">Exsudato amigdaliano</text>
+                <text x="222" y="80" font-size="7" text-anchor="middle" fill="#7a1030">Adenopatia cervical</text>
+                <text x="222" y="92" font-size="7" text-anchor="middle" fill="#7a1030">dolorosa · sem tosse</text>
+              </svg>
+              <div class="cap">Fig. 2 — Achados clínicos que apontam para etiologia viral × SBHGA</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Escore de Centor Modificado (McIsaac) <span class="pill">triagem clínica</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Critérios</b> (1 ponto cada): exsudato amigdaliano; linfonodos cervicais anteriores dolorosos; febre &gt;38°C; ausência de tosse</li>
+              <li><b>Idade</b>: +1 ponto entre 3–14 anos; 0 ponto entre 15–44 anos; −1 ponto se ≥45 anos</li>
+              <li>Quanto maior a pontuação, maior a probabilidade de faringite por SBHGA — orienta a decisão de testar/tratar</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Tratamento e Prevenção de Complicações <span class="pill">penicilina</span></summary>
+          <div class="content">
+            <ul>
+              <li>Tratamento de escolha da faringite estreptocócica: <b>penicilina</b> (penicilina G benzatina ou amoxicilina oral)</li>
+              <li>Objetivos: reduzir transmissão, encurtar sintomas e, principalmente, <b>prevenir febre reumática e glomerulonefrite pós-estreptocócica</b></li>
+              <li>Distinção clínica entre viral e bacteriana é difícil isoladamente — daí a utilidade dos escores de triagem</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Residência Pediátrica — Faringite Estreptocócica</a>, <a href="#ref5">SBP — Novos critérios para diagnóstico de Febre Reumática</a>, <a href="#ref6">MSD Manuals — Critérios de Centor modificados por McIsaac</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Otite Média Aguda</div>
+      <div class="body">
+
+        <details open>
+          <summary>Fisiopatologia <span class="pill">tuba auditiva</span></summary>
+          <div class="content">
+            <ul>
+              <li>A OMA é quase sempre <b>complicação de uma IVAS viral</b>: o vírus causa edema e inflamação da mucosa da nasofaringe e da tuba auditiva</li>
+              <li>A disfunção da tuba auditiva gera pressão negativa e <b>acúmulo de secreção</b> no ouvido médio — um meio de cultura ideal para as bactérias da nasofaringe</li>
+              <li>Em crianças pequenas, a tuba auditiva é <b>mais curta, mais horizontalizada e mais flácida</b>, facilitando o refluxo de secreções e dificultando a drenagem</li>
+              <li>Pico de incidência: <b>6–24 meses</b> de vida</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="20" width="94" height="50" rx="10" fill="#e3f7f4" stroke="#0f766e" stroke-width="1.2"/>
+                <text x="53" y="42" font-size="7.5" text-anchor="middle" fill="#115e59" font-weight="700">IVAS viral</text>
+                <text x="53" y="54" font-size="7.5" text-anchor="middle" fill="#115e59">(edema da tuba)</text>
+                <text x="112" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="120" y="14" width="96" height="62" rx="10" fill="#fff4e0" stroke="#b45309" stroke-width="1.2"/>
+                <text x="168" y="34" font-size="7" text-anchor="middle" fill="#92400e" font-weight="700">Disfunção tubária</text>
+                <text x="168" y="45" font-size="7" text-anchor="middle" fill="#92400e">pressão negativa</text>
+                <text x="168" y="56" font-size="7" text-anchor="middle" fill="#92400e">acúmulo de secreção</text>
+                <text x="226" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="234" y="20" width="84" height="50" rx="10" fill="#ffe9ee" stroke="#be123c" stroke-width="1.2"/>
+                <text x="276" y="42" font-size="7.5" text-anchor="middle" fill="#9f1239" font-weight="700">Efusão +</text>
+                <text x="276" y="54" font-size="7.5" text-anchor="middle" fill="#9f1239">bactérias → OMA</text>
+              </svg>
+              <div class="cap">Fig. 3 — Da IVAS à otite média aguda</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Etiologia e Quadro Clínico</summary>
+          <div class="content">
+            <ul>
+              <li><b>Bactérias mais comuns</b>: <i>S. pneumoniae</i>, <i>H. influenzae</i> não tipável, <i>M. catarrhalis</i> (vírus frequentemente precedem/coexistem)</li>
+              <li><b>Sintomas</b>: otalgia (queixa principal), febre, irritabilidade; lactentes podem apresentar apenas irritabilidade, choro, distúrbio do sono, recusa alimentar</li>
+              <li>Pode evoluir com perfuração da membrana timpânica (MT) e otorreia purulenta — geralmente com alívio da dor</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Diagnóstico — Otoscopia <span class="pill">abaulamento da MT</span></summary>
+          <div class="content">
+            <ul>
+              <li>Diagnóstico é essencialmente clínico + otoscópico — <b>sintomas isolados não são suficientes</b></li>
+              <li>Achado de <b>maior valor diagnóstico isolado</b>: abaulamento da membrana timpânica</li>
+              <li>Hiperemia isolada <b>não é diagnóstica</b> (pode ocorrer apenas pelo choro)</li>
+              <li>Otoscopia pneumática: mobilidade diminuída da MT</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Fatores de risco × proteção:</b> risco — creche, tabagismo passivo, uso de chupeta, mamar deitado, fenda palatina, irmãos com OMA recorrente. Proteção — aleitamento materno, vacinação (pneumocócica conjugada, Hib, influenza).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">SBP — Otite Média</a>, <a href="#ref8">MSD Manuals — Otite média aguda</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Bronquiolite Viral Aguda</div>
+      <div class="body">
+
+        <details open>
+          <summary>Definição e Etiologia <span class="pill">VSR</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Definição</b>: primeiro episódio de sibilância em criança &lt;2 anos, precedido de pródromo de infecção viral de vias aéreas superiores</li>
+              <li><b>Vírus Sincicial Respiratório (VSR)</b>: principal agente, até 75% dos casos; também rinovírus, parainfluenza, influenza, adenovírus, metapneumovírus</li>
+              <li>Afeta mais de <b>1/3 das crianças</b> nos primeiros 2 anos de vida; até 10% são hospitalizadas</li>
+              <li>Sazonalidade: mais comum no outono/inverno</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Fisiopatologia <span class="pill">obstrução de pequenas vias</span></summary>
+          <div class="content">
+            <ul>
+              <li>Infecção viral do epitélio bronquiolar → <b>necrose e edema do epitélio</b> + <b>aumento da produção de muco</b> → obstrução das pequenas vias aéreas</li>
+              <li>Mecanismo valvular de obstrução leva a hiperinsuflação e/ou atelectasia</li>
+              <li>Fatores de risco para gravidade: idade &lt;6 semanas, prematuridade, cardiopatia congênita, imunodeficiência, pneumopatia crônica</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="20" width="98" height="50" rx="10" fill="#ffe9ee" stroke="#be123c" stroke-width="1.2"/>
+                <text x="53" y="40" font-size="7.5" text-anchor="middle" fill="#9f1239" font-weight="700">Infecção viral</text>
+                <text x="53" y="52" font-size="7.5" text-anchor="middle" fill="#9f1239">(VSR) bronquiolar</text>
+                <text x="112" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="120" y="14" width="98" height="62" rx="10" fill="#fff4e0" stroke="#b45309" stroke-width="1.2"/>
+                <text x="169" y="34" font-size="7" text-anchor="middle" fill="#92400e" font-weight="700">Necrose + edema</text>
+                <text x="169" y="45" font-size="7" text-anchor="middle" fill="#92400e">do epitélio +</text>
+                <text x="169" y="56" font-size="7" text-anchor="middle" fill="#92400e">hipersecreção de muco</text>
+                <text x="228" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="236" y="10" width="82" height="70" rx="10" fill="#e3f7f4" stroke="#0f766e" stroke-width="1.2"/>
+                <text x="277" y="30" font-size="7" text-anchor="middle" fill="#115e59" font-weight="700">Obstrução de</text>
+                <text x="277" y="41" font-size="7" text-anchor="middle" fill="#115e59">pequenas vias</text>
+                <text x="277" y="52" font-size="7" text-anchor="middle" fill="#115e59">aéreas (sibilos,</text>
+                <text x="277" y="63" font-size="7" text-anchor="middle" fill="#115e59">estertores, tiragem)</text>
+              </svg>
+              <div class="cap">Fig. 4 — Fisiopatologia da bronquiolite viral aguda</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Quadro Clínico e Conduta</summary>
+          <div class="content">
+            <ul>
+              <li><b>Pródromo</b>: obstrução nasal, coriza clara, tosse, febre baixa, recusa de mamadas</li>
+              <li>Em 1–2 dias, piora com <b>taquipneia, tiragem, sibilância difusa, estertores finos</b>; casos graves: gemência, cianose, apneia, letargia</li>
+              <li><b>Tratamento</b>: essencialmente de suporte — oxigenoterapia se hipoxemia, hidratação, desobstrução nasal; sem tratamento específico</li>
+              <li>Broncodilatador e corticoide <b>não têm indicação rotineira</b></li>
+              <li><b>Prevenção em grupos de risco</b>: palivizumabe (anticorpo monoclonal anti-VSR, imunização passiva) para prematuros extremos, cardiopatas e pneumopatas crônicos</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref9">SBP — Bronquiolite aguda</a>, <a href="#ref10">SBP — Diretrizes para o manejo da infecção causada pelo VSR</a>, <a href="#ref11">SBP — Profilaxia da bronquiolite, pneumonia e complicações por VSR</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Pneumonia na Infância</div>
+      <div class="body">
+
+        <details open>
+          <summary>Etiologia por Faixa Etária <span class="pill">PAC</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Principais agentes etiológicos da pneumonia por faixa etária</caption>
+              <thead><tr><th>Faixa etária</th><th>Principais agentes</th></tr></thead>
+              <tbody>
+                <tr><td>RN e &lt;3 meses (pneumonia afebril do lactente)</td><td><i>Streptococcus</i> do grupo B, gram-negativos entéricos, <i>Chlamydia trachomatis</i>, <i>Ureaplasma urealyticum</i>, VSR</td></tr>
+                <tr><td>3 meses – 5 anos</td><td>Vírus respiratórios (mais frequentes: VSR, parainfluenza, influenza, adenovírus); <i>S. pneumoniae</i> — principal bactéria</td></tr>
+                <tr><td>&gt;5 anos (escolares)</td><td><i>Mycoplasma pneumoniae</i>, <i>Chlamydophila pneumoniae</i>, <i>S. pneumoniae</i></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Fisiopatologia</summary>
+          <div class="content">
+            <ul>
+              <li>Geralmente ocorre como complicação de uma infecção viral das vias aéreas</li>
+              <li>Inflamação do <b>parênquima pulmonar</b> com <b>preenchimento dos espaços alveolares por exsudato inflamatório</b> (consolidação), comprometendo as trocas gasosas</li>
+              <li>Consolidação lobar na radiografia sugere etiologia bacteriana típica; padrão intersticial difuso sugere etiologia viral/atípica</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="20" width="96" height="50" rx="10" fill="#e8f7ec" stroke="#15803d" stroke-width="1.2"/>
+                <text x="52" y="40" font-size="7.5" text-anchor="middle" fill="#166534" font-weight="700">Infecção da via</text>
+                <text x="52" y="52" font-size="7.5" text-anchor="middle" fill="#166534">aérea inferior</text>
+                <text x="110" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="118" y="14" width="100" height="62" rx="10" fill="#fff4e0" stroke="#b45309" stroke-width="1.2"/>
+                <text x="168" y="34" font-size="7" text-anchor="middle" fill="#92400e" font-weight="700">Exsudato</text>
+                <text x="168" y="45" font-size="7" text-anchor="middle" fill="#92400e">preenche os</text>
+                <text x="168" y="56" font-size="7" text-anchor="middle" fill="#92400e">alvéolos (consolidação)</text>
+                <text x="228" y="50" font-size="12" text-anchor="middle" fill="#8892a3">→</text>
+                <rect x="236" y="16" width="82" height="58" rx="10" fill="#ffe9ee" stroke="#be123c" stroke-width="1.2"/>
+                <text x="277" y="36" font-size="7" text-anchor="middle" fill="#9f1239" font-weight="700">Compromete</text>
+                <text x="277" y="47" font-size="7" text-anchor="middle" fill="#9f1239">trocas gasosas</text>
+                <text x="277" y="58" font-size="7" text-anchor="middle" fill="#9f1239">(hipoxemia)</text>
+              </svg>
+              <div class="cap">Fig. 5 — Fisiopatologia da pneumonia adquirida na comunidade</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Diagnóstico Clínico <span class="pill">taquipneia OMS</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Taquipneia</b> é o achado clínico mais sensível para PAC, na ausência de sibilância</li>
+              <li><b>Pontos de corte de FR (OMS)</b>: &lt;2 meses ≥60 irpm; 2–11 meses ≥50 irpm; 1–5 anos ≥40 irpm</li>
+              <li>Outros achados: febre, tosse, tiragem, estertores crepitantes, redução do murmúrio vesicular; lactentes jovens podem ter quadro inespecífico (gemido, cianose, recusa alimentar, distensão abdominal)</li>
+              <li>Radiografia de tórax <b>não é rotina</b> em quadros leves ambulatoriais</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Sinais de gravidade / internação (OMS):</b> em &gt;2 meses — tiragem subcostal, estridor em repouso, recusa de líquidos, convulsão, alteração do sensório, vômitos incoercíveis. Em &lt;2 meses — FR ≥60, tiragem, hipotermia ou febre alta, recusa do seio por mais de 3 mamadas, sibilância, estridor em repouso, sensório alterado.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref12">SBP — Pneumonias Adquiridas na Comunidade Não Complicadas (Documento Científico)</a>, <a href="#ref13">SBP — Pneumonia</a>, <a href="#ref14">Sanarmed — Resumo Pneumonia Comunitária na Infância</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> Sibilância na Infância — Fenótipos</div>
+      <div class="body">
+
+        <details open>
+          <summary>Os 4 Fenótipos de Sibilância <span class="pill">J. Bras. Pneumologia</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Classificação fenotípica da sibilância na infância</caption>
+              <thead><tr><th>Fenótipo</th><th>Características principais</th></tr></thead>
+              <tbody>
+                <tr><td><b>Transitória</b></td><td>Sibilos durante os 2–3 primeiros anos de vida, cessando após essa idade; sem atopia pessoal/familiar; associada a função pulmonar reduzida ao nascer e tabagismo materno</td></tr>
+                <tr><td><b>Não atópica</b></td><td>Desencadeada principalmente por infecções virais (rinovírus, VSR); tende a desaparecer com o avançar da idade; sem atopia</td></tr>
+                <tr><td><b>Persistente (asma)</b></td><td>Associada a manifestações de atopia (eczema, rinite, conjuntivite, alergia alimentar), eosinofilia/IgE total elevada, sensibilização a aeroalérgenos e/ou pai/mãe com asma; sintomas persistem durante a infância, inclusive fora de infecções</td></tr>
+                <tr><td><b>Intermitente grave</b></td><td>Episódios pouco frequentes de sibilância aguda e grave, com poucos sintomas fora das crises; presença de características de atopia (eczema, sensibilização alérgica, eosinofilia periférica)</td></tr>
+              </tbody>
+            </table>
+            <div class="figure">
+              <svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+                <g font-size="6" text-anchor="middle">
+                  <circle cx="42" cy="40" r="23" fill="#f2ebff" stroke="#7c3aed"/>
+                  <text x="42" y="37" font-size="6" fill="#5b21b6" font-weight="700">Transitória</text>
+                  <text x="42" y="46" font-size="5.6" fill="#5b21b6">para c/ 3a</text>
+                  <circle cx="126" cy="40" r="23" fill="#f2ebff" stroke="#7c3aed"/>
+                  <text x="126" y="37" font-size="6" fill="#5b21b6" font-weight="700">Não atópica</text>
+                  <text x="126" y="46" font-size="5.6" fill="#5b21b6">viral</text>
+                  <circle cx="210" cy="40" r="23" fill="#f2ebff" stroke="#7c3aed"/>
+                  <text x="210" y="37" font-size="6" fill="#5b21b6" font-weight="700">Persistente</text>
+                  <text x="210" y="46" font-size="5.6" fill="#5b21b6">atópica</text>
+                  <circle cx="292" cy="40" r="23" fill="#f2ebff" stroke="#7c3aed"/>
+                  <text x="292" y="37" font-size="6" fill="#5b21b6" font-weight="700">Interm.</text>
+                  <text x="292" y="46" font-size="5.6" fill="#5b21b6">grave</text>
+                </g>
+              </svg>
+              <div class="cap">Fig. 6 — Os quatro fenótipos de sibilância na infância</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Como Diferenciar na Prática</summary>
+          <div class="content">
+            <ul>
+              <li>A idade de início e, principalmente, a <b>evolução ao longo do tempo</b> são os principais definidores — por isso a classificação só se confirma retrospectivamente</li>
+              <li>Atopia pessoal/familiar aponta para os fenótipos <b>persistente</b> e <b>intermitente grave</b>; ausência de atopia aponta para <b>transitória</b> e <b>não atópica</b></li>
+              <li>Sintomas restritos a infecções virais → transitória ou não atópica; sintomas também fora de infecções (diurnos/noturnos) → persistente</li>
+              <li>Cerca de 1/3 das crianças que sibilam antes dos 3 anos continuarão sibilando depois, e destas, 60% serão atópicas aos 6 anos</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Coorte de Tucson (Martinez et al.):</b> base histórica desta classificação — acompanhou crianças desde o nascimento e demonstrou que a maioria dos sibilantes precoces (2/3) tem resolução espontânea (fenótipo transitório).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref15">Jornal Brasileiro de Pneumologia — Sibilância na infância</a>, <a href="#ref16">Jornal de Pediatria — Sibilância no lactente: epidemiologia, investigação e tratamento</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Medidas Preventivas das Afecções Respiratórias</div>
+      <div class="body">
+
+        <details open>
+          <summary>5 Pilares da Prevenção <span class="pill">SBP</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Vacinação</b> em dia: pneumocócica conjugada, <i>Haemophilus influenzae</i> b (Hib), influenza sazonal, além de imunização passiva (palivizumabe) para grupos de risco contra o VSR</li>
+              <li><b>Higiene das mãos</b> e etiqueta respiratória: lavagem frequente com água e sabão ou álcool em gel, principalmente antes de comer e após tossir/espirrar</li>
+              <li><b>Evitar exposição ao tabagismo passivo</b> e a poluentes/irritantes ambientais (fumaça, produtos de limpeza com odor intenso, manter ambientes ventilados)</li>
+              <li><b>Nutrição adequada</b>, com destaque para o aleitamento materno exclusivo até os 6 meses (favorece a imunidade e reduz infecções respiratórias)</li>
+              <li><b>Controle de alergias</b> e desencadeantes ambientais (rinite alérgica, ácaros, mofo, poeira domiciliar)</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg">
+                <g font-size="7" fill="#0e7490" text-anchor="middle">
+                  <circle cx="30" cy="35" r="20" fill="#e0f7fa" stroke="#0891b2"/>
+                  <text x="30" y="40" font-size="13">💉</text><text x="30" y="68">Vacinação</text>
+                  <circle cx="93" cy="35" r="20" fill="#e0f7fa" stroke="#0891b2"/>
+                  <text x="93" y="40" font-size="13">🧼</text><text x="93" y="68">Higiene</text>
+                  <circle cx="156" cy="35" r="20" fill="#e0f7fa" stroke="#0891b2"/>
+                  <text x="156" y="40" font-size="13">🚭</text><text x="156" y="68">Evitar fumo</text>
+                  <circle cx="219" cy="35" r="20" fill="#e0f7fa" stroke="#0891b2"/>
+                  <text x="219" y="40" font-size="13">🍎</text><text x="219" y="68">Nutrição</text>
+                  <circle cx="270" cy="35" r="20" fill="#e0f7fa" stroke="#0891b2"/>
+                  <text x="270" y="40" font-size="13">🤧</text><text x="270" y="68">Alergias</text>
+                </g>
+              </svg>
+              <div class="cap">Fig. 7 — Os 5 pilares da prevenção das afecções respiratórias na infância</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Medidas Complementares</summary>
+          <div class="content">
+            <ul>
+              <li>Evitar aglomerações e contato próximo com pessoas com quadros respiratórios, especialmente para lactentes de risco</li>
+              <li>Manter ambientes arejados/ventilados, livres de poeira e mofo</li>
+              <li>Acompanhamento pediátrico regular (puericultura) para monitorar crescimento, alimentação e calendário vacinal</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref9">SBP — Bronquiolite aguda</a>, <a href="#ref13">SBP — Pneumonia</a>, <a href="#ref17">SBP — Tabagismo: o papel do pediatra</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Rinossinusite na infância</i>. Disponível em: <a href="https://www.sbp.com.br/especiais/pediatria-para-familias/doencas/rinossinusite-na-infancia/" target="_blank" rel="noopener">sbp.com.br/especiais/pediatria-para-familias/doencas/rinossinusite-na-infancia</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref2">EINSTEIN. <i>Guia do Episódio de Cuidado — Rinossinusite Bacteriana Aguda em Pediatria</i>. Disponível em: <a href="https://medicalsuite.einstein.br/pratica-medica/Pathways/Rinossinusite-Aguda-em-Pediatriav.2.pdf" target="_blank" rel="noopener">medicalsuite.einstein.br — Rinossinusite-Aguda-em-Pediatria.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref3">ROTEIROS DE PEDIATRIA. <i>Infecção respiratória — IVAS</i>. Disponível em: <a href="https://www.roteirosdepediatria.com/infec%C3%A7%C3%A3o-respirat%C3%B3ria-ivas" target="_blank" rel="noopener">roteirosdepediatria.com/infecção-respiratória-ivas</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref4">RESIDÊNCIA PEDIÁTRICA. <i>Faringite Estreptocócica</i>. Disponível em: <a href="https://www.residenciapediatrica.com.br/article/61/faringite-estreptococcica" target="_blank" rel="noopener">residenciapediatrica.com.br/article/61/faringite-estreptococcica</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref5">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Novos critérios para diagnóstico de Febre Reumática</i>. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/2012/12/Novos-critrios-para-Febre-Reumtica-Site-003.pdf" target="_blank" rel="noopener">sbp.com.br/Novos-critrios-para-Febre-Reumtica-Site-003.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref6">MSD MANUALS. <i>Critérios de Centor para faringite por estreptococos com modificação de McIsaac</i>. Disponível em: <a href="https://www.msdmanuals.com/pt/profissional/multimedia/clinical-calculator/crit%C3%A9rios-de-centor-para-faringite-por-estreptococos-com-modifica%C3%A7%C3%A3o-de-mcisaac" target="_blank" rel="noopener">msdmanuals.com — critérios de Centor/McIsaac</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref7">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Otite Média</i>. Disponível em: <a href="https://www.sbp.com.br/pediatria-para-familias/doencas/otite-media/" target="_blank" rel="noopener">sbp.com.br/pediatria-para-familias/doencas/otite-media</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref8">MSD MANUALS. <i>Otite média aguda</i>. Disponível em: <a href="https://www.msdmanuals.com/pt/profissional/dist%C3%BArbios-do-ouvido-nariz-e-garganta/dist%C3%BArbios-da-orelha-m%C3%A9dia-e-da-membrana-timp%C3%A2nica/otite-m%C3%A9dia-aguda" target="_blank" rel="noopener">msdmanuals.com — otite média aguda</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref9">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Bronquiolite aguda</i>. Disponível em: <a href="https://www.sbp.com.br/pediatria-para-familias/doencas/bronquiolite-aguda/" target="_blank" rel="noopener">sbp.com.br/pediatria-para-familias/doencas/bronquiolite-aguda</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref10">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Diretrizes para o manejo da infecção causada pelo vírus sincicial respiratório</i>. 2017. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/Diretrizes_manejo_infeccao_causada_VSR2017.pdf" target="_blank" rel="noopener">sbp.com.br/Diretrizes_manejo_infeccao_causada_VSR2017.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref11">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Profilaxia da bronquiolite, pneumonia e complicações causadas pelo Vírus Sincicial Respiratório (VSR)</i>. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/23376c-NA_Profilaxia_Bronquiolite_Pneumonia_VSR.pdf" target="_blank" rel="noopener">sbp.com.br/23376c-NA_Profilaxia_Bronquiolite_Pneumonia_VSR.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref12">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Pneumonias Adquiridas na Comunidade Não Complicadas</i>. Documento Científico. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/23358c-DC-Pneumonias_Adquiridas_Nao_Complicadas.pdf" target="_blank" rel="noopener">sbp.com.br/23358c-DC-Pneumonias_Adquiridas_Nao_Complicadas.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref13">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Pneumonia</i>. Disponível em: <a href="https://www.sbp.com.br/pediatria-para-familias/doencas/pneumonia/" target="_blank" rel="noopener">sbp.com.br/pediatria-para-familias/doencas/pneumonia</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref14">SANARMED. <i>Resumo Pneumonia Comunitária na Infância</i>. Disponível em: <a href="https://sanarmed.com/pneumonia-comunitaria-na-infancia/" target="_blank" rel="noopener">sanarmed.com/pneumonia-comunitaria-na-infancia</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref15">JORNAL BRASILEIRO DE PNEUMOLOGIA. <i>Sibilância na infância</i>. Disponível em: <a href="https://www.jornaldepneumologia.com.br/details/677/pt-BR/sibilancia-na-infancia" target="_blank" rel="noopener">jornaldepneumologia.com.br/details/677/pt-BR/sibilancia-na-infancia</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref16">JORNAL DE PEDIATRIA. <i>Sibilância no lactente: epidemiologia, investigação e tratamento</i>. Disponível em: <a href="https://www.scielo.br/j/jped/a/HqFQPpx3mSDvzCKTNGVyLVs/?lang=pt" target="_blank" rel="noopener">scielo.br/j/jped — sibilância no lactente</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+
+      <li id="ref17">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Pneumologia. <i>Tabagismo: O Papel do Pediatra</i>. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/publicacoes/Pneumo-DocCientifico-Tabagismo.pdf" target="_blank" rel="noopener">sbp.com.br/publicacoes/Pneumo-DocCientifico-Tabagismo.pdf</a>. <span class="accessed">Acesso em: 14 ago. 2026.</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: este mapa foi elaborado a partir de fontes oficiais (SBP, Jornal de Pediatria, Jornal Brasileiro de Pneumologia) e literatura médica indexada, sem um livro-texto único fornecido pelo usuário como base de verificação.</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Infecções Respiratórias na Infância<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
