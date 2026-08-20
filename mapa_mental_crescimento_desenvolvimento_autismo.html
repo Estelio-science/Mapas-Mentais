@@ -1,1 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Crescimento, Desenvolvimento e Autismo na Infância</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
 
+  .central{
+    margin:26px auto 34px;
+    max-width:520px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;margin-top:6px;font-size:.68rem;color:#444;}
+  .legend span{display:flex;align-items:center;gap:4px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Crescimento, Desenvolvimento e Autismo na Infância</h1>
+    <p>Objetivos do Problema 4 · Módulo 01 · 2026.2</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Crescimento, Desenvolvimento e Autismo na Infância</h2>
+    <div class="sub">Avaliação do Crescimento · Maturação Puberal e Idade Óssea · Exames Complementares · Baixa Estatura e Variantes Normais · Causas Patológicas · Marcos e Reflexos · TEA · Diagnóstico · Equipe Multidisciplinar</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Avaliação do Crescimento: parâmetros</div>
+      <div class="body">
+
+        <details open>
+          <summary>Crescimento × Desenvolvimento <span class="pill">Conceito</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Crescimento</b>: aumento do número e do tamanho das células — fenômeno <b>quantitativo</b>, mensurável por antropometria (estatura, peso, perímetros).</li>
+              <li><b>Desenvolvimento</b>: aquisição progressiva de funções e habilidades — fenômeno <b>qualitativo</b>, avaliado por marcos motores, de linguagem, cognitivos e sociais.</li>
+              <li>Ambos são processos <b>contínuos, integrados e sob vigilância longitudinal</b> na Caderneta da Criança; nenhum dos dois se avalia com uma única medida isolada.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Velocidade de crescimento (VC) <span class="pill">Parâmetro-chave</span></summary>
+          <div class="content">
+            <p>É o <b>parâmetro mais sensível e precoce</b> da avaliação do crescimento: detecta desaceleração antes que a estatura absoluta cruze o percentil 3. Exige <b>duas medidas com intervalo mínimo de 6 meses</b> (ideal 12 meses), com técnica e estadiômetro padronizados.</p>
+            <table>
+              <caption>Tabela — Velocidade de crescimento estatural esperada por faixa etária</caption>
+              <thead><tr><th>Fase</th><th>Ganho estatural</th></tr></thead>
+              <tbody>
+                <tr><td>1º ano de vida</td><td>~25 cm (mais rápida da vida pós-natal)</td></tr>
+                <tr><td>2º ano</td><td>~12 cm</td></tr>
+                <tr><td>3º ano</td><td>~8 cm</td></tr>
+                <tr><td>Pré-escolar e escolar (4 anos → puberdade)</td><td>5–7 cm/ano — <b>alerta se &lt; 4–5 cm/ano</b></td></tr>
+                <tr><td>Estirão puberal — meninas</td><td>8–9 cm/ano (pico mais precoce)</td></tr>
+                <tr><td>Estirão puberal — meninos</td><td>9–10 cm/ano (pico mais tardio e maior)</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Regra de ouro:</b> criança que <b>cruza percentis para baixo</b> na curva (queda de canal) tem crescimento patológico até prova em contrário — mesmo que a estatura ainda esteja dentro da normalidade. Inversamente, criança <b>baixa mas com VC normal</b>, mantendo o mesmo canal de crescimento, sugere <b>variante normal</b>.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Estatura-alvo (alvo parental) e estatura final <span class="pill">Cálculo</span></summary>
+          <div class="content">
+            <p>A <b>estatura-alvo</b> estima o potencial genético de crescimento a partir da estatura dos pais (fórmula de Tanner):</p>
+            <div class="figure">
+              <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fórmulas da estatura-alvo">
+                <rect x="10" y="12" width="300" height="60" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="160" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">MENINOS</text>
+                <text x="160" y="57" text-anchor="middle" font-size="13" fill="#1b2436">(alt. pai + alt. mãe + 13) ÷ 2</text>
+                <rect x="330" y="12" width="300" height="60" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="480" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#9f1239">MENINAS</text>
+                <text x="480" y="57" text-anchor="middle" font-size="13" fill="#1b2436">(alt. pai + alt. mãe − 13) ÷ 2</text>
+                <rect x="10" y="88" width="620" height="48" rx="10" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="320" y="108" text-anchor="middle" font-size="12" fill="#5b6472">Faixa-alvo = estatura-alvo ± 8,5 cm (≈ ± 2 DP)</text>
+                <text x="320" y="127" text-anchor="middle" font-size="11.5" fill="#5b6472">O valor 13 cm corresponde à diferença média de estatura entre os sexos na idade adulta</text>
+              </svg>
+              <div class="cap">Figura — Cálculo da estatura-alvo (canal genético familiar)</div>
+            </div>
+            <ul>
+              <li><b>Estatura final</b>: estatura atingida após a <b>fusão das cartilagens de conjugação (epífises)</b>, ao término da puberdade. Em condições normais, situa-se <b>dentro da faixa-alvo parental</b>.</li>
+              <li><b>Previsão de estatura final</b>: estimada pelo método de <b>Bayley-Pinneau</b>, que combina estatura atual + idade óssea. Quanto mais atrasada a idade óssea, maior o potencial de crescimento residual.</li>
+              <li><b>Interpretação diagnóstica</b>: estatura ou previsão de estatura final <b>compatível com o alvo</b> aponta para variante normal (baixa estatura familiar); <b>estatura ≥ 2 DP abaixo do alvo</b> parental sugere causa patológica adquirida.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Escore Z e percentil <span class="pill">Estatística</span></summary>
+          <div class="content">
+            <p>Ambos posicionam a medida da criança em relação a uma <b>população de referência</b> de mesma idade e sexo (curvas OMS 2006 para 0–5 anos e OMS 2007 para 5–19 anos, adotadas na Caderneta da Criança).</p>
+            <ul>
+              <li><b>Percentil</b>: posição relativa em 100 crianças. P50 = mediana.</li>
+              <li><b>Escore Z</b>: número de desvios-padrão em relação à mediana — <b>Z = (valor observado − mediana de referência) ÷ desvio-padrão</b>. É mais preciso nos extremos da distribuição, onde os percentis se comprimem (por isso é o parâmetro de escolha para casos graves).</li>
+            </ul>
+            <table>
+              <caption>Tabela — Equivalência aproximada entre escore Z e percentil</caption>
+              <thead><tr><th>Escore Z</th><th>Percentil</th><th>Interpretação (estatura/idade)</th></tr></thead>
+              <tbody>
+                <tr><td>&lt; −3</td><td>&lt; 0,1</td><td>Muito baixa estatura para a idade</td></tr>
+                <tr><td><b>&lt; −2</b></td><td><b>&lt; 3</b></td><td><b>Baixa estatura para a idade</b> (ponto de corte diagnóstico)</td></tr>
+                <tr><td>−2 a +2</td><td>3 a 97</td><td>Estatura adequada para a idade</td></tr>
+                <tr><td>0</td><td>50</td><td>Mediana da população de referência</td></tr>
+                <tr><td>&gt; +2</td><td>&gt; 97</td><td>Estatura elevada para a idade</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Atenção:</b> o escore Z <b>nunca é dispensável</b> — inclusive nas doenças crônicas, onde é justamente o instrumento que evidencia a <b>dissociação entre o comprometimento ponderal e o estatural</b> (Z de peso caindo antes do Z de estatura).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Proporções corporais <span class="pill">Semiologia</span></summary>
+          <div class="content">
+            <p>Diferencia baixa estatura <b>proporcionada</b> (endócrina, nutricional, crônica, familiar) de <b>desproporcionada</b> (displasias esqueléticas, raquitismo, deformidade de Madelung/SHOX).</p>
+            <ul>
+              <li><b>Segmento inferior (SI)</b>: distância da borda superior da sínfise púbica ao chão. <b>Segmento superior (SS)</b> = estatura − SI.</li>
+              <li><b>Relação SS/SI</b>: RN ≈ <b>1,7</b> → 3 anos ≈ <b>1,3</b> → ≥ 7 anos ≈ <b>1,0</b> (as pernas crescem proporcionalmente mais na infância).</li>
+              <li><b>SS/SI aumentada</b> (tronco relativamente longo, membros curtos): acondroplasia e displasias, hipotireoidismo, raquitismo.</li>
+              <li><b>SS/SI diminuída</b> (membros longos): síndrome de Marfan, hipogonadismo com fusão epifisária tardia.</li>
+              <li><b>Envergadura</b> (ponta a ponta dos dedos): ≈ estatura após os 10–11 anos. Envergadura muito maior que a estatura sugere encurtamento de membros inferiores ou hábito marfanoide.</li>
+              <li>Outros dados: perímetro cefálico (até 2 anos), IMC, avaliação de dismorfismos.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref2">SBP — Avaliação do crescimento</a> · <a href="#ref4">MS — Caderneta da Criança</a> · <a href="#ref16">OMS — Curvas de crescimento</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Maturação Puberal e Idade Óssea</div>
+      <div class="body">
+
+        <details>
+          <summary>Estágios de Tanner <span class="pill">Critérios</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Estadiamento puberal de Tanner</caption>
+              <thead><tr><th>Estágio</th><th>Meninas (mamas — M)</th><th>Meninos (genitália — G)</th><th>Pelos pubianos (P)</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Pré-puberal</td><td>Testículos &lt; 4 mL (pré-puberal)</td><td>Ausentes / velus</td></tr>
+                <tr><td>2</td><td><b>Telarca</b> — broto mamário (8–13 anos)</td><td><b>Testículos ≥ 4 mL</b>, escroto rugoso (9–14 anos)</td><td>Esparsos, lisos, na base</td></tr>
+                <tr><td>3</td><td>Mama e aréola aumentam em conjunto</td><td>Alongamento do pênis</td><td>Mais escuros e encaracolados</td></tr>
+                <tr><td>4</td><td>Aréola forma segundo montículo — <b>menarca</b></td><td>Aumento do diâmetro do pênis e da glande — <b>pico do estirão</b></td><td>Tipo adulto, área restrita</td></tr>
+                <tr><td>5</td><td>Mama adulta</td><td>Genitália adulta</td><td>Adulto, atinge face interna das coxas</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li><b>Primeiro sinal puberal</b>: telarca (M2) nas meninas; <b>aumento do volume testicular ≥ 4 mL</b> pelo orquidômetro de Prader nos meninos.</li>
+              <li><b>Meninas</b>: estirão precoce (M2–M3); <b>menarca em M4</b>, cerca de 2–2,5 anos após a telarca, quando a VC <b>já está em desaceleração</b>; crescimento residual pós-menarca ≈ 6–8 cm.</li>
+              <li><b>Meninos</b>: estirão tardio (G3–G4), de maior magnitude — explica a diferença média de ~13 cm na estatura adulta entre os sexos.</li>
+              <li><b>Puberdade precoce</b>: &lt; 8 anos (meninas) / &lt; 9 anos (meninos) — cursa com alta estatura na infância e <b>baixa estatura final</b> por fusão epifisária precoce. <b>Puberdade atrasada</b>: ausência de telarca &gt; 13 anos ou de aumento testicular &gt; 14 anos.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Idade óssea (radiografia de mão e punho) <span class="pill">Maturação</span></summary>
+          <div class="content">
+            <p>Radiografia de <b>mão e punho esquerdos</b> (não dominante), comparando os núcleos de ossificação e o grau de fusão epifisária com padrões de referência.</p>
+            <ul>
+              <li><b>Greulich-Pyle</b>: comparação global com atlas radiográfico — método mais usado na prática.</li>
+              <li><b>Tanner-Whitehouse (TW2/TW3)</b>: escore osso a osso (RUS — rádio, ulna e ossos curtos), mais reprodutível.</li>
+              <li>Traduz a <b>idade biológica/maturacional</b>, não a cronológica — informa o <b>potencial de crescimento residual</b>.</li>
+            </ul>
+            <table>
+              <caption>Tabela — Interpretação da idade óssea (IO) versus idade cronológica (IC)</caption>
+              <thead><tr><th>Padrão</th><th>Significado</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr><td><b>IO = IC</b></td><td>Maturação normal; potencial residual proporcional à idade</td><td><b>Baixa estatura familiar</b>, criança normal</td></tr>
+                <tr><td><b>IO &lt; IC (atrasada)</b></td><td>Maturação lenta; potencial de crescimento <b>preservado</b></td><td>Retardo constitucional, <b>deficiência de GH</b>, hipotireoidismo, desnutrição, doença crônica, doença celíaca</td></tr>
+                <tr><td><b>IO &gt; IC (avançada)</b></td><td>Maturação acelerada; fusão epifisária precoce e <b>perda de estatura final</b></td><td>Puberdade precoce, hiperplasia adrenal congênita, hipertireoidismo, obesidade, tumores produtores de esteroides</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Pegadinha frequente:</b> a <b>deficiência de GH cursa com idade óssea ATRASADA</b> em relação à cronológica — nunca avançada. Idade óssea avançada com baixa estatura aponta para excesso de esteroides sexuais (puberdade precoce, HAC).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref3">SBEM/SBP — Baixa estatura</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Exames Complementares</div>
+      <div class="body">
+
+        <details>
+          <summary>Triagem laboratorial inicial <span class="pill">1ª linha</span></summary>
+          <div class="content">
+            <p>Antes de qualquer investigação endócrina, afasta-se doença sistêmica oculta — causa muito mais frequente de baixa estatura do que a deficiência de GH.</p>
+            <table>
+              <caption>Tabela — Exames de triagem e o que investigam</caption>
+              <thead><tr><th>Exame</th><th>Rastreia</th></tr></thead>
+              <tbody>
+                <tr><td>Hemograma, ferritina, VHS/PCR</td><td>Anemia, carência de ferro, doença inflamatória crônica</td></tr>
+                <tr><td>Ureia, creatinina, eletrólitos, gasometria</td><td><b>Doença renal crônica</b>, acidose tubular renal</td></tr>
+                <tr><td>EAS e urocultura</td><td>Infecção urinária de repetição, tubulopatias</td></tr>
+                <tr><td><b>Anti-transglutaminase IgA + IgA total</b></td><td><b>Doença celíaca</b> (pode ter a baixa estatura como única manifestação)</td></tr>
+                <tr><td>TSH e T4 livre</td><td>Hipotireoidismo (adquirido ou congênito compensado)</td></tr>
+                <tr><td>Transaminases, albumina</td><td>Hepatopatia, desnutrição proteica</td></tr>
+                <tr><td>Cálcio, fósforo, fosfatase alcalina, vitamina D</td><td>Raquitismo, doença óssea metabólica</td></tr>
+                <tr><td>Parasitológico de fezes</td><td>Parasitoses com má absorção</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Eixo GH — IGF-1: como (e como NÃO) investigar <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <div class="note-warn">
+              <b class="tag">Ponto crítico:</b> a secreção de GH é <b>pulsátil</b>, predominantemente noturna e em picos de curta duração. Por isso, a <b>dosagem sérica basal e randômica de GH NÃO tem valor diagnóstico</b> — um valor baixo em amostra isolada é o achado esperado em criança normal. O diagnóstico exige <b>testes farmacológicos de estímulo</b>.
+            </div>
+            <div class="figure">
+              <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxo do eixo GH-IGF-1">
+                <rect x="12" y="10" width="150" height="46" rx="9" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="87" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="#115e59">Hipotálamo</text>
+                <text x="87" y="46" text-anchor="middle" font-size="10.5" fill="#334">GHRH (+) / Somatostatina (−)</text>
+                <path d="M87 56 L87 76" stroke="#0f766e" stroke-width="2" marker-end="url(#a3)"/>
+                <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#0f766e"/></marker></defs>
+                <rect x="12" y="78" width="150" height="46" rx="9" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="87" y="98" text-anchor="middle" font-size="11.5" font-weight="700" fill="#115e59">Hipófise anterior</text>
+                <text x="87" y="114" text-anchor="middle" font-size="10.5" fill="#334">GH — secreção PULSÁTIL</text>
+                <path d="M162 101 L212 101" stroke="#0f766e" stroke-width="2" marker-end="url(#a3)"/>
+                <rect x="214" y="78" width="150" height="46" rx="9" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="289" y="98" text-anchor="middle" font-size="11.5" font-weight="700" fill="#115e59">Fígado</text>
+                <text x="289" y="114" text-anchor="middle" font-size="10.5" fill="#334">IGF-1 / IGFBP-3</text>
+                <path d="M364 101 L414 101" stroke="#0f766e" stroke-width="2" marker-end="url(#a3)"/>
+                <rect x="416" y="78" width="212" height="46" rx="9" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="522" y="98" text-anchor="middle" font-size="11.5" font-weight="700" fill="#115e59">Cartilagem de crescimento</text>
+                <text x="522" y="114" text-anchor="middle" font-size="10.5" fill="#334">Proliferação de condrócitos → estatura</text>
+                <rect x="214" y="146" width="414" height="52" rx="9" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="421" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#c2410c">RESISTÊNCIA FUNCIONAL AO GH</text>
+                <text x="421" y="184" text-anchor="middle" font-size="10.5" fill="#7c2d12">Desnutrição · doença crônica · inflamação → GH normal ou ALTO + IGF-1 BAIXO</text>
+                <path d="M289 124 L289 146" stroke="#ea580c" stroke-width="2" stroke-dasharray="4 3"/>
+              </svg>
+              <div class="cap">Figura — Eixo somatotrófico e o mecanismo de resistência ao GH</div>
+            </div>
+            <ul>
+              <li><b>Triagem</b>: <b>IGF-1</b> e <b>IGFBP-3</b> — têm meia-vida longa e níveis estáveis, refletindo a secreção integrada de GH. Devem ser interpretados por idade, sexo e estágio puberal.</li>
+              <li><b>Confirmação</b>: <b>dois testes de estímulo</b> farmacológico (clonidina, insulina/ITT, glucagon, arginina, L-dopa) — considera-se deficiente o pico de GH abaixo do ponto de corte do ensaio (classicamente &lt; 5–7 ng/mL). Deve-se priming com esteroides sexuais em pré-púberes selecionados para evitar falso-positivo.</li>
+              <li><b>Se confirmada a deficiência</b>: <b>RM de região hipotálamo-hipofisária</b> (hipoplasia hipofisária, haste interrompida, tumores como craniofaringioma) + avaliação dos demais eixos hipofisários.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">IGF-1 baixo é inespecífico:</b> além da deficiência de GH, reduzem o IGF-1 a <b>desnutrição</b>, as <b>enteropatias absortivas</b> (celíaca), a doença hepática, o hipotireoidismo, a doença renal crônica e o diabetes mal controlado. Nesses casos o GH está normal ou elevado — é <b>resistência periférica ao GH</b>, não deficiência. O tratamento é o da doença de base, não a reposição de GH isolada.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Testes genéticos <span class="pill">Quando pedir</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Cariótipo</b>: indicado em <b>toda menina</b> com baixa estatura sem causa aparente — a <b>síndrome de Turner</b> pode ter fenótipo frustro, sem estigmas evidentes, e a baixa estatura ser a única manifestação. Não é exame de rotina em meninos com baixa estatura isolada.</li>
+              <li><b>Análise do gene SHOX</b> (região pseudoautossômica Xp22/Yp11): haploinsuficiência causa baixa estatura desproporcionada, com <b>deformidade de Madelung</b> e antebraços curtos — ocorre em ambos os sexos.</li>
+              <li><b>Painéis gênicos / exoma</b>: displasias esqueléticas, síndromes com baixa estatura sindrômica (Noonan, Silver-Russell, Prader-Willi), consanguinidade, história familiar sugestiva.</li>
+              <li><b>Metilação do cromossomo 15</b> (Prader-Willi) e <b>metilação 11p15</b> (Silver-Russell) quando o fenótipo orientar.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Avaliação nutricional <span class="pill">Antropometria</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Índices antropométricos em escore Z</b>: peso/idade (P/I), estatura/idade (E/I), peso/estatura (P/E) e <b>IMC/idade</b> — o conjunto permite distinguir déficit agudo (emagrecimento) de crônico (nanismo nutricional).</li>
+              <li><b>Padrão temporal típico da desnutrição e das doenças crônicas</b>: primeiro cai o <b>peso</b> (P/I e IMC/I), depois a <b>estatura</b> (E/I) — a criança fica <b>magra e baixa</b>.</li>
+              <li><b>Padrão inverso (endocrinopatias)</b>: a estatura cai mas o peso é preservado ou aumenta — criança <b>baixa e com sobrepeso</b> (deficiência de GH, hipotireoidismo, Cushing).</li>
+              <li>Complementam: inquérito alimentar/recordatório de 24 h, sinais clínicos de carências específicas, ferritina, zinco, vitamina D, albumina.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Chave semiológica:</b> a relação entre o <b>comprometimento ponderal e o estatural</b> é o dado que mais rapidamente separa causas nutricionais/crônicas de causas endócrinas.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref3">SBEM/SBP — Baixa estatura</a> · <a href="#ref5">SBP — Deficiência de GH</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Baixa Estatura: definição e variantes normais</div>
+      <div class="body">
+
+        <details open>
+          <summary>Definição e critérios de investigação <span class="pill">Conceito</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Baixa estatura</b>: estatura <b>abaixo do percentil 3</b> ou <b>escore Z &lt; −2</b> para idade e sexo em curva de referência adequada.</li>
+              <li>Investigar também quando houver: <b>velocidade de crescimento reduzida</b> (queda de canal / cruzamento de percentis para baixo) mesmo com estatura ainda normal; estatura <b>≥ 2 DP abaixo da estatura-alvo</b> parental; baixa estatura <b>desproporcionada</b>; ou baixa estatura associada a dismorfismos, atraso puberal ou sinais de doença sistêmica.</li>
+              <li>Cerca de <b>80% das baixas estaturas são variantes normais</b> (familiar e constitucional) — o desafio clínico é reconhecê-las sem deixar passar as causas patológicas.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Baixa estatura familiar (genética) <span class="pill">Variante normal</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>História</b>: pais e/ou familiares de baixa estatura; sem doenças associadas.</li>
+              <li><b>Velocidade de crescimento: NORMAL</b> — a criança cresce em um canal baixo, mas paralelo às curvas, sem cruzar percentis.</li>
+              <li><b>Idade óssea = idade cronológica</b> (maturação normal).</li>
+              <li><b>Puberdade em idade normal</b>.</li>
+              <li><b>Previsão de estatura final</b>: baixa em relação à população geral, mas <b>compatível com o alvo parental</b> — é justamente essa compatibilidade que caracteriza a condição.</li>
+              <li>Proporções corporais normais; sem necessidade de tratamento — conduta é <b>acompanhamento e orientação</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Retardo constitucional do crescimento e puberdade (RCCP) <span class="pill">Variante normal</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>História familiar de "maturação lenta"</b>: menarca tardia na mãe, estirão e barba tardios no pai.</li>
+              <li>VC pode desacelerar transitoriamente no período pré-puberal, com queda de canal nos primeiros anos e nova desaceleração antes do estirão.</li>
+              <li><b>Idade óssea ATRASADA</b> (habitualmente 2 anos ou mais) — potencial de crescimento preservado.</li>
+              <li><b>Puberdade tardia</b>, com estirão deslocado no tempo.</li>
+              <li><b>Estatura final NORMAL</b>, dentro do alvo parental — o "atraso" é apenas cronológico.</li>
+              <li>Mais frequente no sexo masculino; principal diagnóstico diferencial é o hipogonadismo hipogonadotrófico.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Quadro-síntese: como diferenciar <span class="pill">Diagnóstico diferencial</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Diagnóstico diferencial das principais causas de baixa estatura</caption>
+              <thead><tr><th>Condição</th><th>Velocidade de crescimento</th><th>Idade óssea</th><th>Relação com o alvo parental</th><th>Peso × estatura</th></tr></thead>
+              <tbody>
+                <tr><td><b>Baixa estatura familiar</b></td><td><b>Normal</b></td><td><b>= idade cronológica</b></td><td>Estatura final <b>compatível com o alvo</b> (baixo)</td><td>Proporcionais</td></tr>
+                <tr><td><b>Retardo constitucional</b></td><td>Normal ou levemente reduzida na fase pré-puberal</td><td><b>Atrasada</b></td><td>Estatura final <b>normal</b>, dentro do alvo</td><td>Proporcionais</td></tr>
+                <tr><td><b>Deficiência de GH</b></td><td><b>Reduzida</b> (queda de canal)</td><td><b>Atrasada</b></td><td>Estatura ≥ 2 DP <b>abaixo</b> do alvo</td><td><b>Baixa e "gordinha"</b> (adiposidade central)</td></tr>
+                <tr><td><b>Hipotireoidismo</b></td><td><b>Muito reduzida</b></td><td><b>Muito atrasada</b></td><td>Abaixo do alvo</td><td>Ganho ponderal preservado; desproporção (SS/SI ↑)</td></tr>
+                <tr><td><b>Doença crônica / desnutrição</b></td><td><b>Reduzida</b> (após o déficit ponderal)</td><td>Atrasada</td><td>Abaixo do alvo</td><td><b>Déficit ponderal PRIMEIRO</b>, estatural depois</td></tr>
+                <tr><td><b>Síndrome de Turner</b></td><td>Reduzida desde a infância</td><td>Discretamente atrasada</td><td>Muito abaixo do alvo</td><td>Proporcional; estigmas + atraso puberal</td></tr>
+                <tr><td><b>Puberdade precoce</b></td><td>Acelerada no início</td><td><b>Avançada</b></td><td>Estatura final <b>abaixo</b> do alvo</td><td>Avanço puberal precoce</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Leitura da tabela:</b> a combinação <b>VC normal + IO = IC + previsão compatível com o alvo</b> é praticamente patognomônica de <b>baixa estatura familiar</b> e dispensa investigação hormonal extensa.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref3">SBEM/SBP — Baixa estatura</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Causas Patológicas de Baixa Estatura</div>
+      <div class="body">
+
+        <details>
+          <summary>Causas hormonais (endócrinas) <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Deficiência de GH (DGH)</b> — congênita (mutações GH1, PROP1, POU1F1; disgenesias de linha média, displasia septo-óptica) ou adquirida (craniofaringioma, radioterapia craniana, trauma, histiocitose). Clínica: VC reduzida, <b>idade óssea atrasada</b>, adiposidade truncal, fácies "de boneca", fronte olímpica, voz aguda, micropênis; no RN, <b>hipoglicemia e icterícia prolongada</b>. Diagnóstico por testes de estímulo; tratamento com <b>rhGH</b>.</li>
+              <li><b>Hipotireoidismo</b> — VC muito reduzida e <b>idade óssea muito atrasada</b>; baixa estatura <b>desproporcionada</b> (SS/SI aumentada); bradipsiquismo, constipação, pele seca, bradicardia; ganho ponderal com atraso estatural.</li>
+              <li><b>Síndrome de Cushing</b> (endógena ou <b>iatrogênica por corticoterapia crônica</b> — asma grave, nefropatias, doenças reumatológicas): a associação <b>baixa estatura + ganho de peso</b> é fortemente sugestiva.</li>
+              <li><b>Puberdade precoce</b>: alta na infância, baixa na vida adulta por fusão epifisária antecipada.</li>
+              <li><b>Diabetes mellitus mal controlado</b> (síndrome de Mauriac), <b>pseudo-hipoparatireoidismo</b>, <b>raquitismo hipofosfatêmico</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Causas genéticas e sindrômicas <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Síndrome de Turner (45,X e variantes)</b> — <b>exclusiva do sexo feminino</b>; principal causa <b>genética</b> de baixa estatura em meninas. Baixa estatura em praticamente 100% dos casos (haploinsuficiência do <b>SHOX</b>), disgenesia gonadal com atraso/ausência puberal e amenorreia, pescoço alado, implantação baixa dos cabelos, tórax em escudo, cúbito valgo, 4º metacarpo curto, linfedema de mãos e pés no RN, <b>coarctação da aorta e valva aórtica bicúspide</b>, rim em ferradura, otites de repetição. <b>Cariótipo obrigatório</b> em menina com baixa estatura inexplicada.</li>
+              <li><b>Síndrome de Noonan</b> — fenótipo "turneriano" em <b>ambos os sexos</b>, cariótipo normal, estenose pulmonar, mutações da via RAS-MAPK.</li>
+              <li><b>Síndrome de Prader-Willi</b> — hipotonia e dificuldade alimentar neonatal, seguidas de hiperfagia e obesidade; deficiência de GH associada.</li>
+              <li><b>Síndrome de Silver-Russell</b> — restrição de crescimento intrauterino, assimetria corporal, fácies triangular, clinodactilia.</li>
+              <li><b>Displasias esqueléticas</b> (acondroplasia, hipocondroplasia) e <b>haploinsuficiência isolada do SHOX</b> — baixa estatura <b>desproporcionada</b>, com deformidade de Madelung.</li>
+              <li><b>Crianças nascidas PIG</b> sem <em>catch-up</em> até os 2–4 anos (~10% dos PIG).</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Cuidado com a inversão:</b> a síndrome de Turner decorre da <b>monossomia do X</b> e ocorre <b>somente em meninas</b> — não é causa de baixa estatura em meninos. No sexo masculino, o correspondente fenotípico é a <b>síndrome de Noonan</b>.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Doenças crônicas <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Doenças crônicas que comprometem o crescimento</caption>
+              <thead><tr><th>Doença</th><th>Mecanismo</th><th>Pistas clínicas</th></tr></thead>
+              <tbody>
+                <tr><td><b>Doença celíaca</b></td><td>Má absorção intestinal → desnutrição → resistência ao GH, IGF-1 baixo</td><td>Queixas abdominais recorrentes, distensão, diarreia ou constipação, apetite irregular, anemia ferropriva refratária. <b>A baixa estatura pode ser a única manifestação</b></td></tr>
+                <tr><td><b>Doença renal crônica</b></td><td><b>Acidose metabólica</b>, osteodistrofia renal, desnutrição, inflamação e <b>resistência ao GH</b> (GH normal/alto, IGF-1 baixo/bioinativo)</td><td>Palidez, hipertensão, poliúria, alterações do sedimento urinário. Tratamento: correção da acidose e da nutrição + <b>rhGH</b>, não hormônio tireoidiano</td></tr>
+                <tr><td><b>Doença inflamatória intestinal</b></td><td>Citocinas inflamatórias (IL-6, TNF-α) inibem a placa de crescimento; corticoterapia</td><td>Dor abdominal, diarreia crônica, sangue nas fezes, VHS/PCR elevados</td></tr>
+                <tr><td><b>Fibrose cística</b></td><td>Má absorção por insuficiência pancreática + gasto energético aumentado</td><td>Infecções respiratórias de repetição, esteatorreia</td></tr>
+                <tr><td><b>Cardiopatias congênitas</b></td><td>Hipóxia crônica e gasto energético elevado</td><td>Sopro, cianose, cansaço às mamadas</td></tr>
+                <tr><td><b>Asma grave / doenças reumatológicas</b></td><td>Inflamação crônica + <b>corticoterapia sistêmica prolongada</b></td><td>Baixa estatura com ganho ponderal</td></tr>
+                <tr><td><b>Anemias crônicas / talassemia</b></td><td>Hipóxia tecidual, hemocromatose com dano hipofisário</td><td>Palidez, hepatoesplenomegalia</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Fatores nutricionais e mecanismo fisiopatológico <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Desnutrição primária</b> (insegurança alimentar, dietas restritivas sem orientação, erros alimentares) e <b>secundária</b> (má absorção, doenças consumptivas).</li>
+              <li><b>Nanismo psicossocial / por privação afetiva</b>: negligência e estresse crônico levam a inibição funcional do eixo GH-IGF-1, com <b>reversibilidade após a mudança do ambiente</b>.</li>
+              <li>Carências específicas: <b>zinco</b>, ferro, vitamina D, iodo.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Sequência fisiopatológica clássica (privação nutricional e doenças sistêmicas graves):</b>
+              <ul>
+                <li><b>1º — comprometimento do ganho ponderal</b>: o organismo prioriza a manutenção vital em detrimento do estoque energético.</li>
+                <li><b>2º — desaceleração progressiva do crescimento linear</b>: o crescimento estatural é função "de luxo", sacrificada quando o aporte é insuficiente.</li>
+                <li><b>Mecanismo endócrino</b>: estado de <b>resistência funcional (periférica) ao GH</b> — o GH está <b>normal ou elevado</b>, mas há <b>redução da geração hepática de IGF-1</b>, com queda de IGF-1 e IGFBP-3 e perda do efeito sobre a placa epifisária.</li>
+                <li><b>Consequência prática</b>: não existe elevação "compensatória" de IGF-1 na desnutrição ou nas enteropatias — o IGF-1 <b>cai</b>, e a velocidade de crescimento cai com ele.</li>
+              </ul>
+            </div>
+            <div class="note">
+              <b class="tag">Comparação útil:</b> nas <b>causas nutricionais e crônicas</b>, a criança é <b>magra e baixa</b> (peso comprometido antes da estatura). Nas <b>causas endócrinas</b>, é <b>baixa e com sobrepeso</b> (estatura comprometida com peso preservado). Essa dissociação orienta a investigação desde a primeira consulta.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref3">SBEM/SBP — Baixa estatura</a> · <a href="#ref6">SBP — Doença celíaca</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> Marcos do Desenvolvimento e Reflexos</div>
+      <div class="body">
+
+        <details open>
+          <summary>Princípios do desenvolvimento neuropsicomotor <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Sentido craniocaudal</b>: o controle motor progride da cabeça para os pés — sustento cefálico → tronco (sentar) → membros inferiores (andar).</li>
+              <li><b>Sentido proximodistal</b>: do eixo central para as extremidades — controle de ombro e cotovelo antes de punho e dedos (preensão palmar antes da pinça fina).</li>
+              <li>Do <b>global para o específico</b>: movimentos amplos e reflexos são substituídos por movimentos voluntários e refinados.</li>
+              <li><b>Sequência previsível, ritmo individual</b>: a ordem de aquisição é constante; o tempo varia dentro de faixas de normalidade.</li>
+              <li>A <b>integração (desaparecimento) dos reflexos primitivos</b> é pré-requisito maturacional para o surgimento do controle voluntário e dos reflexos posturais.</li>
+              <li>Depende da interação entre <b>maturação do SNC</b> (mielinização, sinaptogênese, poda sináptica) e <b>estímulos ambientais</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Marcos motores, de linguagem e sociais <span class="pill">Tabela</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Marcos do desenvolvimento por faixa etária</caption>
+              <thead><tr><th>Idade</th><th>Motor grosseiro</th><th>Motor fino</th><th>Linguagem</th><th>Social/adaptativo</th></tr></thead>
+              <tbody>
+                <tr><td>1–2 meses</td><td>Eleva a cabeça em prono</td><td>Mãos fechadas</td><td>Vocaliza sons guturais</td><td>Fixa a face, segue objeto</td></tr>
+                <tr><td><b>3 meses</b></td><td><b>Sustento cefálico</b></td><td>Abre as mãos, leva à linha média</td><td>Arrulha</td><td><b>Sorriso social</b> (6–8 semanas)</td></tr>
+                <tr><td>4–5 meses</td><td>Rola, apoia-se nos antebraços</td><td>Preensão voluntária, alcança objetos</td><td>Balbucia, ri alto</td><td>Reconhece cuidadores</td></tr>
+                <tr><td><b>6–8 meses</b></td><td><b>Senta sem apoio</b></td><td>Transfere objeto entre as mãos</td><td>Lalação (sílabas: "dadada")</td><td><b>Estranha</b> pessoas não familiares</td></tr>
+                <tr><td>9–10 meses</td><td>Engatinha, fica em pé com apoio</td><td><b>Pinça polegar-indicador</b></td><td>Duplica sílabas ("mama", "papa")</td><td>Brinca de esconder, <b>aponta</b></td></tr>
+                <tr><td><b>12 meses</b></td><td>Anda com apoio / primeiros passos</td><td>Solta objeto voluntariamente</td><td><b>1ª palavra com significado</b></td><td><b>Aponta protodeclarativo</b>; responde ao nome; atenção compartilhada</td></tr>
+                <tr><td>15 meses</td><td><b>Anda sozinho</b> (limite: 18 meses)</td><td>Torre de 2 cubos; rabisca</td><td>3–5 palavras</td><td>Imita tarefas domésticas</td></tr>
+                <tr><td><b>18 meses</b></td><td>Corre desajeitado, sobe escada com apoio</td><td>Torre de 3–4 cubos</td><td><b>10–20 palavras</b>; aponta partes do corpo</td><td><b>Jogo simbólico</b> (faz-de-conta) inicial</td></tr>
+                <tr><td><b>24 meses</b></td><td>Corre bem, chuta bola, sobe e desce escada</td><td>Torre de 6 cubos; vira páginas</td><td><b>Frases de 2 palavras</b>; ~50 palavras</td><td>Brincar paralelo; obedece ordens simples</td></tr>
+                <tr><td>3 anos</td><td>Sobe escada alternando os pés; pedala triciclo</td><td>Copia círculo; come sozinho</td><td>Frases de 3 palavras; fala compreensível por estranhos</td><td>Brincar cooperativo; jogo de faz-de-conta elaborado</td></tr>
+                <tr><td>4–5 anos</td><td>Pula em um pé só; equilíbrio</td><td>Copia quadrado/triângulo; desenha figura humana</td><td>Narra histórias; conta até 10</td><td>Regras em jogos; amizades</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Reflexos primitivos e posturais <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <p>Respostas motoras estereotipadas de mediação subcortical (tronco encefálico e medula), presentes ao nascimento. <b>Desaparecem (são integrados) com a maturação e a mielinização do córtex</b>, que passa a exercer inibição descendente.</p>
+            <table>
+              <caption>Tabela — Reflexos primitivos: aparecimento e desaparecimento</caption>
+              <thead><tr><th>Reflexo</th><th>Descrição</th><th>Desaparece por volta de</th></tr></thead>
+              <tbody>
+                <tr><td>Sucção e deglutição</td><td>Sucção rítmica ao toque nos lábios/palato</td><td>3–4 meses (torna-se voluntário)</td></tr>
+                <tr><td>Busca / procura (<i>rooting</i>)</td><td>Vira a cabeça para o lado do estímulo perioral</td><td>3–4 meses</td></tr>
+                <tr><td><b>Moro</b></td><td>Extensão-abdução seguida de flexão-adução dos braços com choro, à sensação de queda</td><td><b>4–6 meses</b></td></tr>
+                <tr><td>Preensão palmar</td><td>Flexão dos dedos ao estímulo da palma</td><td>4–6 meses (precede a preensão voluntária)</td></tr>
+                <tr><td>Preensão plantar</td><td>Flexão dos artelhos ao estímulo plantar</td><td>9–12 meses (antes da marcha)</td></tr>
+                <tr><td><b>Tônico-cervical assimétrico (RTCA, "do esgrimista")</b></td><td>Rotação da cabeça → extensão dos membros do lado facial e flexão do lado occipital</td><td><b>4–6 meses</b></td></tr>
+                <tr><td>Marcha reflexa / apoio plantar</td><td>Movimentos alternados de passos ao ser suspenso com os pés na superfície</td><td>2–3 meses</td></tr>
+                <tr><td>Galant (incurvação do tronco)</td><td>Estímulo paravertebral → incurvação do tronco para o mesmo lado</td><td>3–4 meses</td></tr>
+                <tr><td>Cutâneo-plantar em extensão (Babinski)</td><td>Extensão do hálux ao estímulo plantar</td><td>Pode persistir até 12–24 meses (fisiológico)</td></tr>
+              </tbody>
+            </table>
+            <table>
+              <caption>Tabela — Reflexos posturais (aparecem com a maturação)</caption>
+              <thead><tr><th>Reflexo</th><th>Aparece</th><th>Significado</th></tr></thead>
+              <tbody>
+                <tr><td>Landau</td><td>3–6 meses</td><td>Extensão do tronco em suspensão ventral; maturação do controle axial</td></tr>
+                <tr><td>Paraquedas (proteção lateral e anterior)</td><td>6–9 meses</td><td>Pré-requisito para sentar com segurança e para a marcha</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Sinal de alarme neurológico:</b> a <b>persistência de reflexos primitivos além do prazo esperado</b> — por exemplo, <b>Moro e RTCA além do primeiro semestre</b> — indica <b>falha de inibição cortical por lesão do sistema nervoso central</b> (encefalopatia crônica não progressiva / paralisia cerebral, erros inatos do metabolismo, leucodistrofias). <b>Nunca</b> traduz maturação acelerada, nem antecipa a marcha: ao contrário, o RTCA persistente <b>impede</b> a dissociação de cinturas e o rolar, atrasando a aquisição motora. <b>Assimetria</b> de qualquer reflexo também é sempre patológica.
+            </div>
+            <div class="note">
+              <b class="tag">E o inverso:</b> a <b>ausência precoce</b> ou o não aparecimento dos reflexos posturais (paraquedas ausente após 10 meses) também são sinais de alerta.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Sinais de alerta na vigilância do desenvolvimento <span class="pill">Caderneta</span></summary>
+          <div class="content">
+            <ul>
+              <li>Não fixa o olhar nem sorri socialmente aos <b>3 meses</b>.</li>
+              <li>Não sustenta a cabeça aos <b>4 meses</b>.</li>
+              <li>Não senta sem apoio aos <b>9 meses</b>.</li>
+              <li>Não responde ao próprio nome, não aponta e não faz atenção compartilhada aos <b>12 meses</b>.</li>
+              <li>Não anda sozinho aos <b>18 meses</b>.</li>
+              <li><b>Não emite palavras com significado aos 18 meses</b> — sinal de alerta que <b>obriga investigação</b> (audiológica, do desenvolvimento global e rastreio para TEA).</li>
+              <li>Não forma frases de duas palavras aos <b>24 meses</b>.</li>
+              <li><b>Perda de habilidades já adquiridas (regressão) em qualquer idade</b> — alerta máximo (Rett, transtornos desintegrativos, doenças metabólicas).</li>
+              <li>Persistência de reflexos primitivos, assimetrias, hipotonia ou hipertonia persistentes.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Erro conceitual a evitar:</b> marcos motores globais normais no primeiro ano <b>NÃO afastam</b> transtornos do neurodesenvolvimento. No <b>TEA</b>, o desenvolvimento motor é tipicamente <b>preservado</b> — o comprometimento é da <b>comunicação social e do repertório comportamental</b>. Por isso o rastreio comportamental e de linguagem é <b>obrigatório aos 18 e 24 meses</b>, e não pode ser adiado até os 36 meses.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Tratado de Pediatria</a> · <a href="#ref4">MS — Caderneta da Criança</a> · <a href="#ref7">MS — Manual de vigilância do desenvolvimento</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Transtorno do Espectro Autista (TEA)</div>
+      <div class="body">
+
+        <details open>
+          <summary>Definição e epidemiologia <span class="pill">Objetivo 4</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Definição</b>: transtorno do <b>neurodesenvolvimento</b>, de início precoce e curso persistente, caracterizado por <b>déficits na comunicação social e na interação social</b> associados a <b>padrões restritos e repetitivos de comportamento, interesses e atividades</b>.</li>
+              <li><b>"Espectro"</b>: expressa a enorme heterogeneidade de gravidade, de perfil cognitivo e de linguagem — do indivíduo não verbal com deficiência intelectual ao adulto com inteligência preservada e prejuízo social sutil.</li>
+              <li><b>Prevalência</b>: cerca de <b>1 em cada 31 crianças</b> de 8 anos segundo a rede ADDM/CDC (dados de 2022, publicados em 2025) — ~3,2%. As estimativas vêm subindo por ampliação dos critérios, maior conscientização e melhor acesso ao diagnóstico.</li>
+              <li><b>Sexo</b>: predomínio masculino de aproximadamente <b>3–4:1</b>. Meninas são <b>subdiagnosticadas</b> por camuflagem social (<i>masking</i>) e apresentação mais sutil.</li>
+              <li><b>Idade mediana do diagnóstico</b> ainda tardia (em torno de 4 anos), embora o diagnóstico confiável seja possível a partir dos <b>18–24 meses</b>.</li>
+              <li>Condição <b>permanente</b>, mas com <b>trajetória modificável</b>: a intervenção precoce altera significativamente o prognóstico funcional.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Etiologia e neurobiologia <span class="pill">Objetivo 4</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Etiologia multifatorial com forte determinação genética</b> — herdabilidade estimada entre <b>60% e 90%</b>; concordância muito maior em gêmeos monozigóticos do que em dizigóticos; recorrência em irmãos de 10–20%.</li>
+              <li><b>Arquitetura genética</b>: centenas de genes de risco (SHANK3, NRXN1, NLGN3/4, CHD8, MECP2, PTEN), <b>variantes de número de cópias (CNVs)</b> e <b>mutações de novo</b>. Cerca de 10–20% dos casos têm etiologia identificável (TEA "sindrômico").</li>
+              <li><b>Síndromes genéticas associadas</b>: X-frágil, esclerose tuberosa, síndrome de Rett, síndrome de Down, Angelman, del22q11.</li>
+              <li><b>Fatores ambientais e perinatais que modulam o risco</b> (não são causas isoladas): <b>idade paterna e materna avançadas</b>, <b>prematuridade e muito baixo peso ao nascer</b>, exposição intrauterina ao <b>ácido valproico</b> e à talidomida, infecções e febre na gestação, diabetes e obesidade maternas, complicações obstétricas com hipóxia, intervalo interpartal curto.</li>
+              <li><b>Neurobiologia</b>: alterações da <b>conectividade cerebral</b> (hiperconectividade local e hipoconectividade de longa distância), <b>crescimento cerebral acelerado</b> nos primeiros anos, desequilíbrio <b>excitação/inibição</b> (glutamato/GABA), falhas na <b>poda sináptica</b>, alterações de amígdala, cerebelo e córtex pré-frontal.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Hipóteses refutadas — o que NÃO causa TEA:</b>
+              <ul>
+                <li><b>Falha no vínculo parental</b> ("mãe-geladeira", Bettelheim): teoria psicogênica <b>abandonada e sem qualquer sustentação empírica</b>.</li>
+                <li><b>Vacinas</b> (tríplice viral / timerosal): o estudo de Wakefield (1998) foi <b>fraudulento e formalmente retratado</b>; dezenas de estudos de coorte com milhões de crianças não encontraram associação.</li>
+                <li><b>Uso de telas</b>: pode agravar sintomas e reduzir oportunidades de interação, mas <b>não é causa</b> do transtorno.</li>
+              </ul>
+              A expressão genômica no TEA é, ao contrário, <b>altamente relevante</b> — é o principal determinante etiológico conhecido.
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Sinais e sintomas: os dois pilares semiológicos <span class="pill">Objetivo 4</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Manifestações clínicas por domínio</caption>
+              <thead><tr><th>Domínio A — Comunicação e interação social</th><th>Domínio B — Padrões restritos e repetitivos (RRB)</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Contato visual reduzido ou fugaz</td>
+                  <td><b>Estereotipias motoras</b>: balançar o tronco, bater palmas (<i>flapping</i>), girar, andar na ponta dos pés</td>
+                </tr>
+                <tr>
+                  <td>Ausência de sorriso social responsivo</td>
+                  <td>Uso repetitivo de objetos: <b>enfileirar</b>, alinhar, girar rodas</td>
+                </tr>
+                <tr>
+                  <td><b>Não responde ao próprio nome</b> aos 12 meses</td>
+                  <td><b>Ecolalia</b> imediata ou tardia; fala idiossincrática; inversão pronominal</td>
+                </tr>
+                <tr>
+                  <td>Ausência de <b>apontar protodeclarativo</b> e de <b>atenção compartilhada</b> (12–18 meses)</td>
+                  <td><b>Insistência nas mesmas rotinas</b>; sofrimento intenso a mudanças e <b>transições de atividade</b>; rituais</td>
+                </tr>
+                <tr>
+                  <td>Ausência de <b>jogo simbólico</b> / faz-de-conta (18–24 meses)</td>
+                  <td><b>Interesses fixos, restritos e de intensidade incomum</b></td>
+                </tr>
+                <tr>
+                  <td>Déficit de <b>reciprocidade socioemocional</b>; preferência pelo isolamento nas brincadeiras coletivas</td>
+                  <td><b>Hiper ou hiporreatividade sensorial</b>: aversão a ruídos elevados e a luzes, incômodo com texturas e etiquetas, indiferença à dor/temperatura, fascínio por estímulos visuais</td>
+                </tr>
+                <tr>
+                  <td>Dificuldade em iniciar e manter relações; não compreende regras sociais implícitas</td>
+                  <td>Comportamentos autolesivos e crises (<i>meltdowns</i>) diante de sobrecarga sensorial ou de quebra de rotina</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Leitura clínica integrada:</b> a associação de <b>reatividade sensorial incomum</b> (aversão a ruídos e luzes) com <b>padrões restritos e repetitivos</b> (balançar o tronco, bater palmas nas transições) e <b>déficit de reciprocidade socioemocional</b> constitui o núcleo semiológico do TEA. Nem a hipersensibilidade sensorial nem as estereotipias, <b>isoladamente</b>, fecham o diagnóstico: o domínio da <b>comunicação social é obrigatório</b>.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Comorbidades frequentes <span class="pill">Rastrear sempre</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Deficiência intelectual</b> (~30–40%) e <b>transtorno de linguagem</b>.</li>
+              <li><b>TDAH</b> — comorbidade permitida e frequente desde o DSM-5.</li>
+              <li><b>Epilepsia</b> (até 20–30%), com dois picos: primeira infância e adolescência.</li>
+              <li><b>Transtornos de ansiedade</b>, TOC, depressão (sobretudo em adolescentes verbais).</li>
+              <li><b>Distúrbios do sono</b> (insônia de início e manutenção) e <b>seletividade alimentar</b> com risco de carências nutricionais.</li>
+              <li>Queixas gastrointestinais (constipação, refluxo), catatonia, transtorno do processamento sensorial.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref8">SBP — Manual de Orientação sobre TEA</a> · <a href="#ref9">CDC/ADDM 2025</a> · <a href="#ref10">DSM-5-TR</a> · <a href="#ref12">MS — Linha de Cuidado TEA</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b8">
+      <div class="head"><span class="num">8</span> Diagnóstico do TEA: M-CHAT e DSM-5</div>
+      <div class="body">
+
+        <details open>
+          <summary>Vigilância → Rastreio → Diagnóstico <span class="pill">Fluxo</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 660 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxo de vigilância, rastreio e diagnóstico do TEA">
+                <defs><marker id="a8" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#4338ca"/></marker></defs>
+                <rect x="8" y="30" width="150" height="66" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="83" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#3730a3">VIGILÂNCIA</text>
+                <text x="83" y="70" text-anchor="middle" font-size="10" fill="#334">Todas as consultas</text>
+                <text x="83" y="85" text-anchor="middle" font-size="10" fill="#334">Caderneta da Criança</text>
+                <path d="M160 63 L188 63" stroke="#4338ca" stroke-width="2" marker-end="url(#a8)"/>
+                <rect x="192" y="30" width="150" height="66" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="267" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#3730a3">RASTREIO</text>
+                <text x="267" y="70" text-anchor="middle" font-size="10" fill="#334">M-CHAT-R/F</text>
+                <text x="267" y="85" text-anchor="middle" font-size="10" fill="#334">18 e 24 meses</text>
+                <path d="M344 63 L372 63" stroke="#4338ca" stroke-width="2" marker-end="url(#a8)"/>
+                <rect x="376" y="30" width="150" height="66" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="451" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#3730a3">AVALIAÇÃO</text>
+                <text x="451" y="70" text-anchor="middle" font-size="10" fill="#334">Clínica especializada</text>
+                <text x="451" y="85" text-anchor="middle" font-size="10" fill="#334">ADOS-2 · ADI-R · multiprofissional</text>
+                <path d="M528 63 L556 63" stroke="#4338ca" stroke-width="2" marker-end="url(#a8)"/>
+                <rect x="560" y="30" width="92" height="66" rx="10" fill="#1e3a8a" stroke="#1e3a8a"/>
+                <text x="606" y="56" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">DIAGNÓSTICO</text>
+                <text x="606" y="76" text-anchor="middle" font-size="11" fill="#c7d5f0">DSM-5-TR</text>
+                <text x="330" y="118" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5b6472">Rastreio positivo indica NECESSIDADE de avaliação — nunca fecha diagnóstico</text>
+              </svg>
+              <div class="cap">Figura — Etapas da identificação do TEA</div>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>M-CHAT-R/F <span class="pill">Objetivo 5</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>O que é</b>: <i>Modified Checklist for Autism in Toddlers, Revised, with Follow-up</i> — instrumento de <b>RASTREAMENTO</b> (triagem) do risco de TEA, <b>não de diagnóstico</b>.</li>
+              <li><b>Faixa etária</b>: <b>16 a 30 meses</b>. Fora dessa janela os resultados não são confiáveis (para crianças maiores usam-se CARS, SCQ, ATA).</li>
+              <li><b>Formato</b>: <b>20 itens de resposta sim/não respondidos pelos pais ou cuidadores</b>, em cerca de 5 minutos. É gratuito, de domínio público, validado no Brasil, e <b>pode ser aplicado por qualquer profissional de saúde treinado na atenção primária</b> — não exige neuropsicólogo, pediatra ou neurologista.</li>
+              <li><b>Segunda etapa (Follow-up)</b>: entrevista estruturada de seguimento aplicada aos itens falhados, que reduz falsos-positivos.</li>
+              <li><b>Rastreio universal recomendado aos 18 e aos 24 meses</b> (AAP/SBP), além de sempre que houver preocupação da família ou do profissional.</li>
+            </ul>
+            <table>
+              <caption>Tabela — Interpretação do escore do M-CHAT-R/F</caption>
+              <thead><tr><th>Escore</th><th>Risco</th><th>Conduta</th></tr></thead>
+              <tbody>
+                <tr><td><b>0 – 2</b></td><td>Baixo</td><td>Nenhuma medida adicional; se &lt; 24 meses, <b>repetir aos 24 meses</b>; reavaliar se a vigilância levantar suspeita</td></tr>
+                <tr><td><b>3 – 7</b></td><td>Moderado</td><td>Aplicar a <b>Entrevista de Seguimento</b>; se o escore permanecer ≥ 2, triagem positiva → encaminhar para avaliação diagnóstica e intervenção</td></tr>
+                <tr><td><b>8 – 20</b></td><td>Alto</td><td><b>Dispensa a entrevista de seguimento</b>: encaminhar <b>imediatamente</b> para avaliação diagnóstica especializada e início de intervenção precoce</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Limites do instrumento:</b> resultado positivo <b>não confirma</b> TEA — parcela significativa das crianças que pontuam não receberá o diagnóstico (embora tenham risco elevado para outros atrasos, justificando o seguimento). Resultado negativo <b>não exclui</b>: há falsos-negativos, sobretudo em <b>meninas</b> e em quadros leves. Diante de suspeita clínica, encaminha-se mesmo com triagem negativa.
+            </div>
+            <div class="note">
+              <b class="tag">Outros instrumentos:</b> <b>ADOS-2</b> (observação padronizada, referência associada ao exame clínico) e <b>ADI-R</b> (entrevista com os pais) para avaliação diagnóstica; <b>CARS</b> para gravidade; <b>Vineland</b> para comportamento adaptativo; <b>Denver II, ASQ-3, PEDS</b> para desenvolvimento global.
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Critérios diagnósticos do DSM-5 / DSM-5-TR <span class="pill">Objetivo 5</span></summary>
+          <div class="content">
+            <p>O diagnóstico de TEA é <b>clínico</b> e se apoia em <b>dois domínios centrais</b>:</p>
+            <table>
+              <caption>Tabela — Critérios A e B do DSM-5-TR</caption>
+              <thead><tr><th>Critério A — Comunicação social<br><b>os TRÊS são exigidos</b></th><th>Critério B — Padrões restritos e repetitivos<br><b>pelo menos DOIS dos quatro</b></th></tr></thead>
+              <tbody>
+                <tr><td>A1. Déficit de <b>reciprocidade socioemocional</b></td><td>B1. Movimentos motores, uso de objetos ou fala <b>estereotipados/repetitivos</b></td></tr>
+                <tr><td>A2. Déficit em <b>comportamentos comunicativos não verbais</b> (contato visual, gestos, expressão facial)</td><td>B2. <b>Insistência nas mesmas coisas</b>, adesão inflexível a rotinas, rituais, sofrimento com mudanças</td></tr>
+                <tr><td>A3. Déficit para <b>desenvolver, manter e compreender relacionamentos</b></td><td>B3. Interesses <b>fixos e altamente restritos</b>, anormais em intensidade ou foco</td></tr>
+                <tr><td>&nbsp;</td><td>B4. <b>Hiper ou hiporreatividade a estímulos sensoriais</b> ou interesse incomum por aspectos sensoriais do ambiente</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li><b>Critério C</b>: sintomas presentes <b>no início do período do desenvolvimento</b> (podem só se manifestar quando as demandas sociais superam as capacidades — ex.: entrada na escola).</li>
+              <li><b>Critério D</b>: causam <b>prejuízo clinicamente significativo</b> no funcionamento social, acadêmico ou em outras áreas.</li>
+              <li><b>Critério E</b>: não são mais bem explicados por <b>deficiência intelectual</b> ou <b>atraso global do desenvolvimento</b> — que, no entanto, <b>podem coexistir</b>.</li>
+              <li><b>Especificadores</b>: com/sem comprometimento intelectual; com/sem comprometimento da linguagem; associado a condição médica, genética ou fator ambiental conhecido; associado a outro transtorno do neurodesenvolvimento, mental ou comportamental; com catatonia.</li>
+            </ul>
+            <table>
+              <caption>Tabela — Níveis de suporte (graduados separadamente para cada domínio)</caption>
+              <thead><tr><th>Nível</th><th>Comunicação social</th><th>Comportamentos restritos e repetitivos</th></tr></thead>
+              <tbody>
+                <tr><td><b>1 — exige apoio</b></td><td>Dificuldade de iniciar interações; respostas atípicas; interesse reduzido</td><td>Inflexibilidade interfere no funcionamento em um ou mais contextos</td></tr>
+                <tr><td><b>2 — apoio substancial</b></td><td>Déficits marcantes, aparentes mesmo com apoio; interações limitadas</td><td>Inflexibilidade evidente ao observador casual; sofrimento com mudanças</td></tr>
+                <tr><td><b>3 — apoio muito substancial</b></td><td>Déficits graves; mínima iniciação social; resposta apenas a abordagens muito diretas</td><td>Inflexibilidade extrema; grande sofrimento para mudar o foco ou a ação</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Dois erros conceituais frequentes:</b>
+              <ul>
+                <li>O DSM-5 <b>não exige base etiológica orgânica identificável</b>. Não há biomarcador nem exame confirmatório: a maioria dos casos é <b>idiopática</b> e o diagnóstico é puramente clínico-comportamental. A etiologia conhecida entra apenas como <b>especificador</b>.</li>
+                <li>O <b>M-CHAT não substitui o DSM-5</b>: é rastreio, tem valor preditivo limitado e exige confirmação por avaliação clínica longitudinal e multiprofissional.</li>
+              </ul>
+            </div>
+            <div class="note">
+              <b class="tag">Mudança do DSM-IV para o DSM-5 (2013):</b> autismo infantil, síndrome de Asperger, transtorno desintegrativo da infância e TGD-SOE foram <b>unificados</b> na categoria única "Transtorno do Espectro Autista", e a antiga <b>tríade</b> (social, linguagem, comportamento) passou a <b>díade</b> (comunicação social + RRB), com a hiper/hiporreatividade sensorial incorporada formalmente como critério (B4).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Diagnóstico diferencial e marco legal <span class="pill">Complemento</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Diferenciais</b>: deficiência intelectual e atraso global do desenvolvimento; <b>transtorno do desenvolvimento da linguagem</b>; <b>deficiência auditiva</b> (audiometria/BERA obrigatórios); transtorno de ansiedade social e mutismo seletivo; TDAH; TOC; privação psicossocial grave; síndrome de Rett; transtorno da comunicação social (pragmática).</li>
+              <li><b>Investigação etiológica complementar</b> (não diagnóstica): cariótipo/CGH-array, X-frágil, avaliação audiológica, EEG se suspeita de crises, RM em casos sindrômicos ou com sinais focais, rastreio metabólico se houver regressão.</li>
+              <li><b>Lei nº 12.764/2012 (Berenice Piana)</b>: institui a Política Nacional de Proteção dos Direitos da Pessoa com TEA e determina que a pessoa com TEA é <b>considerada pessoa com deficiência para todos os efeitos legais</b>.</li>
+              <li><b>Lei nº 13.977/2020 (Romeo Mion)</b>: cria a <b>Ciptea</b> — Carteira de Identificação da Pessoa com TEA.</li>
+              <li><b>Lei nº 13.438/2017</b>: torna obrigatória a aplicação de protocolo de detecção de risco para o desenvolvimento psíquico nos primeiros 18 meses de vida.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref10">DSM-5-TR</a> · <a href="#ref11">M-CHAT-R/F — versão brasileira</a> · <a href="#ref8">SBP — TEA</a> · <a href="#ref13">Lei 12.764/2012</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 9 -->
+    <div class="branch b9">
+      <div class="head"><span class="num">9</span> Equipe Multidisciplinar e PTS</div>
+      <div class="body">
+
+        <details open>
+          <summary>Princípios da intervenção <span class="pill">Objetivo 6</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Precoce</b>: quanto mais cedo, maior o aproveitamento da plasticidade neural — inicia-se diante do <b>risco</b>, sem aguardar o diagnóstico fechado.</li>
+              <li><b>Individualizada e baseada em evidências</b>, ajustada ao nível de suporte e ao perfil de cada criança.</li>
+              <li><b>Centrada na família e em contextos naturais</b> (casa, escola, comunidade) — modelos mediados pelos pais têm forte evidência.</li>
+              <li><b>Objetivo terapêutico</b>: desenvolver <b>repertórios funcionais e adaptativos</b>, ampliar a autonomia, a comunicação e a participação social e escolar, e <b>reduzir barreiras</b> — não "corrigir" ou "curar" a condição, nem suprimir a identidade autista.</li>
+              <li><b>Articulação intersetorial</b>: saúde (APS, RAPS, CAPSi, CER) + educação (AEE, sala de recursos) + assistência social (CRAS, BPC) + família.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Atribuições de cada profissional <span class="pill">Escopo</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Composição da equipe e escopo de atuação</caption>
+              <thead><tr><th>Profissional</th><th>Escopo principal</th></tr></thead>
+              <tbody>
+                <tr><td><b>Pediatra / neuropediatra / psiquiatra da infância</b></td><td>Diagnóstico, investigação etiológica, rastreio e manejo de <b>comorbidades</b> (epilepsia, sono, GI). <b>Farmacoterapia sintomática</b>: risperidona e aripiprazol para irritabilidade e agressividade; metilfenidato para TDAH associado; melatonina para insônia. <b>Não há fármaco para os sintomas nucleares</b> do TEA</td></tr>
+                <tr><td><b>Fonoaudiólogo</b></td><td>Linguagem receptiva e expressiva e, sobretudo, <b>pragmática da comunicação</b>; implantação de <b>Comunicação Aumentativa e Alternativa (CAA/PECS)</b>; manejo da seletividade alimentar e da disfagia. A atuação <b>não se restringe</b> ao aspecto articulatório e vocal</td></tr>
+                <tr><td><b>Terapeuta ocupacional</b></td><td><b>Integração e processamento sensorial</b>; atividades de vida diária e autonomia; motricidade fina e o brincar; <b>adaptações ambientais</b> em casa e na escola; rotinas e apoios visuais. <b>Não prescreve medicamentos</b> e não atua isolado do contexto ambiental</td></tr>
+                <tr><td><b>Psicólogo</b></td><td>Intervenções comportamentais e desenvolvimentistas (<b>ABA</b>, modelo Denver/ESDM), treino de habilidades sociais, TCC em indivíduos verbais, <b>orientação parental</b> e suporte à família</td></tr>
+                <tr><td><b>Fisioterapeuta</b></td><td>Motricidade global, tônus, equilíbrio, coordenação e postura, quando houver comorbidade motora</td></tr>
+                <tr><td><b>Nutricionista</b></td><td>Seletividade alimentar, adequação de micronutrientes, manejo de aversões sensoriais alimentares</td></tr>
+                <tr><td><b>Pedagogo / psicopedagogo / professor de AEE</b></td><td><b>Adaptações curriculares</b>, plano educacional individualizado, sala de recursos multifuncionais, mediação escolar, apoio ao <b>profissional de apoio</b></td></tr>
+                <tr><td><b>Assistente social</b></td><td>Acesso a direitos e benefícios (BPC, Ciptea), articulação da rede intersetorial, suporte socioeconômico à família</td></tr>
+                <tr><td><b>Enfermeiro</b></td><td>Vigilância do desenvolvimento na APS, aplicação do M-CHAT-R/F, imunização, educação em saúde e acolhimento familiar</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Equívocos a evitar:</b>
+              <ul>
+                <li>A <b>CAA não inibe a fala</b>. A evidência é consistente no sentido oposto: o uso de recursos de comunicação alternativa <b>favorece</b> o surgimento e a ampliação da linguagem oral, além de reduzir comportamentos-problema decorrentes da frustração comunicativa.</li>
+                <li>O <b>terapeuta ocupacional não prescreve fármacos</b> — prescrição medicamentosa é ato médico.</li>
+                <li>O suporte psicológico e pedagógico <b>não se restringe ao consultório</b>: a mediação com a escola e as adaptações curriculares são parte central do escopo da equipe, e não atribuição exclusiva do médico.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Projeto Terapêutico Singular (PTS) <span class="pill">SUS</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Definição</b>: conjunto de propostas de condutas terapêuticas articuladas para um sujeito individual ou coletivo, construído por <b>equipe interdisciplinar</b> em discussão conjunta e <b>com a participação da família</b> — instrumento da Política Nacional de Humanização.</li>
+              <li><b>Quatro momentos</b>:
+                <ul>
+                  <li><b>1. Diagnóstico ampliado</b> — avaliação orgânica, psicológica, social e do contexto de vida; identificação de necessidades, potencialidades e vulnerabilidades.</li>
+                  <li><b>2. Definição de metas</b> — objetivos funcionais, pactuados com a família, de curto, médio e longo prazo.</li>
+                  <li><b>3. Divisão de responsabilidades</b> — designação de um <b>profissional de referência</b> que coordena o caso e articula a rede.</li>
+                  <li><b>4. Reavaliação periódica</b> — revisão das metas e ajuste das intervenções conforme a evolução.</li>
+                </ul>
+              </li>
+              <li><b>Resultado esperado</b>: intervenções <b>articuladas e coerentes entre si</b> — integração sensorial, aprimoramento da comunicação e suporte ao comportamento adaptativo convergindo para mitigar barreiras de participação social e escolar, em vez de terapias fragmentadas e concorrentes.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Base legal da inclusão escolar:</b> <b>Lei Brasileira de Inclusão (Lei nº 13.146/2015)</b> assegura adaptação de recursos, profissional de apoio escolar e atendimento educacional especializado; a <b>Lei nº 12.764/2012</b> garante o direito ao acompanhante especializado em sala de aula.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref12">MS — Linha de Cuidado para pessoas com TEA</a> · <a href="#ref14">MS — Clínica Ampliada e PTS</a> · <a href="#ref15">Lei Brasileira de Inclusão</a> · <a href="#ref8">SBP — TEA</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Tratado de Pediatria</i>. 6. ed. Barueri: Manole, 2024. Seções de Crescimento e Desenvolvimento, Endocrinologia e Neurologia Pediátricas.</li>
+
+      <li id="ref2">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Endocrinologia. <i>Avaliação do crescimento: da teoria à prática</i>. Documento científico. São Paulo: SBP. Disponível em: <a href="https://www.sbp.com.br/especiais/pediatria-para-familias/" target="_blank" rel="noopener">sbp.com.br</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref3">SOCIEDADE BRASILEIRA DE ENDOCRINOLOGIA E METABOLOGIA (SBEM); SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Baixa estatura na infância e adolescência: diagnóstico e tratamento</i>. Diretrizes e documentos científicos. Disponível em: <a href="https://www.endocrino.org.br/" target="_blank" rel="noopener">endocrino.org.br</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref4">BRASIL. Ministério da Saúde. <i>Caderneta da Criança — Passaporte da Cidadania</i>. Brasília: Ministério da Saúde, 2024. Disponível em: <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-da-crianca/caderneta-da-crianca" target="_blank" rel="noopener">gov.br/saude — caderneta-da-crianca</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref5">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Endocrinologia. <i>Deficiência de hormônio de crescimento: diagnóstico e tratamento</i>. Manual de Orientação. São Paulo: SBP. Disponível em: <a href="https://www.sbp.com.br/documentos-cientificos/" target="_blank" rel="noopener">sbp.com.br/documentos-cientificos</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref6">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Gastroenterologia. <i>Doença celíaca na infância e adolescência</i>. Documento científico. São Paulo: SBP. Disponível em: <a href="https://www.sbp.com.br/documentos-cientificos/" target="_blank" rel="noopener">sbp.com.br/documentos-cientificos</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref7">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Manual de vigilância do desenvolvimento infantil no contexto da AIDPI</i>. Brasília: Ministério da Saúde/OPAS. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/manual_vigilancia_desenvolvimento_infantil_aidpi.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br — manual_vigilancia_desenvolvimento_infantil_aidpi.pdf</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref8">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). <i>Transtorno do Espectro do Autismo</i>. Manual de Orientação do Departamento Científico de Pediatria do Desenvolvimento e Comportamento. São Paulo: SBP. Disponível em: <a href="https://www.sbp.com.br/documentos-cientificos/" target="_blank" rel="noopener">sbp.com.br/documentos-cientificos</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref9">SHAW, K. A. et al. Prevalence and Early Identification of Autism Spectrum Disorder Among Children Aged 4 and 8 Years — Autism and Developmental Disabilities Monitoring Network, 16 Sites, United States, 2022. <i>MMWR Surveillance Summaries</i>, v. 74, n. SS-2, p. 1–22, 2025. Disponível em: <a href="https://www.cdc.gov/autism/data-research/index.html" target="_blank" rel="noopener">cdc.gov/autism/data-research</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref10">AMERICAN PSYCHIATRIC ASSOCIATION (APA). <i>Manual Diagnóstico e Estatístico de Transtornos Mentais — DSM-5-TR</i>. 5. ed., texto revisado. Porto Alegre: Artmed, 2023. Seção Transtornos do Neurodesenvolvimento — Transtorno do Espectro Autista.</li>
+
+      <li id="ref11">ROBINS, D. L.; FEIN, D.; BARTON, M. <i>Lista de Verificação Modificada para Autismo em Crianças Pequenas — versão revisada e consulta de seguimento (M-CHAT-R/F)</i>. Versão em português do Brasil. Disponível em: <a href="https://mchatscreen.com/wp-content/uploads/2020/09/M-CHAT-R_F_Brazilian_Portuguese_v2.pdf" target="_blank" rel="noopener">mchatscreen.com — M-CHAT-R_F_Brazilian_Portuguese_v2.pdf</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref12">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. <i>Linha de cuidado para a atenção às pessoas com Transtornos do Espectro do Autismo e suas famílias na Rede de Atenção Psicossocial do SUS</i>. Brasília: Ministério da Saúde. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/linha_cuidado_atencao_pessoas_transtorno.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br — linha_cuidado_atencao_pessoas_transtorno.pdf</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref13">BRASIL. <i>Lei nº 12.764, de 27 de dezembro de 2012</i>. Institui a Política Nacional de Proteção dos Direitos da Pessoa com Transtorno do Espectro Autista. Diário Oficial da União, Brasília, DF, 28 dez. 2012. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12764.htm" target="_blank" rel="noopener">planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12764.htm</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref14">BRASIL. Ministério da Saúde. Secretaria de Atenção à Saúde. Política Nacional de Humanização. <i>Clínica ampliada e compartilhada e Projeto Terapêutico Singular</i>. Brasília: Ministério da Saúde. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/clinica_ampliada_compartilhada.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br — clinica_ampliada_compartilhada.pdf</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref15">BRASIL. <i>Lei nº 13.146, de 6 de julho de 2015</i>. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Diário Oficial da União, Brasília, DF, 7 jul. 2015. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm" target="_blank" rel="noopener">planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+
+      <li id="ref16">ORGANIZAÇÃO MUNDIAL DA SAÚDE (OMS). <i>WHO Child Growth Standards</i> (0–5 anos, 2006) e <i>Growth reference data for 5–19 years</i> (2007). Genebra: OMS. Disponível em: <a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="noopener">who.int/tools/child-growth-standards</a>. <span class="accessed">Acesso em: 20 ago. 2026.</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir de fontes oficiais (SBP, SBEM, Ministério da Saúde, OMS, CDC, DSM-5-TR e legislação brasileira), no mesmo padrão editorial dos mapas dos Problemas 1 a 3. As referências de acesso restrito (Tratado de Pediatria, DSM-5-TR) devem ser consultadas nas edições impressas indicadas.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (20 ago. 2026): o conteúdo foi conferido contra as 6 questões do Problema 4 — Q1 (ramos 1, 2 e 4), Q2 (ramos 3 e 5), Q3 (ramo 6), Q4 (ramo 7), Q5 (ramo 8) e Q6 (ramo 9).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Crescimento, Desenvolvimento e Autismo na Infância<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
