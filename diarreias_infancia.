@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Diarreias na Infância</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:520px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Diarreias na Infância</h1>
+    <p>Objetivos do Problema 5 · Módulo 01 · 2026.2</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Diarreias na Infância</h2>
+    <div class="sub">Causas e Fisiopatologia · Sinais e Sintomas · Tipos de Desidratação · Planos de Tratamento (MS) · Etiologia Infecciosa · Antibioticoterapia e Terapias Adjuvantes · Prevenção</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Causas e Fisiopatologia das Diarreias</div>
+      <div class="body">
+
+        <details open>
+          <summary>Diarreia aguda × persistente × crônica <span class="pill">Conceito</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Diarreia aguda</b>: aumento do número de evacuações e/ou diminuição da consistência das fezes, com <b>duração &lt; 14 dias</b>. É a apresentação mais frequente na infância, sobretudo por etiologia infecciosa.</li>
+              <li><b>Diarreia persistente</b>: episódio que se inicia como agudo (geralmente infeccioso) mas <b>se prolonga além de 14 dias</b>, sem resolução espontânea — reflete dano à mucosa intestinal, alteração da microbiota e/ou intolerância secundária a dissacarídeos.</li>
+              <li><b>Diarreia crônica</b>: duração <b>&gt; 30 dias (4 semanas)</b>, em geral de etiologia não infecciosa primária (má absorção, doença celíaca, alergia alimentar, doença inflamatória intestinal, fibrose cística, imunodeficiências).</li>
+              <li>A classificação temporal orienta a investigação: quanto mais prolongado o quadro, maior o peso de causas <b>não infecciosas</b> e a necessidade de investigação etiológica dirigida.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Os quatro mecanismos fisiopatológicos <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Classificação fisiopatológica das diarreias</caption>
+              <thead><tr><th>Mecanismo</th><th>Fisiopatologia</th><th>Características-chave</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><b>Secretora</b></td>
+                  <td>Toxinas ou mediadores ativam a <b>adenilato ciclase → AMPc</b> (ou guanilato ciclase → GMPc), abrindo o canal <b>CFTR</b> e promovendo secreção ativa e contínua de Cl⁻, Na⁺ e água pelo enterócito</td>
+                  <td><b>Persiste durante o jejum</b>; volumosa e aquosa; sem sangue/muco; risco de desidratação, hipocalemia e acidose metabólica por perda fecal de bicarbonato</td>
+                  <td><b>Vibrio cholerae</b>, <i>E. coli</i> enterotoxigênica (ETEC), tumores neuroendócrinos (VIPoma)</td>
+                </tr>
+                <tr>
+                  <td><b>Osmótica</b></td>
+                  <td>Soluto <b>não absorvido</b> na luz intestinal (açúcar, laxante) retém água por gradiente osmótico</td>
+                  <td><b>Melhora ou cessa com o jejum</b>; piora após ingestão de leite/carboidratos; pH fecal ácido, hiato osmótico fecal aumentado</td>
+                  <td><b>Intolerância à lactose secundária pós-gastroenterite</b>, ingestão de laxantes osmóticos (lactulose, sorbitol), má absorção de carboidratos</td>
+                </tr>
+                <tr>
+                  <td><b>Inflamatória (invasiva/exsudativa)</b></td>
+                  <td>Invasão e destruição direta da mucosa (cólon/íleo distal) com resposta inflamatória, exsudação de muco, sangue e proteínas</td>
+                  <td>Volume menor, mais frequente; <b>sangue e/ou muco</b>; febre, dor abdominal, tenesmo; leucócitos fecais presentes</td>
+                  <td><b>Shigella</b>, <i>Salmonella</i>, <i>Campylobacter jejuni</i>, <i>E. coli</i> êntero-invasiva/êntero-hemorrágica, <i>Entamoeba histolytica</i>, doença inflamatória intestinal</td>
+                </tr>
+                <tr>
+                  <td><b>Disabsortiva (por má absorção) / motora</b></td>
+                  <td>Redução da superfície ou da capacidade absortiva da mucosa (atrofia vilositária) <b>ou</b> alteração do trânsito intestinal (hiper ou hipomotilidade)</td>
+                  <td>Curso mais arrastado/crônico; esteatorreia, déficit de crescimento, carências nutricionais associadas</td>
+                  <td><b>Doença celíaca</b>, giardíase crônica, síndrome do intestino curto, hipertireoidismo (motora), síndrome do intestino irritável</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Discriminador clássico de prova:</b> a <b>persistência da diarreia durante o jejum</b> é o achado que separa a diarreia <b>secretora</b> (persiste — a secreção é autônoma, independente da alimentação) da <b>osmótica</b> (melhora — depende da presença do soluto não absorvido na luz intestinal).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Etiologia geral por mecanismo predominante <span class="pill">Síntese</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Viral</b> (mecanismo misto — lesão de vilosidades + efeito osmótico/secretor): <b>rotavírus</b> (principal causa de diarreia grave em menores de 5 anos, incidência vem caindo após a vacinação), norovírus (principal causa em surtos e em todas as idades), adenovírus entérico, astrovírus.</li>
+              <li><b>Bacteriana não invasiva (secretora)</b>: <i>Vibrio cholerae</i>, ETEC, <i>Staphylococcus aureus</i> (toxina pré-formada), <i>Clostridium perfringens</i>.</li>
+              <li><b>Bacteriana invasiva (inflamatória)</b>: <i>Shigella</i>, <i>Salmonella</i> não tifoide, <i>Campylobacter jejuni</i>, <i>Yersinia enterocolitica</i>, <i>E. coli</i> êntero-invasiva (EIEC) e êntero-hemorrágica (EHEC/O157:H7 — risco de síndrome hemolítico-urêmica).</li>
+              <li><b>Parasitária</b>: <i>Giardia lamblia</i> (má absorção, diarreia crônica/recorrente), <i>Entamoeba histolytica</i> (disenteria invasiva), <i>Cryptosporidium</i> (grave em imunossuprimidos), <b><i>Strongyloides stercoralis</i></b> (ver ramo 5 — hiperinfecção em imunossuprimidos).</li>
+              <li><b>Não infecciosa</b>: erros alimentares, intolerância/alergia alimentar, uso de antibióticos (disbiose, <i>C. difficile</i>), doença celíaca, doenças inflamatórias intestinais, imunodeficiências.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Diarreia Aguda Infecciosa</a> · <a href="#ref2">MS — Manejo do Paciente com Diarreia</a> · <a href="#ref6">Sanarmed — Diarreia secretora</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Sinais e Sintomas das Doenças Diarreicas</div>
+      <div class="body">
+
+        <details open>
+          <summary>Quadro clínico geral <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Evacuações líquidas ou pastosas</b>, aumentadas em número e/ou volume, com ou sem muco/sangue.</li>
+              <li><b>Vômitos</b>: frequentes na fase inicial da gastroenterite viral; sua persistência pode dificultar a reidratação oral.</li>
+              <li><b>Febre</b>: mais associada a etiologia invasiva (bacteriana) do que a diarreias osmóticas puras.</li>
+              <li><b>Dor abdominal e cólicas</b>: mais intensas nas diarreias inflamatórias; tenesmo sugere acometimento retossigmoidiano (shigelose, amebíase).</li>
+              <li><b>Sinais de alerta que exigem avaliação imediata</b>: piora progressiva, recusa de líquidos, muitas evacuações líquidas, vômitos repetidos, sede intensa, febre alta, sangue nas fezes.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Diferenciação clínica: diarreia aquosa × disenteria <span class="pill">Semiologia</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Diarreia aquosa versus disenteria (diarreia com sangue)</caption>
+              <thead><tr><th></th><th>Diarreia aquosa</th><th>Disenteria</th></tr></thead>
+              <tbody>
+                <tr><td>Mecanismo predominante</td><td>Secretor ou osmótico</td><td>Inflamatório/invasivo</td></tr>
+                <tr><td>Aspecto das fezes</td><td>Líquidas, volumosas, sem sangue</td><td>Pouco volumosas, com muco e sangue</td></tr>
+                <tr><td>Febre</td><td>Variável, geralmente baixa/ausente</td><td>Frequente, pode ser elevada</td></tr>
+                <tr><td>Dor abdominal</td><td>Cólica leve a moderada</td><td>Intensa, tenesmo</td></tr>
+                <tr><td>Principal risco</td><td>Desidratação</td><td>Bacteremia, complicações locais (megacólon, perfuração), SHU (EHEC)</td></tr>
+                <tr><td>Agentes típicos</td><td>Rotavírus, norovírus, ETEC, cólera</td><td>Shigella, Salmonella, Campylobacter, EIEC/EHEC, Entamoeba</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details>
+          <summary>Sintomas de má absorção e cronicidade <span class="pill">Diarreia crônica</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Esteatorreia</b>: fezes volumosas, fétidas, brilhantes, que flutuam — sugerem má absorção de gordura (doença celíaca, insuficiência pancreática, fibrose cística).</li>
+              <li><b>Déficit de crescimento / desaceleração da velocidade de crescimento</b>: sinal de alerta para causa crônica com repercussão nutricional.</li>
+              <li><b>Distensão abdominal, flatulência excessiva</b>: comuns na má absorção de carboidratos e na giardíase.</li>
+              <li><b>Anemia, edema, unhas quebradiças</b>: sinais de carências nutricionais secundárias à má absorção crônica.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Diarreia Aguda Infecciosa</a> · <a href="#ref3">Roteiros Pediatria — Diarreia Aguda</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Avaliação e Classificação da Desidratação</div>
+      <div class="body">
+
+        <details open>
+          <summary>Atualização MS/SBP/SBI 2023 <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <p>Em 2023, o <b>Ministério da Saúde</b> (Departamento de Doenças Transmissíveis) publicou o documento <i>"Manejo do Paciente com Diarreia"</i>, que <b>unificou</b> as recomendações antes divergentes do MS, da SBP e da Sociedade Brasileira de Infectologia. A classificação continua em <b>três categorias — sem desidratação, com desidratação e com desidratação grave</b> — cada uma associada a um Plano de Tratamento (A, B ou C).</p>
+            <ul>
+              <li>Passou a incluir o critério de <b>perda de peso</b> na avaliação, quando disponível (paciente internado com peso de referência recente).</li>
+              <li>Simplificou a avaliação do <b>pulso</b> para apenas dois domínios: <b>cheio</b> (normal) ou <b>fraco/ausente</b> — eliminando a categoria intermediária "rápido e fraco".</li>
+              <li>Passou a considerar também o aspecto da <b>boca e da língua</b> na avaliação de mucosas.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Quadro de classificação clínica <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Avaliação do estado de hidratação (MS, 2023) — exige 2 ou mais sinais, pelo menos 1 de maior gravidade para "grave"</caption>
+              <thead><tr><th>Sinal</th><th><b>A — Sem desidratação</b></th><th><b>B — Com desidratação</b></th><th><b>C — Desidratação grave</b></th></tr></thead>
+              <tbody>
+                <tr><td>Estado geral</td><td>Alerta, bom estado geral</td><td>Irritado, inquieto</td><td><b>Letárgico, hipotônico ou inconsciente</b></td></tr>
+                <tr><td>Olhos</td><td>Normais</td><td>Fundos ("encovados")</td><td>Muito fundos e secos</td></tr>
+                <tr><td>Sede</td><td>Bebe normalmente, sem sede</td><td>Sedento, bebe avidamente</td><td>Bebe pouco ou é <b>incapaz de beber</b></td></tr>
+                <tr><td>Sinal da prega cutânea</td><td>Desaparece rapidamente</td><td>Desaparece lentamente</td><td>Desaparece <b>muito lentamente (&gt; 2 s)</b></td></tr>
+                <tr><td>Boca/língua</td><td>Úmidas</td><td>Secas</td><td>Muito secas</td></tr>
+                <tr><td>Pulso</td><td>Cheio</td><td>Cheio</td><td><b>Fraco ou ausente</b></td></tr>
+                <tr><td>Perda de peso (quando aferível)</td><td>Sem perda ou mínima</td><td>Até cerca de 10%</td><td>Perda importante (≥ 10%)</td></tr>
+                <tr><td><b>Conduta</b></td><td><b>Plano A</b></td><td><b>Plano B</b></td><td><b>Plano C</b></td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Regra de decisão:</b> classifica-se pelo <b>pior sinal presente</b>. Em caso de dúvida entre "com desidratação" e "desidratação grave", <b>opta-se sempre pelo cenário mais grave</b> (Plano C), para não atrasar a expansão volêmica.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Casos-exemplo (aplicação prática) <span class="pill">Treino</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Criança irritada, sede intensa, bebendo avidamente, turgor cutâneo diminuído, consciente e aceitando líquidos por via oral</b> → dois sinais de gravidade intermediária, sem sinais de choque → <b>classificação: com desidratação → Plano B</b>.</li>
+              <li><b>Criança consciente, aceita líquidos VO, sem sinais de choque ou má perfusão</b>, após classificação de desidratação sem gravidade → <b>conduta inicial: instituir o Plano A</b> (se sem desidratação) ou <b>Plano B</b> (se com desidratação não grave) — a via oral é sempre a preferencial quando a criança tolera.</li>
+              <li><b>Criança letárgica, incapaz de beber, pulso fraco, prega cutânea muito lenta</b> → <b>desidratação grave → Plano C</b> (reidratação endovenosa/intraóssea imediata).</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">MS — Manejo do Paciente com Diarreia (2023)</a> · <a href="#ref6">Sanarmed — Desidratação infantil</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Planos de Tratamento (Ministério da Saúde)</div>
+      <div class="body">
+
+        <details open>
+          <summary>Plano A — sem desidratação (domicílio) <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Manter a alimentação habitual</b> — inclusive em crianças, sem restringir dieta.</li>
+              <li>Se em <b>aleitamento materno exclusivo</b>: o único líquido adicional a oferecer é a <b>solução de SRO</b> (soro de reidratação oral).</li>
+              <li><b>Aumentar a oferta de líquidos</b> em casa (SRO após cada evacuação líquida): menores de 1 ano ≈ 50–100 mL; maiores de 1 ano ≈ 100–200 mL, oferecidos aos poucos.</li>
+              <li><b>Zinco</b>: administrado uma vez ao dia por <b>10 a 14 dias</b> em crianças <b>até 5 anos</b> com doença diarreica aguda — reduz duração e gravidade do episódio atual e a incidência de novos episódios nos meses seguintes.</li>
+              <li><b>Orientar sinais de alerta</b> e retorno imediato se: não melhorar em 2 dias, muitas evacuações líquidas, vômitos repetidos, sede intensa, recusa alimentar, febre, sangue nas fezes.</li>
+              <li>Ensinar a família a <b>reconhecer sinais de desidratação</b> e a preparar/administrar corretamente a SRO.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Plano B — com desidratação (na unidade de saúde) <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li>Criança <b>permanece na unidade de saúde</b> até a reidratação completa e o desaparecimento dos sinais de desidratação.</li>
+              <li><b>SRO de osmolaridade reduzida</b> (75 mEq/L de sódio): volume de <b>50 a 100 mL/kg</b>, administrado <b>fracionado a cada 10–15 minutos</b>, ao longo de <b>4 a 6 horas</b>.</li>
+              <li>A quantidade é orientativa: <b>sede e tolerância clínica ajustam o volume real</b> ofertado.</li>
+              <li><b>Alimentação</b>: suspensa até a reidratação completa, <b>exceto o aleitamento materno</b>, que deve ser mantido se bem tolerado.</li>
+              <li><b>Vômitos persistentes</b>: manter a tentativa de SRO por via oral em pequenos volumes; a atualização de 2023 passou a admitir <b>ondansetrona</b> como antiemético adjuvante (exceto em gestantes) para permitir a continuidade da reidratação oral.</li>
+              <li>Reavaliar periodicamente; se <b>não houver melhora em 6 horas</b>, encaminhar para hospital de referência.</li>
+              <li>Falha da via oral (vômitos incoercíveis, distensão abdominal importante) → reidratação por <b>sonda nasogástrica (gastróclise)</b> antes de escalar para via endovenosa.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Plano C — desidratação grave (reidratação endovenosa) <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <p>Indicado para <b>desidratação grave</b>, com risco de choque hipovolêmico — inicia-se de imediato, com o paciente já encaminhado ou mantido na unidade caso haja capacidade de infusão IV.</p>
+            <table>
+              <caption>Tabela — Plano C: fase rápida (expansão) por faixa etária</caption>
+              <thead><tr><th>Faixa etária</th><th>Fase rápida (expansão)</th></tr></thead>
+              <tbody>
+                <tr><td><b>Menores de 1 ano</b></td><td>Solução isotônica (SF 0,9% ou Ringer lactato) <b>30 mL/kg na 1ª hora</b>, seguidos de nova expansão de manutenção nas <b>5 horas</b> seguintes</td></tr>
+                <tr><td><b>Maiores de 1 ano</b></td><td><b>30 mL/kg em 30 minutos</b>, seguidos de <b>70 mL/kg nas 2h30 seguintes</b> (fase de manutenção mais rápida que em lactentes)</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li>Reavaliar a cada 15–30 minutos; se o pulso permanecer muito fraco, <b>repetir a expansão</b>.</li>
+              <li>Assim que a criança conseguir beber (geralmente antes de completar a via IV), <b>iniciar SRO por via oral concomitante</b> — cerca de 5 mL/kg/hora, enquanto o gotejamento IV continua.</li>
+              <li>Reavaliar o estado de hidratação ao final da fase rápida e <b>escolher o próximo plano</b> (A, B ou C) conforme a evolução.</li>
+              <li>Sinais de que a reidratação IV está funcionando: melhora do nível de consciência, do pulso, do enchimento capilar e do débito urinário.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Atualização importante:</b> a classificação por faixa etária no Plano C mudou de "menor/maior de 5 anos" (critério antigo) para <b>"menor/maior de 1 ano"</b> na atualização de 2023 — atenção redobrada em provas que ainda trazem o critério antigo como opção de resposta incorreta.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Antieméticos, antibióticos e critérios de internação <span class="pill">Complemento</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Antitérmicos</b>: usar com cautela — a febre tende a ceder com a reidratação; evitar uso excessivo.</li>
+              <li><b>Antieméticos</b>: <b>ondansetrona</b> em vômitos persistentes que impedem a reidratação oral (contraindicada em gestantes).</li>
+              <li><b>Antibioticoterapia</b>: reservada para situações específicas (ver ramo 6) — <b>NÃO é rotina</b> na diarreia aguda aquosa não complicada.</li>
+              <li><b>Critérios de internação hospitalar</b>: choque hipovolêmico, desidratação grave (perda de peso ≥ 10%), manifestações neurológicas (letargia, convulsões), vômitos biliosos ou incoercíveis, falha da terapia de reidratação oral, suspeita de abdome cirúrgico, ou impossibilidade de tratamento domiciliar adequado.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">MS — Manejo do Paciente com Diarreia (2023)</a> · <a href="#ref4">AIDPI Criança — MS</a> · <a href="#ref7">Medcof — Atualizações 2023</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Etiologia Infecciosa: Vírus, Bactérias e Parasitas</div>
+      <div class="body">
+
+        <details>
+          <summary>Vírus <span class="pill">Mais frequentes</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Rotavírus</b>: principal causa de <b>diarreia grave desidratante</b> em menores de 5 anos no mundo; mecanismo misto (destrói enterócitos maduros da vilosidade + toxina NSP4 com efeito secretor). Incidência vem <b>caindo com a vacinação</b> (vacina oral, no calendário do PNI).</li>
+              <li><b>Norovírus</b>: principal causa de <b>surtos</b> de gastroenterite em todas as faixas etárias; altamente contagioso, transmissão fecal-oral e por fômites.</li>
+              <li><b>Adenovírus entérico (40/41)</b> e <b>astrovírus</b>: quadros geralmente mais brandos e prolongados que o rotavírus.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Bactérias <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Principais agentes bacterianos por mecanismo</caption>
+              <thead><tr><th>Agente</th><th>Mecanismo</th><th>Particularidade clínica</th></tr></thead>
+              <tbody>
+                <tr><td><i>Vibrio cholerae</i></td><td>Secretor (toxina colérica, AMPc/CFTR)</td><td>Diarreia "água de arroz", volumosa; risco de choque hipovolêmico rápido</td></tr>
+                <tr><td><i>E. coli</i> ETEC</td><td>Secretor (toxinas termolábil/termoestável)</td><td>Principal causa de "diarreia do viajante"</td></tr>
+                <tr><td><i>E. coli</i> EHEC (O157:H7)</td><td>Inflamatório/citotóxico (toxina Shiga-like)</td><td>Colite hemorrágica → risco de <b>síndrome hemolítico-urêmica</b> (evitar antibiótico — pode aumentar liberação de toxina)</td></tr>
+                <tr><td><i>Shigella</i></td><td>Invasivo (cólon)</td><td>Disenteria, febre alta, pode cursar com convulsão; baixo inóculo infectante</td></tr>
+                <tr><td><i>Salmonella</i> não tifoide</td><td>Invasivo (íleo/cólon)</td><td>Associada a ovos/aves crus; pode bacteremizar em lactentes pequenos e imunossuprimidos</td></tr>
+                <tr><td><i>Campylobacter jejuni</i></td><td>Invasivo</td><td>Zoonótico (aves, leite não pasteurizado); associado à síndrome de Guillain-Barré pós-infecciosa</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Parasitas e a síndrome de hiperinfecção por Strongyloides <span class="pill">Objetivo 1 · Alta relevância</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Giardia lamblia</b>: adere ao epitélio duodenal, causa má absorção — diarreia crônica/recorrente, distensão, flatulência, esteatorreia leve.</li>
+              <li><b>Entamoeba histolytica</b>: invasão da mucosa colônica — disenteria amebiana, risco de abscesso hepático amebiano.</li>
+              <li><b>Cryptosporidium</b>: diarreia aquosa, frequentemente grave e prolongada em imunossuprimidos (HIV/AIDS).</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ciclo de autoinfecção do Strongyloides stercoralis">
+                <defs><marker id="a5" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#15803d"/></marker></defs>
+                <rect x="10" y="20" width="180" height="56" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="100" y="42" text-anchor="middle" font-size="11.5" font-weight="700" fill="#166534">Larva filarioide</text>
+                <text x="100" y="60" text-anchor="middle" font-size="10.5" fill="#334">Penetra a pele → pulmão → deglutida → intestino</text>
+                <path d="M190 48 L228 48" stroke="#15803d" stroke-width="2" marker-end="url(#a5)"/>
+                <rect x="230" y="20" width="180" height="56" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="320" y="42" text-anchor="middle" font-size="11.5" font-weight="700" fill="#166534">Fêmea partenogenética</text>
+                <text x="320" y="60" text-anchor="middle" font-size="10.5" fill="#334">Mucosa do duodeno/jejuno — põe ovos</text>
+                <path d="M410 48 L448 48" stroke="#15803d" stroke-width="2" marker-end="url(#a5)"/>
+                <rect x="450" y="20" width="200" height="56" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="550" y="42" text-anchor="middle" font-size="11.5" font-weight="700" fill="#166534">Larva rabditoide</text>
+                <text x="550" y="60" text-anchor="middle" font-size="10.5" fill="#334">Eliminada nas fezes (ciclo externo)</text>
+
+                <path d="M550 76 L550 100 L320 100 L320 76" stroke="#0891b2" stroke-width="2" fill="none" marker-end="url(#a5)"/>
+                <rect x="220" y="102" width="220" height="46" rx="9" fill="#e0f7fa" stroke="#0891b2"/>
+                <text x="330" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#0e7490">AUTOINFECÇÃO</text>
+                <text x="330" y="138" text-anchor="middle" font-size="10" fill="#334">Larva rabditoide → filarioide ainda na luz intestinal ou na região perianal</text>
+
+                <rect x="150" y="158" width="360" height="34" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="330" y="180" text-anchor="middle" font-size="10.5" fill="#7c2d12"><b>Imunossupressão (corticoide) → hiperinfecção/disseminação</b></text>
+                <path d="M330 148 L330 158" stroke="#ea580c" stroke-width="2" marker-end="url(#a5)"/>
+              </svg>
+              <div class="cap">Figura — Ciclo de autoinfecção do <i>Strongyloides stercoralis</i> e gatilho da hiperinfecção</div>
+            </div>
+            <ul>
+              <li><b><i>Strongyloides stercoralis</i></b> é o único helminto capaz de manter um <b>ciclo de autoinfecção</b> completo dentro do hospedeiro humano, permitindo que a infecção persista por <b>décadas</b> mesmo sem reexposição ambiental.</li>
+              <li><b>Autoinfecção interna</b>: larvas rabditoides se transformam em filarioides ainda na luz intestinal, penetrando a própria mucosa; <b>autoinfecção externa</b>: transformação na região perianal, com penetração na pele local.</li>
+              <li>Em <b>hospedeiro imunocompetente</b>, esse ciclo é contido em baixo nível (estrongiloidíase crônica, muitas vezes assintomática, com eosinofilia como única pista).</li>
+              <li>Em <b>imunossupressão — principalmente por corticosteroides</b> — ocorre desequilíbrio a favor do parasita: aumento da apoptose de linfócitos Th2 (reduz eosinófilos e resposta de mastócitos) e efeito dos glicocorticoides símile à ecdisona (hormônio que acelera a transformação de larvas rabditoides em filarioides infectantes).</li>
+              <li>Resultado: <b>síndrome de hiperinfecção</b> — autoinfecção maciça e acelerada, com grande carga larvária circulando pelo <b>ciclo pulmão-intestino</b> (dor abdominal, diarreia, tosse, dispneia, infiltrado pulmonar). Pode evoluir para <b>estrongiloidíase disseminada</b>, com larvas atingindo órgãos fora do ciclo normal (SNC, fígado, coração, rins) e <b>sepse por bactérias entéricas</b> carreadas pelas larvas — mortalidade elevada.</li>
+              <li>Outros fatores de risco para hiperinfecção: HTLV-1, etilismo crônico, desnutrição, diabetes, neoplasias hematológicas, transplante.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Ponto de prova:</b> diante de uma criança <b>imunossuprimida por corticoterapia prolongada</b> com dor abdominal, diarreia, tosse e dispneia de rápida evolução, o agente a considerar prioritariamente é o <b><i>Strongyloides stercoralis</i></b> — nenhum outro helminto do diagnóstico diferencial habitual (<i>Ascaris</i>, <i>Trichuris</i>, <i>Enterobius</i>) mantém ciclo de autoinfecção capaz de gerar hiperinfecção.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">SBP — Diarreia Aguda Infecciosa</a> · <a href="#ref5">RBAC — Hiperinfecção por Strongyloides</a> · <a href="#ref8">MSD Manuals — Estrongiloidíase</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> Antibioticoterapia e Terapias Adjuvantes</div>
+      <div class="body">
+
+        <details open>
+          <summary>Quando indicar antibiótico <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li>A <b>maioria das diarreias agudas infecciosas na infância é autolimitada e viral</b> — antibiótico NÃO é rotina e pode prolongar o estado de portador ou selecionar resistência.</li>
+              <li><b>Indicações de antibioticoterapia empírica</b>: disenteria (fezes com sangue/muco) com comprometimento do estado geral, febre alta persistente, suspeita de cólera em área endêmica/surto, lactente jovem (&lt; 3 meses) com sinais de sepse, paciente imunossuprimido, ou isolamento de patógeno específico com indicação terapêutica (Shigella, Campylobacter em fase inicial, Giardia, Entamoeba, cólera).</li>
+              <li><b>Atualização de 2023</b>: as <b>quinolonas foram removidas</b> como terapia empírica de primeira linha em crianças menores de <b>10 anos ou &lt; 30 kg</b> (risco de artropatia); passou-se a recomendar preferencialmente <b>azitromicina</b> ou, em casos graves/hospitalares, <b>ceftriaxona</b>, conforme a faixa etária e o agente suspeito.</li>
+              <li><b>EHEC (O157:H7) com suspeita de síndrome hemolítico-urêmica</b>: <b>evitar antibiótico</b> — a lise bacteriana pode aumentar a liberação da toxina Shiga-like e piorar o quadro.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Terapias adjuvantes <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Zinco</b>: 1x/dia por 10–14 dias, em <b>menores de 5 anos</b> com diarreia aguda — reduz gravidade/duração do episódio e incidência de novos episódios.</li>
+              <li><b>Probióticos selecionados</b> (ex.: <i>Lactobacillus rhamnosus</i> GG, <i>Saccharomyces boulardii</i>): podem reduzir discretamente a duração da diarreia aguda em crianças, com evidência mais consistente que a de outras cepas.</li>
+              <li><b>Vitamina A</b>: suplementação em populações com risco de deficiência, associada à redução de morbimortalidade por diarreia.</li>
+              <li><b>Antidiarreicos e antiperistálticos (loperamida)</b>: <b>contraindicados em crianças pequenas</b> — risco de retenção de toxinas/bactérias, íleo paralítico e piora do quadro infeccioso.</li>
+              <li><b>Manutenção da alimentação</b> (inclusive leite materno) durante todo o tratamento — jejum prolongado não acelera a resolução e piora o estado nutricional.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">MS — Manejo do Paciente com Diarreia (2023)</a> · <a href="#ref7">Medcof — Atualizações 2023</a> · <a href="#ref1">SBP — Diarreia Aguda Infecciosa</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Prevenção</div>
+      <div class="body">
+
+        <details open>
+          <summary>Medidas de prevenção primária <span class="pill">Saúde pública</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Aleitamento materno exclusivo até os 6 meses</b>: fator protetor mais importante contra diarreia infecciosa na primeira infância (proteção imunológica direta e redução de exposição a água/fórmulas contaminadas).</li>
+              <li><b>Vacinação contra rotavírus</b> (calendário do PNI, doses aos 2 e 4 meses): reduziu significativamente a incidência de diarreia grave desidratante e as internações por essa causa.</li>
+              <li><b>Saneamento básico e acesso à água tratada</b>: medida estrutural com maior impacto populacional na redução da carga de doenças diarreicas, especialmente as de transmissão fecal-oral (cólera, parasitoses).</li>
+              <li><b>Higiene das mãos</b> (antes de preparar alimentos, após trocar fraldas, antes das refeições) — reduz transmissão de vírus (rotavírus, norovírus), bactérias e parasitas.</li>
+              <li><b>Manejo seguro dos alimentos</b>: cocção adequada de carnes e ovos, pasteurização do leite, lavagem de vegetais — previne Salmonella, Campylobacter, EHEC.</li>
+              <li><b>Imunização contra sarampo</b> e outras doenças que predispõem a diarreia secundária em crianças desnutridas.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Prevenção da hiperinfecção por Strongyloides <span class="pill">Complemento</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Rastreio de estrongiloidíase antes de iniciar corticoterapia prolongada ou outra imunossupressão</b> em pacientes de área endêmica — tratamento prévio com <b>ivermectina</b> evita a hiperinfecção.</li>
+              <li>Uso de calçados e saneamento adequado do solo reduzem a exposição a larvas filarioides.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">MS — Manejo do Paciente com Diarreia (2023)</a> · <a href="#ref1">SBP — Diarreia Aguda Infecciosa</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">SOCIEDADE BRASILEIRA DE PEDIATRIA (SBP). Departamento Científico de Gastroenterologia (Gestão 2022-2024). <i>Diarreia Aguda Infecciosa</i>. Guia Prático de Atualização. São Paulo: SBP, 2023. Disponível em: <a href="https://www.sbp.com.br/fileadmin/user_upload/sbp/2023/junho/14/24048aPRESS-GPA-Diarreia_Aguda_Infecciosa-pSITE.pdf" target="_blank" rel="noopener">sbp.com.br — 24048aPRESS-GPA-Diarreia_Aguda_Infecciosa-pSITE.pdf</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref2">BRASIL. Ministério da Saúde. Secretaria de Vigilância em Saúde e Ambiente. Departamento de Doenças Transmissíveis. <i>Manejo do paciente com diarreia: avaliação do estado de hidratação do paciente</i>. Brasília: Ministério da Saúde, 2023. Disponível em: <a href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/doencas-diarreicas-agudas/manejo-do-paciente-com-diarreia-avaliacao-do-estado-do-paciente" target="_blank" rel="noopener">gov.br/saude — manejo-do-paciente-com-diarreia</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref3">ROTEIROS DE PEDIATRIA. <i>Diarreia aguda</i>. Disponível em: <a href="https://www.roteirosdepediatria.com/diarreia-aguda" target="_blank" rel="noopener">roteirosdepediatria.com/diarreia-aguda</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref4">BRASIL. Ministério da Saúde. <i>Aidpi Criança: 2 meses a 5 anos</i>. Manual de quadros de procedimentos. Brasília: Ministério da Saúde/OPAS. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/manual_quadros_procedimentos_aidpi_crianca_2meses_5anos.pdf" target="_blank" rel="noopener">bvsms.saude.gov.br — manual_quadros_procedimentos_aidpi_crianca_2meses_5anos.pdf</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref5">SOCIEDADE BRASILEIRA DE ANÁLISES CLÍNICAS (SBAC). <i>Síndrome de hiperinfecção e/ou disseminação por Strongyloides stercoralis em pacientes imunodeprimidos</i>. Revista Brasileira de Análises Clínicas, v. 49, n. 4, 2017. Disponível em: <a href="https://www.rbac.org.br/artigos/sindrome-de-hiperinfeccao-eou-disseminacao-por-strongyloides-stercoralis-em-pacientes-imunodeprimidos/" target="_blank" rel="noopener">rbac.org.br — síndrome de hiperinfecção</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref6">SANARMED. <i>Desidratação infantil: classificação e plano de hidratação</i>. Disponível em: <a href="https://sanarmed.com/desidratacao-infantil-classificacao-e-plano-de-hidratacao/" target="_blank" rel="noopener">sanarmed.com — desidratação infantil</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref7">GRUPO MEDCOF. <i>Manejo de diarreia na pediatria: atualizações de 2023</i>. Disponível em: <a href="https://www.grupomedcof.com.br/blog/manejo-de-diarreia-na-pediatria-atualizacoes-de-2023/" target="_blank" rel="noopener">grupomedcof.com.br — atualizações de 2023</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+
+      <li id="ref8">MSD MANUALS — EDIÇÃO PARA PROFISSIONAIS. <i>Estrongiloidíase</i>. Disponível em: <a href="https://www.msdmanuals.com/pt/profissional/doen%C3%A7as-infecciosas/nematoides-vermes-cil%C3%ADndricos/estrongiloid%C3%ADase" target="_blank" rel="noopener">msdmanuals.com — estrongiloidíase</a>. <span class="accessed">Acesso em: 28 ago. 2026.</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir de fontes oficiais (SBP, Ministério da Saúde/AIDPI, literatura médica revisada), no mesmo padrão editorial dos mapas dos Problemas 1 a 4.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (28 ago. 2026) contra o Esboço da Prova — 3ª etapa, Módulo 01, 2026.2: questão de fisiopatologia dos tipos de diarreia (ramo 1), questão de classificação do estado de hidratação (ramo 3), questão dos Planos de Tratamento A/B/C (ramo 4), questão sobre síndrome de hiperinfecção por helminto em imunossuprimido (ramo 5) e questão dissertativa sobre diarreia secretora/cólera com fisiopatologia do AMPc-CFTR (ramos 1 e 5).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Diarreias na Infância<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
