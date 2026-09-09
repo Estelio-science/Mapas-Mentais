@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Neurotransmissão</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:520px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+
+  .body{padding:12px 14px 16px;}
+
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Neurotransmissão</h1>
+    <p>Objetivos do Problema 1 · Módulo 02 · 2026.2</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Neurotransmissão</h2>
+    <div class="sub">Células Neuronais e Não Neuronais · Sinapses · Classificação dos Neurotransmissores · Mecanismos que Interferem na Neurotransmissão · Efeitos Tóxicos do Ecstasy (MDMA)</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Células Neuronais e Não Neuronais</div>
+      <div class="body">
+
+        <details open>
+          <summary>O neurônio: estrutura funcional <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Corpo celular (soma)</b>: contém o núcleo e a maquinaria de síntese proteica (retículo endoplasmático rugoso — corpúsculos de Nissl); é onde peptídeos neurotransmissores e seus precursores enzimáticos são produzidos.</li>
+              <li><b>Dendritos</b>: prolongamentos curtos e ramificados que recebem a maior parte dos estímulos sinápticos, aumentando a superfície de recepção.</li>
+              <li><b>Axônio</b>: prolongamento único, especializado na condução do impulso nervoso (potencial de ação) até o terminal pré-sináptico, onde ocorre a liberação do neurotransmissor.</li>
+              <li><b>Terminal pré-sináptico (botão sináptico)</b>: concentra as vesículas sinápticas contendo neurotransmissores de moléculas pequenas, prontas para exocitose.</li>
+              <li><b>Classificação estrutural</b>: neurônios multipolares (a maioria, com vários dendritos e um axônio), bipolares (retina, epitélio olfatório) e pseudounipolares (gânglios sensitivos da raiz dorsal).</li>
+              <li><b>Classificação funcional</b>: sensitivos (aferentes), motores (eferentes) e interneurônios (associação, a grande maioria no SNC).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Células não neuronais: a glia <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <p>As células gliais são <b>mais numerosas que os neurônios</b> (proporção estimada de até 10:1 no SNC) e, embora não gerem nem propaguem potenciais de ação, são essenciais para a homeostase, o suporte estrutural e a própria neurotransmissão.</p>
+            <table>
+              <caption>Tabela — Tipos de células gliais e suas funções</caption>
+              <thead><tr><th>Célula</th><th>Localização</th><th>Função principal</th></tr></thead>
+              <tbody>
+                <tr><td><b>Astrócitos</b></td><td>SNC (substância cinzenta — protoplasmáticos; substância branca — fibrosos)</td><td>Sustentação, formam a <b>barreira hematoencefálica</b> (pés vasculares), regulam o meio iônico extracelular, <b>captam e reciclam neurotransmissores</b> da fenda sináptica (ex.: recaptação de glutamato)</td></tr>
+                <tr><td><b>Oligodendrócitos</b></td><td>SNC</td><td>Produzem a <b>bainha de mielina</b>; um único oligodendrócito mieliniza segmentos de vários axônios diferentes</td></tr>
+                <tr><td><b>Células de Schwann</b></td><td>SNP</td><td>Produzem a bainha de mielina no SNP; cada célula mieliniza <b>um único segmento de um único axônio</b>; promovem regeneração axonal após lesão (o SNC, ao contrário, tem capacidade de reparo limitada)</td></tr>
+                <tr><td><b>Micróglia</b></td><td>SNC</td><td>Macrófagos residentes do SNC — fagocitose de debris e patógenos, resposta imune e inflamatória, "vigilância" contínua do parênquima</td></tr>
+                <tr><td><b>Células ependimárias</b></td><td>Revestimento dos ventrículos e canal central da medula</td><td>Produção e circulação do líquido cefalorraquidiano (ciliadas em algumas regiões)</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Ponto-chave para o problema:</b> a glia participa <b>ativamente da neurotransmissão</b> — os astrócitos captam neurotransmissores da fenda sináptica (limitando sua ação e reciclando seus precursores) e modulam a formação e a eficiência das sinapses. É essa comunicação entre células neuronais e não neuronais que o problema descreve como alterada pelo MDMA.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Kandel — Princípios de Neurociências</a> · <a href="#ref2">UNIFAL — Histologia do Tecido Nervoso</a> · <a href="#ref3">Sanarmed — Tecido Nervoso</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Sinapses e Mecanismo de Neurotransmissão</div>
+      <div class="body">
+
+        <details open>
+          <summary>Sinapse elétrica × sinapse química <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Comparação entre os dois tipos de sinapse</caption>
+              <thead><tr><th></th><th>Sinapse elétrica</th><th>Sinapse química</th></tr></thead>
+              <tbody>
+                <tr><td>Estrutura</td><td><b>Junções comunicantes (gap junctions)</b> — conexons alinham os citoplasmas das duas células</td><td>Fenda sináptica (~20–40 nm) entre membrana pré e pós-sináptica</td></tr>
+                <tr><td>Transmissão</td><td>Direta, por corrente iônica — <b>sem mediador químico</b></td><td>Mediada por <b>neurotransmissor</b> liberado por exocitose</td></tr>
+                <tr><td>Velocidade</td><td>Praticamente instantânea</td><td>Retardo sináptico (~0,5–1 ms)</td></tr>
+                <tr><td>Direção</td><td>Frequentemente bidirecional</td><td>Unidirecional (pré → pós)</td></tr>
+                <tr><td>Função típica</td><td>Sincronização rápida de grupos neuronais</td><td>Comunicação mais lenta, mas <b>amplificável e modulável</b> (plasticidade)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Etapas da neurotransmissão química <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 660 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Etapas da neurotransmissão química">
+                <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#2563eb"/></marker></defs>
+                <rect x="8" y="16" width="120" height="50" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="68" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">Síntese</text>
+                <text x="68" y="53" text-anchor="middle" font-size="9.5" fill="#334">no terminal ou no soma</text>
+                <path d="M128 41 L152 41" stroke="#2563eb" stroke-width="2" marker-end="url(#a2)"/>
+                <rect x="154" y="16" width="120" height="50" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="214" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">Armazenamento</text>
+                <text x="214" y="53" text-anchor="middle" font-size="9.5" fill="#334">em vesículas sinápticas</text>
+                <path d="M274 41 L298 41" stroke="#2563eb" stroke-width="2" marker-end="url(#a2)"/>
+                <rect x="300" y="16" width="120" height="50" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="360" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">Liberação</text>
+                <text x="360" y="53" text-anchor="middle" font-size="9.5" fill="#334">exocitose dependente de Ca²⁺</text>
+                <path d="M420 41 L444 41" stroke="#2563eb" stroke-width="2" marker-end="url(#a2)"/>
+                <rect x="446" y="16" width="120" height="50" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="506" y="38" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1d4ed8">Ligação</text>
+                <text x="506" y="53" text-anchor="middle" font-size="9.5" fill="#334">a receptores pós-sinápticos</text>
+
+                <path d="M566 41 L590 41 L590 90 L360 90 L360 78" stroke="#0f766e" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+                <rect x="230" y="92" width="260" height="46" rx="8" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="360" y="112" text-anchor="middle" font-size="10.5" font-weight="700" fill="#115e59">Efeito pós-sináptico</text>
+                <text x="360" y="128" text-anchor="middle" font-size="9.5" fill="#334">excitatório (despolarização) ou inibitório (hiperpolarização)</text>
+
+                <rect x="60" y="150" width="540" height="34" rx="8" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="330" y="171" text-anchor="middle" font-size="10.5" fill="#7c2d12"><b>Inativação:</b> recaptação (transportadores SERT/DAT/NET) · degradação enzimática (MAO, COMT, AChE) · difusão</text>
+                <path d="M330 138 L330 150" stroke="#ea580c" stroke-width="2" marker-end="url(#a2)"/>
+              </svg>
+              <div class="cap">Figura — Sequência da neurotransmissão química, da síntese à inativação</div>
+            </div>
+            <ul>
+              <li><b>Síntese</b>: neurotransmissores de moléculas pequenas são sintetizados no <b>terminal axônico</b> por enzimas transportadas do corpo celular; peptídeos são sintetizados no <b>corpo celular</b> e transportados até o terminal já empacotados.</li>
+              <li><b>Liberação</b>: a chegada do potencial de ação abre <b>canais de Ca²⁺ voltagem-dependentes</b>; o influxo de Ca²⁺ desencadeia a fusão das vesículas com a membrana pré-sináptica (exocitose).</li>
+              <li><b>Receptores pós-sinápticos</b>: <b>ionotrópicos</b> (canais iônicos que abrem diretamente na ligação do neurotransmissor — resposta rápida) ou <b>metabotrópicos</b> (acoplados a proteína G, ativam segundos mensageiros — resposta mais lenta e duradoura, ex.: AMPc).</li>
+              <li><b>Inativação/término do sinal</b>: <b>recaptação</b> pelo terminal pré-sináptico via transportadores específicos (SERT para serotonina, DAT para dopamina, NET para noradrenalina), <b>degradação enzimática</b> (MAO e COMT para monoaminas; acetilcolinesterase para acetilcolina) ou simples difusão para fora da fenda.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Por que isso importa para o problema:</b> é exatamente sobre estas duas etapas — <b>liberação aumentada</b> e <b>recaptação inibida</b> — que o MDMA atua, gerando o acúmulo anormal de neurotransmissores na fenda sináptica descrito no ramo 4.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Kandel — Princípios de Neurociências</a> · <a href="#ref4">UNESP — Sinapse</a> · <a href="#ref5">MSD Manuals — Neurotransmissão</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Classificação dos Neurotransmissores</div>
+      <div class="body">
+
+        <details open>
+          <summary>As grandes classes químicas <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Classificação dos neurotransmissores por classe química</caption>
+              <thead><tr><th>Classe</th><th>Exemplos</th><th>Síntese/armazenamento</th></tr></thead>
+              <tbody>
+                <tr><td><b>Aminoácidos</b></td><td>Glutamato (principal excitatório), GABA (principal inibitório), glicina, aspartato</td><td>Molécula pequena; sintetizada e armazenada em vesículas no terminal; liberação rápida e pontual</td></tr>
+                <tr><td><b>Aminas biogênicas — catecolaminas</b></td><td>Dopamina, noradrenalina, adrenalina</td><td>Idem — molécula pequena, vesículas no terminal</td></tr>
+                <tr><td><b>Aminas biogênicas — indolaminas</b></td><td>Serotonina (5-HT), melatonina, histamina</td><td>Idem</td></tr>
+                <tr><td><b>Acetilcolina</b></td><td>Categoria própria, distinta das monoaminas</td><td>Molécula pequena, vesículas no terminal</td></tr>
+                <tr><td><b>Peptídeos (neuropeptídeos)</b></td><td>Endorfinas, encefalinas, substância P, ocitocina, vasopressina, neuropeptídeo Y</td><td>Molécula grande; síntese no <b>corpo celular</b>, empacotamento em grânulos, transporte axonal; liberação mais lenta e difusa — atuam como <b>neuromoduladores</b></td></tr>
+                <tr><td><b>Purinas</b></td><td>ATP, adenosina</td><td>Co-liberadas com outros neurotransmissores em muitas sinapses</td></tr>
+                <tr><td><b>Gases</b></td><td>Óxido nítrico (NO), monóxido de carbono (CO)</td><td>Não armazenados em vesículas — sintetizados sob demanda e difundem-se livremente pela membrana (mensageiros retrógrados)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Excitatório × inibitório: a base da modulação <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li>Um mesmo neurotransmissor pode ser excitatório ou inibitório dependendo do <b>receptor</b> ao qual se liga, não apenas de sua identidade química.</li>
+              <li><b>Glutamato</b>: principal neurotransmissor excitatório do SNC (receptores NMDA, AMPA, cainato).</li>
+              <li><b>GABA</b>: principal neurotransmissor inibitório do encéfalo (receptores GABA-A ionotrópico, GABA-B metabotrópico).</li>
+              <li><b>Dopamina, noradrenalina, serotonina e acetilcolina</b>: atuam predominantemente por <b>receptores metabotrópicos</b>, funcionando mais como <b>neuromoduladores</b> — ajustam a excitabilidade e o "tônus" de circuitos inteiros (humor, atenção, motivação, sono-vigília) em vez de transmitir um sinal pontual de liga/desliga.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref6">Wikipédia — Neurotransmissor (revisão de classificação)</a> · <a href="#ref7">MeuCérebro — Tipos e Funções</a> · <a href="#ref5">MSD Manuals — Neurotransmissão</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Mecanismos que Interferem na Neurotransmissão</div>
+      <div class="body">
+
+        <details open>
+          <summary>Pontos de interferência farmacológica <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <p>Substâncias psicoativas — incluindo drogas de abuso e fármacos — podem interferir em <b>qualquer etapa</b> da neurotransmissão química:</p>
+            <ul>
+              <li><b>Síntese</b>: inibição ou estímulo das enzimas que produzem o neurotransmissor.</li>
+              <li><b>Armazenamento vesicular</b>: substâncias podem esvaziar as vesículas ou impedir seu preenchimento.</li>
+              <li><b>Liberação</b>: aumento (agonismo indireto pré-sináptico) ou bloqueio da exocitose.</li>
+              <li><b>Ligação ao receptor</b>: agonistas (mimetizam o neurotransmissor), antagonistas (bloqueiam o receptor sem ativá-lo).</li>
+              <li><b>Recaptação</b>: inibição dos transportadores (SERT, DAT, NET) — prolonga a permanência do neurotransmissor na fenda.</li>
+              <li><b>Degradação enzimática</b>: inibição da MAO, da COMT ou da acetilcolinesterase — reduz o catabolismo e aumenta a disponibilidade sináptica.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>O caso do MDMA (ecstasy): mecanismo integrado <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <p>O MDMA (3,4-metilenodioximetanfetamina) é um derivado anfetamínico com propriedades <b>estimulantes</b> e <b>levemente alucinógenas</b>. Atua simultaneamente em <b>três etapas</b> da neurotransmissão monoaminérgica, por meio dos transportadores de membrana <b>SERT, DAT e NET</b>:</p>
+            <table>
+              <caption>Tabela — Ações do MDMA nos três sistemas monoaminérgicos</caption>
+              <thead><tr><th>Neurotransmissor</th><th>Mecanismo do MDMA</th><th>Efeito clínico associado</th></tr></thead>
+              <tbody>
+                <tr><td><b>Serotonina (5-HT)</b></td><td>É o sistema <b>mais afetado</b>: MDMA age como substrato do SERT, invertendo seu sentido e promovendo <b>liberação maciça</b>; também <b>inibe a recaptação</b> e <b>bloqueia a MAO-A</b> (enzima que degrada a 5-HT)</td><td>Euforia, aumento de empatia e sociabilidade, alterações sensoriais e da libido, hipertermia (ação central); em excesso, risco de síndrome serotoninérgica</td></tr>
+                <tr><td><b>Dopamina</b></td><td>Liberação (mecanismo menos intenso que o serotoninérgico) e bloqueio da recaptação via DAT</td><td><b>Quadro delirante/psicótico</b>, euforia, hiperatividade motora</td></tr>
+                <tr><td><b>Noradrenalina</b></td><td>Liberação intensa (semelhante à da serotonina) e inibição da recaptação via NET, com efeito periférico proeminente</td><td>Taquicardia, hipertensão, midríase, sudorese — <b>termorregulação</b> e efeitos simpatomiméticos sistêmicos</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li><b>Efeito neuro-hormonal adicional</b>: aumento de cortisol, prolactina, ACTH, ocitocina e hormônio antidiurético (ADH) — este último contribui para a hiponatremia em usuários que ingerem grande volume de água.</li>
+              <li><b>Depleção pós-uso</b>: a liberação maciça inicial de serotonina é seguida por um <b>período de depleção</b> dos estoques, antes do retorno aos níveis basais — substrato bioquímico do mal-estar e da disforia relatados nos dias seguintes ("ressaca do ecstasy").</li>
+              <li><b>Neurotoxicidade</b>: uso repetido está associado à redução de transportadores e terminais serotoninérgicos, com repercussão em memória, atenção e humor a longo prazo.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Correlação com o caso clínico:</b> o <b>quadro delirante</b> de Pedro é atribuído à estimulação <b>dopaminérgica</b>; a <b>arritmia</b> é o efeito danoso no sistema cardiovascular, mediado principalmente pela <b>liberação noradrenérgica</b>; o aumento de sensibilidade a estímulos e da libido reflete a ação <b>serotoninérgica</b> central. Os três sistemas monoaminérgicos são afetados simultaneamente, mas por mecanismos e com consequências clínicas distintas.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref8">Rev. Psiq. Clín — Êxtase (MDMA)</a> · <a href="#ref9">Sanarmed — Ecstasy: fisiologia, efeitos e riscos</a> · <a href="#ref10">Estudo Geral UC — MDMA e metabólitos</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Efeitos Tóxicos do Ecstasy: SNC e Demais Sistemas</div>
+      <div class="body">
+
+        <details open>
+          <summary>Sistema Nervoso Central — efeito prioritário <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Efeitos agudos desejados/subjetivos</b>: euforia, aumento da empatia e sociabilidade, alteração da percepção sensorial, aumento da libido — decorrentes da liberação serotoninérgica e dopaminérgica.</li>
+              <li><b>Quadro delirante e psicose</b>: resultante da <b>estimulação dopaminérgica</b> excessiva; mais frequente com uso repetido ou em indivíduos vulneráveis, mesmo sem história prévia (como no caso de Pedro).</li>
+              <li><b>Ansiedade, ataques de pânico e depressão</b>: podem ocorrer durante a intoxicação aguda ou no período de abstinência/depleção.</li>
+              <li><b>Síndrome serotoninérgica</b>: quadro potencialmente fatal por excesso de atividade serotoninérgica — disfunção autonômica (hipertermia, taquicardia, sudorese), atividade neuromuscular anormal (tremor, hiper-reflexia, clonus, rigidez) e alteração do estado mental (agitação, confusão). Risco maior em associação com outros serotoninérgicos (ISRS, IMAO, lítio) — <b>critérios de Hunter</b> para o diagnóstico clínico.</li>
+              <li><b>Neurotoxicidade a longo prazo</b>: déficits de memória verbal, atenção sustentada e velocidade de processamento, associados à redução de terminais e transportadores serotoninérgicos em uso crônico/repetido.</li>
+              <li><b>Isolamento social, abandono de atividades e negligência de autocuidado</b> (higiene precária): consequências comportamentais relatadas no caso de Pedro, coerentes com o impacto psiquiátrico do uso continuado.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Sistema cardiovascular <span class="pill">Objetivo 3 · Secundário</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Taquicardia e hipertensão</b>, podendo chegar a <b>emergência hipertensiva</b> — efeito simpatomimético mediado principalmente pela liberação de noradrenalina.</li>
+              <li><b>Arritmias cardíacas</b> (a arritmia constatada em Pedro), incluindo prolongamento do intervalo QT — podem ocorrer mesmo em indivíduos sem cardiopatia prévia.</li>
+              <li>Complicações mais graves: infarto agudo do miocárdio, dissecção aórtica, hemorragia intracraniana, miocardite — mecanismos de morte súbita associados a overdose.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Outros sistemas afetados <span class="pill">Secundário</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Toxicidade sistêmica do MDMA fora do SNC</caption>
+              <thead><tr><th>Sistema</th><th>Manifestações</th></tr></thead>
+              <tbody>
+                <tr><td><b>Termorregulação</b></td><td><b>Hipertermia/síndrome da hiperpirexia</b> — mediada por dopamina, serotonina e noradrenalina em conjunto; agravada por ambientes quentes e atividade física intensa (raves); pode evoluir para coagulação intravascular disseminada e falência de múltiplos órgãos</td></tr>
+                <tr><td><b>Renal/muscular</b></td><td><b>Rabdomiólise</b> secundária à hipertermia e à hiperatividade motora, com risco de <b>insuficiência renal aguda</b></td></tr>
+                <tr><td><b>Endócrino/hidroeletrolítico</b></td><td><b>Hiponatremia</b> — por ingestão excessiva de água associada à secreção inapropriada de ADH (SIADH), podendo ser fatal</td></tr>
+                <tr><td><b>Hepático</b></td><td><b>Hepatotoxicidade</b>, podendo progredir para insuficiência hepática — os metabólitos hepáticos do MDMA são mais tóxicos que a molécula original</td></tr>
+                <tr><td><b>Neuromuscular periférico</b></td><td>Bruxismo, trismo (cerramento da mandíbula), inquietação motora, midríase, diaforese</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Hierarquia pedida pelo objetivo:</b> o problema pede foco <b>prioritário no SNC</b> (mecanismo central da neurotransmissão alterada, delírio, síndrome serotoninérgica) e tratamento <b>secundário dos demais sistemas</b> — cardiovascular, renal, hepático e endócrino — como consequências sistêmicas da mesma tempestade monoaminérgica.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref9">Sanarmed — Ecstasy: fisiologia, efeitos e riscos</a> · <a href="#ref11">NYSORA — Toxicidade de MDMA</a> · <a href="#ref8">Rev. Psiq. Clín — Êxtase (MDMA)</a> · <a href="#ref10">Estudo Geral UC — MDMA e metabólitos</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">KANDEL, Eric R. et al. <i>Princípios de Neurociências</i>. 6. ed. Porto Alegre: AMGH/McGraw-Hill, 2023.</li>
+
+      <li id="ref2">UNIVERSIDADE FEDERAL DE ALFENAS (UNIFAL-MG). <i>Tecido Nervoso</i>. Histologia Interativa. Disponível em: <a href="https://www.unifal-mg.edu.br/histologiainterativa/tecido-nervoso/" target="_blank" rel="noopener">unifal-mg.edu.br/histologiainterativa — tecido-nervoso</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref3">SANARMED. <i>Tecido nervoso: componentes</i>. Disponível em: <a href="https://sanarmed.com/tecido-nervoso-componentes-colunistas/" target="_blank" rel="noopener">sanarmed.com — tecido-nervoso-componentes</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref4">UNIVERSIDADE ESTADUAL PAULISTA (UNESP). Departamento de Fisiologia. <i>Sinapse</i>. Material didático. Disponível em: <a href="https://www1.ibb.unesp.br/Home/Departamentos/Fisiologia/Neuro/04.sinapse.pdf" target="_blank" rel="noopener">ibb.unesp.br — 04.sinapse.pdf</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref5">MSD MANUALS — EDIÇÃO PARA PROFISSIONAIS. <i>Neurotransmissão</i>. Disponível em: <a href="https://www.msdmanuals.com/pt/profissional/dist%C3%BArbios-neurol%C3%B3gicos/abordagem-do-paciente-neurol%C3%B3gico/neurotransmiss%C3%A3o" target="_blank" rel="noopener">msdmanuals.com — neurotransmissão</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref6">WIKIPÉDIA. <i>Neurotransmissor</i>. Disponível em: <a href="https://pt.wikipedia.org/wiki/Neurotransmissor" target="_blank" rel="noopener">pt.wikipedia.org/wiki/Neurotransmissor</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref7">MEUCÉREBRO. <i>Neurotransmissores: principais tipos e funções biológicas desempenhadas</i>. Disponível em: <a href="https://meucerebro.com/neurotransmissores-principais-tipos-e-funcoes-biologicas-desempenhadas/" target="_blank" rel="noopener">meucerebro.com — tipos-e-funcoes</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref8">XAVIER, C. A. C. et al. Êxtase (MDMA): efeitos farmacológicos e tóxicos, mecanismo de ação e abordagem clínica. <i>Revista de Psiquiatria Clínica</i>, v. 35, n. 3, p. 96-103, 2008. Disponível em: <a href="https://www.scielo.br/j/rpc/a/nH5gDrCTgCb3qkhW5Xcd89k/?format=html&lang=pt" target="_blank" rel="noopener">scielo.br/j/rpc — Êxtase (MDMA)</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref9">SANARMED. <i>"Ecstasy" (MDMA): fisiologia, efeitos e riscos</i>. Disponível em: <a href="https://sanarmed.com/ecstasy-mdma-fisiologia-efeitos-e-riscos-colunistas/" target="_blank" rel="noopener">sanarmed.com — ecstasy-mdma-fisiologia</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref10">PIMENTEL, Maria Inês Simões da Silva Travassos. <i>MDMA e seus metabolitos: efeito vascular e toxicidade</i>. Dissertação (Mestrado) — Universidade de Coimbra. Disponível em: <a href="https://estudogeral.uc.pt/bitstream/10316/37765/1/MDMA%20e%20seus%20metabolitos%20efeito%20vascular%20e%20toxicidade.pdf" target="_blank" rel="noopener">estudogeral.uc.pt — MDMA e seus metabolitos</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+
+      <li id="ref11">NYSORA. <i>Toxicidade de MDMA (ecstasy)</i>. Disponível em: <a href="https://www.nysora.com/pt/anestesia/mdma/" target="_blank" rel="noopener">nysora.com/pt/anestesia/mdma</a>. <span class="accessed">Acesso em: 09 set. 2026.</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir de literatura de neurociências e farmacologia/toxicologia revisada, no mesmo padrão editorial dos mapas do Módulo I.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (09 set. 2026) contra os Objetivos do Problema 1 — Módulo 02: células neuronais/não neuronais e mecanismos de neurotransmissão (ramos 1 e 2), classificação dos neurotransmissores e mecanismos que interferem na neurotransmissão (ramos 3 e 4), efeitos tóxicos do ecstasy no SNC (prioritário) e demais sistemas (secundário) (ramo 5, com correlação direta aos achados clínicos do caso de Pedro: quadro delirante/dopamina, arritmia/noradrenalina, hipersensibilidade e libido/serotonina).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Neurotransmissão<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
