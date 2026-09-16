@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Embriologia / Desenvolvimento do Sistema Nervoso</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:9px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+  }
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{
+    content:"+";
+    font-size:1rem;
+    color:var(--muted);
+    transition:transform .15s ease;
+  }
+  details[open] summary::after{content:"–";}
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:4px 0 2px;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Embriologia / Desenvolvimento do Sistema Nervoso</h1>
+    <p>Objetivos do Problema 2 · Módulo 02 · 2026.2</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Embriologia / Desenvolvimento do Sistema Nervoso</h2>
+    <div class="sub">Da Fecundação à Neurulação · Vesículas Encefálicas e Histogênese · Divisão Anatômica e Funcional do SNC (sulcos e giros) · Cerebelo · Disrafismo Espinhal e Metilfolato · Complicações Sensório-Motoras</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Da Fecundação à Neurulação</div>
+      <div class="body">
+
+        <details open>
+          <summary>Da fecundação ao embrião trilaminar <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Fecundação</b> (na tuba uterina) → <b>zigoto</b>, com carga genética completa; inicia divisões mitóticas sucessivas.</li>
+              <li><b>Mórula</b>: esfera sólida de células, ainda na tuba, migrando em direção ao útero.</li>
+              <li><b>Blástula → blastocisto</b>: surge uma cavidade interna (blastocele); no final da 1ª semana o blastocisto implanta-se na parede uterina, e forma-se a cavidade amniótica.</li>
+              <li><b>Disco embrionário bilaminar</b>: <b>epiblasto</b> (dará origem ao ectoderma, mesoderma e endoderma) e <b>hipoblasto</b>, separando a cavidade amniótica da blastocele.</li>
+              <li><b>Gastrulação (2ª–3ª semana)</b>: células do epiblasto migram através da linha primitiva e invaginam entre os dois folhetos, formando o <b>mesoderma</b> — o embrião passa a ter <b>três folhetos germinativos</b>: ectoderma, mesoderma e endoderma.</li>
+              <li>É o <b>ectoderma</b> que dará origem a praticamente todo o sistema nervoso.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Indução neural e formação da placa neural <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <ul>
+              <li>A <b>notocorda</b> (derivada do mesoderma axial) exerce influência indutora sobre o ectoderma sobrejacente, agora chamado <b>neuroectoderma</b>.</li>
+              <li>Sob essa indução, as células do neuroectoderma proliferam e se alongam, tornando-se colunares/prismáticas — a região espessada é a <b>placa neural</b>.</li>
+              <li>Sinalização molecular envolvida: <b>BMPs</b> (proteínas morfogenéticas ósseas) são normalmente inibidoras da formação neural; fatores liberados pelo mesoderma subjacente <b>"bloqueiam os bloqueadores"</b> (antagonistas de BMP), permitindo que a placa neural se diferencie do restante do ectoderma (que formará a epiderme).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Neurulação: sulco neural → tubo neural <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <p>A neurulação consiste no dobramento e fechamento da placa neural, formando o tubo neural — o processo ocorre durante a <b>3ª e a 4ª semana</b> de gestação.</p>
+            <div class="figure">
+              <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Etapas da neurulação">
+                <rect x="10" y="15" width="140" height="70" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="80" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8">Placa neural</text>
+                <text x="80" y="58" text-anchor="middle" font-size="10.5" fill="#1b2436">Ectoderma espessado</text>
+                <text x="80" y="73" text-anchor="middle" font-size="10.5" fill="#1b2436">e alongado</text>
+                <text x="170" y="55" text-anchor="middle" font-size="16" fill="#5b6472">→</text>
+                <rect x="190" y="15" width="140" height="70" rx="10" fill="#fff4e0" stroke="#b45309"/>
+                <text x="260" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">Sulco neural</text>
+                <text x="260" y="58" text-anchor="middle" font-size="10.5" fill="#1b2436">Dobramento em</text>
+                <text x="260" y="73" text-anchor="middle" font-size="10.5" fill="#1b2436">torno de um sulco</text>
+                <text x="350" y="55" text-anchor="middle" font-size="16" fill="#5b6472">→</text>
+                <rect x="370" y="15" width="140" height="70" rx="10" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="440" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#115e59">Tubo neural</text>
+                <text x="440" y="58" text-anchor="middle" font-size="10.5" fill="#1b2436">Fechamento tipo</text>
+                <text x="440" y="73" text-anchor="middle" font-size="10.5" fill="#1b2436">"zíper"</text>
+                <text x="530" y="55" text-anchor="middle" font-size="16" fill="#5b6472">+</text>
+                <rect x="550" y="15" width="80" height="70" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="590" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">Crista</text>
+                <text x="590" y="53" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">neural</text>
+                <text x="590" y="70" text-anchor="middle" font-size="9.5" fill="#1b2436">(bordas)</text>
+                <rect x="10" y="110" width="620" height="65" rx="10" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="320" y="132" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1b2436">O fechamento avança do centro para as extremidades — como um zíper</text>
+                <text x="320" y="150" text-anchor="middle" font-size="11" fill="#5b6472">Últimos pontos a se fecharem: neuróporo rostral (~dia 25) e neuróporo caudal (~dia 27–28)</text>
+                <text x="320" y="166" text-anchor="middle" font-size="10.5" fill="#be123c" font-weight="700">Falha de fechamento nessa janela = base embriológica dos disrafismos (ramo 5)</text>
+              </svg>
+              <div class="cap">Figura — Da placa neural ao tubo neural fechado, com formação simultânea das cristas neurais</div>
+            </div>
+            <ul>
+              <li>A placa neural dobra-se em torno de um <b>sulco neural</b>; suas bordas (lábios neurais) se aproximam e se fundem, fechando o <b>tubo neural</b>.</li>
+              <li>O fechamento não é um evento único e instantâneo: progride <b>a partir de múltiplos pontos, em direção às duas extremidades</b> (rostral e caudal), de forma semelhante a um zíper.</li>
+              <li>Os últimos pontos a se fechar são os <b>neuróporos</b> (rostral e caudal) — é justamente uma falha nesse fechamento, mais frequentemente na região <b>caudal</b> (lombossacra), que origina os disrafismos espinhais discutidos no caso de Juan.</li>
+              <li>No ponto de encontro dos lábios do sulco neural, células se destacam e formam as <b>cristas neurais</b> — lâminas longitudinais de células-tronco que migram extensamente pelo embrião.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Destino das cristas neurais <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <ul>
+              <li>O <b>tubo neural</b> dará origem à quase totalidade do <b>sistema nervoso central</b> (encéfalo e medula espinhal).</li>
+              <li>As <b>cristas neurais</b> dão origem à maior parte do <b>sistema nervoso periférico</b>: gânglios espinhais (sensitivos) e gânglios autonômicos, além das células de Schwann (mielinização periférica).</li>
+              <li>Células da crista neural também migram para fora do sistema nervoso e formam tecidos não neurais: <b>melanócitos</b> da pele e a <b>porção medular da glândula suprarrenal</b>.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Por que importa para o caso:</b> placa neural, tubo neural e cristas neurais são consideradas as estruturas precursoras mais precoces de todo o sistema nervoso — é exatamente nessa fase (3ª–4ª semana), sensível à disponibilidade de folato, que se origina o disrafismo espinhal de Juan.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Lent — Cem Bilhões de Neurônios?</a> · <a href="#ref2">Moore, Persaud &amp; Torchia — Embriologia Clínica</a> · <a href="#ref3">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Vesículas Encefálicas e Histogênese</div>
+      <div class="body">
+
+        <details open>
+          <summary>Das 3 às 5 vesículas encefálicas <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <p>Assim que o tubo neural completa o fechamento (fim do 1º mês), sua extremidade cranial dilata-se, formando três dilatações — as <b>vesículas encefálicas primitivas</b>. Durante o 2º mês, o tubo se encurva e essas vesículas se subdividem, passando a cinco.</p>
+            <table>
+              <caption>Tabela — Das vesículas primitivas às estruturas do encéfalo adulto</caption>
+              <thead><tr><th>Vesícula primária</th><th>Vesícula secundária</th><th>Estrutura no adulto</th></tr></thead>
+              <tbody>
+                <tr><td rowspan="2"><b>Prosencéfalo</b></td><td>Telencéfalo</td><td>Córtex cerebral, núcleos da base</td></tr>
+                <tr><td>Diencéfalo</td><td>Tálamo, hipotálamo, epitálamo</td></tr>
+                <tr><td><b>Mesencéfalo</b></td><td>Mesencéfalo (não se subdivide)</td><td>Mesencéfalo do tronco encefálico</td></tr>
+                <tr><td rowspan="2"><b>Rombencéfalo</b></td><td>Metencéfalo</td><td>Cerebelo e ponte</td></tr>
+                <tr><td>Mielencéfalo</td><td>Bulbo (medula oblonga)</td></tr>
+              </tbody>
+            </table>
+            <ul>
+              <li>A <b>medula espinhal primitiva</b>, posterior ao mielencéfalo, cresce sem se modificar muito e dá origem à <b>medula espinhal do adulto</b>.</li>
+              <li>O espaço interno das vesículas, ocupado por fluido, dará origem aos <b>ventrículos cerebrais</b> e aos canais de comunicação entre eles (relevante para entender a hidrocefalia associada ao disrafismo — ramo 7).</li>
+              <li>Essas transformações ocorrem durante os <b>primeiros 4 meses</b> de gestação; aos 4–5 meses, as principais estruturas anatômicas já estão constituídas, embora córtex cerebral e cerebelar ainda sejam lisos.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cauda equina: crescimento diferencial coluna × medula <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <ul>
+              <li>Durante o desenvolvimento, a <b>coluna vertebral</b> (e o canal ósseo) cresce mais que a <b>medula espinhal</b> propriamente dita.</li>
+              <li>No embrião de 8 semanas, os nervos raquidianos ainda estão alinhados com seus respectivos segmentos vertebrais; ao nascimento, a extremidade da medula já se situa na altura das primeiras vértebras lombares (no adulto, cerca de L1–L2).</li>
+              <li>Essa diferença de comprimento faz com que os nervos raquidianos lombossacros percorram um trajeto longo e obliquo dentro do canal vertebral antes de emergir — formando a <b>cauda equina</b>.</li>
+              <li>É por isso que os disrafismos espinhais (ramo 5) predominam na região <b>lombossacra</b>, área de maior desalinhamento e onde o neuróporo caudal fecha por último.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Etapas da histogênese neural <span class="pill">Objetivo 1</span></summary>
+          <div class="content">
+            <p>Em paralelo à morfogênese das vesículas, ocorre a especialização progressiva das células nervosas, em uma sequência conservada:</p>
+            <ul>
+              <li><b>Proliferação</b>: as células do tubo neural se dividem repetidamente na zona ventricular.</li>
+              <li><b>Migração</b>: em certo momento, interrompem o ciclo celular e migram para seus locais de destino — frequentemente ao longo de prolongamentos radiais da glia radial.</li>
+              <li><b>Diferenciação</b>: adquirem morfologia, função e perfil químico (neurotransmissor) característicos.</li>
+              <li><b>Crescimento axonal e sinaptogênese</b>: emitem axônios que crescem até alvos distantes e formam sinapses.</li>
+              <li><b>Morte celular seletiva e poda</b>: eliminação de neurônios, axônios e sinapses excedentes — refinamento dos circuitos.</li>
+              <li><b>Mielinização</b>: processo mais tardio e prolongado, que continua bem além do nascimento; a glia (oligodendrócitos no SNC, células de Schwann no SNP) desenvolve-se ao longo de um período mais extenso que os neurônios.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Marco funcional:</b> os primeiros sulcos corticais surgem por volta da <b>16ª semana</b> de gestação, e logo depois começam a se formar as primeiras sinapses corticais — muito antes disso, porém, o disrafismo espinhal já está determinado (defeito da 3ª–4ª semana).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Lent — Cem Bilhões de Neurônios?</a> · <a href="#ref2">Moore, Persaud &amp; Torchia — Embriologia Clínica</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Divisão Anatômica e Funcional do SNC</div>
+      <div class="body">
+
+        <details open>
+          <summary>Grandes divisões (exceto tronco encefálico) <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Telencéfalo</b>: os dois <b>hemisférios cerebrais</b>, que crescem enormemente para os lados e para trás durante a gestação, cobrindo as estruturas mais posteriores — inclui córtex cerebral e núcleos da base.</li>
+              <li><b>Diencéfalo</b>: coberto pelos hemisférios; compreende <b>tálamo</b> (retransmissão sensorial), <b>hipotálamo</b> (controle neuroendócrino e homeostático) e epitálamo.</li>
+              <li><b>Cerebelo</b>: originado do metencéfalo; tratado em detalhe no ramo 4, por sua relevância direta para os sinais clínicos de Juan.</li>
+              <li>O <b>tronco encefálico</b> (mesencéfalo, ponte, bulbo) está fora do escopo deste problema por definição dos objetivos, mas suas origens embrionárias já constam na tabela de vesículas do ramo 2.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Lobos cerebrais: divisão funcional <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Lobos do telencéfalo e funções predominantes</caption>
+              <thead><tr><th>Lobo</th><th>Limite anatômico principal</th><th>Função predominante</th></tr></thead>
+              <tbody>
+                <tr><td><b>Frontal</b></td><td>Anterior ao sulco central</td><td>Funções motoras, expressão da linguagem, planejamento e memória de trabalho</td></tr>
+                <tr><td><b>Parietal</b></td><td>Entre sulco central e sulco parieto-occipital</td><td>Sensibilidade corporal (somestesia) e reconhecimento espacial</td></tr>
+                <tr><td><b>Temporal</b></td><td>Abaixo do sulco lateral</td><td>Audição, aspectos elaborados da visão, compreensão da linguagem, memória</td></tr>
+                <tr><td><b>Occipital</b></td><td>Posterior ao sulco parieto-occipital</td><td>Processamento visual</td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Localizacionismo:</b> estudos clássicos de lesão (ex.: caso de Broca) e, mais recentemente, imagem funcional (fluxo sanguíneo/metabolismo regional) sustentam que o córtex funciona como um <b>mosaico de regiões especializadas e amplamente interconectadas</b> — nenhuma função mental complexa depende de uma única área isolada.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Principais sulcos e giros <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sulcos e giros do hemisfério cerebral">
+                <ellipse cx="320" cy="140" rx="290" ry="105" fill="#f7f8fa" stroke="#d7dce4" stroke-width="2"/>
+                <path d="M 250 50 Q 245 140 260 225" stroke="#be123c" stroke-width="4" fill="none"/>
+                <text x="205" y="45" font-size="11" fill="#9f1239" font-weight="700">Sulco central</text>
+                <path d="M 90 150 Q 220 175 380 165" stroke="#1d4ed8" stroke-width="4" fill="none"/>
+                <text x="95" y="195" font-size="11" fill="#1d4ed8" font-weight="700">Sulco lateral (Sylvius)</text>
+                <path d="M 460 55 Q 480 140 455 220" stroke="#0f766e" stroke-width="3.5" fill="none" stroke-dasharray="6,4"/>
+                <text x="470" y="45" font-size="10.5" fill="#115e59" font-weight="700">Sulco parieto-occipital</text>
+                <text x="150" y="90" font-size="11.5" fill="#1b2436" font-weight="700">Giro pré-central</text>
+                <text x="290" y="90" font-size="11.5" fill="#1b2436" font-weight="700">Giro pós-central</text>
+                <text x="60" y="130" font-size="12" fill="#5b6472">LOBO FRONTAL</text>
+                <text x="330" y="130" font-size="12" fill="#5b6472">LOBO PARIETAL</text>
+                <text x="530" y="130" font-size="12" fill="#5b6472">OCCIPITAL</text>
+                <text x="150" y="200" font-size="12" fill="#5b6472">LOBO TEMPORAL</text>
+                <text x="330" y="235" font-size="10" fill="#5b6472" font-style="italic">(vista lateral esquemática — hemisfério esquerdo)</text>
+              </svg>
+              <div class="cap">Figura — Principais sulcos delimitando os lobos e os giros pré- e pós-centrais (esquema didático)</div>
+            </div>
+            <ul>
+              <li><b>Sulco central (de Rolando)</b>: separa o lobo frontal do parietal; delimita o <b>giro pré-central</b> (córtex motor primário) à frente e o <b>giro pós-central</b> (córtex somestésico primário) atrás.</li>
+              <li><b>Sulco lateral (fissura de Sylvius)</b>: separa o lobo temporal dos lobos frontal e parietal; abriga, em sua profundidade, o córtex auditivo (giro de Heschl) e a ínsula.</li>
+              <li><b>Sulco parieto-occipital</b>: delimita o lobo parietal do occipital (mais visível na face medial do hemisfério).</li>
+              <li><b>Sulco/giro do cíngulo</b>: na face medial, contorna o corpo caloso; faz parte do sistema límbico.</li>
+              <li><b>Ínsula</b>: córtex "escondido", localizado no fundo do sulco lateral, entre os lobos frontal/parietal e o temporal.</li>
+              <li><b>Corpo caloso</b>: principal comissura inter-hemisférica, formada por fibras que conectam áreas homólogas dos dois hemisférios (começa a se formar por volta da 12ª semana).</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Ponte com o caso:</b> Dr. Jonas menciona explicitamente que "diversas alterações podem ser possíveis a partir da área acometida" — isto é, a organização do córtex em sulcos/giros com funções distintas explica por que lesões em diferentes topografias (incluindo as associadas ao disrafismo — ramo 7) produzem quadros clínicos diferentes.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Lent — Cem Bilhões de Neurônios?</a> · <a href="#ref2">Moore, Persaud &amp; Torchia — Embriologia Clínica</a> · <a href="#ref3">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Cerebelo: Anatomia e Organização Funcional</div>
+      <div class="body">
+
+        <details open>
+          <summary>Origem embrionária e divisão anatômica <span class="pill">Objetivo 2</span></summary>
+          <div class="content">
+            <ul>
+              <li>O cerebelo origina-se da vesícula <b>metencefálica</b> (rombencéfalo), crescendo dorsalmente até cobrir a ponte.</li>
+              <li><b>Divisão anatômica</b>, do ponto de vista das conexões: <b>verme</b> (linha média), <b>hemisférios intermédios (paravermianos)</b> e <b>hemisférios laterais</b>.</li>
+              <li>Assim como o córtex cerebral, o córtex cerebelar é liso ao nascimento e só desenvolve seus giros próprios (folhas) e sulcos com o crescimento pós-natal.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Divisão funcional: 3 subsistemas <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <p>Cada região anatômica do cerebelo se conecta preferencialmente a núcleos profundos específicos e a um subsistema motor, definindo três subdivisões funcionais:</p>
+            <table>
+              <caption>Tabela — Subdivisões funcionais do cerebelo e sinais de lesão</caption>
+              <thead><tr><th>Subdivisão</th><th>Núcleo profundo principal</th><th>Função</th><th>Sinal de lesão</th></tr></thead>
+              <tbody>
+                <tr><td><b>Vestibulocerebelo</b> (lobo floculonodular)</td><td>Núcleos vestibulares</td><td>Equilíbrio, movimentos oculares reflexos</td><td>Marcha e postura atáxicas; nistagmo</td></tr>
+                <tr><td><b>Espinocerebelo</b> (verme + hemisférios intermédios)</td><td>Fastigial e interpostos</td><td>Ajuste fino de movimentos em curso, tônus muscular</td><td><b>Ataxia</b> dos membros e do tronco; movimentos em "ziguezague"</td></tr>
+                <tr><td><b>Cerebrocerebelo</b> (hemisférios laterais)</td><td>Denteado</td><td>Planejamento e coordenação de movimentos voluntários finos, em colaboração com o córtex motor/pré-motor</td><td><b>Dismetria</b> (erro de alcance), assinergia, <b>tremor intencional</b></td></tr>
+              </tbody>
+            </table>
+            <div class="note">
+              <b class="tag">Chave para o caso de Juan:</b> a tríade <b>ataxia + dismetria + tremor intencional</b> descrita no problema é o quadro clássico de disfunção do <b>espinocerebelo e do cerebrocerebelo</b> — não do vestibulocerebelo (que daria mais marcha atáxica e nistagmo).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Circuito básico do córtex cerebelar <span class="pill">Complementar</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Aferentes</b>: fibras musgosas (a maioria) e fibras trepadeiras (vindas da oliva inferior) — ambas excitatórias.</li>
+              <li><b>Célula de Purkinje</b>: neurônio de saída do córtex cerebelar; apesar de fortemente excitada por seus aferentes, é ela própria <b>inibitória</b> (neurotransmissor <b>GABA</b>).</li>
+              <li>A saída inibitória das células de Purkinje modula (freia) a atividade dos <b>núcleos profundos</b> (fastigial, interpostos, denteado), que por sua vez enviam informação excitatória aos núcleos motores e ao tálamo/córtex motor.</li>
+              <li>Há também <b>plasticidade sináptica</b> (potenciação e depressão de longa duração) nas sinapses do córtex cerebelar — substrato da aprendizagem motora e da adaptação fina dos movimentos ao longo da reabilitação, relevante para o prognóstico de Juan com fisioterapia.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Lent — Cem Bilhões de Neurônios?</a> · <a href="#ref3">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> Disrafismo Espinhal: Fisiopatologia e Classificação</div>
+      <div class="body">
+
+        <details open>
+          <summary>Definição e mecanismo geral <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Disrafismo espinhal</b>: termo geral para malformações da medula e/ou da coluna vertebral resultantes da <b>falha de fechamento do tubo neural</b> durante a neurulação (normalmente entre a 3ª e a 4ª semana de gestação).</li>
+              <li>A gravidade e a extensão da malformação dependem do <b>momento embrionário</b> em que a falha ocorre e de qual estrutura permanece aberta (só a coluna óssea, ou também as meninges e o tecido nervoso).</li>
+              <li>É uma condição de etiologia <b>multifatorial</b> — fatores genéticos, nutricionais (deficiência de folato — ramo 6) e ambientais (obesidade materna, diabetes descompensado, uso de ácido valproico ou carbamazepina, hipertermia no início da gestação) contribuem para o risco.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Classificação: oculto × aberto (aperta) <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <table>
+              <caption>Tabela — Espectro do disrafismo espinhal</caption>
+              <thead><tr><th>Categoria</th><th>Características</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr><td><b>Disrafismo oculto</b> (espinha bífida oculta)</td><td>Falha de separação entre tubo neural e pele — <b>a lesão fica coberta por pele</b>; pode haver apenas sinais cutâneos discretos (tufo de pelos, hemangioma, fosseta sacral)</td><td>Medula presa (ancorada), lipomas, diastematomielia</td></tr>
+                <tr><td><b>Espinha bífida cística — meningocele</b></td><td>Saco herniário contendo apenas <b>meninges e líquor</b>, coberto por pele; tecido neural geralmente preservado</td><td>Meningocele</td></tr>
+                <tr><td><b>Espinha bífida aberta (aperta) — mielomeningocele</b></td><td><b>Forma mais grave e mais comum</b> dos disrafismos abertos; a placa neural (placódio) fica <b>exposta</b>, sem cobertura cutânea completa — comunicação direta do tecido nervoso com o meio externo</td><td>Mielomeningocele (o caso de Juan)</td></tr>
+              </tbody>
+            </table>
+            <div class="note-warn">
+              <b class="tag">Risco da forma aberta:</b> por expor diretamente meninges/tecido neural, a mielomeningocele tem risco elevado de <b>infecção (meningite)</b> se não coberta e operada precocemente — daí a "necessidade de fechamento do canal medular" mencionada por Dr. Jonas logo ao diagnóstico.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Repercussão sensório-motora conforme o nível da lesão <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li>O <b>nível anatômico</b> (vertebral) da mielomeningocele se correlaciona, de forma aproximada, com a extensão do déficit neurológico abaixo dele.</li>
+              <li>Comprometimento típico, proporcional ao nível: <b>força motora e sensibilidade dos membros inferiores</b>, além de <b>disfunção esfincteriana (vesical e intestinal)</b>.</li>
+              <li>A mielomeningocele lombar é a localização mais frequente — coerente com o fechamento tardio do neuróporo caudal (ramo 1) e a região de maior desalinhamento coluna-medula (cauda equina, ramo 2).</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Estratégia MED — Espinha bífida</a> · <a href="#ref5">MSD Manuals — Espinha bífida</a> · <a href="#ref6">RBNP — Disrafismos cranianos e espinhais</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> O Papel do Ácido Fólico / Metilfolato</div>
+      <div class="body">
+
+        <details open>
+          <summary>Por que a neurulação depende de folato <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <ul>
+              <li>A neurulação (3ª–4ª semana) envolve <b>proliferação celular extremamente intensa</b> no neuroectoderma — o que exige síntese acelerada de <b>DNA e RNA</b>.</li>
+              <li>O <b>folato</b> (vitamina B9) é cofator essencial no metabolismo de <b>um carbono</b>, necessário para a síntese de bases nitrogenadas (purinas e timidina) e, portanto, para a replicação do DNA nas células que estão se dividindo rapidamente.</li>
+              <li>O folato também participa do <b>ciclo da metionina</b>: a forma ativa — o <b>5-metiltetrahidrofolato (metilfolato)</b> — doa um grupo metil para converter homocisteína em metionina (reação dependente de vitamina B12), gerando <b>S-adenosilmetionina</b>, doador universal de metila para reações de <b>metilação do DNA</b> (regulação epigenética da expressão gênica durante o desenvolvimento).</li>
+              <li><b>Ácido fólico</b> (forma sintética, da dieta/suplementos) precisa ser convertido no fígado, via a enzima <b>di-hidrofolato redutase (DHFR)</b> e outras etapas, até a forma ativa metilfolato — por isso "metilfolato" e "ácido fólico" não são sinônimos perfeitos, embora ambos sejam usados na prevenção.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Ponte direta com o caso:</b> Clara "não fazia uso de metilfolato" — ou seja, a via de metilação essencial à proliferação e ao fechamento correto do tubo neural do embrião provavelmente esteve comprometida, favorecendo a persistência de uma falha no fechamento caudal.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>Prevenção: suplementação periconcepcional <span class="pill">Objetivo 3</span></summary>
+          <div class="content">
+            <ul>
+              <li>A suplementação de ácido fólico <b>antes da concepção e nas primeiras semanas de gestação</b> (período crítico da neurulação) é a principal medida de prevenção primária dos defeitos de fechamento do tubo neural.</li>
+              <li><b>Dose padrão de baixo risco</b>: cerca de 0,4 mg/dia. <b>Dose de alto risco</b> (ex.: gestação anterior com defeito de tubo neural, uso de anticonvulsivantes): doses maiores (na ordem de 4–5 mg/dia), sob orientação médica.</li>
+              <li>Programas de suplementação e fortificação de alimentos com ácido fólico têm reduzido a incidência de defeitos do tubo neural em diversos países — estima-se redução de pelo menos 70% do risco com suplementação adequada.</li>
+              <li>Por ser uma gravidez <b>não planejada</b>, Clara perdeu justamente a janela periconcepcional em que a suplementação teria maior impacto — ponto de reflexão do caso sobre a importância do planejamento familiar e do pré-natal precoce.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref5">MSD Manuals — Espinha bífida</a> · <a href="#ref6">RBNP — Disrafismos cranianos e espinhais</a> · <a href="#ref2">Moore, Persaud &amp; Torchia — Embriologia Clínica</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Complicações Sensório-Motoras: o Caso de Juan</div>
+      <div class="body">
+
+        <details open>
+          <summary>Hidrocefalia associada à mielomeningocele <span class="pill">Alta relevância</span></summary>
+          <div class="content">
+            <ul>
+              <li>A <b>hidrocefalia</b> está presente em uma proporção muito alta dos casos de mielomeningocele (até cerca de 80%), o que explica por que Dr. Jonas já adianta a Clara a "necessidade... de correção de hidrocefalias" logo no diagnóstico pré-natal.</li>
+              <li>Mecanismo: alteração do desenvolvimento da fossa posterior (ver malformação de Chiari II, abaixo) obstrui a circulação normal do líquor pelos ventrículos, levando ao seu acúmulo.</li>
+              <li>Quando sintomática, a hidrocefalia é tratada cirurgicamente, classicamente com <b>derivação ventrículo-peritoneal (DVP)</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Malformação de Chiari tipo II (Arnold-Chiari II) <span class="pill">Correlação clínica</span></summary>
+          <div class="content">
+            <ul>
+              <li>É <b>praticamente universal</b> em crianças com mielomeningocele — a mais grave e clinicamente relevante entre as malformações de Chiari no período neonatal.</li>
+              <li><b>Mecanismo</b>: o desenvolvimento de uma fossa posterior pequena não comporta adequadamente o cerebelo em formação; como consequência, o <b>verme cerebelar</b> (e, em graus variáveis, estruturas do tronco encefálico) é deslocado <b>caudalmente</b>, através do forame magno, para dentro do canal vertebral.</li>
+              <li>Essa herniação comprime o quarto ventrículo e a cisterna magna, dificultando a circulação liquórica — mecanismo central da <b>hidrocefalia</b> descrita acima.</li>
+              <li>O cerebelo, além de deslocado, costuma ser <b>global e estruturalmente menor</b> que o normal nesses pacientes.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Elo fisiopatológico central do caso:</b> não é o disrafismo espinhal isoladamente que compromete o cerebelo de Juan — é sua associação característica, quase constante, com a <b>malformação de Chiari II</b>, que desloca e altera estruturalmente o cerebelo em desenvolvimento.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>De volta ao cerebelo: por que ataxia, dismetria e tremor? <span class="pill">Síntese</span></summary>
+          <div class="content">
+            <ul>
+              <li>Com o verme e os hemisférios cerebelares deslocados e hipoplásicos, os circuitos do <b>espinocerebelo</b> (ajuste fino de movimentos em curso) e do <b>cerebrocerebelo</b> (planejamento e coordenação de movimentos voluntários finos — ramo 4) ficam estruturalmente comprometidos.</li>
+              <li>Isso é diretamente compatível com os sinais relatados em Juan: <b>ataxia</b> (incoordenação, marcha/movimentos em ziguezague), <b>dismetria</b> (erro no alcance de um movimento) e <b>tremor intencional</b> (que aparece durante o movimento voluntário e se acentua perto do alvo) — a tríade clássica de disfunção cerebelar.</li>
+              <li>O enunciado do caso já aponta corretamente esse raciocínio retrospectivo: "essas alterações poderiam ter como fatores predisponentes o disrafismo espinhal" — via sua associação com a malformação de Chiari II, e não por lesão direta da própria medula lombossacra (que explicaria antes déficits sensitivo-motores dos membros inferiores e esfincterianos, não sinais cerebelares).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Abordagem multidisciplinar e prognóstico <span class="pill">Complementar</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Fisioterapia</b> (já em curso para Juan) atua sobre a coordenação motora, aproveitando a <b>plasticidade sináptica cerebelar</b> (ramo 4) para otimizar estratégias compensatórias de movimento.</li>
+              <li>O acompanhamento de crianças com mielomeningocele e Chiari II é necessariamente multidisciplinar: neurocirurgia (tratamento da hidrocefalia e, se necessário, descompressão da fossa posterior), ortopedia, urologia (disfunção vesical) e reabilitação motora.</li>
+              <li>Uma parcela dos pacientes com Chiari II sintomático pode apresentar sinais de compressão de tronco encefálico (ex.: estridor, apneia) já nos primeiros anos de vida — reforça a importância da vigilância neurológica contínua ao longo da infância, como retratado no caso.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">Côrte-Real — Mielomeningocelo: da etiologia ao tratamento</a> · <a href="#ref8">Neonatal Arnold–Chiari II Malformation (case report)</a> · <a href="#ref1">Lent — Cem Bilhões de Neurônios?</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">LENT, Roberto. <i>Cem Bilhões de Neurônios? Conceitos Fundamentais de Neurociência</i>. 2. ed. Rio de Janeiro: Atheneu, 2010. Capítulos 2 ("Nascimento, Vida e Morte do Sistema Nervoso") e 12 ("O Alto Comando Motor").</li>
+
+      <li id="ref2">MOORE, Keith L.; PERSAUD, T. V. N.; TORCHIA, Mark G. <i>Embriologia Clínica</i>. 11. ed. Rio de Janeiro: Guanabara Koogan, 2020.</li>
+
+      <li id="ref3">KANDEL, Eric R. et al. <i>Princípios de Neurociências</i>. 6. ed. Porto Alegre: AMGH/McGraw-Hill, 2023.</li>
+
+      <li id="ref4">ESTRATÉGIA MED. <i>Resumo de Espinha Bífida: fatores de risco, diagnóstico e mais!</i> Disponível em: <a href="https://med.estrategia.com/portal/conteudos-gratis/doencas/resumo-de-espinha-bifida-fatores-de-risco-diagnostico-e-mais/" target="_blank" rel="noopener">med.estrategia.com — resumo-de-espinha-bifida</a>. <span class="accessed">Acesso em: 16 set. 2026.</span></li>
+
+      <li id="ref5">MSD MANUALS — EDIÇÃO PARA PROFISSIONAIS. <i>Espinha bífida</i>. Disponível em: <a href="https://www.msdmanuals.com/pt-pt/profissional/pediatria/anomalias-neurol%C3%B3gicas-cong%C3%AAnitas/espinha-b%C3%ADfida" target="_blank" rel="noopener">msdmanuals.com — espinha-bífida</a>. <span class="accessed">Acesso em: 16 set. 2026.</span></li>
+
+      <li id="ref6">REVISTA BRASILEIRA DE NEUROLOGIA E PSIQUIATRIA (RBNP). <i>Disrafismos cranianos e espinhais</i>. Disponível em: <a href="https://rbnp.emnuvens.com.br/rbnp/article/download/76/37" target="_blank" rel="noopener">rbnp.emnuvens.com.br — disrafismos-cranianos-e-espinhais</a>. <span class="accessed">Acesso em: 16 set. 2026.</span></li>
+
+      <li id="ref7">CÔRTE-REAL, Catarina. <i>Mielomeningocelo — Da etiologia ao tratamento</i>. Universidade do Porto. Disponível em: <a href="https://sigarra.up.pt/fep/en/pub_geral.show_file?pi_doc_id=157587" target="_blank" rel="noopener">sigarra.up.pt — mielomeningocelo</a>. <span class="accessed">Acesso em: 16 set. 2026.</span></li>
+
+      <li id="ref8"><i>Neonatal Arnold–Chiari II Malformation: An Imaging-Focused Case Report</i>. PMC. Disponível em: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12856224/" target="_blank" rel="noopener">ncbi.nlm.nih.gov/pmc — PMC12856224</a>. <span class="accessed">Acesso em: 16 set. 2026.</span></li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia indicada pelo usuário (Lent — fornecido em PDF; Moore, Persaud &amp; Torchia — bibliografia oficial do módulo) e de literatura complementar revisada sobre disrafismo espinhal e malformação de Chiari II, no mesmo padrão editorial dos mapas dos Módulos 01 e 02.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (16 set. 2026) contra os Objetivos do Problema 2 — Módulo 02: desenvolvimento embrionário do SN como um todo (ramos 1 e 2), divisão anatômica e funcional do SNC exceto tronco encefálico, incluindo sulcos e giros (ramo 3, com o cerebelo detalhado no ramo 4), e fisiopatologia do disrafismo espinhal com a importância do metilfolato e suas complicações sensório-motoras (ramos 5, 6 e 7, com correlação direta ao caso de Clara e Juan).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Embriologia / Desenvolvimento do Sistema Nervoso<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
