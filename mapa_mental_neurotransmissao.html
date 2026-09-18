@@ -28,6 +28,7 @@
   header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
   header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
   header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
 
   .central{
     margin:26px auto 34px;
@@ -89,22 +90,37 @@
   details summary{
     cursor:pointer;
     list-style:none;
-    padding:9px 12px;
+    padding:10px 12px;
     font-weight:600;
     font-size:.88rem;
     display:flex;
     align-items:center;
     justify-content:space-between;
     color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
   }
+  details summary:hover{filter:brightness(0.96);}
   details summary::-webkit-details-marker{display:none;}
-  details summary::after{
-    content:"+";
-    font-size:1rem;
-    color:var(--muted);
-    transition:transform .15s ease;
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
   }
-  details[open] summary::after{content:"–";}
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{font-size:.72rem;opacity:.75;font-weight:400;}
 
   .b1 details summary{background:var(--c1-bg);}
   .b2 details summary{background:var(--c2-bg);}
@@ -152,11 +168,18 @@
     text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
   }
 
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
   table{
     width:100%;
+    min-width:460px;
     border-collapse:collapse;
     font-size:.76rem;
-    margin:4px 0 2px;
+    margin:0;
   }
   table caption{
     text-align:left;font-size:.72rem;color:var(--muted);
@@ -270,6 +293,7 @@
   <header>
     <h1>Mapa Mental — Neurotransmissão</h1>
     <p>Objetivos do Problema 1 · Módulo 02 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis.</p>
   </header>
 
   <div class="toolbar">
@@ -294,7 +318,7 @@
       <div class="body">
 
         <details open>
-          <summary>O neurônio: estrutura funcional <span class="pill">Objetivo 1</span></summary>
+          <summary><span class="sumtext">O neurônio: estrutura funcional <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <ul>
               <li><b>Corpo celular (soma)</b>: contém o núcleo e a maquinaria de síntese proteica (retículo endoplasmático rugoso — corpúsculos de Nissl); é onde peptídeos neurotransmissores e seus precursores enzimáticos são produzidos.</li>
@@ -308,20 +332,22 @@
         </details>
 
         <details open>
-          <summary>Células não neuronais: a glia <span class="pill">Objetivo 1</span></summary>
+          <summary><span class="sumtext">Células não neuronais: a glia <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <p>As células gliais são <b>mais numerosas que os neurônios</b> (proporção estimada de até 10:1 no SNC) e, embora não gerem nem propaguem potenciais de ação, são essenciais para a homeostase, o suporte estrutural e a própria neurotransmissão.</p>
+            <div class="twrap">
             <table>
               <caption>Tabela — Tipos de células gliais e suas funções</caption>
               <thead><tr><th>Célula</th><th>Localização</th><th>Função principal</th></tr></thead>
               <tbody>
-                <tr><td><b>Astrócitos</b></td><td>SNC (substância cinzenta — protoplasmáticos; substância branca — fibrosos)</td><td>Sustentação, formam a <b>barreira hematoencefálica</b> (pés vasculares), regulam o meio iônico extracelular, <b>captam e reciclam neurotransmissores</b> da fenda sináptica (ex.: recaptação de glutamato)</td></tr>
+                <tr><td><b>Astrócitos</b></td><td>SNC (substância cinzenta — protoplasmáticos; substância branca — fibrosos)</td><td>Sustentação, formam a <b>barreira hematoencefálica</b> (pés vasculares), regulam o meio iônico extracelular, * <b>captam e reciclam neurotransmissores</b> da fenda sináptica (ex.: recaptação de glutamato)</td></tr>
                 <tr><td><b>Oligodendrócitos</b></td><td>SNC</td><td>Produzem a <b>bainha de mielina</b>; um único oligodendrócito mieliniza segmentos de vários axônios diferentes</td></tr>
                 <tr><td><b>Células de Schwann</b></td><td>SNP</td><td>Produzem a bainha de mielina no SNP; cada célula mieliniza <b>um único segmento de um único axônio</b>; promovem regeneração axonal após lesão (o SNC, ao contrário, tem capacidade de reparo limitada)</td></tr>
                 <tr><td><b>Micróglia</b></td><td>SNC</td><td>Macrófagos residentes do SNC — fagocitose de debris e patógenos, resposta imune e inflamatória, "vigilância" contínua do parênquima</td></tr>
                 <tr><td><b>Células ependimárias</b></td><td>Revestimento dos ventrículos e canal central da medula</td><td>Produção e circulação do líquido cefalorraquidiano (ciliadas em algumas regiões)</td></tr>
               </tbody>
             </table>
+            </div>
             <div class="note">
               <b class="tag">Ponto-chave para o problema:</b> a glia participa <b>ativamente da neurotransmissão</b> — os astrócitos captam neurotransmissores da fenda sináptica (limitando sua ação e reciclando seus precursores) e modulam a formação e a eficiência das sinapses. É essa comunicação entre células neuronais e não neuronais que o problema descreve como alterada pelo MDMA.
             </div>
@@ -338,8 +364,9 @@
       <div class="body">
 
         <details open>
-          <summary>Sinapse elétrica × sinapse química <span class="pill">Objetivo 1</span></summary>
+          <summary><span class="sumtext">Sinapse elétrica × sinapse química <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
           <div class="content">
+            <div class="twrap">
             <table>
               <caption>Tabela — Comparação entre os dois tipos de sinapse</caption>
               <thead><tr><th></th><th>Sinapse elétrica</th><th>Sinapse química</th></tr></thead>
@@ -351,11 +378,12 @@
                 <tr><td>Função típica</td><td>Sincronização rápida de grupos neuronais</td><td>Comunicação mais lenta, mas <b>amplificável e modulável</b> (plasticidade)</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
         </details>
 
         <details open>
-          <summary>Etapas da neurotransmissão química <span class="pill">Alta relevância</span></summary>
+          <summary><span class="sumtext">Etapas da neurotransmissão química <span class="tico">🖼️ figura</span> <span class="pill">Alta relevância</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <div class="figure">
               <svg viewBox="0 0 660 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Etapas da neurotransmissão química">
@@ -389,7 +417,7 @@
             </div>
             <ul>
               <li><b>Síntese</b>: neurotransmissores de moléculas pequenas são sintetizados no <b>terminal axônico</b> por enzimas transportadas do corpo celular; peptídeos são sintetizados no <b>corpo celular</b> e transportados até o terminal já empacotados.</li>
-              <li><b>Liberação</b>: a chegada do potencial de ação abre <b>canais de Ca²⁺ voltagem-dependentes</b>; o influxo de Ca²⁺ desencadeia a fusão das vesículas com a membrana pré-sináptica (exocitose).</li>
+              <li>* <b>Liberação</b>: a chegada do potencial de ação abre <b>canais de Ca²⁺ voltagem-dependentes</b>; o influxo de Ca²⁺ desencadeia a fusão das vesículas com a membrana pré-sináptica (exocitose).</li>
               <li><b>Receptores pós-sinápticos</b>: <b>ionotrópicos</b> (canais iônicos que abrem diretamente na ligação do neurotransmissor — resposta rápida) ou <b>metabotrópicos</b> (acoplados a proteína G, ativam segundos mensageiros — resposta mais lenta e duradoura, ex.: AMPc).</li>
               <li><b>Inativação/término do sinal</b>: <b>recaptação</b> pelo terminal pré-sináptico via transportadores específicos (SERT para serotonina, DAT para dopamina, NET para noradrenalina), <b>degradação enzimática</b> (MAO e COMT para monoaminas; acetilcolinesterase para acetilcolina) ou simples difusão para fora da fenda.</li>
             </ul>
@@ -409,8 +437,9 @@
       <div class="body">
 
         <details open>
-          <summary>As grandes classes químicas <span class="pill">Objetivo 2</span></summary>
+          <summary><span class="sumtext">As grandes classes químicas <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
           <div class="content">
+            <div class="twrap">
             <table>
               <caption>Tabela — Classificação dos neurotransmissores por classe química</caption>
               <thead><tr><th>Classe</th><th>Exemplos</th><th>Síntese/armazenamento</th></tr></thead>
@@ -424,16 +453,17 @@
                 <tr><td><b>Gases</b></td><td>Óxido nítrico (NO), monóxido de carbono (CO)</td><td>Não armazenados em vesículas — sintetizados sob demanda e difundem-se livremente pela membrana (mensageiros retrógrados)</td></tr>
               </tbody>
             </table>
+            </div>
           </div>
         </details>
 
         <details open>
-          <summary>Excitatório × inibitório: a base da modulação <span class="pill">Objetivo 2</span></summary>
+          <summary><span class="sumtext">Excitatório × inibitório: a base da modulação <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <ul>
               <li>Um mesmo neurotransmissor pode ser excitatório ou inibitório dependendo do <b>receptor</b> ao qual se liga, não apenas de sua identidade química.</li>
               <li><b>Glutamato</b>: principal neurotransmissor excitatório do SNC (receptores NMDA, AMPA, cainato).</li>
-              <li><b>GABA</b>: principal neurotransmissor inibitório do encéfalo (receptores GABA-A ionotrópico, GABA-B metabotrópico).</li>
+              <li>* <b>GABA</b>: principal neurotransmissor inibitório do encéfalo (receptores GABA-A ionotrópico, GABA-B metabotrópico).</li>
               <li><b>Dopamina, noradrenalina, serotonina e acetilcolina</b>: atuam predominantemente por <b>receptores metabotrópicos</b>, funcionando mais como <b>neuromoduladores</b> — ajustam a excitabilidade e o "tônus" de circuitos inteiros (humor, atenção, motivação, sono-vigília) em vez de transmitir um sinal pontual de liga/desliga.</li>
             </ul>
           </div>
@@ -449,24 +479,25 @@
       <div class="body">
 
         <details open>
-          <summary>Pontos de interferência farmacológica <span class="pill">Objetivo 2</span></summary>
+          <summary><span class="sumtext">Pontos de interferência farmacológica <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <p>Substâncias psicoativas — incluindo drogas de abuso e fármacos — podem interferir em <b>qualquer etapa</b> da neurotransmissão química:</p>
             <ul>
               <li><b>Síntese</b>: inibição ou estímulo das enzimas que produzem o neurotransmissor.</li>
               <li><b>Armazenamento vesicular</b>: substâncias podem esvaziar as vesículas ou impedir seu preenchimento.</li>
-              <li><b>Liberação</b>: aumento (agonismo indireto pré-sináptico) ou bloqueio da exocitose.</li>
+              <li>* <b>Liberação</b>: aumento (agonismo indireto pré-sináptico) ou <b>bloqueio da exocitose</b> — mecanismo de toxinas que impedem a fusão vesicular com a membrana pré-sináptica.</li>
               <li><b>Ligação ao receptor</b>: agonistas (mimetizam o neurotransmissor), antagonistas (bloqueiam o receptor sem ativá-lo).</li>
-              <li><b>Recaptação</b>: inibição dos transportadores (SERT, DAT, NET) — prolonga a permanência do neurotransmissor na fenda.</li>
+              <li>* <b>Recaptação</b>: inibição dos transportadores (SERT, DAT, NET) — prolonga a permanência do neurotransmissor na fenda, aumentando sua disponibilidade sináptica (mecanismo de estimulantes monoaminérgicos).</li>
               <li><b>Degradação enzimática</b>: inibição da MAO, da COMT ou da acetilcolinesterase — reduz o catabolismo e aumenta a disponibilidade sináptica.</li>
             </ul>
           </div>
         </details>
 
         <details open>
-          <summary>O caso do MDMA (ecstasy): mecanismo integrado <span class="pill">Alta relevância</span></summary>
+          <summary><span class="sumtext">O caso do MDMA (ecstasy): mecanismo integrado <span class="tico">📊 tabela</span> <span class="pill">Alta relevância</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <p>O MDMA (3,4-metilenodioximetanfetamina) é um derivado anfetamínico com propriedades <b>estimulantes</b> e <b>levemente alucinógenas</b>. Atua simultaneamente em <b>três etapas</b> da neurotransmissão monoaminérgica, por meio dos transportadores de membrana <b>SERT, DAT e NET</b>:</p>
+            <div class="twrap">
             <table>
               <caption>Tabela — Ações do MDMA nos três sistemas monoaminérgicos</caption>
               <thead><tr><th>Neurotransmissor</th><th>Mecanismo do MDMA</th><th>Efeito clínico associado</th></tr></thead>
@@ -476,6 +507,7 @@
                 <tr><td><b>Noradrenalina</b></td><td>Liberação intensa (semelhante à da serotonina) e inibição da recaptação via NET, com efeito periférico proeminente</td><td>Taquicardia, hipertensão, midríase, sudorese — <b>termorregulação</b> e efeitos simpatomiméticos sistêmicos</td></tr>
               </tbody>
             </table>
+            </div>
             <ul>
               <li><b>Efeito neuro-hormonal adicional</b>: aumento de cortisol, prolactina, ACTH, ocitocina e hormônio antidiurético (ADH) — este último contribui para a hiponatremia em usuários que ingerem grande volume de água.</li>
               <li><b>Depleção pós-uso</b>: a liberação maciça inicial de serotonina é seguida por um <b>período de depleção</b> dos estoques, antes do retorno aos níveis basais — substrato bioquímico do mal-estar e da disforia relatados nos dias seguintes ("ressaca do ecstasy").</li>
@@ -497,21 +529,21 @@
       <div class="body">
 
         <details open>
-          <summary>Sistema Nervoso Central — efeito prioritário <span class="pill">Objetivo 3</span></summary>
+          <summary><span class="sumtext">Sistema Nervoso Central — efeito prioritário <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <ul>
               <li><b>Efeitos agudos desejados/subjetivos</b>: euforia, aumento da empatia e sociabilidade, alteração da percepção sensorial, aumento da libido — decorrentes da liberação serotoninérgica e dopaminérgica.</li>
               <li><b>Quadro delirante e psicose</b>: resultante da <b>estimulação dopaminérgica</b> excessiva; mais frequente com uso repetido ou em indivíduos vulneráveis, mesmo sem história prévia (como no caso de Pedro).</li>
               <li><b>Ansiedade, ataques de pânico e depressão</b>: podem ocorrer durante a intoxicação aguda ou no período de abstinência/depleção.</li>
               <li><b>Síndrome serotoninérgica</b>: quadro potencialmente fatal por excesso de atividade serotoninérgica — disfunção autonômica (hipertermia, taquicardia, sudorese), atividade neuromuscular anormal (tremor, hiper-reflexia, clonus, rigidez) e alteração do estado mental (agitação, confusão). Risco maior em associação com outros serotoninérgicos (ISRS, IMAO, lítio) — <b>critérios de Hunter</b> para o diagnóstico clínico.</li>
-              <li><b>Neurotoxicidade a longo prazo</b>: déficits de memória verbal, atenção sustentada e velocidade de processamento, associados à redução de terminais e transportadores serotoninérgicos em uso crônico/repetido.</li>
+              <li>* <b>Neurotoxicidade a longo prazo</b>: déficits de memória verbal, atenção sustentada e velocidade de processamento, associados à <b>redução de terminais e transportadores serotoninérgicos</b> em uso crônico/repetido.</li>
               <li><b>Isolamento social, abandono de atividades e negligência de autocuidado</b> (higiene precária): consequências comportamentais relatadas no caso de Pedro, coerentes com o impacto psiquiátrico do uso continuado.</li>
             </ul>
           </div>
         </details>
 
         <details open>
-          <summary>Sistema cardiovascular <span class="pill">Objetivo 3 · Secundário</span></summary>
+          <summary><span class="sumtext">Sistema cardiovascular <span class="pill">Objetivo 3 · Secundário</span></span><span class="chev">▸</span></summary>
           <div class="content">
             <ul>
               <li><b>Taquicardia e hipertensão</b>, podendo chegar a <b>emergência hipertensiva</b> — efeito simpatomimético mediado principalmente pela liberação de noradrenalina.</li>
@@ -522,19 +554,21 @@
         </details>
 
         <details>
-          <summary>Outros sistemas afetados <span class="pill">Secundário</span></summary>
+          <summary><span class="sumtext">Outros sistemas afetados <span class="tico">📊 tabela</span> <span class="pill">Secundário</span></span><span class="chev">▸</span></summary>
           <div class="content">
+            <div class="twrap">
             <table>
               <caption>Tabela — Toxicidade sistêmica do MDMA fora do SNC</caption>
               <thead><tr><th>Sistema</th><th>Manifestações</th></tr></thead>
               <tbody>
                 <tr><td><b>Termorregulação</b></td><td><b>Hipertermia/síndrome da hiperpirexia</b> — mediada por dopamina, serotonina e noradrenalina em conjunto; agravada por ambientes quentes e atividade física intensa (raves); pode evoluir para coagulação intravascular disseminada e falência de múltiplos órgãos</td></tr>
-                <tr><td><b>Renal/muscular</b></td><td><b>Rabdomiólise</b> secundária à hipertermia e à hiperatividade motora, com risco de <b>insuficiência renal aguda</b></td></tr>
-                <tr><td><b>Endócrino/hidroeletrolítico</b></td><td><b>Hiponatremia</b> — por ingestão excessiva de água associada à secreção inapropriada de ADH (SIADH), podendo ser fatal</td></tr>
+                <tr><td><b>Renal/muscular</b></td><td>* <b>Rabdomiólise</b> secundária à hipertermia e à hiperatividade motora, com risco de <b>insuficiência renal aguda</b></td></tr>
+                <tr><td><b>Endócrino/hidroeletrolítico</b></td><td>* <b>Hiponatremia</b> — por ingestão excessiva de água associada à secreção inapropriada de ADH (SIADH), podendo ser fatal</td></tr>
                 <tr><td><b>Hepático</b></td><td><b>Hepatotoxicidade</b>, podendo progredir para insuficiência hepática — os metabólitos hepáticos do MDMA são mais tóxicos que a molécula original</td></tr>
                 <tr><td><b>Neuromuscular periférico</b></td><td>Bruxismo, trismo (cerramento da mandíbula), inquietação motora, midríase, diaforese</td></tr>
               </tbody>
             </table>
+            </div>
             <div class="note">
               <b class="tag">Hierarquia pedida pelo objetivo:</b> o problema pede foco <b>prioritário no SNC</b> (mecanismo central da neurotransmissão alterada, delírio, síndrome serotoninérgica) e tratamento <b>secundário dos demais sistemas</b> — cardiovascular, renal, hepático e endócrino — como consequências sistêmicas da mesma tempestade monoaminérgica.
             </div>
