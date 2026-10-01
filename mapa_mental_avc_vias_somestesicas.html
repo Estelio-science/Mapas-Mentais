@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — AVC e Vias Nervosas Aferentes e Eferentes do SN</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:10px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
+  }
+  details summary:hover{filter:brightness(0.96);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
+  }
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .b6 details summary .chev{color:var(--c6);}
+  .b7 details summary .chev{color:var(--c7);}
+  .b8 details summary .chev{color:var(--c8);}
+  .b9 details summary .chev{color:var(--c9);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{
+    font-size:.72rem;
+    opacity:.75;
+    font-weight:400;
+  }
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    min-width:460px;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:0;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  .enamed{
+    display:inline-block;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-left:4px;
+    vertical-align:middle;
+    background:#1e293b;
+    color:#fde047;
+    border:1px solid #fde047;
+  }
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — AVC e Vias Nervosas Aferentes e Eferentes do SN</h1>
+    <p>Objetivos do Problema 5 · Módulo 02 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>AVC e Vias Nervosas Aferentes e Eferentes do SN</h2>
+    <div class="sub">Vias Somestésicas (Coluna Dorsal-Lemniscal e Sistema Anterolateral) · Vias Motoras Descendentes (Laterais e Mediais) · Vascularização Encefálica · Tipos e Fisiopatologia do AVC · Quadro Clínico por Território Vascular · Negligência Espacial e Síndromes Corticais · Reabilitação Multidisciplinar</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Vias Somestésicas: Sistema Coluna Dorsal–Lemnisco Medial</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Trajeto e modalidades conduzidas <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Via da coluna dorsal-lemnisco medial, com decussação no bulbo">
+                <rect x="40" y="20" width="110" height="230" rx="12" fill="#f7f8fa" stroke="#d7dce4" stroke-width="2"/>
+                <text x="95" y="14" text-anchor="middle" font-size="11" font-weight="700" fill="#5b6472">Medula espinhal</text>
+                <path d="M30 230 L95 230" stroke="#2563eb" stroke-width="5" fill="none"/>
+                <text x="12" y="245" font-size="9" fill="#1d4ed8" font-weight="700">1º neurônio</text>
+                <text x="12" y="256" font-size="8.5" fill="#334">(GRD)</text>
+                <path d="M95 230 L95 40" stroke="#2563eb" stroke-width="5" fill="none"/>
+                <text x="100" y="140" font-size="9" fill="#1d4ed8" font-weight="700">fascículo grácil/</text>
+                <text x="100" y="152" font-size="9" fill="#1d4ed8" font-weight="700">cuneiforme (ipsilateral)</text>
+
+                <rect x="190" y="10" width="120" height="60" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="250" y="28" text-anchor="middle" font-size="10" font-weight="700" fill="#7c2d12">Núcleos grácil/</text>
+                <text x="250" y="42" text-anchor="middle" font-size="10" font-weight="700" fill="#7c2d12">cuneiforme (bulbo)</text>
+                <text x="250" y="58" text-anchor="middle" font-size="9" fill="#9f1239" font-weight="700">* 2º neurônio aqui</text>
+                <path d="M95 40 L190 40" stroke="#2563eb" stroke-width="5" fill="none"/>
+
+                <path d="M250 70 Q250 95 330 110" stroke="#be123c" stroke-width="5" fill="none"/>
+                <text x="255" y="92" font-size="9" fill="#9f1239" font-weight="700">* decussação</text>
+                <text x="255" y="103" font-size="8.5" fill="#334">(fibras arqueadas internas)</text>
+
+                <rect x="330" y="95" width="120" height="40" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="390" y="112" text-anchor="middle" font-size="10" font-weight="700" fill="#5b21b6">Lemnisco medial</text>
+                <text x="390" y="126" text-anchor="middle" font-size="9" fill="#5b21b6">(já cruzado)</text>
+
+                <path d="M450 115 L510 115" stroke="#7c3aed" stroke-width="5" fill="none"/>
+                <rect x="510" y="90" width="110" height="50" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="565" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#3730a3">Tálamo (VPL)</text>
+                <text x="565" y="122" text-anchor="middle" font-size="9" fill="#3730a3">* 3º neurônio</text>
+
+                <path d="M565 90 L565 40" stroke="#15803d" stroke-width="5" fill="none"/>
+                <rect x="505" y="10" width="120" height="30" rx="8" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="565" y="30" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">Córtex parietal (S1)</text>
+
+                <text x="95" y="270" text-anchor="middle" font-size="9.5" fill="#334">Conduz: tato discriminativo,</text>
+                <text x="95" y="282" text-anchor="middle" font-size="9.5" fill="#334" transform="translate(0,-8)"></text>
+                <text x="330" y="200" font-size="9.5" fill="#334">propriocepção consciente, vibração</text>
+                <text x="330" y="214" font-size="9.5" fill="#334">e estereognosia (discriminação de forma/textura)</text>
+              </svg>
+              <div class="cap">Figura — Via consciente da coluna dorsal–lemnisco medial: decussa somente no bulbo (fibras arqueadas internas)</div>
+            </div>
+            <ul>
+              <li>* Conduz <b>tato epicrítico (discriminativo)</b>, <b>propriocepção consciente</b>, <b>sensibilidade vibratória</b> e permite a <b>estereognosia</b> (reconhecer um objeto pela manipulação, sem olhar).</li>
+              <li>* O 1º neurônio tem corpo no <b>gânglio da raiz dorsal</b> e sobe <b>ipsilateralmente</b> pela medula nos fascículos grácil (MMII) e cuneiforme (MMSS), <b>sem cruzar</b> ainda na medula.</li>
+              <li>* A <b>decussação ocorre no bulbo</b> (fibras arqueadas internas), após o 2º neurônio nos núcleos grácil/cuneiforme — por isso essa via só se torna contralateral acima do bulbo.</li>
+              <li>O 3º neurônio está no <b>núcleo ventral posterolateral (VPL) do tálamo</b>, projetando-se ao giro pós-central (córtex somatossensorial primário, S1).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Dissociação sensitiva: a chave do raciocínio topográfico <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Como a coluna dorsal cruza <b>no bulbo</b> e o sistema anterolateral cruza <b>na medula</b> (ramo 2), uma lesão <b>medular unilateral</b> produz um padrão característico: perda de <b>propriocepção/vibração ipsilateral</b> à lesão, com perda de <b>dor/temperatura contralateral</b> — a chamada <b>dissociação sensitiva</b> (padrão de Brown-Séquard quando há hemissecção medular).</li>
+              <li>Esse raciocínio é a base para localizar o nível e o lado de uma lesão medular apenas pelo exame sensitivo.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Correlação com o caso de Maria:</b> Maria apresenta perda de <b>sensibilidade proprioceptiva e discriminativa</b> associada a <b>reflexos exacerbados e sinal de Babinski</b> no hemicorpo direito — compatível com lesão da via corticoespinal e da coluna dorsal <b>acima da decussação</b> (encefálica), e não com uma lesão medular isolada, já que todo o hemicorpo direito está comprometido de forma conjunta (sensitiva e motora).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref2">Bear, Connors &amp; Paradiso — Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Vias Somestésicas: Sistema Anterolateral (Espinotalâmico)</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Trajeto, modalidades e comparação com a via dorsal <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Conduz <b>dor</b>, <b>temperatura</b> e <b>tato grosseiro (protopático)</b> — modalidades diferentes das transportadas pela coluna dorsal.</li>
+              <li>* O 1º neurônio (GRD) faz sinapse já no <b>corno posterior da medula</b> (2º neurônio); os axônios do 2º neurônio <b>cruzam na comissura branca anterior</b>, subindo pelo <b>trato espinotalâmico</b> contralateral, ainda <b>dentro da medula</b> — ao contrário da coluna dorsal, que só cruza no bulbo.</li>
+              <li>* Esse cruzamento medular não é instantâneo: as fibras sobem 1 a 2 segmentos antes de cruzar, por isso o nível da perda de dor/temperatura pode ficar "alguns segmentos abaixo" do nível real da lesão.</li>
+              <li>O 3º neurônio também está no tálamo (VPL), projetando-se ao córtex somatossensorial — as duas vias convergem no tálamo antes do córtex.</li>
+            </ul>
+            <div class="twrap">
+            <table>
+              <caption>Comparação entre as duas grandes vias somestésicas ascendentes</caption>
+              <thead><tr><th>Característica</th><th>Coluna dorsal–lemnisco medial</th><th>Sistema anterolateral (espinotalâmico)</th></tr></thead>
+              <tbody>
+                <tr><td>Modalidades</td><td>Tato discriminativo, propriocepção, vibração, estereognosia</td><td>Dor, temperatura, tato grosseiro</td></tr>
+                <tr><td>* Local da decussação</td><td>Bulbo (fibras arqueadas internas)</td><td>Medula (comissura branca anterior, 1–2 segmentos acima)</td></tr>
+                <tr><td>Lado da via antes do cruzamento</td><td>Ipsilateral</td><td>Ipsilateral (curto trajeto antes de cruzar)</td></tr>
+                <tr><td>3º neurônio</td><td>Tálamo (VPL)</td><td>Tálamo (VPL)</td></tr>
+                <tr><td>Padrão em lesão medular unilateral</td><td>Perda ipsilateral à lesão</td><td>Perda contralateral à lesão</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — neuropatia periférica (Caderno 01, 2026):</b> em quadros de <b>dor e queimação com parestesias em "bota"</b> (hipoestesia tátil/vibratória distal e simétrica, pulsos preservados), como na polineuropatia diabética, a <b>amitriptilina</b> é a medicação de primeira linha para a dor neuropática — reforça que fibras de dor/temperatura (anterolaterais) e de tato/vibração (coluna dorsal) podem ser acometidas de forma combinada na periferia, antes mesmo de chegarem ao SNC.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref2">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref7">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Vias Motoras Descendentes: Laterais × Mediais</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Trato corticoespinal lateral × sistemas descendentes mediais <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vias motoras descendentes laterais e mediais">
+                <rect x="40" y="10" width="140" height="40" rx="8" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="110" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">Córtex motor (M1)</text>
+
+                <path d="M110 50 L110 90" stroke="#be123c" stroke-width="5" fill="none"/>
+                <text x="10" y="80" font-size="9" fill="#9f1239" font-weight="700">Via LATERAL</text>
+                <rect x="60" y="90" width="100" height="36" rx="8" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="110" y="108" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9f1239">Trato corticoespinal</text>
+                <text x="110" y="120" text-anchor="middle" font-size="9" fill="#9f1239">(piramidal) lateral</text>
+
+                <path d="M110 126 Q110 150 170 165" stroke="#be123c" stroke-width="5" fill="none"/>
+                <text x="115" y="148" font-size="9" fill="#9f1239" font-weight="700">* decussação piramidal (bulbo)</text>
+
+                <rect x="170" y="165" width="150" height="60" rx="8" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="245" y="182" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">Motoneurônios do corno</text>
+                <text x="245" y="195" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">anterior contralateral</text>
+                <text x="245" y="212" text-anchor="middle" font-size="9" fill="#334">* controla movimentos</text>
+                <text x="245" y="224" text-anchor="middle" font-size="9" fill="#334">voluntários finos e distais</text>
+
+                <path d="M380 50 Q420 70 430 95" stroke="#2563eb" stroke-width="5" fill="none"/>
+                <text x="420" y="30" font-size="9" fill="#1d4ed8" font-weight="700">Vias MEDIAIS</text>
+                <text x="330" y="44" font-size="9" fill="#1d4ed8" font-weight="700">(tronco encefálico)</text>
+                <rect x="380" y="10" width="200" height="40" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="480" y="28" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">Reticuloespinal, vestíbulo-</text>
+                <text x="480" y="41" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">espinal e tectoespinal</text>
+
+                <rect x="380" y="95" width="200" height="60" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="480" y="113" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">* Controle postural</text>
+                <text x="480" y="126" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">antecipatório (feedforward)</text>
+                <text x="480" y="143" text-anchor="middle" font-size="9" fill="#334">musculatura axial e proximal,</text>
+                <text x="480" y="155" text-anchor="middle" font-size="9" fill="#334">em geral bilateral</text>
+
+                <text x="320" y="245" text-anchor="middle" font-size="9.5" fill="#334">* As vias mediais preparam o tronco/MMII ANTES do movimento</text>
+                <text x="320" y="257" text-anchor="middle" font-size="9.5" fill="#334">voluntário do braço começar — não dependem de feedback sensorial</text>
+              </svg>
+              <div class="cap">Figura — Trato corticoespinal lateral (movimento voluntário fino/contralateral) × vias mediais (ajuste postural antecipatório, feedforward)</div>
+            </div>
+            <ul>
+              <li>* O <b>trato corticoespinal lateral</b> decussa na <b>decussação piramidal do bulbo</b> e controla principalmente a musculatura <b>distal e apendicular</b>, responsável por movimentos voluntários finos e precisos (ex.: destreza dos dedos), de forma predominantemente <b>contralateral</b>.</li>
+              <li>* As <b>vias descendentes mediais</b> (reticuloespinal, vestibuloespinal e tectoespinal), originadas no tronco encefálico, controlam a musculatura <b>axial e proximal</b>, de forma tipicamente <b>bilateral</b>, sendo essenciais para a <b>postura, equilíbrio e orientação</b>.</li>
+              <li>* O ajuste postural que antecede um movimento voluntário do braço (ex.: ativação de músculos de tronco/pernas antes de puxar uma alavanca) é um <b>mecanismo feedforward (antecipatório)</b>, mediado por essas vias mediais — não depende de ter detectado o deslocamento corporal primeiro (o que seria um mecanismo de feedback).</li>
+              <li>Uma lesão que preserva a destreza digital, mas reduz a atividade postural antecipatória (maior oscilação corporal ao mover o braço), sugere comprometimento mais seletivo das <b>vias mediais</b>, com relativa preservação do corticoespinal lateral.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Lesão acima da decussação: o padrão de Maria <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Maria apresenta <b>hiperreflexia, sinal de Babinski e fraqueza</b> no hemicorpo <b>direito</b> — achados de <b>síndrome do neurônio motor superior</b>, compatíveis com lesão do trato corticoespinal <b>acima da decussação piramidal</b> (ou seja, no hemisfério <b>esquerdo</b>, já que a via ainda não cruzou nesse nível).</li>
+              <li>Isso contrasta com lesão do neurônio motor inferior (hiporreflexia, flacidez, atrofia precoce) — achado que Maria <b>não</b> apresenta.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — reabilitação pós-AVC:</b> em um paciente com <b>hemiparesia espástica, hiperreflexia e aumento de tônus</b>, os achados indicam comprometimento de vias motoras descendentes <b>acima da decussação piramidal</b> (neurônio motor superior); fisioterapia e terapia ocupacional atuam de forma <b>complementar</b> — e não isolada — na recuperação motora e no desempenho das atividades cotidianas (ramo 8).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref2">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref7">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Vascularização Encefálica e Áreas Centrais Irrigadas</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Círculo arterial do cérebro (polígono de Willis) <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Círculo arterial do cérebro (polígono de Willis)">
+                <text x="320" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#5b6472">Vista inferior esquemática — Polígono de Willis</text>
+
+                <path d="M90 230 L150 130" stroke="#2563eb" stroke-width="5" fill="none"/>
+                <text x="60" y="245" font-size="9.5" font-weight="700" fill="#1d4ed8">Carótida interna E</text>
+
+                <path d="M550 230 L490 130" stroke="#2563eb" stroke-width="5" fill="none"/>
+                <text x="520" y="245" font-size="9.5" font-weight="700" fill="#1d4ed8">Carótida interna D</text>
+
+                <circle cx="150" cy="130" r="8" fill="#eaf0ff" stroke="#2563eb" stroke-width="2"/>
+                <circle cx="490" cy="130" r="8" fill="#eaf0ff" stroke="#2563eb" stroke-width="2"/>
+
+                <path d="M150 130 Q220 90 260 100" stroke="#15803d" stroke-width="5" fill="none"/>
+                <path d="M490 130 Q420 90 380 100" stroke="#15803d" stroke-width="5" fill="none"/>
+                <text x="175" y="85" font-size="9" font-weight="700" fill="#166534">A. cerebral anterior E</text>
+                <text x="400" y="85" font-size="9" font-weight="700" fill="#166534">A. cerebral anterior D</text>
+
+                <path d="M260 100 L380 100" stroke="#be123c" stroke-width="5" fill="none"/>
+                <text x="320" y="92" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">* comunicante anterior</text>
+
+                <path d="M150 130 Q170 160 220 165" stroke="#7c3aed" stroke-width="5" fill="none"/>
+                <path d="M490 130 Q470 160 420 165" stroke="#7c3aed" stroke-width="5" fill="none"/>
+                <text x="140" y="180" font-size="9" font-weight="700" fill="#5b21b6">A. cerebral média E</text>
+                <text x="420" y="180" font-size="9" font-weight="700" fill="#5b21b6">A. cerebral média D</text>
+
+                <path d="M150 130 Q140 180 170 210" stroke="#be123c" stroke-width="4" fill="none" stroke-dasharray="3,3"/>
+                <path d="M490 130 Q500 180 470 210" stroke="#be123c" stroke-width="4" fill="none" stroke-dasharray="3,3"/>
+                <text x="80" y="210" font-size="8.5" fill="#9f1239">* comunicante posterior E</text>
+                <text x="470" y="225" font-size="8.5" fill="#9f1239" transform="translate(-90,0)">* comunicante posterior D</text>
+
+                <path d="M170 210 L300 220" stroke="#0891b2" stroke-width="5" fill="none"/>
+                <path d="M470 210 L340 220" stroke="#0891b2" stroke-width="5" fill="none"/>
+                <text x="320" y="238" text-anchor="middle" font-size="9" font-weight="700" fill="#0e7490">Artérias cerebrais posteriores (sist. vertebrobasilar)</text>
+              </svg>
+              <div class="cap">Figura — O círculo arterial do cérebro (polígono de Willis) une os sistemas carotídeo e vertebrobasilar por meio das comunicantes anterior e posteriores</div>
+            </div>
+            <ul>
+              <li>* O encéfalo é irrigado por dois sistemas: o <b>carotídeo</b> (artérias carótidas internas → cerebrais anterior e média) e o <b>vertebrobasilar</b> (→ cerebrais posteriores), unidos pelo <b>círculo arterial do cérebro (polígono de Willis)</b> através das artérias <b>comunicante anterior</b> e <b>comunicantes posteriores</b>.</li>
+              <li>* Essa anastomose permite <b>circulação colateral</b>: se um território perde pressão de perfusão (ex.: estenose carotídea), o sangue pode ser redirecionado através das comunicantes, desde que esses vasos e os segmentos proximais tenham calibre suficiente — o fluxo se desloca sempre a favor do <b>gradiente de pressão</b>, do território com maior pressão para o de menor pressão.</li>
+              <li>A <b>cerebral anterior</b> irriga a face medial dos hemisférios (inclui área motora/sensitiva da perna); a <b>cerebral média</b> irriga a maior parte da face lateral (área motora/sensitiva de face e braço, áreas de linguagem no hemisfério dominante); a <b>cerebral posterior</b> irriga o lobo occipital e porções do temporal medial.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref3">Drake, Vogl &amp; Mitchell — Anatomia Clínica para Estudantes</a> · <a href="#ref1">Machado — Neuroanatomia Funcional</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> AVC: Tipos, Fisiopatologia e Fatores de Risco</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">AVC isquêmico × hemorrágico <span class="tico">📊 tabela</span> <span class="pill">Objetivo 4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>AVC isquêmico × AVC hemorrágico — fisiopatologia, fatores de risco e imagem</caption>
+              <thead><tr><th>Característica</th><th>AVC isquêmico</th><th>AVC hemorrágico (intraparenquimatoso)</th></tr></thead>
+              <tbody>
+                <tr><td>* Mecanismo</td><td>Oclusão arterial (trombo/êmbolo) → interrupção do fluxo e isquemia tecidual</td><td>Ruptura de vaso → extravasamento de sangue no parênquima</td></tr>
+                <tr><td>* Principais fatores de risco</td><td>HAS, fibrilação atrial, dislipidemia, tabagismo, diabetes, aterosclerose</td><td>HAS crônica mal controlada (principal), tabagismo, uso de anticoagulantes</td></tr>
+                <tr><td>* TC de crânio sem contraste (fase aguda)</td><td>Pode ser normal nas primeiras horas (achado tardio); não é necessário aguardar área hipodensa para iniciar conduta</td><td>Área hiperdensa já na fase aguda, com edema e efeito de massa</td></tr>
+                <tr><td>Instalação</td><td>Súbita, por vezes flutuante</td><td>Súbita, frequentemente com cefaleia intensa, vômitos e rebaixamento do nível de consciência</td></tr>
+                <tr><td>Conduta inicial</td><td>TC sem contraste urgente para excluir hemorragia antes de considerar trombólise/trombectomia</td><td>TC sem contraste confirma; controle pressórico e avaliação neurocirúrgica</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>* A <b>HAS é fator de risco tanto para AVC isquêmico quanto para hemorrágico</b> — não se restringe a um único tipo, ao contrário do que pode parecer à primeira vista.</li>
+              <li>* A <b>TC de crânio sem contraste</b> é o exame inicial de escolha: tem alta sensibilidade para <b>excluir hemorragia</b> rapidamente, mesmo quando o infarto isquêmico ainda não é visível — por isso sua "normalidade" inicial <b>não afasta</b> AVC isquêmico.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Louis, Mayer &amp; Rowland — Tratado de Neurologia</a> · <a href="#ref5">Kumar, Abbas &amp; Aster — Bases Patológicas das Doenças</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> AVC: Quadro Clínico por Território Vascular e Diagnóstico</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Síndromes clínicas por artéria acometida <span class="tico">📊 tabela</span> <span class="pill">Objetivo 4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Território vascular × manifestação clínica esperada</caption>
+              <thead><tr><th>Artéria</th><th>Área irrigada (principal)</th><th>Quadro clínico típico</th></tr></thead>
+              <tbody>
+                <tr><td>* Cerebral média (ACM)</td><td>Face lateral do hemisfério; área de linguagem (hemisfério dominante)</td><td>Hemiparesia/hemi-hipoestesia com predomínio em face e braço; <b>afasia</b> se hemisfério dominante (geralmente esquerdo)</td></tr>
+                <tr><td>Cerebral anterior (ACA)</td><td>Face medial do hemisfério</td><td>Fraqueza/perda sensitiva com predomínio em perna</td></tr>
+                <tr><td>Cerebral posterior (ACP)</td><td>Lobo occipital</td><td>Alterações de campo visual (hemianopsia)</td></tr>
+                <tr><td>* ACM direita (hemisfério não dominante)</td><td>Face lateral do hemisfério direito, incluindo redes atencionais parietais</td><td>Hemiparesia/hemi-hipoestesia à esquerda + <b>negligência espacial unilateral</b> (ramo 7)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>* O caso de Maria — <b>perda sensitivo-motora à direita</b>, com <b>dificuldade de fala</b> e de motricidade fina da mão direita, associada a <b>oclusão de artéria cerebral média em hemisfério esquerdo</b> na angiografia — é coerente com a correlação anatomofuncional: ACM esquerda irriga as áreas corticais relacionadas à <b>linguagem</b> e ao <b>controle motor/sensitivo contralateral (face e braço)</b>.</li>
+              <li>* Em paciente com <b>hipertensão, fibrilação atrial, início súbito de dificuldade para falar e hemiparesia direita</b>, com TC inicial sem hemorragia, a hipótese mais provável é <b>isquemia no território da ACM esquerda</b>, comprometendo áreas corticais de linguagem e controle motor contralateral.</li>
+              <li>A fibrilação atrial é fonte clássica de <b>êmbolos cardiogênicos</b>, favorecendo AVC isquêmico embólico — e não, como pode parecer, hemorragia por ruptura de pequenos vasos.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — déficit vascular sincopal (Caderno 01, 2026):</b> ainda que não seja um AVC, vale o paralelo fisiopatológico: episódios de <b>hipotensão/tontura em paciente idoso polifarmácia</b> (ex.: associação de anti-hipertensivo e antidepressivo) devem levar à investigação de <b>hipotensão ortostática</b> como causa de baixo fluxo cerebral transitório — reforçando que a perfusão cerebral adequada depende tanto da patência arterial quanto da pressão de perfusão sistêmica.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Louis, Mayer &amp; Rowland — Tratado de Neurologia</a> · <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref7">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Negligência Espacial Unilateral e Outras Síndromes Corticais</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Negligência espacial unilateral ("lado esquecido") <span class="pill">Correlação clínica</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* A <b>negligência espacial unilateral</b> ocorre tipicamente em lesões do <b>hemisfério direito (não dominante)</b>, envolvendo <b>redes atencionais do córtex parietal/frontal</b> — o paciente deixa de perceber, explorar ou responder a estímulos do lado <b>esquerdo</b> do corpo ou do espaço, mesmo com <b>acuidade visual e campos visuais preservados</b>.</li>
+              <li>* Manifesta-se no dia a dia: comer apenas o alimento do lado direito do prato, negligenciar a higiene do hemicorpo esquerdo, colidir com objetos à esquerda — déficit de <b>atenção espacial</b>, não de visão.</li>
+              <li>* Não deve ser confundida com <b>hemianopsia</b> (perda de campo visual, lesão da via óptica) nem com déficit motor puro: a reabilitação deve <b>estimular ativamente a exploração e a atenção ao hemiespaço esquerdo</b> durante as atividades funcionais — e não apenas tratar a força muscular.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">Por que o nome do problema?</b> O título "Lado esquecido!" remete justamente a esse fenômeno: no AVC de hemisfério direito, o paciente literalmente "esquece" que o lado esquerdo do corpo e do espaço existe — ilustrando como lesões corticais podem produzir déficits de <b>percepção e atenção</b>, além dos clássicos déficits sensitivo-motores vistos no caso de Maria.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Astereognosia: quando a sensibilidade "básica" está intacta <span class="pill">Correlação clínica</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Um paciente pode ter sensibilidade tátil, vibratória e proprioceptiva <b>preservadas</b> (localiza o toque, diferencia orientação de um objeto, reconhece posição passiva do dedo) e, ainda assim, não conseguir <b>reconhecer um objeto pela manipulação</b> (ex.: uma chave) — esse déficit é a <b>astereognosia</b>.</li>
+              <li>* Ocorre por lesão do <b>córtex parietal associativo</b> (não do giro pós-central nem do tálamo, que processam a sensibilidade primária): a informação sensitiva "básica" chega normalmente, mas o cérebro não consegue <b>integrá-la</b> em um reconhecimento de objeto.</li>
+              <li>Reforça o conceito de processamento hierárquico: do receptor periférico → vias ascendentes → córtex primário (S1) → córtex associativo, onde ocorre a interpretação/integração de alto nível.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Afasia de Broca: quando a fala falha, mas a compreensão permanece</span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Compreender comandos simples, mas ter <b>dificuldade para formular/articular palavras</b>, associado a hemiparesia de face e braço, é o padrão da <b>afasia de Broca (motora/não fluente)</b>, por lesão frontal no território da ACM do hemisfério <b>dominante</b> (geralmente esquerdo).</li>
+              <li>Esse é exatamente o padrão de <b>alteração de fala</b> relatado no caso de Maria, reforçando a lateralização esquerda do AVC.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref2">Bear, Connors &amp; Paradiso — Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b8">
+      <div class="head"><span class="num">8</span> Reabilitação Multidisciplinar Pós-AVC e Prognóstico</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">O papel de cada profissional na equipe <span class="pill">Objetivo 5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* A reabilitação pós-AVC é, por definição, <b>multidisciplinar</b> e <b>complementar</b> — nenhuma categoria isolada resolve a totalidade dos déficits: <b>fisioterapia</b> (mobilidade, força, equilíbrio, espasticidade), <b>terapia ocupacional</b> (atividades de vida diária, adaptação do ambiente, déficits perceptuais como a negligência espacial), <b>fonoaudiologia</b> (afasia, disartria, disfagia), <b>psicologia</b> (ajuste emocional, depressão pós-AVC) e <b>enfermagem/medicina</b> (controle de fatores de risco, prevenção de complicações e de novo evento).</li>
+              <li>* A recuperação de um domínio (ex.: força muscular) <b>não implica necessariamente</b> a resolução de outro domínio independente (ex.: percepção espacial ou linguagem) — cada déficit decorre de circuitos distintos e pode exigir abordagem terapêutica específica.</li>
+              <li>O prognóstico depende do território e extensão do AVC, tempo até o tratamento, idade, comorbidades e precocidade do início da reabilitação.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — equipe multidisciplinar na reabilitação (Caderno 01, 2026):</b> em paciente com hemiparesia espástica e hiperreflexia pós-AVC, os achados indicam comprometimento de <b>vias motoras descendentes acima da decussação piramidal</b>, e <b>fisioterapia e terapia ocupacional atuam de forma complementar</b> na recuperação motora e no desempenho das atividades cotidianas — não de forma isolada ou hierárquica.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Louis, Mayer &amp; Rowland — Tratado de Neurologia</a> · <a href="#ref7">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">MACHADO, Ângelo. <i>Neuroanatomia Funcional</i>. 4. ed. Rio de Janeiro: Atheneu, 2022.</li>
+
+      <li id="ref2">BEAR, Mark F.; CONNORS, Barry W.; PARADISO, Michael A. <i>Neurociências: Desvendando o Sistema Nervoso</i>. 4. ed. Porto Alegre: Artmed, 2017.</li>
+
+      <li id="ref3">DRAKE, Richard L.; VOGL, A. Wayne; MITCHELL, Adam W. M. <i>Gray — Anatomia Clínica para Estudantes</i>. 5. ed. Rio de Janeiro: Grupo GEN, 2024.</li>
+
+      <li id="ref4">LOUIS, Elan D.; MAYER, Stephan A.; ROWLAND, Lewis P. <i>Merritt — Tratado de Neurologia</i>. 13. ed. Rio de Janeiro: Grupo GEN, 2018.</li>
+
+      <li id="ref5">KUMAR, Vinay; ABBAS, Abul K.; ASTER, Jon C. <i>Robbins &amp; Cotran — Bases Patológicas das Doenças</i>. 11. ed. Rio de Janeiro: Grupo GEN, 2025.</li>
+
+      <li id="ref6">HALL, John E.; HALL, Michael E. <i>Guyton &amp; Hall — Tratado de Fisiologia Médica</i>. 14. ed. Rio de Janeiro: Grupo GEN, 2021.</li>
+
+      <li id="ref7">INEP. <i>Enamed 2026 — Caderno 01, Setembro/26</i>. Exame Nacional de Avaliação da Formação Médica. Ministério da Educação. Documento fornecido pelo usuário.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia básica/complementar oficial do Módulo 02 (neuroanatomia, neurofisiologia e neurologia), no mesmo padrão editorial dos mapas anteriores, com tabelas de rolagem horizontal garantida, figuras explicativas e pontos de prova assinalados com *. Pontos também identificados no Caderno 01 do Enamed 2026 recebem a marcação <span class="enamed">ENAMED</span>.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (01 out. 2026) contra os Objetivos do Problema 5 — Módulo 02 e as 10 questões de prova (QUESTÕES PROBLEMA 5 P3 e Questões Obj. 4 e 5): vias somestésicas — dissociação sensitiva entre coluna dorsal e sistema anterolateral (ramos 1 e 2, Questão 1 da 1ª chamada); vias motoras descendentes mediais e laterais, controle postural feedforward (ramo 3, Questão 2 de ambas as chamadas); vascularização encefálica e circulação colateral pelo polígono de Willis (ramo 4, Questão 3 da 1ª chamada); tipos de AVC, fisiopatologia, fatores de risco e diagnóstico por imagem (ramo 5, Questão 4 da 1ª chamada e Questão 2 da 2ª chamada/Obj. 1); quadro clínico por território vascular, incluindo afasia de Broca em AVC de ACM esquerda (ramo 6, Questão 3 da 2ª chamada); negligência espacial unilateral e astereognosia (ramo 7, Questão 5 da 1ª chamada e Questão 1 da 2ª chamada); e papel da equipe multidisciplinar na reabilitação pós-AVC (ramo 8, Questão 4 da 2ª chamada/Obj. 2).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: AVC e Vias Nervosas Aferentes e Eferentes do SN<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
