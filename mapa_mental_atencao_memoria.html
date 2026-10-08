@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Atenção e Memória</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:10px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
+  }
+  details summary:hover{filter:brightness(0.96);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
+  }
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .b6 details summary .chev{color:var(--c6);}
+  .b7 details summary .chev{color:var(--c7);}
+  .b8 details summary .chev{color:var(--c8);}
+  .b9 details summary .chev{color:var(--c9);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{
+    font-size:.72rem;
+    opacity:.75;
+    font-weight:400;
+  }
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    min-width:460px;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:0;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  .enamed{
+    display:inline-block;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-left:4px;
+    vertical-align:middle;
+    background:#1e293b;
+    color:#fde047;
+    border:1px solid #fde047;
+  }
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Atenção e Memória</h1>
+    <p>Objetivos do Problema 6 · Módulo 02 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Atenção e Memória</h2>
+    <div class="sub">Tipos de Memória e Bases Anatômicas · Consolidação e LTP · Tipos de Atenção · Neuroplasticidade e Aprendizagem · TDAH (Etiologia, Tipos e Diagnóstico) · TDAH (Tratamento) · Efeitos do Exercício Físico no SN · Caso de Carol</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1">
+      <div class="head"><span class="num">1</span> Memória: Classificação e Bases Anatômicas</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Memória declarativa × não declarativa <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Classificação dos sistemas de memória de longo prazo">
+                <rect x="250" y="10" width="140" height="36" rx="8" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="320" y="33" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">Memória de longo prazo</text>
+
+                <path d="M300 46 L170 90" stroke="#15803d" stroke-width="4" fill="none"/>
+                <path d="M340 46 L470 90" stroke="#7c3aed" stroke-width="4" fill="none"/>
+
+                <rect x="80" y="90" width="180" height="40" rx="8" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="170" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">* Declarativa (explícita)</text>
+                <text x="170" y="122" text-anchor="middle" font-size="9" fill="#166534">consciente, verbalizável</text>
+
+                <rect x="380" y="90" width="180" height="40" rx="8" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="470" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#5b21b6">* Não declarativa (implícita)</text>
+                <text x="470" y="122" text-anchor="middle" font-size="9" fill="#5b21b6">inconsciente, por prática</text>
+
+                <path d="M130 130 L90 165" stroke="#15803d" stroke-width="3" fill="none"/>
+                <path d="M210 130 L250 165" stroke="#15803d" stroke-width="3" fill="none"/>
+                <rect x="20" y="165" width="140" height="48" rx="8" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="90" y="183" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">* Episódica</text>
+                <text x="90" y="196" text-anchor="middle" font-size="8.5" fill="#334">eventos vividos,</text>
+                <text x="90" y="207" text-anchor="middle" font-size="8.5" fill="#334">contexto tempo/espaço</text>
+
+                <rect x="180" y="165" width="140" height="48" rx="8" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="250" y="183" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">* Semântica</text>
+                <text x="250" y="196" text-anchor="middle" font-size="8.5" fill="#334">fatos/conceitos gerais,</text>
+                <text x="250" y="207" text-anchor="middle" font-size="8.5" fill="#334">sem contexto</text>
+
+                <path d="M430 130 L410 165" stroke="#7c3aed" stroke-width="3" fill="none"/>
+                <path d="M510 130 L540 165" stroke="#7c3aed" stroke-width="3" fill="none"/>
+                <rect x="340" y="165" width="140" height="48" rx="8" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="410" y="183" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">* Processual</text>
+                <text x="410" y="196" text-anchor="middle" font-size="8.5" fill="#334">habilidades motoras</text>
+                <text x="410" y="207" text-anchor="middle" font-size="8.5" fill="#334">(andar de bicicleta)</text>
+
+                <rect x="500" y="165" width="130" height="48" rx="8" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="565" y="183" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b6472">Priming, condicionamento</text>
+                <text x="565" y="196" text-anchor="middle" font-size="8.5" fill="#334">associações implícitas</text>
+
+                <text x="90" y="240" text-anchor="middle" font-size="9" fill="#9f1239" font-weight="700">* Base: hipocampo e</text>
+                <text x="90" y="252" text-anchor="middle" font-size="9" fill="#9f1239" font-weight="700">estruturas temporais mediais</text>
+
+                <text x="465" y="240" text-anchor="middle" font-size="9" fill="#9f1239" font-weight="700">* Base: núcleos da base</text>
+                <text x="465" y="252" text-anchor="middle" font-size="9" fill="#9f1239" font-weight="700">e cerebelo</text>
+              </svg>
+              <div class="cap">Figura — Classificação da memória de longo prazo: declarativa (episódica/semântica, base hipocampal) × não declarativa (processual, base em núcleos da base/cerebelo)</div>
+            </div>
+            <ul>
+              <li>* A <b>memória declarativa (explícita)</b> é consciente e verbalizável, dividindo-se em <b>episódica</b> (eventos vividos, contextualizados no tempo/espaço) e <b>semântica</b> (conhecimento factual geral, independente do contexto de aquisição). Depende do <b>hipocampo e estruturas temporais mediais</b>.</li>
+              <li>* A <b>memória não declarativa (implícita)</b> inclui a <b>memória processual</b> (habilidades motoras aprendidas por prática, como andar de bicicleta ou tocar um instrumento), que depende de <b>núcleos da base e cerebelo</b> — não do hipocampo.</li>
+              <li>* A <b>memória de trabalho</b> (curto prazo, operacional) tem capacidade limitada — classicamente estimada em cerca de <b>sete itens simultâneos</b> — e depende principalmente do <b>córtex pré-frontal</b> (não do córtex occipital).</li>
+              <li>A <b>amígdala</b> relaciona-se à <b>memória emocional</b>, um sistema à parte, e não à memória processual.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">Correlação com o caso de Carol:</b> Carol apresenta dificuldades específicas com <b>memória de trabalho</b> (cálculos, geometria, comparações de tamanho), mas <b>mantém intacta</b> sua capacidade de reter o conteúdo estudado — ou seja, de <b>consolidar memórias declarativas de longo prazo</b>. Isso indica um perfil de prejuízo seletivo em memória de trabalho/atenção, e não um comprometimento global de todos os sistemas mnésicos.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Amnésia anterógrada: o padrão clássico de lesão hipocampal</span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Lesão bilateral do <b>hipocampo e estruturas temporais mediais</b> produz o clássico quadro de <b>amnésia anterógrada</b> (incapacidade de consolidar novas memórias declarativas/episódicas), com <b>preservação</b> da memória processual (nova habilidade motora ainda pode ser aprendida) e das memórias remotas anteriores à lesão.</li>
+              <li>Esse é o padrão histórico descrito no caso H.M. — referência clássica em neuropsicologia da memória.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref2">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2">
+      <div class="head"><span class="num">2</span> Consolidação da Memória e Potenciação de Longo Prazo (LTP)</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">LTP: o correlato sináptico da aprendizagem <span class="tico">🖼️ figura</span> <span class="pill">Objetivos 1 e 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Potenciação de longo prazo na sinapse hipocampal">
+                <rect x="40" y="70" width="140" height="60" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="110" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#1d4ed8">Neurônio</text>
+                <text x="110" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#1d4ed8">pré-sináptico</text>
+
+                <path d="M180 100 L260 100" stroke="#5b6472" stroke-width="3" fill="none"/>
+                <text x="220" y="90" text-anchor="middle" font-size="8.5" fill="#5b6472">estimulação repetida</text>
+
+                <rect x="260" y="40" width="160" height="130" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="340" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#7c2d12">Fenda sináptica</text>
+                <text x="340" y="80" text-anchor="middle" font-size="9" fill="#334">↑ liberação de</text>
+                <text x="340" y="93" text-anchor="middle" font-size="9" fill="#334">glutamato</text>
+                <text x="340" y="112" text-anchor="middle" font-size="9" fill="#334">↑ receptores</text>
+                <text x="340" y="125" text-anchor="middle" font-size="9" fill="#334">pós-sinápticos (AMPA)</text>
+                <text x="340" y="144" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">* eficácia sináptica</text>
+                <text x="340" y="157" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">aumentada e sustentada</text>
+
+                <path d="M420 100 L500 100" stroke="#5b6472" stroke-width="3" fill="none"/>
+                <rect x="500" y="70" width="140" height="60" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="570" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">Neurônio</text>
+                <text x="570" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">pós-sináptico</text>
+
+                <text x="340" y="195" text-anchor="middle" font-size="9.5" fill="#334">* Principal correlato celular da consolidação da memória declarativa no hipocampo</text>
+              </svg>
+              <div class="cap">Figura — LTP: estimulação sináptica repetida aumenta de forma sustentada a eficácia da transmissão, consolidando a memória</div>
+            </div>
+            <ul>
+              <li>* A <b>potenciação de longo prazo (LTP)</b> é um aumento <b>sustentado</b> da eficácia de transmissão sináptica após estimulação repetida — é um dos principais mecanismos celulares relacionados à <b>consolidação da aprendizagem e da memória declarativa no hipocampo</b> (não é um fenômeno predominantemente cerebelar).</li>
+              <li>* A capacidade de Carol de <b>reter o conteúdo estudado</b> mostra que sua LTP hipocampal está <b>preservada</b> — o problema está em outro domínio (memória de trabalho/atenção), e não na consolidação de longo prazo.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Poda sináptica (synaptic pruning): refinar, não aumentar</span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* A <b>poda sináptica</b> é mais intensa na infância e adolescência, e seu objetivo é <b>eliminar/refinar conexões pouco utilizadas</b> — não aumentar indiscriminadamente a densidade sináptica cortical (erro conceitual comum).</li>
+              <li>Junto com a formação de novas sinapses (sinaptogênese) e a LTP, a poda sináptica é um dos mecanismos que moldam os circuitos corticais ao longo do desenvolvimento e da aprendizagem.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref2">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3">
+      <div class="head"><span class="num">3</span> Tipos de Atenção</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Seletiva, sustentada, dividida e alternada <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Tipos de atenção e exemplos de aplicação</caption>
+              <thead><tr><th>Tipo</th><th>Definição</th><th>Exemplo</th></tr></thead>
+              <tbody>
+                <tr><td>* Seletiva</td><td>Focalizar um estímulo relevante, filtrando/suprimindo estímulos concorrentes irrelevantes</td><td>Acompanhar a explicação do professor ignorando conversas paralelas ("efeito coquetel")</td></tr>
+                <tr><td>Sustentada</td><td>Manter o foco em uma tarefa ao longo do tempo</td><td>Permanecer concentrado durante uma prova longa</td></tr>
+                <tr><td>Alternada</td><td>Trocar o foco sequencialmente entre tarefas distintas, uma de cada vez</td><td>Ler um texto e depois responder uma pergunta sobre ele, alternando entre as duas atividades</td></tr>
+                <tr><td>* Dividida</td><td>Processar simultaneamente duas ou mais fontes de informação/tarefas concorrentes</td><td>Dirigir enquanto conversa com um passageiro, monitorando trânsito e sinalização ao mesmo tempo</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>* A professora de Carol notou prejuízo na capacidade de <b>selecionar estímulos relevantes</b> (atenção seletiva) e de <b>sustentar o foco por período maior</b> (atenção sustentada) — dois dos domínios atencionais mais tipicamente comprometidos no TDAH (ramo 5).</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref3">APA — DSM-5</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4">
+      <div class="head"><span class="num">4</span> Neuroplasticidade e sua Correlação com a Aprendizagem</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">O que é e o que não é neuroplasticidade <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* <b>Neuroplasticidade</b> é a propriedade do sistema nervoso central de se <b>reorganizar estrutural e funcionalmente</b> — novas conexões sinápticas, mudanças de atividade cortical — em resposta a estímulos ambientais e experiências (incluindo aprendizagem e exercício físico).</li>
+              <li>* Não deve ser confundida com <b>apoptose neuronal</b> (morte celular programada) nem com <b>gliose reacional</b> (resposta a dano/lesão) — ambos processos distintos, associados a lesão, não a ganho funcional adaptativo.</li>
+              <li>* A modulação da neuroplasticidade por estímulos ambientais/experiências cognitivas ocorre por mecanismos <b>epigenéticos</b> (alteração da expressão gênica) — <b>sem alterar a sequência do DNA</b> dos neurônios.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">O caso de Carol:</b> na pesquisa experimental descrita no problema, o aumento da atividade de áreas <b>fronto-parietais</b> (especialmente córtex pré-frontal) após a intervenção com exercício físico, acompanhado de melhora cognitiva, é a <b>demonstração direta de neuroplasticidade</b> induzida pelo exercício — não um efeito de poda sináptica ou de processos degenerativos.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a> · <a href="#ref2">Kandel — Princípios de Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5">
+      <div class="head"><span class="num">5</span> TDAH: Etiologia, Tipos e Critérios Diagnósticos</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Apresentações do TDAH (DSM-5) <span class="tico">📊 tabela</span> <span class="pill">Objetivo 4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Apresentações do Transtorno de Déficit de Atenção e Hiperatividade — critérios DSM-5</caption>
+              <thead><tr><th>Apresentação</th><th>Critério</th></tr></thead>
+              <tbody>
+                <tr><td>* Predominantemente desatenta</td><td>≥ 6 sintomas de desatenção (descuido, dificuldade de manter atenção, parecer não escutar, não concluir tarefas, distração fácil, esquecimento, perda de objetos), sem critérios plenos de hiperatividade/impulsividade</td></tr>
+                <tr><td>Predominantemente hiperativa-impulsiva</td><td>≥ 6 sintomas de hiperatividade/impulsividade, sem critérios plenos de desatenção</td></tr>
+                <tr><td>Combinada</td><td>Critérios plenos em <b>ambos</b> os domínios (desatenção e hiperatividade-impulsividade)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>* Critérios gerais do DSM-5: sintomas presentes há <b>mais de 6 meses</b>, em <b>dois ou mais ambientes</b> (ex.: casa e escola), com <b>prejuízo funcional</b> significativo.</li>
+              <li>* A <b>etiologia do TDAH é multifatorial</b>, com <b>componente genético importante</b> — herdabilidade estimada em <b>70–80%</b> em estudos com gêmeos — e não predominantemente psicossocial/adquirida.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">O caso de Carol:</b> agitação, impulsividade, inquietação <b>e</b> desatenção, com prejuízo em memória de trabalho e em atenção seletiva/sustentada, presentes ao longo dos últimos anos — perfil compatível com <b>TDAH</b>, a ser tipificado conforme a presença ou ausência de critérios plenos para hiperatividade-impulsividade (apresentação desatenta, hiperativa-impulsiva ou combinada).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref3">APA — DSM-5</a> · <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6">
+      <div class="head"><span class="num">6</span> TDAH: Tratamento Farmacológico e Não Farmacológico</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Metilfenidato e abordagem multimodal <span class="tico">📊 tabela</span> <span class="pill">Objetivo 4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Tratamento do TDAH — pilares farmacológico e não farmacológico</caption>
+              <thead><tr><th>Modalidade</th><th>Características</th></tr></thead>
+              <tbody>
+                <tr><td>* Metilfenidato (psicoestimulante)</td><td>Primeira linha farmacológica; inibe a <b>recaptação de dopamina e noradrenalina</b> na fenda sináptica, aumentando sua disponibilidade em circuitos frontoestriatais</td></tr>
+                <tr><td>Terapia comportamental</td><td>Integra o tratamento <b>multimodal desde o início</b> — não é reservada apenas a casos refratários ao fármaco; é a abordagem inicial preferencial em pré-escolares</td></tr>
+                <tr><td>Antipsicóticos atípicos</td><td><b>Não</b> são primeira linha para TDAH</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — avaliação pré-tratamento (Caderno 01, 2026):</b> uma criança com TDAH refratário a intervenções pedagógicas/comportamentais isoladas, <b>ativa, sem síncope, dor torácica ou palpitações</b>, com exame físico normal — mesmo com história familiar de hipertensão e infarto tardio (sem morte súbita em jovens, arritmias hereditárias ou surdez congênita) — não apresenta sinais de alerta cardiovascular: a conduta adequada é <b>iniciar metilfenidato e monitorar sinais vitais</b>, sem necessidade de investigação cardiológica extensa rotineira antes do tratamento, reservada a casos com fatores de risco relevantes.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref3">APA — DSM-5</a> · <a href="#ref6">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7">
+      <div class="head"><span class="num">7</span> Efeitos do Exercício Físico no Sistema Nervoso</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">BDNF, neurogênese e perfusão cerebral <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Via pela qual o exercício físico beneficia a cognição">
+                <rect x="30" y="80" width="130" height="50" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="95" y="100" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">Exercício físico</text>
+                <text x="95" y="114" text-anchor="middle" font-size="10" font-weight="700" fill="#166534">aeróbico regular</text>
+
+                <path d="M160 105 L230 105" stroke="#5b6472" stroke-width="3" fill="none"/>
+
+                <rect x="230" y="40" width="150" height="50" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="305" y="60" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">* ↑ BDNF e outros</text>
+                <text x="305" y="73" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1d4ed8">fatores neurotróficos</text>
+
+                <rect x="230" y="120" width="150" height="50" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="305" y="140" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c2d12">* ↑ Perfusão sanguínea</text>
+                <text x="305" y="153" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c2d12">cerebral</text>
+
+                <path d="M380 65 L450 90" stroke="#5b6472" stroke-width="3" fill="none"/>
+                <path d="M380 145 L450 110" stroke="#5b6472" stroke-width="3" fill="none"/>
+
+                <rect x="450" y="70" width="160" height="60" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="530" y="90" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b21b6">* ↑ Neurogênese</text>
+                <text x="530" y="103" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b21b6">hipocampal + plasticidade</text>
+                <text x="530" y="116" text-anchor="middle" font-size="9" fill="#5b21b6">em hipocampo/córtex pré-frontal</text>
+
+                <text x="320" y="195" text-anchor="middle" font-size="9.5" fill="#334">Resultado: melhora de atenção, memória e funções executivas</text>
+              </svg>
+              <div class="cap">Figura — O exercício físico aumenta BDNF, perfusão cerebral e neurogênese, favorecendo a plasticidade sináptica e a cognição</div>
+            </div>
+            <ul>
+              <li>* O exercício físico aeróbico regular <b>aumenta</b> (não reduz) a expressão do <b>BDNF (fator neurotrófico derivado do encéfalo)</b> e estimula a <b>neurogênese no giro denteado do hipocampo</b>.</li>
+              <li>* Também <b>aumenta</b> a perfusão sanguínea cerebral e a disponibilidade de <b>monoaminas</b> (dopamina, noradrenalina, serotonina) na fenda sináptica — mecanismos que, em conjunto, favorecem a plasticidade sináptica e a cognição.</li>
+              <li>* Em crianças com sintomas de desatenção/hiperatividade, programas de exercício físico aeróbico regular (semanas de intervenção) mostram <b>maior ativação de áreas frontoparietais</b> e melhora de desempenho cognitivo e foco atencional — o <b>mecanismo central</b> é o aumento de fatores neurotróficos e neurogênese, favorecendo a plasticidade em hipocampo e córtex pré-frontal.</li>
+            </ul>
+            <div class="note">
+              <b class="tag">O caso de Carol:</b> a frase da mãe — "o exercício é o remédio de Carol" — resume exatamente esse mecanismo: efeitos <b>neuroquímicos</b> (↑ BDNF, monoaminas), <b>fisiológicos</b> (↑ perfusão cerebral) e <b>estruturais</b> (neurogênese, plasticidade sináptica) do exercício físico regular, traduzidos em melhora do foco atencional e do desempenho escolar.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref4">Guyton &amp; Hall — Tratado de Fisiologia Médica</a> · <a href="#ref1">Bear, Connors &amp; Paradiso — Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b8">
+      <div class="head"><span class="num">8</span> Caso de Carol: Integração dos Achados</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Lendo o caso à luz da neurociência da atenção e memória <span class="pill">Síntese</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* <b>Memória de trabalho prejudicada</b> (cálculos, geometria, comparações de tamanho) com <b>LTP/consolidação declarativa preservada</b> (retém o conteúdo estudado) — dissociação que aponta para um comprometimento mais <b>pré-frontal/atencional</b> do que hipocampal (ramos 1 e 2).</li>
+              <li>* Prejuízo em <b>atenção seletiva</b> (selecionar estímulos relevantes) e <b>atenção sustentada</b> (manter o foco por mais tempo), associados a agitação, impulsividade e inquietação — perfil consistente com <b>TDAH</b> (ramos 3 e 5).</li>
+              <li>* A intervenção com exercício físico, ao <b>aumentar a atividade de áreas fronto-parietais</b> (sobretudo córtex pré-frontal), demonstra de forma direta o princípio da <b>neuroplasticidade</b> (ramo 4), mediada pelos mecanismos neuroquímicos, fisiológicos e estruturais do exercício (ramo 7).</li>
+              <li>A melhora do foco atencional e do desempenho escolar de Carol após o programa de exercícios ilustra, de forma integrada, como o tratamento do TDAH vai além do farmacológico: estratégias não farmacológicas — incluindo <b>exercício físico regular</b> — também promovem ganhos cognitivos mensuráveis (ramo 6).</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: síntese dos ramos 1 a 7, com base na bibliografia listada abaixo.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">BEAR, Mark F.; CONNORS, Barry W.; PARADISO, Michael A. <i>Neurociências: Desvendando o Sistema Nervoso</i>. 4. ed. Porto Alegre: Artmed, 2017.</li>
+
+      <li id="ref2">KANDEL, Eric R. et al. <i>Princípios de Neurociências</i>. 6. ed. Porto Alegre: AMGH/McGraw-Hill, 2023.</li>
+
+      <li id="ref3">APA — AMERICAN PSYCHIATRIC ASSOCIATION. <i>DSM-5: Manual Diagnóstico e Estatístico de Transtornos Mentais</i>. 5. ed. São Paulo: Artmed, 2016.</li>
+
+      <li id="ref4">HALL, John E.; HALL, Michael E. <i>Guyton &amp; Hall — Tratado de Fisiologia Médica</i>. 14. ed. Rio de Janeiro: Grupo GEN, 2021.</li>
+
+      <li id="ref5">UNIVERSIDADE TIRADENTES (UNIT). <i>Módulos Temáticos — 3ª Etapa (T30), Módulo 02 — Questões estilo ENAMED, Problema 6 "Atenção, menina!"</i>. Documento fornecido pelo usuário, 2026.</li>
+
+      <li id="ref6">INEP. <i>Enamed 2026 — Caderno 01, Setembro/26</i>. Exame Nacional de Avaliação da Formação Médica. Ministério da Educação. Documento fornecido pelo usuário.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia básica/complementar oficial do Módulo 02 (neurociências, psiquiatria do desenvolvimento e fisiologia do exercício), no mesmo padrão editorial dos mapas anteriores, com tabelas de rolagem horizontal garantida, figuras explicativas e pontos de prova assinalados com *. Pontos também identificados no Caderno 01 do Enamed 2026 recebem a marcação <span class="enamed">ENAMED</span>.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (08 out. 2026) contra os Objetivos do Problema 6 — Módulo 02: tipos de memória e bases anatômicas, incluindo amnésia anterógrada hipocampal e memória semântica (ramo 1); LTP e poda sináptica como mecanismos de consolidação/plasticidade (ramo 2); tipos de atenção — seletiva e dividida (ramo 3); neuroplasticidade e sua correlação com a aprendizagem, incluindo o estudo experimental com exercício físico (ramo 4); TDAH — apresentação predominantemente desatenta pelo DSM-5 (ramo 5); tratamento do TDAH — metilfenidato, terapia comportamental e etiologia multifatorial (ramo 6), com cross-referência ao Caderno 01 do Enamed 2026 sobre avaliação pré-tratamento; e efeitos do exercício físico no sistema nervoso — BDNF, neurogênese e perfusão cerebral (ramo 7).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Atenção e Memória<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+</body>
+</html>
