@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Níveis de Consciência, TCE e Tronco Encefálico</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:10px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
+  }
+  details summary:hover{filter:brightness(0.96);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
+  }
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .b6 details summary .chev{color:var(--c6);}
+  .b7 details summary .chev{color:var(--c7);}
+  .b8 details summary .chev{color:var(--c8);}
+  .b9 details summary .chev{color:var(--c9);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{
+    font-size:.72rem;
+    opacity:.75;
+    font-weight:400;
+  }
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    min-width:460px;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:0;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  .enamed{
+    display:inline-block;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-left:4px;
+    vertical-align:middle;
+    background:#1e293b;
+    color:#fde047;
+    border:1px solid #fde047;
+  }
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+
+  /* ===== Ajustes P4: tabelas sempre visíveis por completo ===== */
+  .twrap{overflow-x:auto;max-width:100%;}
+  table{min-width:0;table-layout:auto;}
+  th,td{word-break:normal;overflow-wrap:anywhere;hyphens:auto;}
+  @media (max-width:680px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  
+  .branch .body{container-type:inline-size;}
+  @container (max-width:520px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  /* Painel de objetivos */
+  .objs{
+    max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;
+    padding:16px 20px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .objs h3{margin:0 0 8px;font-size:1rem;color:var(--ink);}
+  .objs ol{margin:0;padding-left:20px;font-size:.85rem;line-height:1.55;color:#333;}
+  .objs li{margin-bottom:6px;}
+  .objs li a{color:#1d4ed8;text-decoration:none;font-size:.75rem;font-weight:600;margin-left:4px;}
+  .objs .legend{margin-top:10px;padding-top:8px;border-top:1px dashed #e3e6ec;font-size:.74rem;color:var(--muted);line-height:1.5;}
+  .objs .enamed{margin-left:4px;}
+
+  .qpill{
+    display:inline-block;font-size:.66rem;font-weight:800;padding:1px 7px;border-radius:999px;
+    background:#fef3c7;color:#92400e;border:1px solid #f59e0b;margin-left:2px;vertical-align:middle;
+  }
+  .gab{
+    background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #16a34a;border-radius:8px;
+    padding:8px 11px;margin:8px 0;font-size:.8rem;line-height:1.5;
+  }
+  .gab b.tag{color:#15803d;}
+  .gab ul{margin:6px 0 0;padding-left:16px;}
+  .timeline-wrap{max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;padding:12px 10px 8px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);}
+  .timeline-wrap .cap{font-size:.72rem;color:var(--muted);text-align:center;font-style:italic;margin-top:2px;}
+  .timeline-wrap svg{width:100%;height:auto;display:block;}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Níveis de Consciência, TCE e Tronco Encefálico</h1>
+    <p>Objetivos do Problema 4 · “O que será de Maria?” · Módulo 02 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis. Em telas estreitas, as tabelas se reorganizam em fichas para serem lidas por inteiro.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Níveis de Consciência</h2>
+    <div class="sub">Escala de Coma de Glasgow (ECG e ECG-P) · Exames de Imagem no TCE · Tronco Encefálico, Formação Reticular e SARA · Escala RASS · Morte Encefálica (Resolução CFM 2.173/17) · Planejamento Motor · Excitotoxicidade e Crises pós-lesão</div>
+  </div>
+
+  <!-- OBJETIVOS -->
+  <div class="objs">
+    <h3>🎯 Objetivos do Problema 4 (com temas ENAMED ressaltados)</h3>
+    <ol>
+      <li>Conhecer a <b>escala de Glasgow</b> para avaliação de níveis de consciência e sua utilização na prática clínica (diferenciar os níveis de consciência). <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q3, Q41, Q51, Q60</span> <a href="#r1">→ ramo 1</a> <a href="#r2">· ramo 2</a></li>
+      <li>Identificar os <b>exames de imagem mais utilizados no diagnóstico do TCE</b>. <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q60, Q66</span> <a href="#r3">→ ramo 3</a></li>
+      <li>Relacionar as subdivisões e funções do <b>tronco encefálico</b> (incluir formação reticular e SARA). <a href="#r4">→ ramo 4</a> <a href="#r5">· ramo 5</a></li>
+      <li>Descrever a <b>escala de agitação e sedação de Richmond (RASS)</b>. <a href="#r6">→ ramo 6</a></li>
+      <li>Elucidar os <b>critérios diagnósticos da morte encefálica</b> e seus aspectos éticos (Resolução CFM 2.173/17). <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q88 (declaração de óbito)</span> <a href="#r7">→ ramo 7</a></li>
+      <li>Elucidar os mecanismos relacionados ao <b>planejamento motor</b>. <a href="#r8">→ ramo 8</a></li>
+    </ol>
+    <div class="legend">
+      <b>Legenda:</b> <span class="qpill">Q1</span> = número da questão correspondente · <span class="enamed">ENAMED</span> = tema cobrado no Caderno 01 do Enamed 2026 (número da questão indicado) · ramo 9 = conteúdo complementar cobrado na Questão 5 (crise convulsiva pós-AVC), também presente no Enamed (Q31, Q66).
+    </div>
+  </div>
+
+  <!-- LINHA DO TEMPO DO CASO -->
+  <div class="timeline-wrap">
+    <svg viewBox="0 0 900 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linha do tempo do caso de Maria">
+      <text x="450" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2436">Linha do tempo do caso de Maria (25 anos, TCE em acidente automobilístico)</text>
+      <line x1="40" y1="95" x2="860" y2="95" stroke="#cbd5e1" stroke-width="4"/>
+      <circle cx="90" cy="95" r="14" fill="#2563eb"/><text x="90" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+      <text x="90" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">Emergência</text>
+      <text x="90" y="128" text-anchor="middle" font-size="10.5" fill="#334">ECG = 10</text>
+      <text x="90" y="142" text-anchor="middle" font-size="10" fill="#334">(TCE moderado)</text>
+      <text x="90" y="156" text-anchor="middle" font-size="10" fill="#334">amaurose, agnosia verbal</text>
+
+      <circle cx="250" cy="95" r="14" fill="#0f766e"/><text x="250" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">2</text>
+      <text x="250" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">TC + RM de crânio</text>
+      <text x="250" y="128" text-anchor="middle" font-size="10" fill="#334">alteração típica de</text>
+      <text x="250" y="142" text-anchor="middle" font-size="10" fill="#334">trauma de tronco</text>
+      <text x="250" y="156" text-anchor="middle" font-size="10" fill="#334">(ex.: lesão axonal difusa)</text>
+
+      <circle cx="420" cy="95" r="14" fill="#be123c"/><text x="420" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">3</text>
+      <text x="420" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#be123c">+3 h: ECG = 8</text>
+      <text x="420" y="128" text-anchor="middle" font-size="10" fill="#334">TCE grave (≤ 8)</text>
+      <text x="420" y="142" text-anchor="middle" font-size="10" fill="#334">→ intubação orotraqueal</text>
+      <text x="420" y="156" text-anchor="middle" font-size="10" fill="#334">sedação: RASS −3</text>
+
+      <circle cx="590" cy="95" r="14" fill="#7c3aed"/><text x="590" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">4</text>
+      <text x="590" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Família pergunta:</text>
+      <text x="590" y="74" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">“é morte encefálica?”</text>
+      <text x="590" y="128" text-anchor="middle" font-size="10" fill="#334">critérios NÃO</text>
+      <text x="590" y="142" text-anchor="middle" font-size="10" fill="#334">preenchidos</text>
+      <text x="590" y="156" text-anchor="middle" font-size="10" fill="#334">(CFM 2.173/17)</text>
+
+      <circle cx="790" cy="95" r="14" fill="#15803d"/><text x="790" y="100" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">5</text>
+      <text x="790" y="60" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d">+1 semana → alta</text>
+      <text x="790" y="128" text-anchor="middle" font-size="10" fill="#334">ECG = 13</text>
+      <text x="790" y="142" text-anchor="middle" font-size="10" fill="#334">déficit de planejamento</text>
+      <text x="790" y="156" text-anchor="middle" font-size="10" fill="#334">motor (escrita, fala, gestos)</text>
+    </svg>
+    <div class="cap">Figura — Evolução de Maria: cada etapa corresponde a um objetivo do problema (Glasgow → imagem → intubação/RASS → morte encefálica → planejamento motor)</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1" id="r1">
+      <div class="head"><span class="num">1</span> Consciência: Nível × Conteúdo e Estados Alterados</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Os dois componentes da consciência <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Componentes da consciência: nível (SARA) e conteúdo (córtex)">
+                <rect x="20" y="20" width="280" height="90" rx="12" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="160" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">NÍVEL (alerta / vigília)</text>
+                <text x="160" y="64" text-anchor="middle" font-size="10.5" fill="#334">“o interruptor”: estar acordado</text>
+                <text x="160" y="82" text-anchor="middle" font-size="10.5" fill="#334">depende do SARA (tronco) +</text>
+                <text x="160" y="98" text-anchor="middle" font-size="10.5" fill="#334">tálamo (núcleos intralaminares)</text>
+
+                <rect x="340" y="20" width="280" height="90" rx="12" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="480" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">CONTEÚDO (percepção)</text>
+                <text x="480" y="64" text-anchor="middle" font-size="10.5" fill="#334">“a lâmpada”: atenção, memória,</text>
+                <text x="480" y="82" text-anchor="middle" font-size="10.5" fill="#334">linguagem, orientação, juízo</text>
+                <text x="480" y="98" text-anchor="middle" font-size="10.5" fill="#334">depende do córtex cerebral</text>
+
+                <path d="M160 110 L160 150 L320 150" stroke="#2563eb" stroke-width="3" fill="none"/>
+                <path d="M480 110 L480 150 L320 150" stroke="#15803d" stroke-width="3" fill="none"/>
+                <rect x="190" y="150" width="260" height="38" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+                <text x="320" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#9a3412">Consciência plena = nível + conteúdo</text>
+
+                <text x="320" y="212" text-anchor="middle" font-size="10.5" fill="#9f1239" font-weight="700">* COMA = lesão do SARA no tegmento ponto-mesencefálico</text>
+                <text x="320" y="228" text-anchor="middle" font-size="10.5" fill="#9f1239" font-weight="700">OU lesão cortical/subcortical BILATERAL e difusa</text>
+                <text x="320" y="244" text-anchor="middle" font-size="9.5" fill="#5b6472">(lesão hemisférica unilateral isolada não costuma causar coma)</text>
+              </svg>
+              <div class="cap">Figura — O nível de consciência depende do tronco (SARA) e o conteúdo, do córtex: por isso lesões de tronco rebaixam a consciência</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Espectro dos níveis de consciência <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espectro de níveis de consciência">
+                <defs><linearGradient id="gcons" x1="0" x2="1"><stop offset="0" stop-color="#22c55e"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#be123c"/></linearGradient></defs>
+                <rect x="20" y="40" width="600" height="22" rx="11" fill="url(#gcons)"/>
+                <text x="60" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Vigil</text>
+                <text x="190" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#854d0e">Sonolência</text>
+                <text x="330" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#9a3412">Torpor</text>
+                <text x="470" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">Coma superficial</text>
+                <text x="585" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#881337">Coma</text>
+                <text x="60" y="82" text-anchor="middle" font-size="9.5" fill="#334">responde</text>
+                <text x="60" y="94" text-anchor="middle" font-size="9.5" fill="#334">normalmente</text>
+                <text x="190" y="82" text-anchor="middle" font-size="9.5" fill="#334">desperta com</text>
+                <text x="190" y="94" text-anchor="middle" font-size="9.5" fill="#334">estímulo verbal</text>
+                <text x="330" y="82" text-anchor="middle" font-size="9.5" fill="#334">só desperta com</text>
+                <text x="330" y="94" text-anchor="middle" font-size="9.5" fill="#334">estímulo doloroso</text>
+                <text x="470" y="82" text-anchor="middle" font-size="9.5" fill="#334">resposta reflexa</text>
+                <text x="470" y="94" text-anchor="middle" font-size="9.5" fill="#334">mal localizada</text>
+                <text x="585" y="82" text-anchor="middle" font-size="9.5" fill="#334">sem resposta</text>
+                <text x="585" y="94" text-anchor="middle" font-size="9.5" fill="#334">(ECG 3)</text>
+                <text x="320" y="114" text-anchor="middle" font-size="9.5" fill="#5b6472">← ECG 15 ………………………………………………… ECG 3 →</text>
+              </svg>
+              <div class="cap">Figura — Do vigil ao coma: a progressão acompanha a queda da pontuação na ECG</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Estados que podem ser confundidos com coma</caption>
+              <thead><tr><th>Estado</th><th>Olhos / vigília</th><th>Conteúdo da consciência</th><th>Lesão típica</th></tr></thead>
+              <tbody>
+                <tr><td>Coma</td><td>Fechados, sem ciclo sono-vigília</td><td>Ausente</td><td>SARA (tegmento ponto-mesencefálico) ou córtex bilateral</td></tr>
+                <tr><td>Estado vegetativo (vigília sem resposta)</td><td>Abertos, com ciclo sono-vigília</td><td>Ausente</td><td>Córtex/substância branca difusos, tronco preservado</td></tr>
+                <tr><td>Estado minimamente consciente</td><td>Abertos</td><td>Mínimo e flutuante (segue objeto, comando simples)</td><td>Lesão difusa parcial</td></tr>
+                <tr><td>Síndrome do encarceramento (locked-in)</td><td>Abertos; comunica por movimentos oculares verticais</td><td><b>Preservado</b></td><td>Base da ponte (ventral) — não é coma</td></tr>
+                <tr><td>Morte encefálica</td><td>Coma aperceptivo</td><td>Ausente, irreversível</td><td>Perda de todas as funções encefálicas, inclusive tronco (ramo 7)</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a> · <a href="#ref2">Bear — Neurociências</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b2" id="r2">
+      <div class="head"><span class="num">2</span> Escala de Coma de Glasgow (ECG) e ECG-P <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* Pontuação completa da ECG <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Escala de Coma de Glasgow (versão atualizada) — total de 3 a 15</caption>
+              <thead><tr><th>Pontos</th><th>Abertura ocular (O)</th><th>Resposta verbal (V)</th><th>Resposta motora (M)</th></tr></thead>
+              <tbody>
+                <tr><td>6</td><td>—</td><td>—</td><td>Obedece a comandos</td></tr>
+                <tr><td>5</td><td>—</td><td>Orientada</td><td>Localiza o estímulo</td></tr>
+                <tr><td>4</td><td>Espontânea</td><td>Confusa</td><td>Flexão normal (retirada)</td></tr>
+                <tr><td>3</td><td>Ao som / à voz</td><td>Palavras inapropriadas</td><td>* Flexão anormal (<b>decorticação</b>)</td></tr>
+                <tr><td>2</td><td>* À pressão (estímulo doloroso)</td><td>Sons incompreensíveis</td><td>* Extensão anormal (<b>descerebração</b>)</td></tr>
+                <tr><td>1</td><td>Ausente</td><td>* Ausente</td><td>Ausente</td></tr>
+                <tr><td>NT</td><td>Não testável (ex.: edema palpebral)</td><td>Não testável (ex.: <b>intubado</b>)</td><td>Não testável (ex.: sedado/curarizado)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>* Escore de Reatividade Pupilar (ERP) e ECG-P = ECG − ERP (varia de 1 a 15)</caption>
+              <thead><tr><th>Reatividade pupilar</th><th>ERP</th></tr></thead>
+              <tbody>
+                <tr><td>Ambas as pupilas reagem à luz</td><td>0</td></tr>
+                <tr><td>* Uma pupila arreativa</td><td>1</td></tr>
+                <tr><td>Ambas arreativas</td><td>2</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>* Classificação do TCE pela ECG e conduta-chave</caption>
+              <thead><tr><th>ECG</th><th>Gravidade</th><th>Ponto prático</th></tr></thead>
+              <tbody>
+                <tr><td>13–15</td><td>Leve</td><td>Decidir TC por regras de decisão (ramo 3)</td></tr>
+                <tr><td>9–12</td><td>Moderado</td><td>TC obrigatória, observação neurológica seriada — Maria na admissão (10)</td></tr>
+                <tr><td>3–8</td><td>Grave</td><td>* <b>“ECG ≤ 8, intuba”</b>: via aérea definitiva — Maria após 3 h (8)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>* Avaliar sempre <b>antes da sedação/intubação</b> e registrar os componentes separados (ex.: O2V1M2 = 5), não apenas o total.</li>
+              <li>* Queda de <b>≥ 2 pontos</b> na reavaliação indica deterioração (hematoma em expansão, edema, herniação) — exatamente o que ocorreu com Maria (10 → 8).</li>
+              <li>Estímulo de pressão padronizado: pressão no leito ungueal (periférico), no trapézio ou na incisura supraorbital (central).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Posturas patológicas: decorticação × descerebração <span class="tico">🖼️ figura</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posturas de decorticação e descerebração">
+                <text x="160" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#b45309">Decorticação (M3)</text>
+                <circle cx="160" cy="50" r="16" fill="#fff4e0" stroke="#b45309" stroke-width="2"/>
+                <line x1="160" y1="66" x2="160" y2="150" stroke="#b45309" stroke-width="5"/>
+                <path d="M160 85 L125 105 L145 75" stroke="#b45309" stroke-width="5" fill="none"/>
+                <path d="M160 85 L195 105 L175 75" stroke="#b45309" stroke-width="5" fill="none"/>
+                <line x1="160" y1="150" x2="140" y2="215" stroke="#b45309" stroke-width="5"/>
+                <line x1="160" y1="150" x2="180" y2="215" stroke="#b45309" stroke-width="5"/>
+                <text x="160" y="232" text-anchor="middle" font-size="9.5" fill="#334">MMSS em flexão, MMII em extensão</text>
+
+                <text x="480" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#be123c">Descerebração (M2) — * Q1</text>
+                <circle cx="480" cy="50" r="16" fill="#ffe9ee" stroke="#be123c" stroke-width="2"/>
+                <line x1="480" y1="66" x2="480" y2="150" stroke="#be123c" stroke-width="5"/>
+                <path d="M480 85 L455 150" stroke="#be123c" stroke-width="5" fill="none"/>
+                <path d="M480 85 L505 150" stroke="#be123c" stroke-width="5" fill="none"/>
+                <line x1="480" y1="150" x2="460" y2="215" stroke="#be123c" stroke-width="5"/>
+                <line x1="480" y1="150" x2="500" y2="215" stroke="#be123c" stroke-width="5"/>
+                <text x="480" y="232" text-anchor="middle" font-size="9.5" fill="#334">MMSS em extensão, adução e rotação interna</text>
+
+                <text x="320" y="95" text-anchor="middle" font-size="10" fill="#5b6472">lesão ACIMA</text>
+                <text x="320" y="108" text-anchor="middle" font-size="10" fill="#5b6472">do núcleo rubro</text>
+                <text x="320" y="128" text-anchor="middle" font-size="18" fill="#94a3b8">→</text>
+                <text x="320" y="150" text-anchor="middle" font-size="10" fill="#5b6472">lesão ABAIXO do</text>
+                <text x="320" y="163" text-anchor="middle" font-size="10" fill="#5b6472">núcleo rubro</text>
+                <text x="320" y="176" text-anchor="middle" font-size="10" fill="#5b6472">(mesencéfalo/ponte)</text>
+              </svg>
+              <div class="cap">Figura — A descerebração indica lesão mais caudal (mesencéfalo/ponte) e pior prognóstico que a decorticação</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Questão 1 resolvida: ECG-P e RASS <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="gab">
+              <b class="tag">Gabarito comentado — alternativa B (ECG-P 4; RASS −4):</b>
+              <ul>
+                <li>Abre os olhos só à dor = <b>O2</b>; nenhum som = <b>V1</b>; extensão com adução e rotação interna = <b>M2</b> → ECG = 5.</li>
+                <li>Pupila esquerda midriática e arreativa, direita reativa → ERP = 1 → <b>ECG-P = 5 − 1 = 4</b>.</li>
+                <li>Pós-sedação: imóvel à voz, mas se move ao estímulo físico → <b>RASS −4</b> (sedação profunda, ramo 6).</li>
+                <li>Correlação: coma por comprometimento da <b>formação reticular ativadora ascendente</b> no tegmento mesencefálico/pontino; midríase arreativa por compressão das <b>fibras parassimpáticas do III par</b> (núcleo de Edinger-Westphal), que correm na superfície do nervo e são as primeiras atingidas na herniação uncal (ramo 3).</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Glasgow no ENAMED 2026 <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q3, Q41, Q51, Q60):</b>
+              <ul>
+                <li><b>Q3</b> — gestante de 32 semanas politraumatizada, <b>ECG 12</b> (TCE moderado), em prancha rígida com colar: a ECG aparece como dado de triagem pré-hospitalar que orienta a conduta no transporte.</li>
+                <li><b>Q41</b> — idoso “sonolento e confuso” = <b>ECG 13</b>: traduzir o nível de consciência descrito em pontuação (O3–4, V4) é habilidade cobrada.</li>
+                <li><b>Q51</b> — paciente encontrado desacordado com <b>ECG 3</b> → <b>intubação orotraqueal</b> (ECG ≤ 8, ramo 2). Atenção ao contraste pupilar: <b>pupilas puntiformes</b> (miose colinérgica da intoxicação por organofosforado) × <b>midríase arreativa unilateral</b> da herniação uncal (ramo 3).</li>
+                <li><b>Q60</b> — criança vítima de trauma grave com rebaixamento do nível de consciência e respiração irregular: indicação de <b>via aérea definitiva</b>, considerando as particularidades anatômicas pediátricas.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref6">Teasdale et al. — Glasgow Coma Scale 40 anos / ECG-P</a> · <a href="#ref7">ATLS 10ª ed.</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a> · <a href="#ref13">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3" id="r3">
+      <div class="head"><span class="num">3</span> Exames de Imagem no TCE <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Qual exame, quando? <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Exames de imagem no TCE — indicação e limitações</caption>
+              <thead><tr><th>Exame</th><th>Indicação principal</th><th>Vantagens</th><th>Limitações</th></tr></thead>
+              <tbody>
+                <tr><td>* <b>TC de crânio sem contraste</b></td><td>Exame de 1ª escolha na fase aguda</td><td>Rápida, disponível; detecta sangue agudo (hiperdenso), fraturas, desvio de linha média, herniação</td><td>Pouco sensível para lesão axonal difusa e lesões de tronco/fossa posterior</td></tr>
+                <tr><td><b>RM de encéfalo</b> (DWI, SWI/T2*, FLAIR)</td><td>Paciente com déficit não explicado pela TC; suspeita de lesão axonal difusa e de tronco</td><td>Maior sensibilidade para micro-hemorragias, LAD e tronco encefálico</td><td>Demorada, exige estabilidade e ausência de metal</td></tr>
+                <tr><td>Angio-TC</td><td>Suspeita de lesão vascular (dissecção carotídea/vertebral, fratura de base)</td><td>Rápida, não invasiva</td><td>Contraste iodado</td></tr>
+                <tr><td>TC de coluna cervical</td><td>Todo TCE moderado/grave ou mecanismo de risco</td><td>Afasta lesão cervical associada</td><td>—</td></tr>
+                <tr><td>Radiografia de crânio</td><td><b>Não recomendada</b> rotineiramente</td><td>—</td><td>Não mostra lesão intracraniana</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">No caso de Maria:</b> a “alteração comum em pacientes com trauma no tronco encefálico” corresponde, tipicamente, à <b>lesão axonal difusa</b> (cisalhamento de axônios na substância branca, corpo caloso e tronco dorsolateral) — melhor vista na <b>RM</b>, o que justifica a realização dos dois exames.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Hematoma extradural × subdural <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Formato do hematoma extradural (lente biconvexa) e subdural (crescente) na TC">
+                <text x="160" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#0f766e">Extradural (epidural)</text>
+                <ellipse cx="160" cy="120" rx="95" ry="95" fill="#f1f5f9" stroke="#475569" stroke-width="6"/>
+                <path d="M85 62 Q55 120 85 178 Q110 120 85 62 Z" fill="#94a3b8" stroke="#0f766e" stroke-width="2"/>
+                <path d="M85 62 Q55 120 85 178" fill="none"/>
+                <text x="160" y="125" text-anchor="middle" font-size="10" fill="#334">lente biconvexa</text>
+                <text x="160" y="139" text-anchor="middle" font-size="10" fill="#334">não cruza suturas</text>
+
+                <text x="480" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#7c3aed">Subdural</text>
+                <ellipse cx="480" cy="120" rx="95" ry="95" fill="#f1f5f9" stroke="#475569" stroke-width="6"/>
+                <path d="M420 48 Q370 120 420 192 Q395 120 420 48 Z" fill="#94a3b8" stroke="#7c3aed" stroke-width="2"/>
+                <text x="490" y="125" text-anchor="middle" font-size="10" fill="#334">crescente (meia-lua)</text>
+                <text x="490" y="139" text-anchor="middle" font-size="10" fill="#334">cruza suturas</text>
+                <text x="320" y="225" text-anchor="middle" font-size="9.5" fill="#5b6472">Esquema de TC axial — sangue agudo aparece hiperdenso (claro)</text>
+              </svg>
+              <div class="cap">Figura — Formato típico dos hematomas na TC de crânio sem contraste</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Comparação dos hematomas traumáticos</caption>
+              <thead><tr><th>Característica</th><th>Extradural</th><th>Subdural agudo</th></tr></thead>
+              <tbody>
+                <tr><td>Vaso de origem</td><td>Artéria meníngea média (fratura temporal)</td><td>Veias-ponte (córtex → seio dural)</td></tr>
+                <tr><td>Espaço</td><td>Entre crânio e dura-máter</td><td>Entre dura-máter e aracnoide</td></tr>
+                <tr><td>Imagem na TC</td><td>Biconvexa, não cruza suturas</td><td>Crescente, cruza suturas</td></tr>
+                <tr><td>Clínica</td><td>Intervalo lúcido clássico → deterioração rápida</td><td>Idosos, alcoolistas, anticoagulados; evolução variável</td></tr>
+                <tr><td>* Complicação temida</td><td><b>Herniação uncal</b> ipsilateral (Q1)</td><td>Efeito de massa e herniação</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Herniação uncal: por que a pupila dilata? <span class="tico">🖼️ figura</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Herniação uncal comprimindo o III nervo e o mesencéfalo">
+                <rect x="20" y="20" width="600" height="190" rx="14" fill="#f8fafc" stroke="#d7dce4"/>
+                <rect x="70" y="40" width="160" height="60" rx="10" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="150" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#115e59">Hematoma temporal</text>
+                <text x="150" y="80" text-anchor="middle" font-size="10" fill="#115e59">efeito de massa</text>
+                <path d="M230 70 L300 110" stroke="#be123c" stroke-width="4" fill="none" marker-end="url(#ah)"/>
+                <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#be123c"/></marker></defs>
+                <rect x="300" y="90" width="150" height="50" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="375" y="111" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">Úncus herniado pela</text>
+                <text x="375" y="126" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">incisura do tentório</text>
+                <path d="M375 140 L270 180" stroke="#be123c" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+                <path d="M375 140 L480 180" stroke="#be123c" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+                <text x="240" y="196" text-anchor="middle" font-size="10" font-weight="700" fill="#1b2436">* III par: fibras parassimpáticas</text>
+                <text x="240" y="208" text-anchor="middle" font-size="10" fill="#334">superficiais → midríase arreativa ipsilateral</text>
+                <text x="500" y="196" text-anchor="middle" font-size="10" font-weight="700" fill="#1b2436">* Mesencéfalo dorsolateral</text>
+                <text x="500" y="208" text-anchor="middle" font-size="10" fill="#334">SARA → coma; pedúnculo → postura</text>
+              </svg>
+              <div class="cap">Figura — Na herniação uncal, a compressão das fibras parassimpáticas do oculomotor causa midríase arreativa do mesmo lado</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* TCE leve: quando pedir TC? (Regra Canadense) <span class="tico">📊 tabela</span> <span class="qpill">Q2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Canadian CT Head Rule — TCE leve (ECG 13–15) com perda de consciência, amnésia ou desorientação</caption>
+              <thead><tr><th>Risco</th><th>Critérios (basta 1 para indicar TC)</th></tr></thead>
+              <tbody>
+                <tr><td><b>Alto</b> (risco de intervenção neurocirúrgica)</td><td>ECG &lt; 15 duas horas após o trauma · suspeita de fratura aberta ou com afundamento · sinais de fratura de base de crânio (Battle, guaxinim, oto/rinoliquorreia, hemotímpano) · <b>* ≥ 2 episódios de vômito</b> · <b>* idade ≥ 65 anos</b></td></tr>
+                <tr><td><b>Médio</b> (lesão na TC)</td><td>Amnésia retrógrada ≥ 30 min · mecanismo perigoso (atropelamento, ejeção de veículo, queda &gt; 1 m ou 5 degraus)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="gab">
+              <b class="tag">Gabarito comentado — Questão 2, alternativa C:</b> homem de <b>68 anos</b> com <b>3 vômitos</b> = critérios de <b>alto risco</b> → TC indicada. O quadro neurológico é uma <b>síndrome bulbar lateral</b> (ramo 5): hipoestesia térmico-dolorosa na hemiface esquerda (núcleo e trato espinal do trigêmeo), analgesia do hemicorpo direito (trato espinotalâmico), ausência do reflexo do vômito (núcleo ambíguo) e ataxia à esquerda (<b>pedúnculo cerebelar inferior</b>), com força e propriocepção preservadas (pirâmides e lemnisco medial poupados).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Imagem no ENAMED: quando pedir e quando NÃO pedir <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q66):</b> menina de 2 anos com crise tônico-clônica generalizada de 2 min durante quadro febril, exame neurológico normal e sem sinais meníngeos = <b>crise febril simples</b>: a conduta é <b>orientar a família e seguir em ambulatório</b>, <b>sem</b> TC de crânio, EEG ou punção de rotina. Assim como a regra canadense no TCE leve (Questão 2), o ponto cobrado é <b>indicar imagem só quando há critério</b>.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">ATLS 10ª ed.</a> · <a href="#ref8">Stiell et al. — Canadian CT Head Rule</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a> · <a href="#ref13">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b4" id="r4">
+      <div class="head"><span class="num">4</span> Tronco Encefálico: Subdivisões e Funções</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Mesencéfalo, ponte e bulbo <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Subdivisões do tronco encefálico e nervos cranianos">
+                <rect x="40" y="10" width="190" height="40" rx="12" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="135" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="#3730a3">Diencéfalo (tálamo)</text>
+                <rect x="70" y="55" width="130" height="70" rx="10" fill="#eaf0ff" stroke="#2563eb" stroke-width="2"/>
+                <text x="135" y="85" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">Mesencéfalo</text>
+                <text x="135" y="103" text-anchor="middle" font-size="11" fill="#1d4ed8">NC III, IV</text>
+                <path d="M60 130 Q135 118 210 130 L210 200 Q135 212 60 200 Z" fill="#fff4e0" stroke="#b45309" stroke-width="2"/>
+                <text x="135" y="160" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">Ponte</text>
+                <text x="135" y="178" text-anchor="middle" font-size="11" fill="#92400e">NC V, VI, VII, VIII</text>
+                <rect x="85" y="205" width="100" height="75" rx="10" fill="#ffe9ee" stroke="#be123c" stroke-width="2"/>
+                <text x="135" y="235" text-anchor="middle" font-size="13" font-weight="700" fill="#9f1239">Bulbo</text>
+                <text x="135" y="253" text-anchor="middle" font-size="11" fill="#9f1239">NC IX, X, XI, XII</text>
+                <rect x="105" y="282" width="60" height="14" rx="4" fill="#f7f8fa" stroke="#d7dce4"/>
+                <text x="135" y="293" text-anchor="middle" font-size="8.5" fill="#5b6472">medula</text>
+
+                <text x="250" y="72" font-size="10.5" fill="#1b2436"><tspan font-weight="700" fill="#1d4ed8">Mesencéfalo:</tspan> colículos superiores (reflexos visuais)</text>
+                <text x="250" y="87" font-size="10.5" fill="#1b2436">e inferiores (auditivos), substância negra, núcleo rubro,</text>
+                <text x="250" y="102" font-size="10.5" fill="#1b2436">pedúnculos cerebrais (trato corticoespinal), * reflexo fotomotor</text>
+                <text x="250" y="150" font-size="10.5" fill="#1b2436"><tspan font-weight="700" fill="#92400e">Ponte:</tspan> pedúnculos cerebelares médios, centros</text>
+                <text x="250" y="165" font-size="10.5" fill="#1b2436">pneumotáxico/apnêustico, locus coeruleus (noradrenalina),</text>
+                <text x="250" y="180" font-size="10.5" fill="#1b2436">* reflexos corneopalpebral e oculocefálico</text>
+                <text x="250" y="225" font-size="10.5" fill="#1b2436"><tspan font-weight="700" fill="#9f1239">Bulbo:</tspan> pirâmides (decussação), olivas, núcleo</text>
+                <text x="250" y="240" font-size="10.5" fill="#1b2436">ambíguo, núcleo do trato solitário, pedúnculo cerebelar</text>
+                <text x="250" y="255" font-size="10.5" fill="#1b2436">inferior, * centros cardiorrespiratórios, reflexos de tosse/vômito</text>
+              </svg>
+              <div class="cap">Figura — Vista esquemática do tronco encefálico: cada nível abriga núcleos de nervos cranianos testados no exame de coma e de morte encefálica</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Organização em três andares: base, tegmento e teto <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Divisão funcional transversal do tronco encefálico</caption>
+              <thead><tr><th>Andar</th><th>Conteúdo</th><th>Lesão → manifestação</th></tr></thead>
+              <tbody>
+                <tr><td>Base (ventral)</td><td>Tratos descendentes motores (corticoespinal, corticonuclear, corticopontino)</td><td>Hemiparesia contralateral; base da ponte bilateral → síndrome do encarceramento</td></tr>
+                <tr><td>* Tegmento (intermediário)</td><td>Núcleos dos nervos cranianos, vias sensitivas (lemnisco medial, espinotalâmico), <b>formação reticular/SARA</b></td><td>* Rebaixamento da consciência/coma, alterações pupilares, oculomotoras e respiratórias</td></tr>
+                <tr><td>Teto (dorsal, só no mesencéfalo)</td><td>Colículos superiores e inferiores</td><td>Paralisia do olhar vertical (síndrome de Parinaud)</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Padrão respiratório e localização da lesão <span class="tico">📊 tabela</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Padrões respiratórios no paciente comatoso</caption>
+              <thead><tr><th>Padrão</th><th>Nível sugerido</th></tr></thead>
+              <tbody>
+                <tr><td>Cheyne-Stokes</td><td>Hemisférios bilaterais/diencéfalo</td></tr>
+                <tr><td>Hiperventilação neurogênica central</td><td>Mesencéfalo/ponte rostral</td></tr>
+                <tr><td>Apnêustica</td><td>Ponte</td></tr>
+                <tr><td>Atáxica (Biot)</td><td>Bulbo — prenúncio de apneia</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref3">Drake — Gray Anatomia Clínica</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b5" id="r5">
+      <div class="head"><span class="num">5</span> Formação Reticular, SARA e Síndromes do Tronco</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* SARA: o “despertador” do córtex <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sistema ativador reticular ascendente">
+                <path d="M120 40 Q320 -10 520 40 Q600 90 540 150 Q320 190 100 150 Q40 90 120 40 Z" fill="#e8f7ec" stroke="#15803d" stroke-width="2"/>
+                <text x="320" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">Córtex cerebral (difuso, bilateral)</text>
+                <rect x="270" y="95" width="100" height="36" rx="8" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="320" y="111" text-anchor="middle" font-size="10" font-weight="700" fill="#3730a3">Tálamo</text>
+                <text x="320" y="124" text-anchor="middle" font-size="9" fill="#3730a3">(intralaminares)</text>
+                <rect x="400" y="110" width="110" height="34" rx="8" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="455" y="126" text-anchor="middle" font-size="9.5" font-weight="700" fill="#701a75">Hipotálamo</text>
+                <text x="455" y="139" text-anchor="middle" font-size="8.5" fill="#701a75">orexina, histamina</text>
+                <rect x="250" y="185" width="140" height="60" rx="10" fill="#fff4e0" stroke="#b45309" stroke-width="2"/>
+                <text x="320" y="205" text-anchor="middle" font-size="10.5" font-weight="700" fill="#92400e">Formação reticular</text>
+                <text x="320" y="219" text-anchor="middle" font-size="9.5" fill="#92400e">tegmento ponto-</text>
+                <text x="320" y="232" text-anchor="middle" font-size="9.5" fill="#92400e">mesencefálico</text>
+                <path d="M320 185 L320 131" stroke="#b45309" stroke-width="4" marker-end="url(#ah2)"/>
+                <path d="M300 95 L220 60" stroke="#2563eb" stroke-width="3" marker-end="url(#ah3)"/>
+                <path d="M340 95 L420 60" stroke="#2563eb" stroke-width="3" marker-end="url(#ah3)"/>
+                <path d="M370 200 Q440 180 455 144" stroke="#b45309" stroke-width="3" fill="none" marker-end="url(#ah2)"/>
+                <path d="M455 110 L470 70" stroke="#a21caf" stroke-width="3" marker-end="url(#ah3)"/>
+                <path d="M250 205 Q160 180 150 100" stroke="#b45309" stroke-width="3" fill="none" stroke-dasharray="5,4" marker-end="url(#ah2)"/>
+                <text x="140" y="205" text-anchor="middle" font-size="9" fill="#334">via extratalâmica direta</text>
+                <text x="140" y="217" text-anchor="middle" font-size="9" fill="#334">(rafe 5-HT, locus coeruleus NA,</text>
+                <text x="140" y="229" text-anchor="middle" font-size="9" fill="#334">núcleos colinérgicos PPT/LDT)</text>
+                <defs>
+                  <marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#b45309"/></marker>
+                  <marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#2563eb"/></marker>
+                </defs>
+              </svg>
+              <div class="cap">Figura — O SARA parte do tegmento ponto-mesencefálico e ativa o córtex por via talâmica e extratalâmica (hipotálamo e projeções monoaminérgicas)</div>
+            </div>
+            <ul>
+              <li>A <b>formação reticular</b> é uma rede de neurônios difusos no tegmento de todo o tronco, com funções de <b>vigília (SARA)</b>, controle cardiorrespiratório, tônus muscular/postura (tratos reticuloespinais), modulação da dor e movimentos oculares.</li>
+              <li>* O <b>SARA</b> recebe colaterais de todas as vias sensitivas e mantém o córtex “ligado”: neurotransmissores-chave = <b>acetilcolina</b> (PPT/LDT), <b>noradrenalina</b> (locus coeruleus), <b>serotonina</b> (rafe), <b>dopamina</b>, <b>histamina</b> e <b>orexina</b> (hipotálamo).</li>
+              <li>* Por isso uma lesão pequena no <b>tegmento mesencefálico/pontino</b> causa coma, enquanto lesões grandes de um só hemisfério podem não causar.</li>
+              <li>Sedativos e anestésicos atuam em grande parte deprimindo esse sistema — base farmacológica do rebaixamento medido pela RASS (ramo 6).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Síndrome bulbar lateral (Wallenberg) <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="qpill">Q2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Corte do bulbo com área lateral lesada">
+                <ellipse cx="200" cy="115" rx="150" ry="100" fill="#f7f8fa" stroke="#475569" stroke-width="2"/>
+                <path d="M290 40 Q360 115 290 190 Q250 115 290 40 Z" fill="#fecdd3" stroke="#be123c" stroke-width="2"/>
+                <ellipse cx="200" cy="190" rx="35" ry="16" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="200" y="194" text-anchor="middle" font-size="9" fill="#166534">pirâmide</text>
+                <rect x="180" y="120" width="40" height="45" rx="6" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="200" y="140" text-anchor="middle" font-size="8.5" fill="#1d4ed8">lemnisco</text>
+                <text x="200" y="152" text-anchor="middle" font-size="8.5" fill="#1d4ed8">medial</text>
+                <text x="120" y="70" text-anchor="middle" font-size="9" fill="#334">(lado oposto)</text>
+                <text x="305" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">área</text>
+                <text x="305" y="112" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">lesada</text>
+                <text x="305" y="124" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">(PICA/</text>
+                <text x="305" y="136" text-anchor="middle" font-size="9" font-weight="700" fill="#9f1239">vertebral)</text>
+                <text x="380" y="50" font-size="10" fill="#1b2436">• núcleo/trato espinal do V → face ipsi</text>
+                <text x="380" y="72" font-size="10" fill="#1b2436">• trato espinotalâmico → corpo contra</text>
+                <text x="380" y="94" text-anchor="start" font-size="10" fill="#1b2436">• núcleo ambíguo → disfagia, ↓vômito</text>
+                <text x="380" y="116" font-size="10" fill="#1b2436">• pedúnculo cerebelar inferior → ataxia ipsi</text>
+                <text x="380" y="138" font-size="10" fill="#1b2436">• núcleos vestibulares → vertigem</text>
+                <text x="380" y="160" font-size="10" fill="#1b2436">• via simpática → Horner ipsi</text>
+                <text x="380" y="190" font-size="10" fill="#15803d" font-weight="700">poupados: pirâmide e lemnisco</text>
+                <text x="380" y="204" font-size="10" fill="#15803d" font-weight="700">medial → força e propriocepção OK</text>
+              </svg>
+              <div class="cap">Figura — Corte esquemático do bulbo: a lesão lateral poupa as estruturas mediais (síndrome alterna sensitiva)</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Síndromes alternas do tronco — padrão “nervo craniano ipsilateral + via longa contralateral”</caption>
+              <thead><tr><th>Síndrome</th><th>Nível</th><th>Achados</th></tr></thead>
+              <tbody>
+                <tr><td>Weber</td><td>Mesencéfalo (base)</td><td>III par ipsilateral + hemiparesia contralateral</td></tr>
+                <tr><td>Millard-Gubler</td><td>Ponte (base)</td><td>VI e VII ipsilaterais + hemiparesia contralateral</td></tr>
+                <tr><td>* Wallenberg (bulbar lateral)</td><td>Bulbo lateral</td><td>Dor/temperatura: face ipsi + corpo contra; disfagia/disfonia; ataxia ipsi; Horner ipsi</td></tr>
+                <tr><td>Dejerine (bulbar medial)</td><td>Bulbo medial</td><td>XII ipsilateral + hemiparesia e perda proprioceptiva contralaterais</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Machado — Neuroanatomia Funcional</a> · <a href="#ref2">Bear — Neurociências</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b6" id="r6">
+      <div class="head"><span class="num">6</span> Escala RASS (Richmond)</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* Escala completa de +4 a −5 <span class="tico">📊 tabela</span> <span class="pill">Objetivo 4</span> <span class="qpill">Q1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Richmond Agitation-Sedation Scale (RASS)</caption>
+              <thead><tr><th>Escore</th><th>Termo</th><th>Descrição</th></tr></thead>
+              <tbody>
+                <tr><td>+4</td><td>Combativo</td><td>Violento, perigo imediato para a equipe</td></tr>
+                <tr><td>+3</td><td>Muito agitado</td><td>Puxa ou remove tubos e cateteres; agressivo</td></tr>
+                <tr><td>+2</td><td>Agitado</td><td>Movimentos sem propósito frequentes; briga com o ventilador</td></tr>
+                <tr><td>+1</td><td>Inquieto</td><td>Ansioso, mas movimentos não agressivos</td></tr>
+                <tr><td>0</td><td>Alerta e calmo</td><td>—</td></tr>
+                <tr><td>−1</td><td>Sonolento</td><td>Desperta à voz e mantém contato visual &gt; 10 s</td></tr>
+                <tr><td>−2</td><td>Sedação leve</td><td>Desperta à voz, contato visual &lt; 10 s</td></tr>
+                <tr><td>* −3</td><td>Sedação moderada</td><td>Movimento ou abertura ocular <b>à voz</b>, sem contato visual — <b>Maria na intubação</b></td></tr>
+                <tr><td>* −4</td><td>Sedação profunda</td><td><b>Sem resposta à voz</b>; movimento ou abertura ocular ao <b>estímulo físico</b> — <b>Questão 1</b></td></tr>
+                <tr><td>−5</td><td>Não despertável</td><td>Sem resposta à voz nem ao estímulo físico</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Como aplicar em 3 passos <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxograma de aplicação da RASS">
+                <rect x="10" y="20" width="190" height="70" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="105" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">1. Observar</text>
+                <text x="105" y="60" text-anchor="middle" font-size="10" fill="#334">alerta/inquieto/agitado?</text>
+                <text x="105" y="76" text-anchor="middle" font-size="10" fill="#334">→ 0 a +4</text>
+                <path d="M200 55 L225 55" stroke="#7c3aed" stroke-width="3" marker-end="url(#ah4)"/>
+                <rect x="225" y="20" width="190" height="70" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="320" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">2. Chamar pelo nome</text>
+                <text x="320" y="60" text-anchor="middle" font-size="10" fill="#334">“abra os olhos e olhe para mim”</text>
+                <text x="320" y="76" text-anchor="middle" font-size="10" fill="#334">→ −1 a −3</text>
+                <path d="M415 55 L440 55" stroke="#7c3aed" stroke-width="3" marker-end="url(#ah4)"/>
+                <rect x="440" y="20" width="190" height="70" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+                <text x="535" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#5b21b6">3. Estímulo físico</text>
+                <text x="535" y="60" text-anchor="middle" font-size="10" fill="#334">sacudir ombro / esterno</text>
+                <text x="535" y="76" text-anchor="middle" font-size="10" fill="#334">→ −4 ou −5</text>
+                <text x="320" y="125" text-anchor="middle" font-size="10.5" fill="#1b2436" font-weight="700">Alvo usual na UTI: RASS 0 a −2 (sedação leve), salvo indicação de sedação profunda</text>
+                <text x="320" y="145" text-anchor="middle" font-size="10" fill="#334">(ex.: hipertensão intracraniana grave, ventilação difícil)</text>
+                <defs><marker id="ah4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#7c3aed"/></marker></defs>
+              </svg>
+              <div class="cap">Figura — Sequência padronizada de aplicação da RASS</div>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ECG × RASS — não confundir:</b> a ECG mede <b>gravidade da lesão neurológica</b> e deve ser obtida <b>antes</b> da sedação; a RASS mede a <b>profundidade da sedação</b> e é reavaliada várias vezes ao dia. A RASS também é o 1º passo do <b>CAM-ICU</b> para rastrear <b>delirium</b> (aplicável com RASS ≥ −3).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref9">Sessler et al. — RASS</a> · <a href="#ref7">ATLS 10ª ed.</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b7" id="r7">
+      <div class="head"><span class="num">7</span> Morte Encefálica — Resolução CFM 2.173/17 <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* Fluxograma do protocolo <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 5</span> <span class="qpill">Q3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxograma do diagnóstico de morte encefálica">
+                <defs><marker id="ah5" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#0891b2"/></marker></defs>
+                <rect x="60" y="10" width="520" height="78" rx="10" fill="#e0f7fa" stroke="#0891b2"/>
+                <text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">PRÉ-REQUISITOS</text>
+                <text x="320" y="48" text-anchor="middle" font-size="10" fill="#1b2436">coma aperceptivo, sem reatividade · causa conhecida e irreversível · sem fatores confundidores</text>
+                <text x="320" y="63" text-anchor="middle" font-size="10" fill="#1b2436">* observação hospitalar ≥ 6 h (≥ 24 h se encefalopatia hipóxico-isquêmica pós-PCR)</text>
+                <text x="320" y="78" text-anchor="middle" font-size="10" fill="#1b2436">* T &gt; 35 °C · SatO₂ &gt; 94% · PAS ≥ 100 ou PAM ≥ 65 mmHg (adulto; vasopressor permitido)</text>
+                <path d="M320 88 L320 108" stroke="#0891b2" stroke-width="3" marker-end="url(#ah5)"/>
+                <rect x="60" y="108" width="520" height="62" rx="10" fill="#e0f7fa" stroke="#0891b2"/>
+                <text x="320" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">2 EXAMES CLÍNICOS (médicos diferentes)</text>
+                <text x="320" y="146" text-anchor="middle" font-size="10" fill="#1b2436">coma aperceptivo + ausência de reflexos de tronco (tabela abaixo)</text>
+                <text x="320" y="161" text-anchor="middle" font-size="10" fill="#1b2436">intervalo: 7 d–2 m = 24 h · 2–24 m = 12 h · &gt; 2 anos = 1 h</text>
+                <path d="M320 170 L320 190" stroke="#0891b2" stroke-width="3" marker-end="url(#ah5)"/>
+                <rect x="60" y="190" width="520" height="62" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="320" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#9f1239">* TESTE DE APNEIA (1 vez)</text>
+                <text x="320" y="228" text-anchor="middle" font-size="10" fill="#1b2436">pré-oxigenação com O₂ 100% → desconexão do ventilador com O₂ no tubo</text>
+                <text x="320" y="243" text-anchor="middle" font-size="10" fill="#1b2436" font-weight="700">positivo = ausência de movimentos respiratórios com PaCO₂ final &gt; 55 mmHg</text>
+                <path d="M320 252 L320 272" stroke="#0891b2" stroke-width="3" marker-end="url(#ah5)"/>
+                <rect x="60" y="272" width="520" height="62" rx="10" fill="#e0f7fa" stroke="#0891b2"/>
+                <text x="320" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">EXAME COMPLEMENTAR (obrigatório)</text>
+                <text x="320" y="310" text-anchor="middle" font-size="10" fill="#1b2436">ausência de perfusão, metabolismo ou atividade elétrica encefálica:</text>
+                <text x="320" y="325" text-anchor="middle" font-size="10" fill="#1b2436">angiografia · Doppler transcraniano · cintilografia/SPECT · EEG</text>
+                <path d="M320 334 L320 354" stroke="#0891b2" stroke-width="3" marker-end="url(#ah5)"/>
+                <rect x="120" y="354" width="400" height="40" rx="10" fill="#1e293b"/>
+                <text x="320" y="372" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fde047">Morte encefálica = morte (hora do óbito:</text>
+                <text x="320" y="387" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fde047">conclusão do último procedimento)</text>
+              </svg>
+              <div class="cap">Figura — Etapas obrigatórias e sequenciais do diagnóstico de morte encefálica (Res. CFM 2.173/2017)</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Reflexos de tronco testados <span class="tico">📊 tabela</span> <span class="pill">Objetivo 5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Reflexos do tronco encefálico no protocolo — todos devem estar AUSENTES</caption>
+              <thead><tr><th>Reflexo</th><th>Aferência → eferência</th><th>Nível testado</th></tr></thead>
+              <tbody>
+                <tr><td>Fotomotor</td><td>II → III</td><td>Mesencéfalo</td></tr>
+                <tr><td>Corneopalpebral</td><td>V → VII</td><td>Ponte</td></tr>
+                <tr><td>Oculocefálico (“olhos de boneca”)</td><td>VIII/proprioceptores → III, VI</td><td>Ponte–mesencéfalo</td></tr>
+                <tr><td>Vestíbulo-calórico</td><td>VIII → III, VI</td><td>Ponte–mesencéfalo</td></tr>
+                <tr><td>Tosse (aspiração traqueal)</td><td>X → X</td><td>Bulbo</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Atenção:</b> reflexos de <b>origem medular</b> (miotáticos, cutâneo-plantar em extensão, tríplice flexão, sinal de Lázaro) <b>podem persistir</b> e <b>não excluem</b> morte encefálica.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Questão 3 resolvida: quem preenche os critérios? <span class="tico">📊 tabela</span> <span class="qpill">Q3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Análise dos três pacientes da Questão 3</caption>
+              <thead><tr><th>Paciente</th><th>Ponto decisivo</th><th>Conclusão</th></tr></thead>
+              <tbody>
+                <tr><td>1 — TCE grave, 72 h sem sedação</td><td>2 exames clínicos, apneia com PaCO₂ &gt; 55, T 36,2 °C, PAS 115 (noradrenalina permitida), exame complementar compatível</td><td><b>Preenche</b></td></tr>
+                <tr><td>2 — Encefalopatia anóxica pós-PCR</td><td>* Apenas <b>18 h</b> após a ressuscitação — exige <b>≥ 24 h</b> de observação</td><td><b>Não preenche</b> (ainda)</td></tr>
+                <tr><td>3 — AVCh com inundação ventricular</td><td>* PaCO₂ final = <b>54 mmHg</b> (precisa ser &gt; 55); reflexos plantar/patelar são medulares e não excluiriam</td><td><b>Não preenche</b> (teste de apneia inconclusivo)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="gab"><b class="tag">Gabarito — alternativa A:</b> o Paciente 1 é o único que consolida os critérios de morte encefálica.</div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Aspectos éticos e legais <span class="pill">Objetivo 5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>* Os médicos que determinam a ME devem ser <b>capacitados</b> (≥ 1 ano de experiência com pacientes em coma e ≥ 10 determinações acompanhadas, ou curso específico) e <b>não podem integrar a equipe de remoção e transplante</b>.</li>
+              <li>* A abertura do protocolo é <b>obrigatória</b> diante de suspeita, <b>independentemente</b> de o paciente ser potencial doador; a notificação à <b>Central Estadual de Transplantes</b> é compulsória (Lei 9.434/97).</li>
+              <li>A família deve ser informada do início, das etapas e do resultado; pode indicar um médico de sua confiança para acompanhar os exames.</li>
+              <li>Confirmada a ME, é legítima a <b>suspensão do suporte</b> em não doadores (Res. CFM 1.826/2007); a doação só ocorre com <b>consentimento familiar</b>.</li>
+              <li>A ME é <b>morte</b> — não se fala em “paciente em morte encefálica que pode melhorar”. No caso de Maria, o médico agiu corretamente ao explicar que os critérios <b>não</b> estavam fechados: ela tinha ECG 8, reflexos presentes e estava sob sedação (fator confundidor).</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Declaração de óbito no ENAMED <span class="enamed">ENAMED</span> <span class="pill">Objetivo 5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q88):</b> o preenchimento da <b>declaração de óbito</b> segue a sequência causal da <b>causa terminal (linha a) até a causa básica</b> (última linha da Parte I); condições que contribuíram sem estar na cadeia vão para a Parte II. Na morte encefálica, a DO é emitida com a <b>hora da conclusão do último procedimento do protocolo</b>; em morte por causa externa (como o TCE de Maria, se evoluísse a óbito), a DO é emitida pelo <b>IML</b>. A mesma questão cobra o <b>sigilo</b> sobre a condição de saúde solicitado pelo paciente.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref10">CFM — Resolução 2.173/2017</a> · <a href="#ref11">Lei 9.434/1997</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a> · <a href="#ref13">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b8" id="r8">
+      <div class="head"><span class="num">8</span> Planejamento Motor (Hierarquia do Movimento)</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* Hierarquia: estratégia → tática → execução <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 6</span> <span class="qpill">Q4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hierarquia do controle motor">
+                <defs><marker id="ah6" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#4338ca"/></marker></defs>
+                <rect x="170" y="10" width="300" height="50" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+                <text x="320" y="30" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3730a3">ESTRATÉGIA — “o quê / para quê”</text>
+                <text x="320" y="47" text-anchor="middle" font-size="10" fill="#334">córtex pré-frontal + parietal posterior (associativo)</text>
+                <path d="M320 60 L320 82" stroke="#4338ca" stroke-width="3" marker-end="url(#ah6)"/>
+                <rect x="60" y="82" width="250" height="70" rx="10" fill="#fff4e0" stroke="#b45309"/>
+                <text x="185" y="102" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">* Área motora suplementar</text>
+                <text x="185" y="119" text-anchor="middle" font-size="10" fill="#334">movimentos AUTO-INICIADOS,</text>
+                <text x="185" y="133" text-anchor="middle" font-size="10" fill="#334">sequências memorizadas, bimanuais</text>
+                <rect x="330" y="82" width="250" height="70" rx="10" fill="#e3f7f4" stroke="#0f766e"/>
+                <text x="455" y="102" text-anchor="middle" font-size="11" font-weight="700" fill="#115e59">* Córtex pré-motor</text>
+                <text x="455" y="119" text-anchor="middle" font-size="10" fill="#334">movimentos guiados por PISTAS</text>
+                <text x="455" y="133" text-anchor="middle" font-size="10" fill="#334">EXTERNAS (visuais); neurônios-espelho</text>
+                <text x="320" y="172" text-anchor="middle" font-size="11" font-weight="700" fill="#1b2436">TÁTICA — “como / em que sequência”</text>
+                <path d="M185 152 L300 190" stroke="#4338ca" stroke-width="3" marker-end="url(#ah6)"/>
+                <path d="M455 152 L340 190" stroke="#4338ca" stroke-width="3" marker-end="url(#ah6)"/>
+                <rect x="220" y="190" width="200" height="44" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="320" y="209" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Córtex motor primário (M1)</text>
+                <text x="320" y="225" text-anchor="middle" font-size="10" fill="#334">força e direção — EXECUÇÃO</text>
+                <path d="M320 234 L320 256" stroke="#4338ca" stroke-width="3" marker-end="url(#ah6)"/>
+                <rect x="220" y="256" width="200" height="34" rx="10" fill="#f7f8fa" stroke="#94a3b8"/>
+                <text x="320" y="277" text-anchor="middle" font-size="10.5" font-weight="700" fill="#334">Tronco encefálico e medula</text>
+                <rect x="10" y="190" width="190" height="70" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="105" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">* Núcleos da base</text>
+                <text x="105" y="227" text-anchor="middle" font-size="10" fill="#334">seleção e INICIAÇÃO</text>
+                <text x="105" y="242" text-anchor="middle" font-size="10" fill="#334">lesão → acinesia, rigidez</text>
+                <rect x="440" y="190" width="190" height="70" rx="10" fill="#e0f7fa" stroke="#0891b2"/>
+                <text x="535" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#0e7490">* Cerebelo</text>
+                <text x="535" y="227" text-anchor="middle" font-size="10" fill="#334">coordenação, timing, erro</text>
+                <text x="535" y="242" text-anchor="middle" font-size="10" fill="#334">lesão → dismetria, ataxia</text>
+                <path d="M200 225 L220 215" stroke="#a21caf" stroke-width="2.5" stroke-dasharray="4,3"/>
+                <path d="M440 225 L420 215" stroke="#0891b2" stroke-width="2.5" stroke-dasharray="4,3"/>
+                <text x="320" y="315" text-anchor="middle" font-size="9.5" fill="#5b6472">alças córtex → núcleos da base/cerebelo → tálamo → córtex ajustam o plano antes e durante o movimento</text>
+              </svg>
+              <div class="cap">Figura — Hierarquia do controle motor: planejamento (associativo, AMS, pré-motor) → execução (M1, tronco, medula), modulado por núcleos da base e cerebelo</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Localizando a lesão pelo déficit <span class="tico">📊 tabela</span> <span class="qpill">Q4</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Estrutura motora × função × déficit quando lesada</caption>
+              <thead><tr><th>Estrutura</th><th>Função no planejamento</th><th>Lesão</th></tr></thead>
+              <tbody>
+                <tr><td>Córtex parietal posterior</td><td>Integra posição do corpo e do alvo (espaço)</td><td>Apraxia, negligência, erros de alcance</td></tr>
+                <tr><td>* Área motora suplementar</td><td>Sequências internas, auto-iniciadas, memorizadas</td><td>Dificuldade em iniciar/sequenciar movimentos voluntários próprios</td></tr>
+                <tr><td>* Córtex pré-motor</td><td>Movimentos orientados por pistas sensoriais externas</td><td>Falha em selecionar o programa motor a partir de pista visual (Q4)</td></tr>
+                <tr><td>Córtex motor primário</td><td>Execução: força e direção</td><td>Paresia contralateral</td></tr>
+                <tr><td>* Núcleos da base</td><td>Iniciação e seleção de programas</td><td>Acinesia/bradicinesia, rigidez, tremor de repouso</td></tr>
+                <tr><td>* Cerebelo</td><td>Coordenação e correção em tempo real</td><td>Dismetria (índice-nariz), disdiadococinesia, ataxia</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="gab">
+              <b class="tag">Gabarito comentado — Questão 4, alternativa D:</b> força e sensibilidade normais, falha só nos movimentos guiados por <b>pistas visuais externas</b> → lesão do <b>córtex pré-motor</b>. Sequências auto-iniciadas preservadas → <b>AMS</b> íntegra; índice-nariz normal → <b>cerebelo</b> íntegro; sem acinesia/rigidez/tremor → <b>núcleos da base</b> íntegros.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">As sequelas de Maria: apraxias <span class="pill">Objetivo 6</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>Maria recuperou a consciência (ECG 13), mas não consegue <b>escrever, falar, fazer gestos, expressões faciais e movimentos</b> de forma planejada: é um déficit de <b>planejamento</b>, não de força — padrão das <b>apraxias</b>.</li>
+              <li><b>Apraxia ideomotora</b>: não executa o gesto sob comando, embora saiba o que fazer (lesão parietal esquerda/AMS-pré-motor); <b>ideatória</b>: falha na sequência lógica de uso de objetos; <b>orofacial/bucolinguofacial</b>: expressões faciais e movimentos da boca; <b>apraxia de fala</b> e <b>agrafia</b> associadas às áreas frontoparietais do hemisfério dominante.</li>
+              <li>Reabilitação: terapia ocupacional, fonoaudiologia e fisioterapia com treino de tarefas, pistas externas e repetição — aproveitando a <b>neuroplasticidade</b>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">Bear — Neurociências</a> · <a href="#ref5">Kandel — Princípios de Neurociências</a> · <a href="#ref1">Machado — Neuroanatomia Funcional</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 9 -->
+    <div class="branch b9" id="r9">
+      <div class="head"><span class="num">9</span> Excitotoxicidade e Crise Convulsiva pós-AVC <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">* Cascata glutamatérgica na isquemia <span class="tico">🖼️ figura</span> <span class="qpill">Q5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascata de excitotoxicidade por glutamato">
+                <defs><marker id="ah7" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#a21caf"/></marker></defs>
+                <rect x="10" y="20" width="140" height="56" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="80" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">Isquemia</text>
+                <text x="80" y="62" text-anchor="middle" font-size="10" fill="#334">↓ O₂ e glicose → ↓ ATP</text>
+                <path d="M150 48 L175 48" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <rect x="175" y="20" width="140" height="56" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="245" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">Falha da Na⁺/K⁺-ATPase</text>
+                <text x="245" y="62" text-anchor="middle" font-size="10" fill="#334">neurônio e astrócito</text>
+                <path d="M315 48 L340 48" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <rect x="340" y="20" width="140" height="56" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="410" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">Despolarização</text>
+                <text x="410" y="62" text-anchor="middle" font-size="10" fill="#334">liberação + falha de recaptação</text>
+                <path d="M480 48 L505 48" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <rect x="505" y="20" width="125" height="56" rx="10" fill="#1e293b"/>
+                <text x="567" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#fde047">* ↑ GLUTAMATO</text>
+                <text x="567" y="62" text-anchor="middle" font-size="10" fill="#e2e8f0">na fenda sináptica</text>
+                <path d="M567 76 L567 110 L470 110" stroke="#a21caf" stroke-width="3" fill="none" marker-end="url(#ah7)"/>
+                <rect x="300" y="92" width="170" height="56" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="385" y="115" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">* Receptores NMDA/AMPA</text>
+                <text x="385" y="133" text-anchor="middle" font-size="10" fill="#334">hiperativados</text>
+                <path d="M300 120 L260 120" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <rect x="100" y="92" width="160" height="56" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+                <text x="180" y="115" text-anchor="middle" font-size="11" font-weight="700" fill="#701a75">* Influxo maciço de Ca²⁺</text>
+                <text x="180" y="133" text-anchor="middle" font-size="10" fill="#334">(e Na⁺)</text>
+                <path d="M140 148 L110 175" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <path d="M220 148 L260 175" stroke="#a21caf" stroke-width="3" marker-end="url(#ah7)"/>
+                <rect x="20" y="175" width="190" height="44" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="115" y="195" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9f1239">Hiperexcitabilidade</text>
+                <text x="115" y="210" text-anchor="middle" font-size="10" fill="#334">→ crise epiléptica</text>
+                <rect x="230" y="175" width="230" height="44" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="345" y="195" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9f1239">Morte neuronal</text>
+                <text x="345" y="210" text-anchor="middle" font-size="10" fill="#334">enzimas, radicais livres, edema</text>
+              </svg>
+              <div class="cap">Figura — Excitotoxicidade: da falta de ATP ao influxo de cálcio, que gera tanto crise epiléptica quanto morte neuronal</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">* Questão 5 (discursiva): classificação e mecanismo <span class="qpill">Q5</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Tônica × tônico-clônica — pistas do enunciado</caption>
+              <thead><tr><th>Achado</th><th>Crise tônica generalizada</th><th>Crise tônico-clônica</th></tr></thead>
+              <tbody>
+                <tr><td>Fase motora</td><td>Enrijecimento/extensão sustentados</td><td>Rigidez seguida de abalos rítmicos</td></tr>
+                <tr><td>Abalos clônicos</td><td><b>Ausentes</b> (como no caso)</td><td>Presentes</td></tr>
+                <tr><td>Duração típica</td><td>Segundos (caso: 40 s)</td><td>1–3 minutos</td></tr>
+                <tr><td>EEG</td><td>Atenuação de voltagem → atividade rápida de alta frequência, bilateral</td><td>Atividade rítmica generalizada com fase clônica</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="gab">
+              <b class="tag">Resposta esperada (gabarito da prova):</b>
+              <ul>
+                <li>a) <b>Crise epiléptica de início motor generalizada tônica</b> (convulsão tônica generalizada). (0,5)</li>
+                <li>b) Neurotransmissor: <b>glutamato</b> (0,1). Exacerbação extracelular por <b>depleção de ATP</b> → colapso da <b>Na⁺/K⁺-ATPase</b> neuronal e astroglial → despolarização e acúmulo de glutamato na fenda (0,2). Hiperativação dos receptores <b>NMDA e AMPA</b> → <b>influxo maciço de Ca²⁺</b> → hiperexcitabilidade que deflagra a crise (0,2).</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Crises convulsivas no ENAMED <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Crises tônico-clônicas no Caderno 01 do Enamed 2026 — o raciocínio é sempre buscar a causa</caption>
+              <thead><tr><th>Questão</th><th>Cenário</th><th>Causa / conduta</th></tr></thead>
+              <tbody>
+                <tr><td>Q31</td><td>Desbridamento com 20 mL de lidocaína 2%: parestesia perioral, gosto metálico, zumbido → crise tônico-clônica</td><td><b>Toxicidade sistêmica do anestésico local</b> (bloqueio de canais de Na⁺ no SNC)</td></tr>
+                <tr><td>Q66</td><td>2 anos, febre, crise generalizada de 2 min, exame neurológico normal</td><td><b>Crise febril simples</b> → orientar família, seguimento ambulatorial</td></tr>
+                <tr><td>Questão 5 (prova P3)</td><td>Pós-AVC isquêmico reperfundido, enrijecimento sustentado de 40 s sem abalos</td><td><b>Crise tônica generalizada</b> por excitotoxicidade glutamatérgica</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref6b">Guyton &amp; Hall — Fisiologia Médica</a> · <a href="#ref12">ILAE — Classificação das crises (2017)</a> · <a href="#ref4">Merritt — Tratado de Neurologia</a> · <a href="#ref13">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">MACHADO, Ângelo. <i>Neuroanatomia Funcional</i>. 4. ed. Rio de Janeiro: Atheneu, 2022.</li>
+      <li id="ref2">BEAR, Mark F.; CONNORS, Barry W.; PARADISO, Michael A. <i>Neurociências: Desvendando o Sistema Nervoso</i>. 4. ed. Porto Alegre: Artmed, 2017.</li>
+      <li id="ref3">DRAKE, Richard L.; VOGL, A. Wayne; MITCHELL, Adam W. M. <i>Gray — Anatomia Clínica para Estudantes</i>. 5. ed. Rio de Janeiro: Grupo GEN, 2024.</li>
+      <li id="ref4">LOUIS, Elan D.; MAYER, Stephan A.; ROWLAND, Lewis P. <i>Merritt — Tratado de Neurologia</i>. 13. ed. Rio de Janeiro: Grupo GEN, 2018.</li>
+      <li id="ref5">KANDEL, Eric R. et al. <i>Princípios de Neurociências</i>. 5. ed. Porto Alegre: AMGH, 2014.</li>
+      <li id="ref6b">HALL, John E.; HALL, Michael E. <i>Guyton &amp; Hall — Tratado de Fisiologia Médica</i>. 14. ed. Rio de Janeiro: Grupo GEN, 2021.</li>
+      <li id="ref6">BRENNAN, Paul M.; MURRAY, Gordon D.; TEASDALE, Graham M. Simplifying the use of prognostic information in traumatic brain injury. Part 1: The GCS-Pupils score. <i>Journal of Neurosurgery</i>, v. 128, n. 6, p. 1612-1620, 2018.</li>
+      <li id="ref7">AMERICAN COLLEGE OF SURGEONS. <i>ATLS — Advanced Trauma Life Support: Student Course Manual</i>. 10. ed. Chicago: ACS, 2018.</li>
+      <li id="ref8">STIELL, Ian G. et al. The Canadian CT Head Rule for patients with minor head injury. <i>The Lancet</i>, v. 357, n. 9266, p. 1391-1396, 2001.</li>
+      <li id="ref9">SESSLER, Curtis N. et al. The Richmond Agitation-Sedation Scale: validity and reliability in adult intensive care unit patients. <i>American Journal of Respiratory and Critical Care Medicine</i>, v. 166, n. 10, p. 1338-1344, 2002.</li>
+      <li id="ref10">CONSELHO FEDERAL DE MEDICINA. <i>Resolução CFM nº 2.173, de 23 de novembro de 2017</i>. Define os critérios do diagnóstico de morte encefálica. Diário Oficial da União, Brasília, 15 dez. 2017.</li>
+      <li id="ref11">BRASIL. <i>Lei nº 9.434, de 4 de fevereiro de 1997</i>. Dispõe sobre a remoção de órgãos, tecidos e partes do corpo humano para fins de transplante e tratamento. Brasília, 1997.</li>
+      <li id="ref13">INEP. <i>Enamed 2026 — Caderno 01</i>. Exame Nacional de Avaliação da Formação Médica. Ministério da Educação. Documento fornecido pelo usuário.</li>
+      <li id="ref12">FISHER, Robert S. et al. Operational classification of seizure types by the International League Against Epilepsy. <i>Epilepsia</i>, v. 58, n. 4, p. 522-530, 2017.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia básica/complementar do Módulo 02 (neuroanatomia, neurofisiologia e neurologia) e de diretrizes de trauma e terapia intensiva, no mesmo padrão editorial dos mapas anteriores, com tabelas que se reorganizam em fichas em telas estreitas (visualização completa, sem cortes), figuras explicativas e esquemas. Pontos também identificados no Caderno 01 do Enamed 2026 recebem a marcação <span class="enamed">ENAMED</span>, com o número da questão.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura verificada (13 out. 2026) contra os Objetivos do Problema 4 — Módulo 02 e as 5 questões de prova (QUESTÕES P3 MT2 PROB 4): ECG-P, postura de descerebração, herniação uncal com midríase pelo III par, SARA e RASS −4 (ramos 2, 3, 5 e 6 — Questão 1); indicação de TC no TCE leve pela regra canadense e síndrome bulbar lateral (ramos 3 e 5 — Questão 2); critérios da Resolução CFM 2.173/17 — 24 h pós-PCR, PaCO₂ &gt; 55 mmHg e reflexos medulares (ramo 7 — Questão 3); córtex pré-motor × AMS, cerebelo e núcleos da base (ramo 8 — Questão 4); crise tônica generalizada e excitotoxicidade glutamatérgica pós-AVC isquêmico (ramo 9 — Questão 5). Cross-referência ao Caderno 01 do Enamed 2026: Q3, Q41, Q51 e Q60 (Glasgow, nível de consciência, pupilas e via aérea — ramo 2), Q66 (indicação de imagem — ramo 3; crise febril — ramo 9), Q31 (crise por anestésico local — ramo 9) e Q88 (declaração de óbito — ramo 7).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Níveis de Consciência (Problema 4 — “O que será de Maria?”)<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+<script>
+  // Rótulos para as tabelas em modo ficha (telas estreitas)
+  document.querySelectorAll('.twrap table').forEach(function(t){
+    var hs=[].map.call(t.querySelectorAll('thead th'),function(th){return th.textContent.trim();});
+    t.querySelectorAll('tbody tr').forEach(function(tr){
+      [].forEach.call(tr.children,function(td,i){ if(hs[i]) td.setAttribute('data-label',hs[i]); });
+    });
+  });
+</script>
+</body>
+</html>
