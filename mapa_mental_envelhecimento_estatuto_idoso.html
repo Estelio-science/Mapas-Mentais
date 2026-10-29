@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Alterações do Envelhecimento e Estatuto da Pessoa Idosa</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:10px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
+  }
+  details summary:hover{filter:brightness(0.96);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
+  }
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .b6 details summary .chev{color:var(--c6);}
+  .b7 details summary .chev{color:var(--c7);}
+  .b8 details summary .chev{color:var(--c8);}
+  .b9 details summary .chev{color:var(--c9);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{
+    font-size:.72rem;
+    opacity:.75;
+    font-weight:400;
+  }
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    min-width:460px;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:0;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  .enamed{
+    display:inline-block;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-left:4px;
+    vertical-align:middle;
+    background:#1e293b;
+    color:#fde047;
+    border:1px solid #fde047;
+  }
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+
+  /* ===== Ajustes P4: tabelas sempre visíveis por completo ===== */
+  .twrap{overflow-x:auto;max-width:100%;}
+  table{min-width:0;table-layout:auto;}
+  th,td{word-break:normal;overflow-wrap:anywhere;hyphens:auto;}
+  @media (max-width:680px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  
+  .branch .body{container-type:inline-size;}
+  @container (max-width:520px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  /* Painel de objetivos */
+  .objs{
+    max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;
+    padding:16px 20px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .objs h3{margin:0 0 8px;font-size:1rem;color:var(--ink);}
+  .objs ol{margin:0;padding-left:20px;font-size:.85rem;line-height:1.55;color:#333;}
+  .objs li{margin-bottom:6px;}
+  .objs li a{color:#1d4ed8;text-decoration:none;font-size:.75rem;font-weight:600;margin-left:4px;}
+  .objs .legend{margin-top:10px;padding-top:8px;border-top:1px dashed #e3e6ec;font-size:.74rem;color:var(--muted);line-height:1.5;}
+  .objs .enamed{margin-left:4px;}
+
+  .qpill{
+    display:inline-block;font-size:.66rem;font-weight:800;padding:1px 7px;border-radius:999px;
+    background:#fef3c7;color:#92400e;border:1px solid #f59e0b;margin-left:2px;vertical-align:middle;
+  }
+  .gab{
+    background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #16a34a;border-radius:8px;
+    padding:8px 11px;margin:8px 0;font-size:.8rem;line-height:1.5;
+  }
+  .gab b.tag{color:#15803d;}
+  .gab ul{margin:6px 0 0;padding-left:16px;}
+  .timeline-wrap{max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;padding:12px 10px 8px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);}
+  .timeline-wrap .cap{font-size:.72rem;color:var(--muted);text-align:center;font-style:italic;margin-top:2px;}
+  .timeline-wrap svg{width:100%;height:auto;display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Alterações do Envelhecimento e Estatuto da Pessoa Idosa</h1>
+    <p>Objetivos do Problema 1 · “Não quero parar...” · Módulo 03 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis. Em telas estreitas, as tabelas se reorganizam em fichas para serem lidas por inteiro.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Alterações do Envelhecimento e Estatuto da Pessoa Idosa</h2>
+    <div class="sub">Bases biológicas e homeostenose · Alterações fisiológicas por sistema (exceto neurológico) · Senescência × senilidade · Autonomia, dependência, sexualidade e lutos · Envelhecimento ativo · Estatuto da Pessoa Idosa (Lei 10.741/2003)</div>
+  </div>
+
+  <!-- OBJETIVOS -->
+  <div class="objs">
+    <h3>🎯 Objetivos do Problema 1 (com temas ENAMED ressaltados)</h3>
+    <ol>
+      <li>Caracterizar a <b>fisiologia do envelhecimento</b> (alterações de cada sistema, com exceção do neurológico). <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q1, Q68, Q78, Q100</span> <a href="#r1">→ ramos 1 a 7</a></li>
+      <li>Conhecer os <b>aspectos psicossociais do envelhecimento</b> (senescência, senilidade, infantilização, idoso, velhice, sexualidade, baixa adaptação ao meio, autoestima, cuidado do idoso/dependência, autonomia, lutos). <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q70</span> <a href="#r8">→ ramo 8</a></li>
+      <li>Conhecer os <b>Fundamentos do Estatuto da Pessoa Idosa</b>. <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q55, Q70</span> <a href="#r9">→ ramo 9</a></li>
+    </ol>
+    <div class="legend">
+      <b>Legenda:</b> <span class="enamed">ENAMED</span> = tema cobrado no Caderno 01 do Enamed 2026 (número da questão indicado) · ramos 1–7 = fisiologia por sistema · ramo 8 = aspectos psicossociais · ramo 9 = Estatuto da Pessoa Idosa.
+    </div>
+  </div>
+
+  <!-- FIGURA DO CASO -->
+  <div class="timeline-wrap">
+    <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Achados do Sr. Miguel organizados por sistema">
+      <text x="450" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2436">Sr. Miguel, 84 anos — cada achado do exame é uma alteração FISIOLÓGICA (senescência), não doença</text>
+      <rect x="370" y="110" width="160" height="80" rx="40" fill="#1e3a8a"/>
+      <text x="450" y="143" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Sr. Miguel</text>
+      <text x="450" y="161" text-anchor="middle" font-size="10.5" fill="#c7d5f0">exames sem doença</text>
+      <text x="450" y="175" text-anchor="middle" font-size="10.5" fill="#c7d5f0">HAS leve compensada</text>
+      <g font-size="10.5">
+        <rect x="20" y="40" width="250" height="46" rx="10" fill="#fff4e0" stroke="#b45309"/>
+        <text x="145" y="59" text-anchor="middle" font-weight="700" fill="#92400e">Oral e digestório (ramo 5)</text>
+        <text x="145" y="76" text-anchor="middle" fill="#334">atrofia de mucosa, ↓paladar, xerostomia, ↓motilidade</text>
+        <rect x="20" y="100" width="250" height="46" rx="10" fill="#e3f7f4" stroke="#0f766e"/>
+        <text x="145" y="119" text-anchor="middle" font-weight="700" fill="#115e59">Respiratório (ramo 3)</text>
+        <text x="145" y="136" text-anchor="middle" fill="#334">cifose, ↓complacência da parede torácica</text>
+        <rect x="20" y="160" width="250" height="46" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+        <text x="145" y="179" text-anchor="middle" font-weight="700" fill="#9f1239">Cardiovascular (ramo 2)</text>
+        <text x="145" y="196" text-anchor="middle" fill="#334">↓reflexos ortostáticos, HAS leve</text>
+        <rect x="20" y="220" width="250" height="46" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+        <text x="145" y="239" text-anchor="middle" font-weight="700" fill="#1d4ed8">Bases (ramo 1)</text>
+        <text x="145" y="256" text-anchor="middle" fill="#334">leve astenia ao fim do dia (↓reserva)</text>
+        <rect x="630" y="40" width="250" height="46" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+        <text x="755" y="59" text-anchor="middle" font-weight="700" fill="#166534">Musculoesquelético (ramo 6)</text>
+        <text x="755" y="76" text-anchor="middle" fill="#334">sarcopenia, dinapenia, ↓osso e cartilagem</text>
+        <rect x="630" y="100" width="250" height="46" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+        <text x="755" y="119" text-anchor="middle" font-weight="700" fill="#166534">Marcha (ramo 6)</text>
+        <text x="755" y="136" text-anchor="middle" fill="#334">passos curtos</text>
+        <rect x="630" y="160" width="250" height="46" rx="10" fill="#f2ebff" stroke="#7c3aed"/>
+        <text x="755" y="179" text-anchor="middle" font-weight="700" fill="#5b21b6">Pele, sentidos, sono (ramo 7)</text>
+        <text x="755" y="196" text-anchor="middle" fill="#334">canície, déficits sensoriais, ↓tempo de sono</text>
+        <rect x="630" y="220" width="250" height="46" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+        <text x="755" y="239" text-anchor="middle" font-weight="700" fill="#701a75">Psicossocial e Estatuto (ramos 8–9)</text>
+        <text x="755" y="256" text-anchor="middle" fill="#334">família “babá”, infantilização, autonomia</text>
+      </g>
+      <g stroke="#94a3b8" stroke-width="2" fill="none">
+        <path d="M270 63 L370 130"/><path d="M270 123 L370 140"/><path d="M270 183 L370 160"/><path d="M270 243 L370 175"/>
+        <path d="M630 63 L530 130"/><path d="M630 123 L530 140"/><path d="M630 183 L530 160"/><path d="M630 243 L530 175"/>
+      </g>
+      <text x="450" y="292" text-anchor="middle" font-size="10.5" fill="#5b6472">Estilo de vida protetor: atividade física regular, peso estável, dieta pobre em gordura, vida afetiva e sexual ativa, check-up anual</text>
+    </svg>
+    <div class="cap">Figura — Achados do caso distribuídos pelos ramos do mapa: envelhecimento fisiológico (senescência) sem doença, com autonomia preservada</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b1" id="r1">
+      <div class="head"><span class="num">1</span> Bases Biológicas do Envelhecimento</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Homeostenose: a reserva diminui, a função basal se mantém <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Homeostenose: reserva funcional ao longo da vida">
+                <line x1="60" y1="230" x2="610" y2="230" stroke="#475569" stroke-width="2"/>
+                <line x1="60" y1="230" x2="60" y2="20" stroke="#475569" stroke-width="2"/>
+                <text x="335" y="255" text-anchor="middle" font-size="11" fill="#334">Idade (anos)</text>
+                <text x="20" y="125" font-size="11" fill="#334" transform="rotate(-90 20 125)" text-anchor="middle">Capacidade funcional</text>
+                <g font-size="9.5" fill="#5b6472"><text x="60" y="244">0</text><text x="170" y="244">25</text><text x="280" y="244">45</text><text x="390" y="244">65</text><text x="500" y="244">85</text></g>
+                <path d="M60 180 Q140 40 200 40 L600 60" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="6,4"/>
+                <text x="470" y="52" font-size="10" fill="#1d4ed8" font-weight="700">capacidade máxima (com exercício)</text>
+                <path d="M60 180 Q140 40 200 45 Q380 70 600 150" fill="none" stroke="#be123c" stroke-width="3"/>
+                <text x="440" y="132" font-size="10" fill="#9f1239" font-weight="700">capacidade máxima (sedentário)</text>
+                <line x1="60" y1="200" x2="600" y2="200" stroke="#64748b" stroke-width="2"/>
+                <text x="70" y="214" font-size="10" fill="#334">demanda basal (repouso)</text>
+                <line x1="60" y1="170" x2="600" y2="170" stroke="#ea580c" stroke-width="2" stroke-dasharray="3,3"/>
+                <text x="70" y="164" font-size="10" fill="#c2410c" font-weight="700">limiar de incapacidade sob estresse</text>
+                <path d="M520 110 L520 168" stroke="#15803d" stroke-width="3"/>
+                <text x="528" y="100" font-size="10" fill="#15803d" font-weight="700">reserva</text>
+                <text x="528" y="113" font-size="10" fill="#15803d" font-weight="700">funcional</text>
+              </svg>
+              <div class="cap">Figura — Homeostenose: com a idade, o espaço entre a capacidade máxima e a demanda basal (reserva) se estreita; o exercício desloca a curva para cima</div>
+            </div>
+            <ul>
+              <li><b>Homeostenose</b>: a capacidade de manter a homeostase em <b>repouso</b> é preservada, mas a <b>reserva</b> para responder a estresses (infecção, calor, cirurgia, desidratação, fármacos) diminui — por isso o idoso saudável funciona bem no dia a dia e descompensa mais facilmente diante de agressões.</li>
+              <li>Isso <b>não justifica</b> o argumento da família de que o idoso “deve se poupar para não gerar doenças”: a inatividade acelera a perda de reserva (desuso), enquanto a atividade física regular a preserva — exatamente o caso do Sr. Miguel.</li>
+              <li>Envelhecimento é <b>heterogêneo</b>: a variabilidade entre pessoas da mesma idade é maior que em qualquer outra fase da vida; idade cronológica não define capacidade funcional.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Tipos de envelhecimento e teorias <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>As quatro “idades” — no caso, a biológica do Sr. Miguel não corresponde à visão social da família</caption>
+              <thead><tr><th>Envelhecimento</th><th>Definição</th><th>No caso</th></tr></thead>
+              <tbody>
+                <tr><td>Cronológico</td><td>Tempo vivido desde o nascimento</td><td>84 anos</td></tr>
+                <tr><td>Biológico</td><td>Estado dos órgãos e sistemas; reserva funcional</td><td>Compatível com senescência saudável</td></tr>
+                <tr><td>Psicológico</td><td>Autopercepção, capacidade de adaptação, cognição e afetividade</td><td>Motivado, ativo, “não quero parar”</td></tr>
+                <tr><td>Social</td><td>Papéis e expectativas atribuídos pela sociedade a cada idade</td><td>Família impõe controle por causa da idade (idadismo)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Principais teorias biológicas (complementares, não excludentes)</caption>
+              <thead><tr><th>Grupo</th><th>Teoria</th><th>Ideia central</th></tr></thead>
+              <tbody>
+                <tr><td>Programadas</td><td>Encurtamento telomérico (limite de Hayflick)</td><td>Células param de se dividir após certo número de mitoses → senescência celular</td></tr>
+                <tr><td>Programadas</td><td>Neuroendócrina e imunológica</td><td>Declínio programado de eixos hormonais e da função tímica</td></tr>
+                <tr><td>Estocásticas</td><td>Radicais livres / estresse oxidativo</td><td>Dano cumulativo a DNA, proteínas e lipídios; disfunção mitocondrial</td></tr>
+                <tr><td>Estocásticas</td><td>Glicação e ligações cruzadas</td><td>Produtos finais de glicação enrijecem colágeno, vasos e cristalino</td></tr>
+                <tr><td>Integradora</td><td><i>Inflammaging</i></td><td>Inflamação crônica de baixo grau (↑IL-6, TNF-α) ligada a sarcopenia, aterosclerose e fragilidade</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Composição corporal e resposta aos fármacos <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composição corporal no adulto jovem e no idoso">
+                <g font-size="10.5">
+                  <text x="190" y="20" text-anchor="middle" font-weight="700" fill="#1b2436">Adulto jovem (homem)</text>
+                  <rect x="40" y="35" width="180" height="150" fill="#bfdbfe" stroke="#2563eb"/><text x="130" y="115" text-anchor="middle" font-weight="700" fill="#1d4ed8">Água ≈ 60%</text>
+                  <rect x="220" y="35" width="70" height="150" fill="#fde68a" stroke="#b45309"/><text x="255" y="105" text-anchor="middle" font-weight="700" fill="#92400e">Gordura</text><text x="255" y="120" text-anchor="middle" fill="#92400e">≈ 15–20%</text>
+                  <rect x="290" y="35" width="40" height="150" fill="#e5e7eb" stroke="#64748b"/>
+                  <text x="480" y="20" text-anchor="middle" font-weight="700" fill="#1b2436">Idoso (homem)</text>
+                  <rect x="350" y="35" width="150" height="150" fill="#bfdbfe" stroke="#2563eb"/><text x="425" y="115" text-anchor="middle" font-weight="700" fill="#1d4ed8">Água ≈ 50%</text>
+                  <rect x="500" y="35" width="100" height="150" fill="#fde68a" stroke="#b45309"/><text x="550" y="105" text-anchor="middle" font-weight="700" fill="#92400e">Gordura</text><text x="550" y="120" text-anchor="middle" fill="#92400e">≈ 30–35%</text>
+                  <rect x="600" y="35" width="30" height="150" fill="#e5e7eb" stroke="#64748b"/>
+                  <text x="190" y="205" text-anchor="middle" fill="#334">(cinza = massa óssea e outros sólidos)</text>
+                  <text x="320" y="230" text-anchor="middle" fill="#9f1239" font-weight="700">↓água e ↓massa magra; ↑gordura — mesmo com o peso estável</text>
+                  <text x="320" y="246" text-anchor="middle" fill="#334">valores aproximados, com grande variação individual</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Com o envelhecimento, cai a água corporal e a massa magra e aumenta a proporção de gordura</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Por que o idoso reage diferente aos medicamentos</caption>
+              <thead><tr><th>Alteração</th><th>Efeito farmacológico</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr><td>↑Gordura corporal</td><td>↑volume de distribuição e meia-vida de fármacos lipossolúveis</td><td>Diazepam e outros benzodiazepínicos de longa ação → sedação prolongada, quedas</td></tr>
+                <tr><td>↓Água corporal</td><td>↑concentração de fármacos hidrossolúveis</td><td>Álcool, digoxina, lítio</td></tr>
+                <tr><td>↓Albumina (na doença/desnutrição)</td><td>↑fração livre de fármacos muito ligados a proteínas</td><td>Fenitoína, varfarina</td></tr>
+                <tr><td>↓Fluxo e massa hepáticos</td><td>↓metabolismo de fase I</td><td>Doses iniciais menores (“começar baixo e ir devagar”)</td></tr>
+                <tr><td>↓Filtração glomerular (ramo 4)</td><td>Acúmulo de fármacos de eliminação renal</td><td>Ajustar dose pela TFG estimada</td></tr>
+                <tr><td>↑Sensibilidade do SNC; ↓barorreflexo</td><td>Mais delirium, hipotensão postural e quedas</td><td>Anticolinérgicos, sedativos, anti-hipertensivos, antidepressivos (Q78)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Para a prática:</b> listas de medicamentos potencialmente inapropriados para idosos, como os <b>Critérios de Beers</b> (American Geriatrics Society), ajudam a evitar a iatrogenia — uma das principais causas de perda de funcionalidade no idoso.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Freitas &amp; Py — Tratado de Geriatria e Gerontologia</a> · <a href="#ref2">Hazzard's Geriatric Medicine</a> · <a href="#ref11">López-Otín et al. — Hallmarks of aging</a> · <a href="#ref12">Franceschi et al. — Inflammaging</a> · <a href="#ref22">AGS — Critérios de Beers</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b4" id="r2">
+      <div class="head"><span class="num">2</span> Sistema Cardiovascular <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Alterações estruturais e funcionais <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Envelhecimento cardiovascular e consequência clínica</caption>
+              <thead><tr><th>Alteração</th><th>Mecanismo</th><th>Consequência</th></tr></thead>
+              <tbody>
+                <tr><td>Rigidez das grandes artérias</td><td>↑colágeno, ↓elastina, calcificação</td><td>↑PA sistólica, ↑pressão de pulso (HAS sistólica isolada)</td></tr>
+                <tr><td>Hipertrofia ventricular esquerda leve</td><td>↑pós-carga</td><td>Disfunção diastólica; maior dependência da contração atrial</td></tr>
+                <tr><td>↓Resposta β-adrenérgica</td><td>↓densidade/sinalização de receptores</td><td>↓FC máxima (≈ 220 − idade) e ↓ inotropismo no esforço</td></tr>
+                <tr><td>↓Células do nó sinusal; fibrose do sistema de condução</td><td>Degeneração e depósito de tecido conjuntivo</td><td>Bradiarritmias, bloqueios, fibrilação atrial mais frequente</td></tr>
+                <tr><td>↓Sensibilidade dos barorreceptores</td><td>Rigidez das paredes carotídeas e aórticas</td><td><b>Redução dos reflexos ortostáticos</b> → hipotensão ortostática e quedas</td></tr>
+                <tr><td>Débito cardíaco em repouso</td><td>Relativamente preservado em idosos saudáveis</td><td>A limitação aparece no <b>esforço</b> (homeostenose)</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Reflexo ortostático e hipotensão postural <span class="tico">🖼️ figura</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arco do barorreflexo ao levantar e pontos de falha no idoso">
+                <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#be123c"/></marker></defs>
+                <g font-size="10.5">
+                  <rect x="10" y="20" width="140" height="56" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                  <text x="80" y="43" text-anchor="middle" font-weight="700" fill="#9f1239">Ficar em pé</text>
+                  <text x="80" y="60" text-anchor="middle" fill="#334">300–800 mL vão às pernas</text>
+                  <rect x="170" y="20" width="140" height="56" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                  <text x="240" y="43" text-anchor="middle" font-weight="700" fill="#9f1239">↓Retorno venoso</text>
+                  <text x="240" y="60" text-anchor="middle" fill="#334">↓débito e ↓PA</text>
+                  <rect x="330" y="20" width="140" height="56" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+                  <text x="400" y="43" text-anchor="middle" font-weight="700" fill="#9a3412">Barorreceptores</text>
+                  <text x="400" y="60" text-anchor="middle" fill="#9a3412">⚠ menos sensíveis</text>
+                  <rect x="490" y="20" width="140" height="56" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+                  <text x="560" y="43" text-anchor="middle" font-weight="700" fill="#9a3412">↑Simpático</text>
+                  <text x="560" y="60" text-anchor="middle" fill="#9a3412">⚠ ↓resposta β</text>
+                  <path d="M150 48 L168 48" stroke="#be123c" stroke-width="3" marker-end="url(#a2)"/>
+                  <path d="M310 48 L328 48" stroke="#be123c" stroke-width="3" marker-end="url(#a2)"/>
+                  <path d="M470 48 L488 48" stroke="#be123c" stroke-width="3" marker-end="url(#a2)"/>
+                  <path d="M560 76 L560 110" stroke="#be123c" stroke-width="3" marker-end="url(#a2)"/>
+                  <rect x="400" y="110" width="230" height="56" rx="10" fill="#fff7ed" stroke="#ea580c"/>
+                  <text x="515" y="133" text-anchor="middle" font-weight="700" fill="#9a3412">↑FC e vasoconstrição insuficientes</text>
+                  <text x="515" y="150" text-anchor="middle" fill="#334">+ ↓sede e ↓volume plasmático</text>
+                  <path d="M400 138 L330 138" stroke="#be123c" stroke-width="3" marker-end="url(#a2)"/>
+                  <rect x="40" y="110" width="290" height="56" rx="10" fill="#1e293b"/>
+                  <text x="185" y="133" text-anchor="middle" font-weight="700" fill="#fde047">Hipotensão ortostática</text>
+                  <text x="185" y="150" text-anchor="middle" fill="#e2e8f0">queda ≥ 20 PAS ou ≥ 10 PAD em 3 min</text>
+                  <text x="320" y="200" text-anchor="middle" fill="#334">Agravantes: diuréticos, anti-hipertensivos, antidepressivos, nitratos, desidratação, calor, período pós-prandial</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — No idoso, o barorreflexo é mais lento: tontura ao levantar, quedas e síncope são mais frequentes</div>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q78):</b> idoso de 74 anos em uso de enalapril que iniciou paroxetina há 1 mês, com tontura ao se levantar, letargia e confusão leve (PA 130×80 sentado → 115×75 em pé). O exame prioritário é a dosagem de <b>sódio</b>: ISRS podem causar <b>SIADH/hiponatremia</b>, mais frequente no idoso pela menor capacidade renal de excretar água livre (ramo 4), somada à menor resposta ortostática.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">Hazzard's Geriatric Medicine</a> · <a href="#ref4">Guyton &amp; Hall — Fisiologia Médica</a> · <a href="#ref13">Freeman et al. — consenso de hipotensão ortostática</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b3" id="r3">
+      <div class="head"><span class="num">3</span> Sistema Respiratório <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Mecânica, volumes e trocas gasosas <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Volumes pulmonares no adulto jovem e no idoso">
+                <text x="320" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#115e59">Capacidade pulmonar total quase igual — a distribuição muda</text>
+                <g font-size="10.5">
+                  <text x="170" y="40" text-anchor="middle" font-weight="700" fill="#1b2436">Adulto jovem</text>
+                  <rect x="110" y="50" width="120" height="120" fill="#5eead4" stroke="#0f766e"/>
+                  <text x="170" y="115" text-anchor="middle" font-weight="700" fill="#134e4a">Capacidade vital</text>
+                  <rect x="110" y="170" width="120" height="50" fill="#94a3b8" stroke="#475569"/>
+                  <text x="170" y="200" text-anchor="middle" fill="#fff" font-weight="700">VR</text>
+                  <text x="470" y="40" text-anchor="middle" font-weight="700" fill="#1b2436">Idoso</text>
+                  <rect x="410" y="50" width="120" height="90" fill="#5eead4" stroke="#0f766e"/>
+                  <text x="470" y="100" text-anchor="middle" font-weight="700" fill="#134e4a">↓Capacidade vital</text>
+                  <rect x="410" y="140" width="120" height="80" fill="#64748b" stroke="#334155"/>
+                  <text x="470" y="185" text-anchor="middle" fill="#fff" font-weight="700">↑VR (aprisionamento)</text>
+                  <text x="320" y="245" text-anchor="middle" fill="#334">↓recolhimento elástico do pulmão + parede torácica rígida (cifose, cartilagens calcificadas) + ↓força do diafragma</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Esquema dos volumes: a capacidade pulmonar total pouco muda, mas o volume residual aumenta e a capacidade vital diminui</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Alterações respiratórias do envelhecimento</caption>
+              <thead><tr><th>Componente</th><th>Alteração</th><th>Efeito</th></tr></thead>
+              <tbody>
+                <tr><td>Parede torácica</td><td><b>↓Complacência</b> (cifose, calcificação costocondral) — achado do Sr. Miguel</td><td>↑trabalho respiratório</td></tr>
+                <tr><td>Pulmão</td><td>↓recolhimento elástico (↑complacência pulmonar), alargamento de ductos alveolares</td><td>Fechamento precoce de vias aéreas, ↑VR, ↓VEF1</td></tr>
+                <tr><td>Músculos</td><td>↓força do diafragma e intercostais</td><td>↓tosse eficaz, ↓pressões máximas</td></tr>
+                <tr><td>Trocas gasosas</td><td>Desequilíbrio V/Q, ↓superfície alveolar</td><td>↓PaO₂ esperada (≈ 109 − 0,43 × idade, equação de Sorbini; ≈ 73 mmHg aos 84 anos); PaCO₂ estável</td></tr>
+                <tr><td>Defesas</td><td>↓clearance mucociliar, ↓reflexo de tosse, ↓resposta ventilatória à hipóxia/hipercapnia</td><td>Maior risco de pneumonia e de apresentação atípica</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q1):</b> idoso de 75 anos, institucionalizado, com <b>confusão mental</b>, astenia e tosse, <b>afebril</b> (36,1 °C), FR 21 e estertores bibasais — pneumonia com apresentação <b>atípica</b>, típica do idoso (menor resposta febril e menor reserva). A presença de confusão e idade ≥ 65 anos são critérios de gravidade (CURB-65), indicando avaliação em serviço de urgência.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">Hazzard's Geriatric Medicine</a> · <a href="#ref14">Sorbini et al. — PaO₂ e idade</a> · <a href="#ref15">Lim et al. — CURB-65</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b7" id="r4">
+      <div class="head"><span class="num">4</span> Rim, Vias Urinárias e Equilíbrio Hidroeletrolítico <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Função renal: a creatinina engana <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Queda da taxa de filtração glomerular com creatinina sérica estável">
+                <line x1="60" y1="210" x2="600" y2="210" stroke="#475569" stroke-width="2"/>
+                <line x1="60" y1="210" x2="60" y2="30" stroke="#475569" stroke-width="2"/>
+                <g font-size="9.5" fill="#5b6472"><text x="60" y="226">30</text><text x="195" y="226">45</text><text x="330" y="226">60</text><text x="465" y="226">75</text><text x="590" y="226">90 anos</text></g>
+                <path d="M60 50 L600 140" stroke="#0891b2" stroke-width="3" fill="none"/>
+                <text x="420" y="95" font-size="10.5" fill="#0e7490" font-weight="700">TFG ↓ em média ≈ 0,75 mL/min/ano após os 40</text>
+                <path d="M60 170 L600 168" stroke="#be123c" stroke-width="3" fill="none" stroke-dasharray="6,4"/>
+                <text x="330" y="160" font-size="10.5" fill="#9f1239" font-weight="700" text-anchor="middle">creatinina sérica quase estável (↓massa muscular → ↓produção)</text>
+                <text x="330" y="244" font-size="10" fill="#334" text-anchor="middle">Estimar a TFG (CKD-EPI ou Cockcroft-Gault) antes de prescrever — não confiar só na creatinina</text>
+              </svg>
+              <div class="cap">Figura — A filtração cai com a idade, mas a creatinina pode permanecer “normal” porque o idoso produz menos creatinina</div>
+            </div>
+            <div class="note">
+              <b class="tag">Heterogeneidade:</b> no estudo longitudinal de Baltimore, a queda média foi de ≈ 0,75 mL/min/ano, mas cerca de um terço dos idosos acompanhados <b>não</b> apresentou declínio da função renal — mais um exemplo de que idade não é sinônimo de doença.
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Rim e água no idoso</caption>
+              <thead><tr><th>Alteração</th><th>Consequência</th></tr></thead>
+              <tbody>
+                <tr><td>↓Massa renal e nº de glomérulos funcionantes; ↓fluxo plasmático renal</td><td>↓TFG; ajuste de dose de fármacos de eliminação renal</td></tr>
+                <tr><td>↓Capacidade de concentrar e de diluir a urina</td><td>Noctúria; desidratação e hiponatremia mais fáceis</td></tr>
+                <tr><td>↓Sensação de sede; ↓água corporal total</td><td>Desidratação em calor, febre ou diarreia</td></tr>
+                <tr><td>↓Renina e aldosterona</td><td>Tendência a hipercalemia com IECA, BRA, espironolactona</td></tr>
+                <tr><td>Bexiga: ↓capacidade, contrações não inibidas, ↑resíduo pós-miccional; próstata ↑ no homem</td><td>Urgência e noctúria — a incontinência <b>não</b> é normal do envelhecimento</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q100 e Q78):</b> na <b>Q100</b>, idosa de 72 anos durante onda de calor com tontura, fraqueza, cefaleia, oligúria, mucosas secas, PA 100×60 e FC 110: desidratação/estresse térmico favorecidos pela ↓sede, ↓concentração urinária e ↓termorregulação. A conduta combina <b>reposição hídrica, resfriamento e monitorização</b> com <b>vigilância ativa de idosos vulneráveis</b> no território. Na <b>Q78</b>, a hiponatremia por ISRS reflete a ↓capacidade de excretar água livre.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">Hazzard's Geriatric Medicine</a> · <a href="#ref16">Lindeman, Tobin &amp; Shock — declínio da função renal</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b2" id="r5">
+      <div class="head"><span class="num">5</span> Cavidade Oral e Sistema Digestório</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Da boca ao cólon <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alterações do trato digestório no envelhecimento">
+                <g font-size="10.5">
+                  <path d="M120 30 Q120 60 120 90 L120 140 Q100 170 130 190 Q170 210 160 240 Q150 270 110 280" stroke="#b45309" stroke-width="16" fill="none" stroke-linecap="round" opacity=".35"/>
+                  <circle cx="120" cy="30" r="10" fill="#b45309"/><circle cx="120" cy="100" r="10" fill="#b45309"/><circle cx="125" cy="160" r="10" fill="#b45309"/><circle cx="160" cy="220" r="10" fill="#b45309"/><circle cx="110" cy="275" r="10" fill="#b45309"/>
+                  <text x="160" y="27" font-weight="700" fill="#92400e">Boca:</text><text x="200" y="27" fill="#334">atrofia de mucosa (caso), xerostomia, ↓papilas gustativas e olfato (↓paladar), perdas dentárias</text>
+                  <text x="160" y="97" font-weight="700" fill="#92400e">Esôfago:</text><text x="222" y="97" fill="#334">↓amplitude da peristalse; esvaziamento esofágico mais lento → mais refluxo e disfagia</text>
+                  <text x="160" y="157" font-weight="700" fill="#92400e">Estômago:</text><text x="232" y="157" fill="#334">↓complacência (saciedade precoce), gastrite atrófica → ↓B12, ↓cálcio/ferro</text>
+                  <text x="190" y="217" font-weight="700" fill="#92400e">Fígado:</text><text x="245" y="217" fill="#334">↓massa e fluxo → ↓metabolismo fase I de fármacos</text>
+                  <text x="140" y="272" font-weight="700" fill="#92400e">Cólon:</text><text x="190" y="272" fill="#334">↓motilidade (caso), ↓sensibilidade retal → constipação; divertículos</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Alterações do trato digestório — os itens marcados “(caso)” aparecem no exame do Sr. Miguel</div>
+            </div>
+            <ul>
+              <li>A soma de <b>↓paladar, xerostomia e saciedade precoce</b> pode reduzir a ingestão — risco de desnutrição e sarcopenia se não houver atenção à dieta (o Sr. Miguel mantém peso estável).</li>
+              <li>A constipação piora com baixa ingestão hídrica, inatividade e fármacos (opioides, anticolinérgicos, bloqueadores de canal de cálcio, ferro).</li>
+              <li>O consumo moderado de álcool (uma taça de vinho) exige cautela: com a idade, ↓água corporal e ↓metabolismo hepático elevam a concentração alcoólica para a mesma dose.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Freitas &amp; Py — Tratado de Geriatria e Gerontologia</a> · <a href="#ref2">Hazzard's Geriatric Medicine</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b5" id="r6">
+      <div class="head"><span class="num">6</span> Músculos, Ossos, Cartilagens e Marcha <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Sarcopenia × dinapenia <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Algoritmo EWGSOP2 de sarcopenia">
+                <defs><marker id="a6" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#15803d"/></marker></defs>
+                <g font-size="10.5">
+                  <rect x="10" y="30" width="140" height="70" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="80" y="52" text-anchor="middle" font-weight="700" fill="#166534">1. Rastrear</text>
+                  <text x="80" y="70" text-anchor="middle" fill="#334">SARC-F ou</text>
+                  <text x="80" y="85" text-anchor="middle" fill="#334">suspeita clínica</text>
+                  <rect x="170" y="30" width="140" height="70" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="240" y="52" text-anchor="middle" font-weight="700" fill="#166534">2. Força ↓</text>
+                  <text x="240" y="70" text-anchor="middle" fill="#334">preensão &lt; 27 kg (H)</text>
+                  <text x="240" y="85" text-anchor="middle" fill="#334">&lt; 16 kg (M)</text>
+                  <rect x="330" y="30" width="140" height="70" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="400" y="52" text-anchor="middle" font-weight="700" fill="#166534">3. Massa ↓</text>
+                  <text x="400" y="70" text-anchor="middle" fill="#334">DXA ou bioimpedância</text>
+                  <text x="400" y="85" text-anchor="middle" fill="#334">→ CONFIRMA</text>
+                  <rect x="490" y="30" width="140" height="70" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                  <text x="560" y="52" text-anchor="middle" font-weight="700" fill="#166534">4. Desempenho ↓</text>
+                  <text x="560" y="70" text-anchor="middle" fill="#334">marcha ≤ 0,8 m/s</text>
+                  <text x="560" y="85" text-anchor="middle" fill="#334">→ GRAVE</text>
+                  <path d="M150 65 L168 65" stroke="#15803d" stroke-width="3" marker-end="url(#a6)"/>
+                  <path d="M310 65 L328 65" stroke="#15803d" stroke-width="3" marker-end="url(#a6)"/>
+                  <path d="M470 65 L488 65" stroke="#15803d" stroke-width="3" marker-end="url(#a6)"/>
+                  <text x="240" y="125" text-anchor="middle" font-weight="700" fill="#9a3412">força ↓ isolada = DINAPENIA</text>
+                  <text x="240" y="140" text-anchor="middle" fill="#334">(sarcopenia provável)</text>
+                  <text x="320" y="175" text-anchor="middle" fill="#334">Perda preferencial de fibras tipo II (rápidas) e de unidades motoras; infiltração de gordura no músculo;</text>
+                  <text x="320" y="192" text-anchor="middle" fill="#334">a força cai mais rápido que a massa. Exercício resistido + proteína adequada é o tratamento de base.</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Algoritmo EWGSOP2: força reduzida já indica sarcopenia provável; massa reduzida confirma; desempenho reduzido define gravidade</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Conceitos que o caso cita</caption>
+              <thead><tr><th>Termo</th><th>Definição</th><th>No Sr. Miguel</th></tr></thead>
+              <tbody>
+                <tr><td>Sarcopenia</td><td>Perda de massa e de força/função muscular associada à idade</td><td>Leve</td></tr>
+                <tr><td>Dinapenia</td><td>Perda de força muscular, independentemente da massa</td><td>Presente</td></tr>
+                <tr><td>Fragilidade</td><td>Síndrome de ↓reserva com vulnerabilidade a estressores (fenótipo de Fried: perda de peso não intencional, exaustão, ↓força de preensão, ↓velocidade de marcha, ↓atividade física; ≥ 3 critérios = frágil, 1–2 = pré-frágil)</td><td>Ausente — peso estável e ativo</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Massa óssea ao longo da vida <span class="tico">🖼️ figura</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Curva de massa óssea em homens e mulheres">
+                <line x1="60" y1="210" x2="610" y2="210" stroke="#475569" stroke-width="2"/>
+                <line x1="60" y1="210" x2="60" y2="20" stroke="#475569" stroke-width="2"/>
+                <g font-size="9.5" fill="#5b6472"><text x="60" y="226">0</text><text x="170" y="226">20</text><text x="225" y="226">30</text><text x="335" y="226">50</text><text x="445" y="226">70</text><text x="555" y="226">90 anos</text></g>
+                <path d="M60 190 Q160 60 225 45 Q300 48 340 60 Q420 80 600 115" stroke="#2563eb" stroke-width="3" fill="none"/>
+                <text x="470" y="88" font-size="10.5" fill="#1d4ed8" font-weight="700">Homens</text>
+                <path d="M60 195 Q160 80 225 65 Q300 68 335 75 Q370 110 420 135 Q500 160 600 175" stroke="#be123c" stroke-width="3" fill="none"/>
+                <text x="470" y="172" font-size="10.5" fill="#9f1239" font-weight="700">Mulheres</text>
+                <line x1="335" y1="30" x2="335" y2="210" stroke="#be123c" stroke-dasharray="4,3"/>
+                <text x="340" y="40" font-size="10" fill="#9f1239">menopausa: perda acelerada</text>
+                <line x1="60" y1="150" x2="600" y2="150" stroke="#ea580c" stroke-width="2" stroke-dasharray="3,3"/>
+                <text x="70" y="144" font-size="10" fill="#c2410c" font-weight="700">limiar de fratura</text>
+                <text x="225" y="35" font-size="10" fill="#334" text-anchor="middle">pico de massa óssea (~30 anos)</text>
+              </svg>
+              <div class="cap">Figura — O pico de massa óssea é atingido por volta dos 30 anos; a perda é lenta nos homens e acelerada nas mulheres após a menopausa</div>
+            </div>
+            <ul>
+              <li>Cartilagens: ↓água e proteoglicanos, ↓espessura → rigidez articular e predisposição à osteoartrite (que é doença, não envelhecimento normal).</li>
+              <li>Coluna: perda de altura dos discos e microfraturas vertebrais → <b>cifose torácica</b> (achado do caso) e ↓estatura.</li>
+              <li>Osteoporose: T-score ≤ −2,5 na densitometria ou fratura por fragilidade.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q68):</b> mulher de 72 anos, menopausa há 22 anos, fratura de fêmur após queda da própria altura e densitometria de alto risco, já com cálcio e vitamina D: pelo protocolo clínico nacional, o tratamento inicial é o <b>bisfosfonato</b> (sem intolerância gastrointestinal ou disfagia que o contraindiquem).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Marcha do idoso <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Marcha senil × alerta</caption>
+              <thead><tr><th>Parâmetro</th><th>Alteração esperada</th><th>Quando investigar</th></tr></thead>
+              <tbody>
+                <tr><td>Comprimento do passo</td><td>↓ (passos curtos — achado do caso)</td><td>Passos muito curtos e arrastados, festinação</td></tr>
+                <tr><td>Velocidade</td><td>↓ discreta</td><td>&lt; 0,8 m/s: risco de quedas, incapacidade e mortalidade</td></tr>
+                <tr><td>Base e duplo apoio</td><td>Base um pouco alargada, ↑tempo de duplo apoio</td><td>Base muito alargada, instabilidade</td></tr>
+                <tr><td>Postura</td><td>Leve flexão de tronco</td><td>Quedas recorrentes, medo de cair</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref5">Cruz-Jentoft et al. — EWGSOP2</a> · <a href="#ref17">Fried et al. — fenótipo de fragilidade</a> · <a href="#ref1">Freitas &amp; Py — Tratado de Geriatria e Gerontologia</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b6" id="r7">
+      <div class="head"><span class="num">7</span> Endócrino, Imune, Pele, Sentidos, Sono e Termorregulação</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Endócrino, reprodutor e imune <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Eixos hormonais e imunidade no envelhecimento</caption>
+              <thead><tr><th>Sistema</th><th>Alteração</th><th>Repercussão</th></tr></thead>
+              <tbody>
+                <tr><td>Metabolismo glicídico</td><td>↑resistência à insulina, ↓massa muscular</td><td>↑prevalência de intolerância à glicose e DM2</td></tr>
+                <tr><td>GH/IGF-1 (somatopausa)</td><td>↓secreção</td><td>↓massa magra, ↑gordura visceral</td></tr>
+                <tr><td>Masculino (andropausa gradual)</td><td>↓testosterona livre, lenta e variável</td><td>↓libido e massa muscular em parte dos homens; fertilidade mantida</td></tr>
+                <tr><td>Feminino (menopausa)</td><td>Falência ovariana, ↓estrogênio</td><td>Perda óssea acelerada, atrofia urogenital, ↑risco cardiovascular</td></tr>
+                <tr><td>Tireoide</td><td>Função geralmente preservada; ↑nódulos e anticorpos</td><td>Hipotireoidismo subclínico mais frequente</td></tr>
+                <tr><td>Imunossenescência</td><td>Involução tímica, ↓células T naïve, ↓resposta vacinal; <i>inflammaging</i></td><td>Infecções mais graves e atípicas; importância das vacinas do calendário da pessoa idosa (influenza, pneumocócica, dT, COVID-19; herpes-zóster e vírus sincicial respiratório conforme recomendação vigente)</td></tr>
+                <tr><td>Hematopoese</td><td>↓reserva da medula óssea; hemoglobina basal semelhante à do adulto</td><td><b>Anemia não é normal</b> do envelhecimento — deve sempre ser investigada</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Pele, fâneros, sentidos e termorregulação <span class="tico">📊 tabela</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Tegumento e órgãos dos sentidos</caption>
+              <thead><tr><th>Estrutura</th><th>Alteração</th></tr></thead>
+              <tbody>
+                <tr><td>Cabelos</td><td><b>Canície</b> (↓melanócitos foliculares) — achado do caso; ↓densidade capilar</td></tr>
+                <tr><td>Pele</td><td>↓espessura da derme, ↓colágeno e elastina, ↓glândulas sudoríparas e sebáceas, ↓síntese de vitamina D, cicatrização mais lenta</td></tr>
+                <tr><td>Termorregulação</td><td>↓sudorese, ↓vasoconstrição ao frio, ↓percepção térmica e de sede → hipertermia e hipotermia mais fáceis (Q100)</td></tr>
+                <tr><td>Visão</td><td>Presbiopia (↓acomodação), ↓adaptação ao escuro, catarata</td></tr>
+                <tr><td>Audição</td><td>Presbiacusia: perda neurossensorial bilateral para frequências agudas</td></tr>
+                <tr><td>Olfato e paladar</td><td>↓limiar olfativo e ↓papilas → ↓apetite e ↓prazer alimentar</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Sono do idoso <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hipnograma simplificado do adulto jovem e do idoso">
+                <g font-size="10">
+                  <text x="20" y="20" font-weight="700" fill="#5b21b6">Adulto jovem</text>
+                  <g fill="#5b6472"><text x="20" y="42">Vigília</text><text x="20" y="58">REM</text><text x="20" y="74">N1–N2</text><text x="20" y="90">N3</text></g>
+                  <path d="M80 38 L110 38 L110 70 L140 70 L140 88 L200 88 L200 70 L230 70 L230 54 L260 54 L260 70 L290 70 L290 88 L330 88 L330 70 L370 70 L370 54 L410 54 L410 70 L470 70 L470 54 L540 54 L540 38 L600 38" fill="none" stroke="#7c3aed" stroke-width="3"/>
+                  <text x="20" y="130" font-weight="700" fill="#9f1239">Idoso</text>
+                  <g fill="#5b6472"><text x="20" y="152">Vigília</text><text x="20" y="168">REM</text><text x="20" y="184">N1–N2</text><text x="20" y="200">N3</text></g>
+                  <path d="M80 148 L100 148 L100 180 L150 180 L150 192 L175 192 L175 180 L210 180 L210 148 L225 148 L225 180 L270 180 L270 164 L290 164 L290 148 L305 148 L305 180 L360 180 L360 164 L385 164 L385 148 L400 148 L400 180 L450 180 L450 164 L470 164 L470 148 L600 148" fill="none" stroke="#be123c" stroke-width="3"/>
+                  <text x="320" y="222" text-anchor="middle" fill="#334">idoso: ↓sono profundo (N3), ↑despertares, ↓tempo total, avanço de fase (dorme e acorda mais cedo), ↓melatonina</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Hipnograma simplificado: o sono do idoso é mais fragmentado e superficial — achado do caso (“tempo de sono reduzido”)</div>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref2">Hazzard's Geriatric Medicine</a> · <a href="#ref4">Guyton &amp; Hall — Fisiologia Médica</a> · <a href="#ref18">Ohayon et al. — sono ao longo da vida</a> · <a href="#ref12">Franceschi et al. — Inflammaging</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b9" id="r8">
+      <div class="head"><span class="num">8</span> Aspectos Psicossociais do Envelhecimento <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Conceitos-chave <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Vocabulário do objetivo 2</caption>
+              <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+              <tbody>
+                <tr><td>Idoso / pessoa idosa</td><td>No Brasil, pessoa com <b>60 anos ou mais</b> (Estatuto e Política Nacional do Idoso); a OMS usa 60 anos em países em desenvolvimento e 65 em desenvolvidos</td></tr>
+                <tr><td>Envelhecimento</td><td><b>Processo</b> dinâmico, progressivo e individual, que começa ao nascer</td></tr>
+                <tr><td>Velhice</td><td><b>Fase</b> da vida (última etapa do ciclo vital)</td></tr>
+                <tr><td>Senescência</td><td>Envelhecimento <b>fisiológico</b>: alterações naturais que não causam doença nem incapacidade por si — o caso do Sr. Miguel</td></tr>
+                <tr><td>Senilidade</td><td>Envelhecimento <b>patológico</b>: doenças, sobrecarga e mau uso que levam a incapacidade e dependência</td></tr>
+                <tr><td>Infantilização</td><td>Tratar o idoso como criança (linguagem, decisões tomadas por ele, superproteção) — fere a autoestima e a autonomia</td></tr>
+                <tr><td>Idadismo (ageísmo)</td><td>Estereótipos (como pensamos), preconceito (como sentimos) e discriminação (como agimos) por causa da idade — a base do “controle social” do caso; a OMS o reconhece como determinante de pior saúde no envelhecimento</td></tr>
+                <tr><td>Baixa adaptação ao meio</td><td>Dificuldade de ajustar-se a perdas e mudanças (aposentadoria, mudança de casa, viuvez, tecnologias); fator de risco para isolamento e depressão</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="figure">
+              <svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Senescência e senilidade em um contínuo">
+                <defs><linearGradient id="gss" x1="0" x2="1"><stop offset="0" stop-color="#22c55e"/><stop offset="1" stop-color="#be123c"/></linearGradient></defs>
+                <rect x="20" y="50" width="600" height="24" rx="12" fill="url(#gss)"/>
+                <text x="110" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">SENESCÊNCIA</text>
+                <text x="530" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#9f1239">SENILIDADE</text>
+                <text x="110" y="95" text-anchor="middle" font-size="10" fill="#334">alterações fisiológicas</text>
+                <text x="110" y="109" text-anchor="middle" font-size="10" fill="#334">independência e autonomia</text>
+                <text x="530" y="95" text-anchor="middle" font-size="10" fill="#334">doenças e incapacidades</text>
+                <text x="530" y="109" text-anchor="middle" font-size="10" fill="#334">dependência</text>
+                <path d="M120 128 L520 128" stroke="#334" stroke-width="2"/>
+                <text x="320" y="122" text-anchor="middle" font-size="10" fill="#334">estilo de vida, doenças crônicas, fatores sociais e acesso à saúde deslocam a pessoa neste eixo</text>
+                <polygon points="110,74 100,86 120,86" fill="#1e3a8a"/>
+                <text x="140" y="85" font-size="10" font-weight="700" fill="#1e3a8a">Sr. Miguel</text>
+              </svg>
+              <div class="cap">Figura — Senescência e senilidade não são etapas obrigatórias: dependem de doenças e do modo de vida, não apenas da idade</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">O Brasil envelhece: transição demográfica <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proporção de pessoas com 60 anos ou mais no Brasil nos Censos de 1980, 2010 e 2022">
+                <line x1="60" y1="190" x2="600" y2="190" stroke="#475569" stroke-width="2"/>
+                <text x="320" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#1b2436">Pessoas com 60 anos ou mais (% da população brasileira)</text>
+                <g font-size="11" text-anchor="middle">
+                  <rect x="100" y="141" width="110" height="49" fill="#ddd6fe" stroke="#7c3aed"/>
+                  <text x="155" y="132" font-weight="700" fill="#5b21b6">6,1%</text>
+                  <text x="155" y="208" fill="#334">Censo 1980</text>
+                  <rect x="265" y="104" width="110" height="86" fill="#a78bfa" stroke="#7c3aed"/>
+                  <text x="320" y="95" font-weight="700" fill="#5b21b6">10,8%</text>
+                  <text x="320" y="152" fill="#2e1065">20,6 milhões</text>
+                  <text x="320" y="208" fill="#334">Censo 2010</text>
+                  <rect x="430" y="64" width="110" height="126" fill="#7c3aed" stroke="#5b21b6"/>
+                  <text x="485" y="55" font-weight="700" fill="#5b21b6">15,8%</text>
+                  <text x="485" y="132" fill="#fff" font-weight="700">32,1 milhões</text>
+                  <text x="485" y="208" fill="#334">Censo 2022</text>
+                </g>
+                <text x="320" y="232" text-anchor="middle" font-size="9.5" fill="#5b6472">Fonte: IBGE, Censo Demográfico 2022 — no mesmo período, crianças de 0–14 anos caíram de 38,2% (1980) para 19,8% (2022)</text>
+              </svg>
+              <div class="cap">Figura — A queda da fecundidade (principal causa) e da mortalidade fazem do grupo de 60+ anos o que mais cresce no país</div>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Autonomia × independência <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Quadrante autonomia e independência">
+                <line x1="320" y1="30" x2="320" y2="250" stroke="#475569" stroke-width="2"/>
+                <line x1="60" y1="140" x2="580" y2="140" stroke="#475569" stroke-width="2"/>
+                <text x="320" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#1b2436">AUTONOMIA (decidir — cognição/humor) ↑</text>
+                <text x="590" y="144" font-size="11" font-weight="700" fill="#1b2436" text-anchor="end"> </text>
+                <text x="320" y="268" text-anchor="middle" font-size="10.5" fill="#334">← dependente · INDEPENDÊNCIA (fazer — mobilidade/comunicação) · independente →</text>
+                <rect x="330" y="40" width="240" height="90" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+                <text x="450" y="65" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Autônomo e independente</text>
+                <text x="450" y="85" text-anchor="middle" font-size="10" fill="#334">decide e executa sozinho</text>
+                <text x="450" y="110" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1e3a8a">← Sr. Miguel</text>
+                <rect x="70" y="40" width="240" height="90" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+                <text x="190" y="65" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">Autônomo e dependente</text>
+                <text x="190" y="85" text-anchor="middle" font-size="10" fill="#334">decide, mas precisa de ajuda</text>
+                <text x="190" y="101" text-anchor="middle" font-size="10" fill="#334">para executar (ex.: AVC com lucidez)</text>
+                <rect x="330" y="150" width="240" height="90" rx="10" fill="#fff4e0" stroke="#b45309"/>
+                <text x="450" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">Sem autonomia, independente</text>
+                <text x="450" y="195" text-anchor="middle" font-size="10" fill="#334">executa, mas não decide com segurança</text>
+                <text x="450" y="211" text-anchor="middle" font-size="10" fill="#334">(ex.: demência inicial)</text>
+                <rect x="70" y="150" width="240" height="90" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+                <text x="190" y="175" text-anchor="middle" font-size="11" font-weight="700" fill="#9f1239">Sem autonomia e dependente</text>
+                <text x="190" y="195" text-anchor="middle" font-size="10" fill="#334">precisa de cuidador para</text>
+                <text x="190" y="211" text-anchor="middle" font-size="10" fill="#334">decidir e para executar</text>
+              </svg>
+              <div class="cap">Figura — Autonomia (capacidade de decidir) e independência (capacidade de executar) são dimensões distintas da funcionalidade</div>
+            </div>
+            <ul>
+              <li><b>Autonomia</b>: capacidade de decisão e comando sobre a própria vida (depende de cognição e humor). <b>Independência</b>: capacidade de realizar algo com os próprios meios (depende de mobilidade e comunicação).</li>
+              <li>Avalia-se pela funcionalidade: <b>AVD básicas</b> (índice de Katz: banho, vestir, higiene, transferência, continência, alimentação) e <b>instrumentais</b> (escala de Lawton e Brody: finanças, compras, transporte, medicações, telefone). O Sr. Miguel realiza AVD instrumentais complexas (transações financeiras, gerenciar o quiosque).</li>
+              <li>Saúde do idoso = <b>capacidade funcional</b>, não ausência de doença: ele é saudável mesmo sendo hipertenso.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Quando deixa de ser senescência: os “gigantes da geriatria” <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Grandes síndromes geriátricas">
+                <circle cx="320" cy="125" r="58" fill="#701a75"/>
+                <text x="320" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Senilidade:</text>
+                <text x="320" y="134" text-anchor="middle" font-size="11" fill="#fbe9fb">perda de</text>
+                <text x="320" y="148" text-anchor="middle" font-size="11" fill="#fbe9fb">funcionalidade</text>
+                <g font-size="10.5" text-anchor="middle">
+                  <rect x="40" y="20" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="125" y="38" font-weight="700" fill="#701a75">Incapacidade cognitiva</text><text x="125" y="54" fill="#334">demência, delirium, depressão</text>
+                  <rect x="430" y="20" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="515" y="38" font-weight="700" fill="#701a75">Instabilidade postural</text><text x="515" y="54" fill="#334">quedas</text>
+                  <rect x="20" y="103" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="105" y="121" font-weight="700" fill="#701a75">Imobilidade</text><text x="105" y="137" fill="#334">restrição ao leito/poltrona</text>
+                  <rect x="450" y="103" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="535" y="121" font-weight="700" fill="#701a75">Incontinência</text><text x="535" y="137" fill="#334">urinária e fecal</text>
+                  <rect x="40" y="186" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="125" y="204" font-weight="700" fill="#701a75">Iatrogenia</text><text x="125" y="220" fill="#334">polifarmácia, cascata</text>
+                  <rect x="430" y="186" width="170" height="44" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="515" y="204" font-weight="700" fill="#701a75">Insuficiência familiar</text><text x="515" y="220" fill="#334">rede de apoio frágil</text>
+                </g>
+                <g stroke="#a21caf" stroke-width="2"><line x1="210" y1="50" x2="270" y2="95"/><line x1="430" y1="50" x2="370" y2="95"/><line x1="190" y1="125" x2="262" y2="125"/><line x1="450" y1="125" x2="378" y2="125"/><line x1="210" y1="200" x2="270" y2="155"/><line x1="430" y1="200" x2="370" y2="155"/></g>
+              </svg>
+              <div class="cap">Figura — Os “Is” da geriatria (Isaacs; adaptados por Moraes): nenhum deles é consequência normal da idade — sinalizam doença e senilidade</div>
+            </div>
+            <ul>
+              <li>O Sr. Miguel não apresenta nenhuma dessas síndromes: por isso o geriatra não encontrou motivo para restringir suas atividades. Também não há <b>insuficiência familiar</b>: a família é presente; o risco, aqui, é o oposto — a superproteção, que pode levar a desuso, imobilidade e perda de autonomia.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Cuidado, dependência e o cuidador <span class="enamed">ENAMED</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>A família é a principal fonte de cuidado no Brasil (cuidador informal, geralmente mulher, filha ou esposa). A sobrecarga do cuidador é risco de adoecimento e de violência — deve ser avaliada e apoiada.</li>
+              <li>Cuidar <b>não é tutelar</b>: cuidado adequado preserva o máximo de autonomia e independência. A superproteção (“babás”) gera <b>infantilização</b>, perda de autoestima, desuso e, paradoxalmente, dependência.</li>
+              <li>A institucionalização (ILPI) é exceção, indicada quando a família não tem condições de prover o cuidado.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q70):</b> idosa diabética, com locomoção reduzida e hipoglicemias por dificuldade de entender o esquema de insulina, que mora com uma filha que trabalha fora o dia todo. A ação inicial da equipe é <b>articular o cuidado com a comunidade</b> (rede de apoio, família ampliada, vizinhança, agentes comunitários) — e não institucionalizar ou tirar a autonomia de imediato.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Sexualidade, autoestima, lutos e envelhecimento ativo <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Sexualidade</b>: continua sendo necessidade e direito; há mudanças fisiológicas (ereção mais lenta e menos rígida, ↑período refratário; secura vaginal pós-menopausa), mas a vida sexual ativa — como a do Sr. Miguel — associa-se a bem-estar. Mito da “velhice assexuada” é forma de idadismo; lembrar prevenção de IST.</li>
+              <li><b>Autoestima</b>: sustentada por papéis sociais, trabalho, participação e reconhecimento. Retirar do idoso o trabalho que lhe dá sentido (“não quero parar...”) ameaça autoestima e identidade.</li>
+              <li><b>Lutos</b> do envelhecimento: perdas de pessoas (cônjuge, amigos), de papéis (aposentadoria), de saúde e funcionalidade, de autonomia e de espaço. Luto normal × luto complicado/depressão: atenção a isolamento, perda de interesse e ideação suicida.</li>
+            </ul>
+            <div class="figure">
+              <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pilares do envelhecimento ativo da OMS">
+                <rect x="40" y="20" width="560" height="38" rx="10" fill="#701a75"/>
+                <text x="320" y="44" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">ENVELHECIMENTO ATIVO (OMS) — qualidade de vida ao envelhecer</text>
+                <g font-size="11" font-weight="700" text-anchor="middle">
+                  <rect x="50" y="70" width="120" height="90" rx="8" fill="#fbe9fb" stroke="#a21caf"/><text x="110" y="105" fill="#701a75">Saúde</text>
+                  <rect x="190" y="70" width="120" height="90" rx="8" fill="#fbe9fb" stroke="#a21caf"/><text x="250" y="105" fill="#701a75">Participação</text>
+                  <rect x="330" y="70" width="120" height="90" rx="8" fill="#fbe9fb" stroke="#a21caf"/><text x="390" y="105" fill="#701a75">Segurança</text>
+                  <rect x="470" y="70" width="120" height="90" rx="8" fill="#fbe9fb" stroke="#a21caf"/><text x="530" y="98" fill="#701a75">Aprendizagem</text><text x="530" y="113" fill="#701a75">ao longo da vida</text>
+                </g>
+                <g font-size="9.5" fill="#334" text-anchor="middle">
+                  <text x="110" y="128">atividade física,</text><text x="110" y="141">prevenção</text>
+                  <text x="250" y="128">trabalho, família,</text><text x="250" y="141">comunidade</text>
+                  <text x="390" y="128">renda, proteção,</text><text x="390" y="141">cuidado</text>
+                  <text x="530" y="135">educação continuada</text>
+                </g>
+                <text x="320" y="188" text-anchor="middle" font-size="10" fill="#5b6472">O Sr. Miguel cumpre os pilares: o geriatra orienta a família a apoiar — e não impedir — sua participação</text>
+              </svg>
+              <div class="cap">Figura — Pilares do envelhecimento ativo (OMS, 2002; aprendizagem ao longo da vida acrescentada pelo ILC-Brasil, 2015)</div>
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref3">Moraes — Atenção à Saúde do Idoso</a> · <a href="#ref6">OMS — Envelhecimento Ativo</a> · <a href="#ref19">OMS — Relatório mundial sobre idadismo</a> · <a href="#ref20">Katz et al.</a> · <a href="#ref21">Lawton &amp; Brody</a> · <a href="#ref23">IBGE — Censo 2022</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 9 -->
+    <div class="branch b8" id="r9">
+      <div class="head"><span class="num">9</span> Estatuto da Pessoa Idosa (Lei 10.741/2003) <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Linha do tempo da proteção legal <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linha do tempo das leis de proteção à pessoa idosa">
+                <line x1="30" y1="90" x2="610" y2="90" stroke="#cbd5e1" stroke-width="4"/>
+                <g font-size="10" text-anchor="middle">
+                  <circle cx="70" cy="90" r="11" fill="#4338ca"/><text x="70" y="65" font-weight="700" fill="#3730a3">1988</text><text x="70" y="118" fill="#334">Constituição,</text><text x="70" y="131" fill="#334">art. 230: dever de</text><text x="70" y="144" fill="#334">família, sociedade</text><text x="70" y="157" fill="#334">e Estado</text>
+                  <circle cx="195" cy="90" r="11" fill="#4338ca"/><text x="195" y="65" font-weight="700" fill="#3730a3">1994</text><text x="195" y="118" fill="#334">Lei 8.842 — Política</text><text x="195" y="131" fill="#334">Nacional do Idoso</text>
+                  <circle cx="320" cy="90" r="13" fill="#be123c"/><text x="320" y="65" font-weight="700" fill="#9f1239">2003</text><text x="320" y="118" font-weight="700" fill="#9f1239">Lei 10.741 —</text><text x="320" y="131" font-weight="700" fill="#9f1239">Estatuto do Idoso</text><text x="320" y="144" fill="#334">(≥ 60 anos)</text>
+                  <circle cx="445" cy="90" r="11" fill="#4338ca"/><text x="445" y="65" font-weight="700" fill="#3730a3">2017</text><text x="445" y="118" fill="#334">Lei 13.466 — prioridade</text><text x="445" y="131" fill="#334">especial &gt; 80 anos</text>
+                  <circle cx="570" cy="90" r="11" fill="#4338ca"/><text x="570" y="65" font-weight="700" fill="#3730a3">2022</text><text x="570" y="118" fill="#334">Lei 14.423 — passa a</text><text x="570" y="131" fill="#334">“Estatuto da</text><text x="570" y="144" fill="#334">Pessoa Idosa”</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Marcos legais: o Sr. Miguel, com 84 anos, tem direito à prioridade especial dos maiores de 80 anos</div>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary><span class="sumtext">Fundamentos e direitos <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Principais dispositivos do Estatuto da Pessoa Idosa</caption>
+              <thead><tr><th>Tema</th><th>O que garante</th></tr></thead>
+              <tbody>
+                <tr><td>Abrangência (art. 1º)</td><td>Pessoas com idade igual ou superior a <b>60 anos</b></td></tr>
+                <tr><td>Fundamentos (arts. 2º, 8º e 9º)</td><td>A pessoa idosa goza de todos os direitos fundamentais, com proteção integral; <b>o envelhecimento é direito personalíssimo e sua proteção, direito social</b>; o Estado deve garantir vida e saúde por políticas que permitam envelhecimento saudável e digno</td></tr>
+                <tr><td>Conselhos (art. 7º)</td><td>Conselhos Nacional, Estaduais, do DF e Municipais da Pessoa Idosa zelam pelo cumprimento dos direitos</td></tr>
+                <tr><td>Obrigação (art. 3º)</td><td>Família, comunidade, sociedade e Poder Público asseguram, com <b>absoluta prioridade</b>, vida, saúde, alimentação, educação, cultura, esporte, lazer, trabalho, cidadania, liberdade, dignidade, respeito e convivência familiar e comunitária; <b>prioridade especial aos maiores de 80 anos</b></td></tr>
+                <tr><td>Proteção (art. 4º)</td><td>Nenhuma pessoa idosa será objeto de negligência, discriminação, violência, crueldade ou opressão</td></tr>
+                <tr><td>Liberdade, respeito e dignidade (art. 10)</td><td>Respeito = inviolabilidade da integridade física, psíquica e moral, preservando <b>imagem, identidade, autonomia, valores, ideias e crenças, espaços e objetos pessoais</b> (§ 2º) — base do direito do Sr. Miguel de seguir trabalhando</td></tr>
+                <tr><td>Saúde (arts. 15–19)</td><td>Atenção integral pelo SUS; medicamentos; atendimento domiciliar; <b>proibida cobrança diferenciada por idade nos planos de saúde</b>; direito de optar pelo tratamento quando lúcido; acompanhante em internação</td></tr>
+                <tr><td>Violência (art. 19)</td><td>Suspeita ou confirmação de violência contra a pessoa idosa é de <b>notificação compulsória</b> pelos serviços de saúde públicos e privados à autoridade sanitária, com comunicação obrigatória à autoridade policial, ao Ministério Público e aos Conselhos da Pessoa Idosa</td></tr>
+                <tr><td>Cultura e lazer (art. 23)</td><td>Desconto de pelo menos 50% em eventos artísticos, culturais, esportivos e de lazer</td></tr>
+                <tr><td>Trabalho (arts. 26–28)</td><td>Direito ao exercício profissional respeitadas as condições físicas, intelectuais e psíquicas; <b>vedada discriminação</b> e limite máximo de idade em concursos (salvo natureza do cargo); programas de preparação para a aposentadoria</td></tr>
+                <tr><td>Assistência social (art. 34)</td><td><b>Benefício de Prestação Continuada (BPC)</b> de 1 salário mínimo para quem tem <b>65 anos ou mais</b> e não tem meios de prover a subsistência, nos termos da LOAS</td></tr>
+                <tr><td>Moradia (art. 37)</td><td>Moradia digna com a família, sozinho ou em instituição; a ILPI deve garantir padrões de habitação e cuidado</td></tr>
+                <tr><td>Transporte (arts. 39–41)</td><td>Gratuidade no transporte coletivo urbano para ≥ 65 anos; 2 vagas gratuitas por veículo interestadual (renda até 2 salários mínimos) e desconto nas demais; 5% das vagas de estacionamento</td></tr>
+                <tr><td>Medidas de proteção (arts. 43–45)</td><td>Aplicáveis quando direitos são ameaçados ou violados por ação/omissão da sociedade ou do Estado, por falta, omissão ou abuso da família, curador ou entidade, ou pela condição pessoal da pessoa idosa</td></tr>
+                <tr><td>Justiça (art. 71)</td><td>Prioridade na tramitação de processos; prioridade especial aos maiores de 80 anos</td></tr>
+                <tr><td>Crimes (arts. 96–108)</td><td>Discriminar por idade, abandonar, expor a perigo, reter cartão/benefício ou apropriar-se de bens da pessoa idosa</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Violência contra a pessoa idosa <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Tipos de violência que o profissional de saúde deve reconhecer e notificar (art. 19)</caption>
+              <thead><tr><th>Tipo</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr><td>Física</td><td>Agressões, contenção indevida</td></tr>
+                <tr><td>Psicológica</td><td>Humilhação, ameaça, isolamento, <b>infantilização</b> e desrespeito às escolhas</td></tr>
+                <tr><td>Financeira/patrimonial</td><td>Apropriação de aposentadoria, cartão ou bens; contratos sem consentimento</td></tr>
+                <tr><td>Negligência e abandono</td><td>Omissão de cuidados com alimentação, higiene, medicamentos; deixar sem amparo</td></tr>
+                <tr><td>Sexual</td><td>Qualquer ato sexual sem consentimento</td></tr>
+                <tr><td>Autonegligência</td><td>A própria pessoa idosa deixa de cuidar de si, colocando-se em risco</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Datas:</b> 1º de outubro é o Dia Nacional da Pessoa Idosa (mesmo dia da sanção do Estatuto) e 15 de junho, o Dia Mundial de Conscientização da Violência contra a Pessoa Idosa.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">O Estatuto aplicado ao caso e ao ENAMED <span class="enamed">ENAMED</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>A família pode e deve cuidar (art. 3º), mas <b>não pode decidir pelo idoso lúcido apenas por causa da idade</b>: isso fere a autonomia (art. 10) e o direito ao trabalho (art. 26) e configura discriminação etária.</li>
+              <li>O papel do médico é <b>esclarecer</b> que as alterações são fisiológicas, valorizar a autonomia e orientar um envelhecimento ativo — exatamente o que o geriatra fez.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q55 e Q70):</b> na <b>Q55</b> (cujo foco é o tratamento da dor neuropática), o idoso de 74 anos que mora sozinho tem como renda o <b>Benefício de Prestação Continuada</b> — direito previsto no art. 34 do Estatuto (≥ 65 anos sem meios de subsistência), que aparece como contexto social do caso. Na <b>Q70</b>, a resposta privilegia a <b>rede comunitária de cuidado</b> em vez da instituição de longa permanência, em linha com o direito à convivência familiar e comunitária (art. 3º).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">Lei 10.741/2003 (Estatuto da Pessoa Idosa)</a> · <a href="#ref24">Constituição Federal, art. 230</a> · <a href="#ref8">Lei 8.842/1994</a> · <a href="#ref25">Lei 13.466/2017</a> · <a href="#ref9">Lei 14.423/2022</a> · <a href="#ref26">Lei 8.742/1993 (LOAS)</a> · <a href="#ref10">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">FREITAS, Elizabete Viana de; PY, Ligia (org.). <i>Tratado de Geriatria e Gerontologia</i>. 5. ed. Rio de Janeiro: Guanabara Koogan, 2022. <span class="accessed">(livro, sem DOI)</span></li>
+      <li id="ref2">HALTER, Jeffrey B. et al. (ed.). <i>Hazzard's Geriatric Medicine and Gerontology</i>. 8. ed. New York: McGraw-Hill, 2022. <span class="accessed">(livro, sem DOI)</span></li>
+      <li id="ref3">MORAES, Edgar Nunes de. <i>Atenção à saúde do idoso: aspectos conceituais</i>. Brasília: Organização Pan-Americana da Saúde, 2012. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/atencao_saude_idoso_aspectos_conceituais.pdf" target="_blank" rel="noopener">https://bvsms.saude.gov.br/bvs/publicacoes/atencao_saude_idoso_aspectos_conceituais.pdf</a>.</li>
+      <li id="ref4">HALL, John E.; HALL, Michael E. <i>Guyton &amp; Hall — Tratado de Fisiologia Médica</i>. 14. ed. Rio de Janeiro: Grupo GEN, 2021. <span class="accessed">(livro, sem DOI)</span></li>
+      <li id="ref5">CRUZ-JENTOFT, Alfonso J. et al. Sarcopenia: revised European consensus on definition and diagnosis. <i>Age and Ageing</i>, v. 48, n. 1, p. 16-31, 2019. DOI: <a href="https://doi.org/10.1093/ageing/afy169" target="_blank" rel="noopener">10.1093/ageing/afy169</a>.</li>
+      <li id="ref6">ORGANIZAÇÃO MUNDIAL DA SAÚDE. <i>Envelhecimento ativo: uma política de saúde</i>. Brasília: Organização Pan-Americana da Saúde, 2005. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/envelhecimento_ativo.pdf" target="_blank" rel="noopener">https://bvsms.saude.gov.br/bvs/publicacoes/envelhecimento_ativo.pdf</a>.</li>
+      <li id="ref7">BRASIL. <i>Lei nº 10.741, de 1º de outubro de 2003</i>. Dispõe sobre o Estatuto da Pessoa Idosa e dá outras providências. Brasília, 2003. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm</a>.</li>
+      <li id="ref8">BRASIL. <i>Lei nº 8.842, de 4 de janeiro de 1994</i>. Dispõe sobre a Política Nacional do Idoso. Brasília, 1994. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/leis/l8842.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/leis/l8842.htm</a>.</li>
+      <li id="ref9">BRASIL. <i>Lei nº 14.423, de 22 de julho de 2022</i>. Altera a Lei nº 10.741/2003 para substituir as expressões “idoso” e “idosos” por “pessoa idosa” e “pessoas idosas”. Brasília, 2022. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14423.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14423.htm</a>.</li>
+      <li id="ref10">INEP. <i>Enamed 2026 — Caderno 01</i>. Exame Nacional de Avaliação da Formação Médica. Brasília: Ministério da Educação, 2026. Documento fornecido pelo usuário.</li>
+      <li id="ref11">LÓPEZ-OTÍN, Carlos et al. Hallmarks of aging: an expanding universe. <i>Cell</i>, v. 186, n. 2, p. 243-278, 2023. DOI: <a href="https://doi.org/10.1016/j.cell.2022.11.001" target="_blank" rel="noopener">10.1016/j.cell.2022.11.001</a>.</li>
+      <li id="ref12">FRANCESCHI, Claudio et al. Inflammaging: a new immune–metabolic viewpoint for age-related diseases. <i>Nature Reviews Endocrinology</i>, v. 14, n. 10, p. 576-590, 2018. DOI: <a href="https://doi.org/10.1038/s41574-018-0059-4" target="_blank" rel="noopener">10.1038/s41574-018-0059-4</a>.</li>
+      <li id="ref13">FREEMAN, Roy et al. Consensus statement on the definition of orthostatic hypotension, neurally mediated syncope and the postural tachycardia syndrome. <i>Clinical Autonomic Research</i>, v. 21, n. 2, p. 69-72, 2011. DOI: <a href="https://doi.org/10.1007/s10286-011-0119-5" target="_blank" rel="noopener">10.1007/s10286-011-0119-5</a>.</li>
+      <li id="ref14">SORBINI, C. A. et al. Arterial oxygen tension in relation to age in healthy subjects. <i>Respiration</i>, v. 25, n. 1, p. 3-13, 1968. DOI: <a href="https://doi.org/10.1159/000192549" target="_blank" rel="noopener">10.1159/000192549</a>.</li>
+      <li id="ref15">LIM, W. S. et al. Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. <i>Thorax</i>, v. 58, n. 5, p. 377-382, 2003. DOI: <a href="https://doi.org/10.1136/thorax.58.5.377" target="_blank" rel="noopener">10.1136/thorax.58.5.377</a>.</li>
+      <li id="ref16">LINDEMAN, Robert D.; TOBIN, Jordan; SHOCK, Nathan W. Longitudinal studies on the rate of decline in renal function with age. <i>Journal of the American Geriatrics Society</i>, v. 33, n. 4, p. 278-285, 1985. DOI: <a href="https://doi.org/10.1111/j.1532-5415.1985.tb07117.x" target="_blank" rel="noopener">10.1111/j.1532-5415.1985.tb07117.x</a>.</li>
+      <li id="ref17">FRIED, Linda P. et al. Frailty in older adults: evidence for a phenotype. <i>The Journals of Gerontology: Series A</i>, v. 56, n. 3, p. M146-M157, 2001. DOI: <a href="https://doi.org/10.1093/gerona/56.3.M146" target="_blank" rel="noopener">10.1093/gerona/56.3.M146</a>.</li>
+      <li id="ref18">OHAYON, Maurice M. et al. Meta-analysis of quantitative sleep parameters from childhood to old age in healthy individuals. <i>Sleep</i>, v. 27, n. 7, p. 1255-1273, 2004. DOI: <a href="https://doi.org/10.1093/sleep/27.7.1255" target="_blank" rel="noopener">10.1093/sleep/27.7.1255</a>.</li>
+      <li id="ref19">WORLD HEALTH ORGANIZATION. <i>Global report on ageism</i>. Geneva: WHO, 2021. Disponível em: <a href="https://www.who.int/publications/i/item/9789240016866" target="_blank" rel="noopener">https://www.who.int/publications/i/item/9789240016866</a>.</li>
+      <li id="ref20">KATZ, Sidney et al. Studies of illness in the aged. The index of ADL: a standardized measure of biological and psychosocial function. <i>JAMA</i>, v. 185, n. 12, p. 914-919, 1963. DOI: <a href="https://doi.org/10.1001/jama.1963.03060120024016" target="_blank" rel="noopener">10.1001/jama.1963.03060120024016</a>.</li>
+      <li id="ref21">LAWTON, M. Powell; BRODY, Elaine M. Assessment of older people: self-maintaining and instrumental activities of daily living. <i>The Gerontologist</i>, v. 9, n. 3, p. 179-186, 1969. DOI: <a href="https://doi.org/10.1093/geront/9.3_Part_1.179" target="_blank" rel="noopener">10.1093/geront/9.3_Part_1.179</a>.</li>
+      <li id="ref22">AMERICAN GERIATRICS SOCIETY BEERS CRITERIA® UPDATE EXPERT PANEL. American Geriatrics Society 2023 updated AGS Beers Criteria® for potentially inappropriate medication use in older adults. <i>Journal of the American Geriatrics Society</i>, v. 71, n. 7, p. 2052-2081, 2023. DOI: <a href="https://doi.org/10.1111/jgs.18372" target="_blank" rel="noopener">10.1111/jgs.18372</a>.</li>
+      <li id="ref23">IBGE. <i>Censo Demográfico 2022: população por idade e sexo</i>. Rio de Janeiro: IBGE, 2023. Disponível em: <a href="https://biblioteca.ibge.gov.br/visualizacao/livros/liv102038.pdf" target="_blank" rel="noopener">https://biblioteca.ibge.gov.br/visualizacao/livros/liv102038.pdf</a>.</li>
+      <li id="ref24">BRASIL. <i>Constituição da República Federativa do Brasil de 1988</i>, art. 230. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm</a>.</li>
+      <li id="ref25">BRASIL. <i>Lei nº 13.466, de 12 de julho de 2017</i>. Altera o Estatuto do Idoso para estabelecer a prioridade especial das pessoas maiores de oitenta anos. Brasília, 2017. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13466.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13466.htm</a>.</li>
+      <li id="ref26">BRASIL. <i>Lei nº 8.742, de 7 de dezembro de 1993</i>. Dispõe sobre a organização da Assistência Social (LOAS). Brasília, 1993. Disponível em: <a href="https://www.planalto.gov.br/ccivil_03/leis/l8742.htm" target="_blank" rel="noopener">https://www.planalto.gov.br/ccivil_03/leis/l8742.htm</a>.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia de geriatria e gerontologia e da legislação brasileira, no mesmo padrão editorial dos mapas anteriores, com tabelas que se reorganizam em fichas em telas estreitas (visualização completa, sem cortes), figuras explicativas e esquemas. Pontos também identificados no Caderno 01 do Enamed 2026 recebem a marcação <span class="enamed">ENAMED</span>, com o número da questão.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura e conteúdo revisados (29 out. 2026; artigos do Estatuto conferidos no texto oficial do Planalto e DOIs conferidos no Crossref) contra os Objetivos do Problema 1 — Módulo 03: fisiologia do envelhecimento por sistema, exceto o neurológico (ramos 1 a 7); aspectos psicossociais — senescência, senilidade, infantilização, idoso, velhice, sexualidade, baixa adaptação ao meio, autoestima, cuidado/dependência, autonomia e lutos (ramo 8); e fundamentos do Estatuto da Pessoa Idosa (ramo 9). Cross-referência ao Caderno 01 do Enamed 2026: Q1 (ramo 3), Q78 (ramos 2 e 4), Q100 (ramos 4 e 7), Q68 (ramo 6), Q70 (ramos 8 e 9) e Q55 (ramo 9).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Alterações do Envelhecimento e Estatuto da Pessoa Idosa (Problema 1 — “Não quero parar...”)<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+</div>
+<script>
+  // Rótulos para as tabelas em modo ficha (telas estreitas)
+  document.querySelectorAll('.twrap table').forEach(function(t){
+    var hs=[].map.call(t.querySelectorAll('thead th'),function(th){return th.textContent.trim();});
+    t.querySelectorAll('tbody tr').forEach(function(tr){
+      [].forEach.call(tr.children,function(td,i){ if(hs[i]) td.setAttribute('data-label',hs[i]); });
+    });
+  });
+</script>
+</body>
+</html>
