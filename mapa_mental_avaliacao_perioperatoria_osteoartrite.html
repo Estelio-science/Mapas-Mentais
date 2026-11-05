@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Mental — Avaliação Perioperatória do Idoso e Osteoartrite</title>
+<style>
+  :root{
+    --bg:#0f1729;
+    --card:#ffffff;
+    --ink:#1b2436;
+    --muted:#5b6472;
+    --c1:#2563eb; --c1-bg:#eaf0ff;
+    --c2:#b45309; --c2-bg:#fff4e0;
+    --c3:#0f766e; --c3-bg:#e3f7f4;
+    --c4:#be123c; --c4-bg:#ffe9ee;
+    --c5:#15803d; --c5-bg:#e8f7ec;
+    --c6:#7c3aed; --c6-bg:#f2ebff;
+    --c7:#0891b2; --c7-bg:#e0f7fa;
+    --c8:#4338ca; --c8-bg:#eef2ff;
+    --c9:#a21caf; --c9-bg:#fbe9fb;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% 0%,#1c2b4a 0%,var(--bg) 55%);
+    color:var(--ink);
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{text-align:center;color:#eaf1ff;margin-bottom:8px;}
+  header h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:.3px;}
+  header p{margin:0;color:#a9bcdb;font-size:.9rem;}
+  header p.howto{margin-top:8px;font-size:.8rem;color:#c7d5f0;}
+
+  .central{
+    margin:26px auto 34px;
+    max-width:560px;
+    background:linear-gradient(135deg,#1e3a8a,#0e1e42);
+    color:#fff;
+    border-radius:20px;
+    padding:22px 28px;
+    text-align:center;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .central .tag{font-size:.72rem;letter-spacing:1.5px;color:#93c5fd;text-transform:uppercase;margin-bottom:4px;}
+  .central h2{margin:0;font-size:1.5rem;}
+  .central .sub{margin-top:6px;font-size:.82rem;color:#c7d5f0;}
+
+  .connectors{
+    display:flex;justify-content:center;margin:-10px 0 6px;color:#4a5c85;font-size:1.4rem;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr));
+    gap:20px;
+  }
+  .branch{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+    border:1px solid rgba(0,0,0,.04);
+  }
+  .branch > .head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px;
+    font-weight:700;font-size:1.02rem;color:#fff;
+  }
+  .branch .head .num{
+    width:26px;height:26px;border-radius:50%;
+    background:rgba(255,255,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;flex:none;
+  }
+  .b1 .head{background:linear-gradient(135deg,var(--c1),#1d4ed8);}
+  .b2 .head{background:linear-gradient(135deg,var(--c2),#92400e);}
+  .b3 .head{background:linear-gradient(135deg,var(--c3),#115e59);}
+  .b4 .head{background:linear-gradient(135deg,var(--c4),#9f1239);}
+  .b5 .head{background:linear-gradient(135deg,var(--c5),#166534);}
+  .b6 .head{background:linear-gradient(135deg,var(--c6),#5b21b6);}
+  .b7 .head{background:linear-gradient(135deg,var(--c7),#0e7490);}
+  .b8 .head{background:linear-gradient(135deg,var(--c8),#3730a3);}
+  .b9 .head{background:linear-gradient(135deg,var(--c9),#701a75);}
+
+  .body{padding:12px 14px 16px;}
+  details{
+    border-radius:10px;
+    margin-bottom:8px;
+    background:#f7f8fa;
+    border:1px solid #eceef2;
+  }
+  details:last-child{margin-bottom:0;}
+  details summary{
+    cursor:pointer;
+    list-style:none;
+    padding:10px 12px;
+    font-weight:600;
+    font-size:.88rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    color:var(--ink);
+    gap:8px;
+    transition:filter .12s ease;
+  }
+  details summary:hover{filter:brightness(0.96);}
+  details summary::-webkit-details-marker{display:none;}
+  details summary .chev{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:rgba(0,0,0,.08);
+    font-size:.75rem;
+    transition:transform .18s ease;
+  }
+  details[open] summary .chev{transform:rotate(90deg);}
+  .b1 details summary .chev{color:var(--c1);}
+  .b2 details summary .chev{color:var(--c2);}
+  .b3 details summary .chev{color:var(--c3);}
+  .b4 details summary .chev{color:var(--c4);}
+  .b5 details summary .chev{color:var(--c5);}
+  .b6 details summary .chev{color:var(--c6);}
+  .b7 details summary .chev{color:var(--c7);}
+  .b8 details summary .chev{color:var(--c8);}
+  .b9 details summary .chev{color:var(--c9);}
+  .sumtext{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .tico{
+    font-size:.72rem;
+    opacity:.75;
+    font-weight:400;
+  }
+  .b1 details summary{background:var(--c1-bg);}
+  .b2 details summary{background:var(--c2-bg);}
+  .b3 details summary{background:var(--c3-bg);}
+  .b4 details summary{background:var(--c4-bg);}
+  .b5 details summary{background:var(--c5-bg);}
+  .b6 details summary{background:var(--c6-bg);}
+  .b7 details summary{background:var(--c7-bg);}
+  .b8 details summary{background:var(--c8-bg);}
+  .b9 details summary{background:var(--c9-bg);}
+  details[open] summary{border-radius:10px 10px 0 0;}
+
+  .content{
+    padding:10px 14px 12px;
+    font-size:.85rem;
+    color:#333;
+    line-height:1.5;
+  }
+  .content ul{margin:0;padding-left:18px;}
+  .content li{margin-bottom:5px;}
+  .content li:last-child{margin-bottom:0;}
+  .content b{color:var(--ink);}
+
+  .pill{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-right:4px;
+    vertical-align:middle;
+  }
+  .b1 .pill{background:var(--c1-bg);color:var(--c1);}
+  .b2 .pill{background:var(--c2-bg);color:var(--c2);}
+  .b3 .pill{background:var(--c3-bg);color:var(--c3);}
+  .b4 .pill{background:var(--c4-bg);color:var(--c4);}
+  .b5 .pill{background:var(--c5-bg);color:var(--c5);}
+  .b6 .pill{background:var(--c6-bg);color:var(--c6);}
+  .b7 .pill{background:var(--c7-bg);color:var(--c7);}
+  .b8 .pill{background:var(--c8-bg);color:var(--c8);}
+  .b9 .pill{background:var(--c9-bg);color:var(--c9);}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:10px;margin:0 0 22px;flex-wrap:wrap;
+  }
+  .toolbar button{
+    background:#1e2a45;color:#dbe6ff;border:1px solid #33456e;
+    padding:7px 14px;border-radius:8px;font-size:.8rem;cursor:pointer;
+  }
+  .toolbar button:hover{background:#2a3a63;}
+
+  footer{
+    text-align:center;color:#7286ab;font-size:.72rem;margin-top:36px;
+  }
+
+  .twrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:4px 0 2px;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    min-width:460px;
+    border-collapse:collapse;
+    font-size:.76rem;
+    margin:0;
+  }
+  table caption{
+    text-align:left;font-size:.72rem;color:var(--muted);
+    margin-bottom:4px;font-style:italic;
+  }
+  th,td{
+    border:1px solid #e3e6ec;
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:#eef1f6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  tr:nth-child(even) td{background:#fafbfc;}
+  .b1 th{background:var(--c1-bg);color:var(--c1);}
+  .b2 th{background:var(--c2-bg);color:var(--c2);}
+  .b3 th{background:var(--c3-bg);color:var(--c3);}
+  .b4 th{background:var(--c4-bg);color:var(--c4);}
+  .b5 th{background:var(--c5-bg);color:var(--c5);}
+  .b6 th{background:var(--c6-bg);color:var(--c6);}
+  .b7 th{background:var(--c7-bg);color:var(--c7);}
+  .b8 th{background:var(--c8-bg);color:var(--c8);}
+  .b9 th{background:var(--c9-bg);color:var(--c9);}
+
+  .figure{
+    margin:6px 0 10px;
+    text-align:center;
+    background:#fff;
+    border:1px solid #edf0f4;
+    border-radius:10px;
+    padding:8px 6px 4px;
+  }
+  .figure svg{max-width:100%;height:auto;display:block;margin:0 auto;}
+  .figure .cap{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic;}
+
+  .note{
+    background:#eef4ff;
+    border:1px solid #c7d9ff;
+    border-left:4px solid #2563eb;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note b.tag{color:#1d4ed8;}
+  .note-warn{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    border-left:4px solid #ea580c;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-warn b.tag{color:#c2410c;}
+  .note-gap{
+    background:#fdf2f8;
+    border:1px solid #fbcfe8;
+    border-left:4px solid #be185d;
+    border-radius:8px;
+    padding:8px 11px;
+    margin:8px 0;
+    font-size:.8rem;
+    line-height:1.5;
+  }
+  .note-gap b.tag{color:#be185d;}
+  .note ul, .note-warn ul, .note-gap ul{margin:6px 0 0;padding-left:16px;}
+  .note li, .note-warn li, .note-gap li{margin-bottom:3px;}
+
+  .srcnote{
+    margin:10px 0 0;
+    padding-top:8px;
+    border-top:1px dashed #e3e6ec;
+    font-size:.68rem;
+    color:var(--muted);
+  }
+  .srcnote a{color:inherit;text-decoration:underline;}
+  .srcnote a:hover{color:var(--ink);}
+
+  .refs-section{
+    margin-top:28px;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 22px 20px;
+    box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .refs-section h3{
+    margin:0 0 10px;font-size:1.05rem;color:var(--ink);
+  }
+  .refs-section ol{
+    margin:0;padding-left:20px;font-size:.8rem;line-height:1.6;color:#333;
+  }
+  .refs-section li{margin-bottom:9px;}
+  .refs-section li:target{background:#fff7cc;}
+  .refs-section a{color:#1d4ed8;word-break:break-all;}
+  .refs-section .accessed{color:var(--muted);font-size:.74rem;}
+
+  .enamed{
+    display:inline-block;
+    font-size:.66rem;
+    font-weight:800;
+    letter-spacing:.4px;
+    padding:1px 7px;
+    border-radius:999px;
+    margin-left:4px;
+    vertical-align:middle;
+    background:#1e293b;
+    color:#fde047;
+    border:1px solid #fde047;
+  }
+
+  @media print{
+    body{background:#fff;color:#000;padding:0;}
+    header, .central{color:#000;}
+    .central{background:#eef;}
+    .toolbar{display:none;}
+    details{border:1px solid #ccc;}
+    .branch{box-shadow:none;border:1px solid #ccc;}
+  }
+
+  /* ===== Ajustes P4: tabelas sempre visíveis por completo ===== */
+  .twrap{overflow-x:auto;max-width:100%;}
+  table{min-width:0;table-layout:auto;}
+  th,td{word-break:normal;overflow-wrap:anywhere;hyphens:auto;}
+  @media (max-width:680px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  
+  .branch .body{container-type:inline-size;}
+  @container (max-width:520px){
+    .twrap table, .twrap thead, .twrap tbody, .twrap tr, .twrap th, .twrap td{display:block;width:100%;}
+    .twrap thead{position:absolute;left:-9999px;top:-9999px;}
+    .twrap tr{border:1px solid #e3e6ec;border-radius:8px;margin-bottom:8px;overflow:hidden;background:#fff;}
+    .twrap td{border:none;border-bottom:1px solid #eef0f4;padding:6px 9px;}
+    .twrap td:last-child{border-bottom:none;}
+    .twrap td::before{content:attr(data-label);display:block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);margin-bottom:2px;}
+    .twrap tr:nth-child(even) td{background:#fff;}
+    table caption{display:block;}
+  }
+
+  /* Painel de objetivos */
+  .objs{
+    max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;
+    padding:16px 20px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);
+  }
+  .objs h3{margin:0 0 8px;font-size:1rem;color:var(--ink);}
+  .objs ol{margin:0;padding-left:20px;font-size:.85rem;line-height:1.55;color:#333;}
+  .objs li{margin-bottom:6px;}
+  .objs li a{color:#1d4ed8;text-decoration:none;font-size:.75rem;font-weight:600;margin-left:4px;}
+  .objs .legend{margin-top:10px;padding-top:8px;border-top:1px dashed #e3e6ec;font-size:.74rem;color:var(--muted);line-height:1.5;}
+  .objs .enamed{margin-left:4px;}
+
+  .qpill{
+    display:inline-block;font-size:.66rem;font-weight:800;padding:1px 7px;border-radius:999px;
+    background:#fef3c7;color:#92400e;border:1px solid #f59e0b;margin-left:2px;vertical-align:middle;
+  }
+  .gab{
+    background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #16a34a;border-radius:8px;
+    padding:8px 11px;margin:8px 0;font-size:.8rem;line-height:1.5;
+  }
+  .gab b.tag{color:#15803d;}
+  .gab ul{margin:6px 0 0;padding-left:16px;}
+  .timeline-wrap{max-width:900px;margin:0 auto 26px;background:#fff;border-radius:16px;padding:12px 10px 8px;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);}
+  .timeline-wrap .cap{font-size:.72rem;color:var(--muted);text-align:center;font-style:italic;margin-top:2px;}
+  .timeline-wrap svg{width:100%;height:auto;display:block;}
+  /* Figuras legíveis no celular: rolagem horizontal em vez de miniaturizar o texto */
+  @media (max-width:640px){
+    .figure, .timeline-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .figure svg{min-width:560px;max-width:none;}
+    .timeline-wrap svg{min-width:780px;}
+    .figure::before, .timeline-wrap::before{content:"↔ deslize para ver a figura inteira";display:block;position:sticky;left:0;font-size:.68rem;color:var(--muted);text-align:left;margin:0 0 4px 2px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Mapa Mental — Avaliação Perioperatória do Idoso e Osteoartrite</h1>
+    <p>Objetivos do Problema 2 · “Avaliando os riscos...” · Módulo 03 · 2026.2</p>
+    <p class="howto">👆 Toque ou clique no título de cada seção abaixo (dentro dos cartões coloridos) para abrir o conteúdo — tabelas <span class="tico">📊</span> e figuras <span class="tico">🖼️</span> ficam dentro dessas seções expansíveis. Em telas estreitas, as tabelas se reorganizam em fichas para serem lidas por inteiro.</p>
+  </header>
+
+  <div class="toolbar">
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Expandir tudo</button>
+    <button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Recolher tudo</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+  </div>
+
+  <div class="central">
+    <div class="tag">Tema Central</div>
+    <h2>Avaliação Cirúrgica (Perioperatória) do Idoso e Osteoartrite</h2>
+    <div class="sub">Osteoartrite do joelho: conceito, epidemiologia, fatores de risco, fisiopatologia, diagnóstico e consequências · Avaliação Geriátrica Ampla (AGA) e seus instrumentos — com os protocolos do LABIMH · Riscos cirúrgicos no idoso: pré, intra e pós-operatório</div>
+  </div>
+
+  <!-- OBJETIVOS -->
+  <div class="objs">
+    <h3>🎯 Objetivos do Problema 2 (com temas ENAMED ressaltados)</h3>
+    <ol>
+      <li>Compreender a <b>osteoartrite</b> (conceito, diagnóstico, quadro clínico, fisiopatologia, epidemiologia, etiologia, fatores de risco e consequências). <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q68</span> <a href="#r1">→ ramos 1 e 2</a></li>
+      <li>Caracterizar a <b>AGA</b> e sua importância na avaliação pré-operatória (status funcional, desempenho físico, desempenho psicológico, comorbidades, condições socioeconômicas, síndromes geriátricas, polifarmácia, nutrição e apoio social). <a href="#r3">→ ramos 3, 4 e 5</a></li>
+      <li>Elucidar os <b>principais riscos cirúrgicos no idoso</b> (pré, intra e pós-operatório): idade, polifarmácia, comorbidades, capacidade funcional, hipoxemia, hipotensão, dor, complicações cardíacas e pulmonares, disfunção cognitiva, delirium e tromboembolismo venoso. <span class="enamed">ENAMED</span> <span class="tico">Caderno 01: Q10, Q22, Q24, Q29, Q81, Q93</span> <a href="#r6">→ ramos 6, 7 e 8</a></li>
+    </ol>
+    <div class="legend">
+      <b>Legenda:</b> <span class="enamed">ENAMED</span> = tema cobrado no Caderno 01 do Enamed 2026 (número da questão indicado) · ramos 1–2 = osteoartrite · ramos 3–5 = AGA e avaliação pré-operatória · ramos 6–8 = riscos pré, intra e pós-operatórios · <b>LABIMH</b> = instrumento validado pelo Laboratório de Biociências da Motricidade Humana (UNIT/UNIRIO).
+    </div>
+  </div>
+
+  <!-- FIGURA DO CASO -->
+  <div class="timeline-wrap">
+    <svg viewBox="0 0 900 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Caso de Maria de Lourdes organizado pelos ramos do mapa">
+      <text x="450" y="20" text-anchor="middle" font-size="13" font-weight="700" fill="#1b2436">Maria de Lourdes, 90 anos — da osteoartrite à artroplastia total do joelho sem intercorrências</text>
+      <rect x="360" y="115" width="180" height="84" rx="42" fill="#1e3a8a"/>
+      <text x="450" y="146" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Maria de Lourdes</text>
+      <text x="450" y="164" text-anchor="middle" font-size="10.5" fill="#c7d5f0">sem alteração cognitiva</text>
+      <text x="450" y="179" text-anchor="middle" font-size="10.5" fill="#c7d5f0">independente funcionalmente</text>
+      <g font-size="10.5">
+        <rect x="20" y="40" width="260" height="46" rx="10" fill="#fff4e0" stroke="#b45309"/>
+        <text x="150" y="59" text-anchor="middle" font-weight="700" fill="#92400e">Osteoartrite (ramos 1–2)</text>
+        <text x="150" y="76" text-anchor="middle" fill="#334">OA avançada do joelho D, sem melhora clínica</text>
+        <rect x="20" y="100" width="260" height="46" rx="10" fill="#ffe9ee" stroke="#be123c"/>
+        <text x="150" y="119" text-anchor="middle" font-weight="700" fill="#9f1239">Mobilidade e quedas (ramos 3–4)</text>
+        <text x="150" y="136" text-anchor="middle" fill="#334">bengala há 6 meses por instabilidade</text>
+        <rect x="20" y="160" width="260" height="46" rx="10" fill="#e8f7ec" stroke="#15803d"/>
+        <text x="150" y="179" text-anchor="middle" font-weight="700" fill="#166534">Comorbidades (ramos 5–6)</text>
+        <text x="150" y="196" text-anchor="middle" fill="#334">HAS estágio I compensada, DM, sobrepeso</text>
+        <rect x="20" y="220" width="260" height="46" rx="10" fill="#e0f7fa" stroke="#0891b2"/>
+        <text x="150" y="239" text-anchor="middle" font-weight="700" fill="#0e7490">Exames (ramo 5)</text>
+        <text x="150" y="256" text-anchor="middle" fill="#334">Hb 11,5 · TFGe 55 · HbA1c 6,0% · ECG sinusal</text>
+        <rect x="620" y="40" width="260" height="46" rx="10" fill="#eaf0ff" stroke="#2563eb"/>
+        <text x="750" y="59" text-anchor="middle" font-weight="700" fill="#1d4ed8">AGA (ramos 3–5)</text>
+        <text x="750" y="76" text-anchor="middle" fill="#334">geriatra desde os 50 anos informa o ortopedista</text>
+        <rect x="620" y="100" width="260" height="46" rx="10" fill="#eef2ff" stroke="#4338ca"/>
+        <text x="750" y="119" text-anchor="middle" font-weight="700" fill="#3730a3">Equipe pré-operatória (ramo 5)</text>
+        <text x="750" y="136" text-anchor="middle" fill="#334">cardiologista, anestesiologista, vascular</text>
+        <rect x="620" y="160" width="260" height="46" rx="10" fill="#e3f7f4" stroke="#0f766e"/>
+        <text x="750" y="179" text-anchor="middle" font-weight="700" fill="#115e59">Intraoperatório (ramo 7)</text>
+        <text x="750" y="196" text-anchor="middle" fill="#334">artroplastia total do joelho sem intercorrências</text>
+        <rect x="620" y="220" width="260" height="46" rx="10" fill="#fbe9fb" stroke="#a21caf"/>
+        <text x="750" y="239" text-anchor="middle" font-weight="700" fill="#701a75">Pós-operatório (ramo 8)</text>
+        <text x="750" y="256" text-anchor="middle" fill="#334">1 mês: fisioterapia, sem bengala, ativa</text>
+      </g>
+      <g stroke="#94a3b8" stroke-width="2" fill="none">
+        <path d="M280 63 L360 135"/><path d="M280 123 L360 148"/><path d="M280 183 L360 165"/><path d="M280 243 L360 180"/>
+        <path d="M620 63 L540 135"/><path d="M620 123 L540 148"/><path d="M620 183 L540 165"/><path d="M620 243 L540 180"/>
+      </g>
+      <text x="450" y="300" text-anchor="middle" font-size="10.5" fill="#5b6472">Reserva prévia elevada: pilates desde os 60 anos, vida social intensa (igreja, coral, costura, vizinhança) — fatores de bom prognóstico cirúrgico e funcional</text>
+    </svg>
+    <div class="cap">Figura — Achados do caso distribuídos pelos ramos do mapa: idade avançada não é contraindicação; o que define o risco é a avaliação multidimensional</div>
+  </div>
+
+  <div class="connectors">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</div>
+
+  <div class="grid">
+
+    <!-- BRANCH 1 -->
+    <div class="branch b2" id="r1">
+      <div class="head"><span class="num">1</span> Osteoartrite: Conceito, Epidemiologia e Fatores de Risco</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Conceito e epidemiologia <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Osteoartrite (OA)</b> é uma doença de <b>toda a articulação sinovial</b> — cartilagem hialina, osso subcondral, sinóvia, meniscos, ligamentos e musculatura periarticular —, marcada por perda focal de cartilagem, remodelação óssea (esclerose e osteófitos) e inflamação sinovial de baixo grau. Não é simples “desgaste”: é um processo ativo de lesão e reparo insuficiente.</li>
+              <li>É a <b>doença articular mais comum</b> e uma das principais causas de dor e incapacidade em idosos; o <b>joelho</b> é a articulação de carga mais acometida, seguido de quadril e mãos.</li>
+              <li>A prevalência aumenta com a idade e é maior em <b>mulheres</b>, sobretudo após os 50 anos; a carga da doença cresce com o envelhecimento populacional e a obesidade.</li>
+              <li>Sinônimos ainda usados: <b>artrose</b>, osteoartrose, doença articular degenerativa.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Etiologia e fatores de risco <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Classificação etiológica</caption>
+              <thead><tr><th>Tipo</th><th>Definição</th><th>Exemplos</th></tr></thead>
+              <tbody>
+                <tr><td>Primária (idiopática)</td><td>Sem causa local identificável; forma mais comum</td><td>OA de joelhos em mulher idosa com sobrepeso — o caso de Maria de Lourdes</td></tr>
+                <tr><td>Secundária</td><td>Consequência de condição prévia que altera a mecânica ou a cartilagem</td><td>Trauma, lesão meniscal ou ligamentar, displasia, artrite inflamatória ou séptica prévia, gota, hemocromatose, acromegalia</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Fatores de risco para OA do joelho</caption>
+              <thead><tr><th>Grupo</th><th>Fator</th><th>No caso</th></tr></thead>
+              <tbody>
+                <tr><td>Sistêmicos não modificáveis</td><td>Idade, sexo feminino, genética/história familiar, pós-menopausa</td><td>90 anos, mulher</td></tr>
+                <tr><td>Sistêmicos modificáveis</td><td><b>Obesidade/sobrepeso</b> (carga mecânica e adipocinas inflamatórias), diabetes e síndrome metabólica</td><td>Sobrepeso e diabetes</td></tr>
+                <tr><td>Locais (biomecânicos)</td><td>Trauma e meniscectomia prévia, desalinhamento em varo ou valgo, fraqueza do quadríceps, instabilidade ligamentar, sobrecarga ocupacional (agachar, ajoelhar, carregar peso)</td><td>Instabilidade do joelho que levou ao uso de bengala</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Prevenção:</b> controle do peso e fortalecimento do quadríceps reduzem a carga e a progressão; a prática regular de exercício (como o pilates de Maria de Lourdes) não “gasta” a articulação — protege a função.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Hunter &amp; Bierma-Zeinstra — Osteoarthritis (Lancet)</a> · <a href="#ref2">Kolasinski et al. — diretriz ACR/AF 2019</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 2 -->
+    <div class="branch b4" id="r2">
+      <div class="head"><span class="num">2</span> Osteoartrite: Fisiopatologia, Diagnóstico e Consequências <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Fisiopatologia: a articulação como órgão <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Joelho normal comparado ao joelho com osteoartrite">
+                <g font-size="10.5">
+                  <text x="160" y="20" text-anchor="middle" font-weight="700" fill="#1b2436">Joelho normal</text>
+                  <rect x="100" y="30" width="120" height="70" rx="20" fill="#e2e8f0" stroke="#475569"/>
+                  <text x="160" y="70" text-anchor="middle" fill="#334">fêmur</text>
+                  <rect x="100" y="100" width="120" height="14" rx="6" fill="#7dd3fc" stroke="#0369a1"/>
+                  <rect x="100" y="134" width="120" height="14" rx="6" fill="#7dd3fc" stroke="#0369a1"/>
+                  <text x="160" y="128" text-anchor="middle" font-size="9.5" fill="#0369a1">espaço articular preservado</text>
+                  <rect x="100" y="148" width="120" height="70" rx="12" fill="#e2e8f0" stroke="#475569"/>
+                  <text x="160" y="188" text-anchor="middle" fill="#334">tíbia</text>
+                  <text x="160" y="240" text-anchor="middle" fill="#0369a1">cartilagem lisa e espessa</text>
+
+                  <text x="470" y="20" text-anchor="middle" font-weight="700" fill="#9f1239">Joelho com osteoartrite</text>
+                  <rect x="410" y="30" width="120" height="76" rx="20" fill="#e2e8f0" stroke="#475569"/>
+                  <path d="M410 98 L398 110 L410 106 Z" fill="#be123c"/>
+                  <path d="M530 98 L542 110 L530 106 Z" fill="#be123c"/>
+                  <rect x="410" y="106" width="120" height="5" rx="2" fill="#7dd3fc" stroke="#0369a1"/>
+                  <rect x="410" y="122" width="120" height="5" rx="2" fill="#7dd3fc" stroke="#0369a1"/>
+                  <rect x="410" y="127" width="120" height="8" fill="#94a3b8"/>
+                  <rect x="410" y="135" width="120" height="70" rx="12" fill="#e2e8f0" stroke="#475569"/>
+                  <circle cx="450" cy="150" r="5" fill="#fff" stroke="#475569"/>
+                  <path d="M410 128 L398 120 L410 134 Z" fill="#be123c"/>
+                  <path d="M530 128 L542 120 L530 134 Z" fill="#be123c"/>
+                  <ellipse cx="560" cy="90" rx="18" ry="30" fill="#fecdd3" opacity=".8"/>
+                  <text x="590" y="70" fill="#9f1239" font-size="9.5">sinovite</text>
+                  <text x="350" y="104" fill="#9f1239" font-size="9.5" text-anchor="end">osteófitos</text>
+                  <text x="350" y="122" fill="#0369a1" font-size="9.5" text-anchor="end">espaço reduzido</text>
+                  <text x="350" y="140" fill="#475569" font-size="9.5" text-anchor="end">esclerose subcondral</text>
+                  <text x="350" y="158" fill="#475569" font-size="9.5" text-anchor="end">cisto subcondral</text>
+                  <line x1="352" y1="101" x2="398" y2="106" stroke="#9f1239"/>
+                  <line x1="352" y1="119" x2="408" y2="116" stroke="#0369a1"/>
+                  <line x1="352" y1="137" x2="408" y2="131" stroke="#475569"/>
+                  <line x1="352" y1="155" x2="444" y2="150" stroke="#475569"/>
+                  <text x="470" y="240" text-anchor="middle" fill="#9f1239">perda focal de cartilagem e remodelação óssea</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Esquema dos achados da OA: redução do espaço articular, osteófitos, esclerose e cistos subcondrais, com sinovite de baixo grau</div>
+            </div>
+            <ul>
+              <li><b>Gatilho mecânico e biológico</b>: sobrecarga e desalinhamento ativam os condrócitos, que passam a produzir citocinas (IL-1β, TNF-α) e enzimas degradativas — <b>metaloproteinases (MMP-13)</b> e <b>agrecanases (ADAMTS-4/5)</b> —, que destroem o colágeno tipo II e o agrecano da matriz.</li>
+              <li>A cartilagem perde água e resistência, fissura e afina; o <b>osso subcondral</b> responde com esclerose, microfraturas, cistos e <b>osteófitos</b> nas margens.</li>
+              <li>Fragmentos da matriz estimulam a <b>sinóvia</b> (sinovite de baixo grau), que amplifica a inflamação e a dor. A cartilagem não tem inervação: a dor vem do osso subcondral, da sinóvia, da cápsula e dos ligamentos.</li>
+              <li>O envelhecimento contribui com senescência dos condrócitos, produtos finais de glicação no colágeno (mais rígido) e <i>inflammaging</i>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Quadro clínico e diagnóstico <span class="tico">📊 tabela</span> <span class="pill">Objetivo 1</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Dor mecânica</b>: piora com a carga e o uso, melhora com o repouso; nas fases avançadas pode ocorrer em repouso e à noite.</li>
+              <li><b>Rigidez matinal curta</b> (&lt; 30 minutos) e rigidez após inatividade (“fenômeno de gel”).</li>
+              <li><b>Crepitação</b>, alargamento ósseo, limitação da amplitude de movimento, derrame articular sem calor intenso, deformidade em varo, <b>instabilidade</b> e fraqueza do quadríceps — no caso, motivo do uso da bengala.</li>
+            </ul>
+            <div class="twrap">
+            <table>
+              <caption>Critérios clínicos do ACR para OA do joelho (Altman et al., 1986)</caption>
+              <thead><tr><th>Requisito</th><th>Mais pelo menos 3 dos 6 itens</th></tr></thead>
+              <tbody>
+                <tr><td>Dor no joelho</td><td>Idade &gt; 50 anos · rigidez matinal &lt; 30 min · crepitação ao movimento ativo · sensibilidade óssea · alargamento ósseo · ausência de calor palpável</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Classificação radiográfica de Kellgren-Lawrence</caption>
+              <thead><tr><th>Grau</th><th>Achados</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>Sem alterações</td></tr>
+                <tr><td>1 (duvidosa)</td><td>Possível osteófito; redução duvidosa do espaço articular</td></tr>
+                <tr><td>2 (mínima)</td><td>Osteófitos definidos; possível redução do espaço</td></tr>
+                <tr><td>3 (moderada)</td><td>Múltiplos osteófitos, redução definida do espaço, alguma esclerose, possível deformidade</td></tr>
+                <tr><td>4 (grave)</td><td>Grandes osteófitos, redução acentuada do espaço, esclerose intensa, deformidade definida — típica da “OA avançada” com indicação de artroplastia</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <ul>
+              <li>O diagnóstico é <b>clínico</b>; a radiografia com carga (anteroposterior em ortostase e perfil) confirma e estadia, e é indispensável no planejamento cirúrgico. A intensidade da dor nem sempre acompanha o grau radiográfico.</li>
+              <li>Exames laboratoriais são <b>normais</b> (VHS e PCR normais, fator reumatoide negativo); o líquido sinovial é não inflamatório (&lt; 2.000 leucócitos/mm³).</li>
+              <li><b>Diagnóstico diferencial</b>: artrite reumatoide (rigidez &gt; 1 h, sinovite simétrica de pequenas articulações), gota e pseudogota (crises agudas, cristais), artrite séptica (febre, calor, líquido purulento), lesão meniscal, dor referida do quadril.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Consequências e tratamento escalonado <span class="tico">🖼️ figura</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pirâmide do tratamento da osteoartrite do joelho">
+                <g font-size="10.5" text-anchor="middle">
+                  <polygon points="320,20 380,70 260,70" fill="#be123c"/>
+                  <text x="320" y="62" font-weight="700" fill="#fff">Cirurgia</text>
+                  <polygon points="260,70 380,70 430,120 210,120" fill="#ea580c"/>
+                  <text x="320" y="100" font-weight="700" fill="#fff">Infiltração intra-articular</text>
+                  <polygon points="210,120 430,120 480,170 160,170" fill="#d97706"/>
+                  <text x="320" y="150" font-weight="700" fill="#fff">Fármacos: AINE tópico → AINE oral, duloxetina</text>
+                  <polygon points="160,170 480,170 540,225 100,225" fill="#15803d"/>
+                  <text x="320" y="196" font-weight="700" fill="#fff">BASE: educação · exercício · perda de peso</text>
+                  <text x="320" y="214" fill="#ecfdf5">bengala na mão contralateral · fisioterapia · tai chi</text>
+                </g>
+                <text x="400" y="30" font-size="10" fill="#9f1239">← artroplastia total: dor e</text>
+                <text x="400" y="44" font-size="10" fill="#9f1239">incapacidade refratárias + OA avançada</text>
+              </svg>
+              <div class="cap">Figura — Tratamento em degraus (ACR/AF 2019): a base não farmacológica acompanha todas as etapas; a artroplastia é indicada quando a dor e a perda de função persistem apesar do tratamento clínico</div>
+            </div>
+            <ul>
+              <li><b>Consequências</b>: dor crônica, rigidez, instabilidade, redução da mobilidade e da velocidade de marcha, <b>quedas</b>, sarcopenia por desuso, perda de independência, isolamento social, sintomas depressivos, piora do controle de comorbidades (diabetes, hipertensão, obesidade) e aumento da mortalidade associada à inatividade — por isso, em Maria de Lourdes, a cirurgia foi indicada pela “piora da funcionalidade, desenvolvimento de comorbidades e risco de morte”.</li>
+              <li>No idoso, <b>AINE oral</b> exige cautela (risco renal, cardiovascular e gastrointestinal; ver ramo 6): pelos critérios de Beers, evitar o uso crônico e não usar com depuração de creatinina &lt; 30 mL/min — com TFG de 55 mL/min/1,73 m², preferir AINE <b>tópico</b> e, se o oral for necessário, na menor dose e pelo menor tempo. A bengala deve ser usada na mão <b>contralateral</b> ao joelho afetado.</li>
+              <li>A <b>artroplastia total do joelho</b> alivia a dor e recupera a função mesmo em nonagenários bem selecionados — a idade isolada não contraindica a cirurgia; quem decide é a avaliação multidimensional (ramos 3 a 5).</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q68):</b> mulher de 72 anos, menopausa há 22 anos, com dor lombar, fratura de fêmur após queda da própria altura e densitometria de alto risco, já em uso de cálcio e vitamina D: pelo protocolo clínico nacional, o tratamento inicial da <b>osteoporose</b> é o <b>bisfosfonato</b>. Atenção à distinção: a osteoartrite é doença da articulação (dor mecânica, osteófitos, densidade óssea local até aumentada), enquanto a osteoporose é silenciosa até a fratura. As duas coexistem com frequência na idosa e somam risco de queda e de fratura — por isso a AGA inclui risco de quedas (ramo 4).
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref1">Hunter &amp; Bierma-Zeinstra</a> · <a href="#ref2">Kolasinski et al. — ACR/AF 2019</a> · <a href="#ref3">Altman et al. — critérios ACR</a> · <a href="#ref4">Kellgren &amp; Lawrence</a> · <a href="#ref30">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 3 -->
+    <div class="branch b1" id="r3">
+      <div class="head"><span class="num">3</span> Avaliação Geriátrica Ampla (AGA): Domínios e Instrumentos</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">O que é a AGA <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Domínios da Avaliação Geriátrica Ampla">
+                <circle cx="320" cy="150" r="62" fill="#1e3a8a"/>
+                <text x="320" y="145" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">AGA</text>
+                <text x="320" y="163" text-anchor="middle" font-size="10" fill="#c7d5f0">multidimensional e</text>
+                <text x="320" y="176" text-anchor="middle" font-size="10" fill="#c7d5f0">interdisciplinar</text>
+                <g font-size="10.5" text-anchor="middle">
+                  <rect x="245" y="12" width="150" height="36" rx="10" fill="#eaf0ff" stroke="#2563eb"/><text x="320" y="35" font-weight="700" fill="#1d4ed8">Status funcional</text>
+                  <rect x="435" y="40" width="160" height="36" rx="10" fill="#e8f7ec" stroke="#15803d"/><text x="515" y="63" font-weight="700" fill="#166534">Desempenho físico</text>
+                  <rect x="465" y="132" width="160" height="36" rx="10" fill="#f2ebff" stroke="#7c3aed"/><text x="545" y="155" font-weight="700" fill="#5b21b6">Cognição e humor</text>
+                  <rect x="435" y="224" width="160" height="36" rx="10" fill="#fff4e0" stroke="#b45309"/><text x="515" y="247" font-weight="700" fill="#92400e">Nutrição</text>
+                  <rect x="245" y="252" width="150" height="36" rx="10" fill="#ffe9ee" stroke="#be123c"/><text x="320" y="275" font-weight="700" fill="#9f1239">Comorbidades</text>
+                  <rect x="45" y="224" width="160" height="36" rx="10" fill="#e0f7fa" stroke="#0891b2"/><text x="125" y="247" font-weight="700" fill="#0e7490">Polifarmácia</text>
+                  <rect x="15" y="132" width="160" height="36" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="95" y="155" font-weight="700" fill="#701a75">Síndromes geriátricas</text>
+                  <rect x="45" y="40" width="160" height="36" rx="10" fill="#eef2ff" stroke="#4338ca"/><text x="125" y="63" font-weight="700" fill="#3730a3">Apoio social e renda</text>
+                </g>
+                <g stroke="#94a3b8" stroke-width="2"><line x1="320" y1="48" x2="320" y2="88"/><line x1="470" y1="76" x2="370" y2="115"/><line x1="465" y1="150" x2="382" y2="150"/><line x1="470" y1="224" x2="370" y2="185"/><line x1="320" y1="252" x2="320" y2="212"/><line x1="170" y1="224" x2="270" y2="185"/><line x1="175" y1="150" x2="258" y2="150"/><line x1="170" y1="76" x2="270" y2="115"/></g>
+              </svg>
+              <div class="cap">Figura — Os domínios da AGA listados nos objetivos do problema: cada um tem instrumentos padronizados e validados</div>
+            </div>
+            <ul>
+              <li><b>AGA</b> é um processo diagnóstico <b>multidimensional e interdisciplinar</b> que identifica capacidades e vulnerabilidades da pessoa idosa nos domínios clínico, funcional, psicológico e social, para planejar o cuidado e prever desfechos — aqui, o risco cirúrgico e a recuperação funcional.</li>
+              <li>Usa <b>instrumentos validados</b> (escalas, questionários e testes de desempenho), que tornam a avaliação reprodutível, comparável ao longo do tempo e entre profissionais.</li>
+              <li>Para rastreio rápido na atenção primária, o Brasil dispõe do <b>IVCF-20</b> (Índice de Vulnerabilidade Clínico-Funcional, 20 itens), que indica quem precisa de AGA completa.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary><span class="sumtext">Domínios da AGA e instrumentos validados — LABIMH em destaque <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Um exemplo de instrumento por domínio (protocolos do LABIMH sempre que disponíveis)</caption>
+              <thead><tr><th>Domínio</th><th>O que avalia</th><th>Instrumento validado</th><th>Em Maria de Lourdes</th></tr></thead>
+              <tbody>
+                <tr><td>Status funcional — autonomia funcional</td><td>Capacidade de realizar tarefas da vida diária com rapidez e segurança</td><td><b>Protocolo GDLAM</b> (LABIMH) — 5 testes cronometrados e Índice GDLAM; complementado por Katz (AVD básicas) e Lawton-Brody (AVD instrumentais)</td><td>Independente funcionalmente; mobilidade limitada pelo joelho</td></tr>
+                <tr><td>Desempenho físico — condicionamento</td><td>Composição corporal, resistência aeróbica, força, resistência muscular e flexibilidade</td><td><b>ICFI</b> — Índice de Condicionamento Físico para Idosos (LABIMH)</td><td>Pilates desde os 60 anos: boa reserva prévia</td></tr>
+                <tr><td>Desempenho físico — mobilidade articular</td><td>Amplitude de movimento (flexão e extensão do joelho)</td><td><b>Goniometria — protocolo LABIMH/LABIFIE</b></td><td>Base para comparar o joelho antes e depois da prótese</td></tr>
+                <tr><td>Síndromes geriátricas — quedas</td><td>Histórico de quedas, medicamentos, segurança doméstica, equilíbrio, mobilidade e visão</td><td><b>BARQ</b> — Bateria de Avaliação do Risco de Quedas (LABIMH)</td><td>Instabilidade, bengala, artrite: risco aumentado</td></tr>
+                <tr><td>Desempenho psicológico — cognição</td><td>Rastreio de declínio cognitivo; linha de base para detectar delirium</td><td>Mini-Cog ou Miniexame do Estado Mental (MEEM)</td><td>Sem alteração cognitiva</td></tr>
+                <tr><td>Desempenho psicológico — humor</td><td>Sintomas depressivos</td><td>Escala de Depressão Geriátrica (GDS-15)</td><td>Ativa e socialmente engajada</td></tr>
+                <tr><td>Nutrição</td><td>Risco de desnutrição e massa muscular</td><td>Mini Avaliação Nutricional (MAN) + circunferência da panturrilha (incluída no ICFI)</td><td>Sobrepeso (não exclui sarcopenia)</td></tr>
+                <tr><td>Comorbidades</td><td>Carga de doenças e prognóstico</td><td>Índice de Comorbidade de Charlson</td><td>HAS estágio I, diabetes</td></tr>
+                <tr><td>Polifarmácia</td><td>Número de fármacos e medicamentos potencialmente inapropriados</td><td>Critérios de Beers (AGS 2023) + questionário de Utilização de Medicamentos da <b>BARQ</b></td><td>Anti-hipertensivo, antidiabético, analgésicos</td></tr>
+                <tr><td>Fragilidade</td><td>Reserva fisiológica global</td><td>Fenótipo de Fried ou Escala Clínica de Fragilidade (CFS)</td><td>Não frágil</td></tr>
+                <tr><td>Condições socioeconômicas e apoio social</td><td>Rede de apoio, renda, moradia, cuidador disponível no pós-operatório</td><td>APGAR familiar + Segurança Doméstica da <b>BARQ</b></td><td>Casada, 7 filhos, rede comunitária forte</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Onde baixar os manuais LABIMH:</b> <a href="https://portal.unit.br/labimh/instrumentos-de-avaliacao/" target="_blank" rel="noopener">portal.unit.br/labimh/instrumentos-de-avaliacao</a> — Protocolo GDLAM, ICFI, BARQ e Goniometria (LABIMH/LABIFIE), com instruções, materiais, dicas de aplicação e tabelas de classificação.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref29">LABIMH — Instrumentos de avaliação</a> · <a href="#ref5">Moraes et al. — IVCF-20</a> · <a href="#ref6">Chow et al. — ACS/AGS</a> · <a href="#ref12">Manual GDLAM</a> · <a href="#ref13">Manual ICFI</a> · <a href="#ref14">Manual BARQ</a> · <a href="#ref15">Manual de Goniometria</a> · <a href="#ref17">Katz et al.</a> · <a href="#ref18">Lawton &amp; Brody</a> · <a href="#ref19">Folstein et al.</a> · <a href="#ref20">Yesavage et al.</a> · <a href="#ref21">Vellas et al.</a> · <a href="#ref22">Charlson et al.</a> · <a href="#ref23">Fried et al.</a> · <a href="#ref24">Rockwood et al.</a> · <a href="#ref9">AGS — Beers 2023</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 4 -->
+    <div class="branch b8" id="r4">
+      <div class="head"><span class="num">4</span> Instrumentos do LABIMH na AGA</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Protocolo GDLAM — autonomia funcional <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Os 5 testes do GDLAM (tempo em segundos; 2 tomadas, vale o menor tempo)</caption>
+              <thead><tr><th>Teste</th><th>Como se faz</th><th>O que avalia</th></tr></thead>
+              <tbody>
+                <tr><td>C10m — caminhar 10 metros</td><td>Caminhar o mais rápido possível 10 m (marca-se 15 m para evitar desaceleração)</td><td>Velocidade de marcha</td></tr>
+                <tr><td>LPS — levantar da posição sentada</td><td>Sentar e levantar 5 vezes, braços cruzados no peito</td><td>Capacidade funcional dos membros inferiores</td></tr>
+                <tr><td>LPDV — levantar da posição de decúbito ventral</td><td>Do decúbito ventral, levantar-se do chão o mais rápido possível</td><td>Capacidade de levantar do chão (crucial após uma queda)</td></tr>
+                <tr><td>VTC — vestir e tirar a camiseta</td><td>Vestir e tirar totalmente uma camiseta regata maior que o próprio tamanho</td><td>Flexibilidade e agilidade dos membros superiores</td></tr>
+                <tr><td>LCLC — levantar da cadeira e locomover-se pela casa</td><td>Levantar, contornar cones a 4 m e 3 m de cada lado, sentar com os pés suspensos; 2 voltas</td><td>Agilidade e equilíbrio dinâmico</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Índice GDLAM (IG):</b> IG = [(C10m + LPS + LPDV + VTC) × 2 + LCLC] ÷ 4 — quanto <b>menor</b> o IG, melhor a autonomia. Para mulheres com 80 anos ou mais: muito bom &lt; 24,46 · bom 24,46–30,12 · regular 30,13–35,81 · insuficiente &gt; 35,81 (Manual GDLAM, LABIMH). Há aplicativo gratuito (GDLAM AF, Android).
+            </div>
+            <ul>
+              <li>No pré-operatório, o GDLAM documenta a autonomia de base; no pós-operatório, mostra objetivamente a recuperação — no caso, Maria de Lourdes voltou a caminhar sem bengala em 1 mês.</li>
+              <li>Com OA avançada, LPS, LPDV e LCLC podem ser limitados pela dor: registrar a limitação e não forçar o teste.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">BARQ — risco de quedas <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Componentes da Bateria de Avaliação do Risco de Quedas</caption>
+              <thead><tr><th>Componente</th><th>Conteúdo</th><th>Relação com o caso</th></tr></thead>
+              <tbody>
+                <tr><td>Histórico de Quedas e Agravos (HQA)</td><td>9 perguntas: quedas em 3 anos e 12 meses, apoio para caminhar, artrite, reações a medicamentos, farmácia única, lentes e exame de vista</td><td>Pontua bengala e artrite</td></tr>
+                <tr><td>Utilização de Medicamentos (UM)</td><td>Fármacos em uso, efeitos colaterais (tontura, sonolência, fraqueza), uso de 4 ou mais, psicotrópicos, antiarrítmicos, diuréticos</td><td>Revisão pré e pós-operatória (opioides, sedativos)</td></tr>
+                <tr><td>Segurança Doméstica (SD)</td><td>12 itens: corrimãos, iluminação noturna, barras de apoio, pisos antiderrapantes, tapetes, obstáculos</td><td>Preparar a casa para a alta</td></tr>
+                <tr><td>Teste de Alcance Funcional (TAF)</td><td>Alcance máximo à frente com o braço estendido junto a uma fita métrica (Duncan et al., 1990)</td><td>Equilíbrio estático</td></tr>
+                <tr><td>Expanded Timed Up and Go (ETUG)</td><td>Levantar de cadeira sem braços, caminhar, girar e voltar a sentar (Podsiadlo &amp; Richardson, 1991)</td><td>Mobilidade; pode usar a bengala (registrar)</td></tr>
+                <tr><td>Tabela de Snellen</td><td>Acuidade visual a 3,05 ou 6,10 m</td><td>Déficit visual soma risco de queda</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note">
+              <b class="tag">Índice de Risco de Quedas (IRQ):</b> integra os componentes por média geométrica ponderada e classifica em risco baixo (&lt; 13), moderado (13–21,9), elevado (22–30,9) e máximo (&gt; 31). A confiabilidade e a objetividade foram analisadas por Guimarães et al. (2025), e há versão em aplicativo (BARQ App).
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">ICFI e Goniometria — condicionamento e amplitude articular <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>ICFI (Índice de Condicionamento Físico para Idosos)</b>: bateria derivada do GDLAM que reúne <b>composição corporal</b> (IMC com pontos de corte para idosos — baixo peso &lt; 22, adequado 22–27, excesso &gt; 27 kg/m² — e <b>circunferência da panturrilha</b>, marcador sensível de massa muscular), <b>resistência aeróbica</b> (teste de caminhada de 6 minutos, com estimativa do VO₂máx), <b>força e resistência muscular localizada</b> de membros superiores e inferiores (testes adaptados de Rikli &amp; Jones, como levantar e sentar da cadeira em 30 s) e <b>flexibilidade</b>; os resultados são integrados por média geométrica em um índice único.</li>
+              <li>No pré-operatório, o teste de caminhada de 6 minutos ajuda a estimar a <b>capacidade funcional em METs</b> (ramo 5), e a panturrilha alerta para sarcopenia mesmo na idosa com sobrepeso.</li>
+              <li><b>Goniometria (protocolo LABIMH/LABIFIE)</b>: bateria de 15 testes angulares com goniômetro, com pontos anatômicos padronizados e ficha de registro. No joelho, mede a <b>flexão e a extensão</b> antes da cirurgia e documenta o ganho de amplitude na reabilitação pós-artroplastia.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref12">Manual GDLAM — LABIMH</a> · <a href="#ref14">Manual BARQ — LABIMH</a> · <a href="#ref25">Guimarães et al. — BARQ</a> · <a href="#ref26">Duncan et al.</a> · <a href="#ref27">Podsiadlo &amp; Richardson</a> · <a href="#ref13">Manual ICFI — LABIMH</a> · <a href="#ref15">Manual de Goniometria — LABIMH/LABIFIE</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 5 -->
+    <div class="branch b7" id="r5">
+      <div class="head"><span class="num">5</span> AGA na Avaliação Pré-operatória e Exames</div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Por que a AGA muda a decisão cirúrgica <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>A idade cronológica, isoladamente, prediz mal o risco; <b>fragilidade, dependência funcional, déficit cognitivo, desnutrição e polifarmácia</b> predizem complicações, delirium, institucionalização e mortalidade pós-operatória.</li>
+              <li>A AGA permite <b>estratificar</b> o risco, <b>otimizar</b> o que é modificável antes da cirurgia (anemia, glicemia, nutrição, medicamentos, força), <b>planejar</b> a prevenção de complicações e a alta, e alinhar a cirurgia aos <b>objetivos da paciente</b> — Maria de Lourdes quer voltar a passear, cantar e costurar.</li>
+            </ul>
+            <div class="twrap">
+            <table>
+              <caption>Checklist pré-operatório do idoso (ACS NSQIP/AGS)</caption>
+              <thead><tr><th>Avaliar</th><th>Como</th></tr></thead>
+              <tbody>
+                <tr><td>Cognição e capacidade de decisão</td><td>Mini-Cog/MEEM; confirmar que compreende riscos e benefícios</td></tr>
+                <tr><td>Depressão</td><td>GDS-15 ou PHQ-2</td></tr>
+                <tr><td>Risco de delirium pós-operatório</td><td>Idade, déficit cognitivo ou sensorial, desnutrição, polifarmácia, álcool</td></tr>
+                <tr><td>Uso de álcool e outras substâncias</td><td>Rastreio (abstinência pode simular delirium)</td></tr>
+                <tr><td>Risco cardíaco</td><td>Diretriz AHA/ACC 2024: RCRI + capacidade funcional</td></tr>
+                <tr><td>Risco pulmonar</td><td>Idade, DPOC, apneia do sono, tipo de anestesia e de cirurgia</td></tr>
+                <tr><td>Status funcional e quedas</td><td>GDLAM, Katz/Lawton, BARQ</td></tr>
+                <tr><td>Fragilidade</td><td>Fried ou CFS</td></tr>
+                <tr><td>Nutrição</td><td>MAN, IMC, albumina, perda de peso</td></tr>
+                <tr><td>Medicamentos</td><td>Reconciliação; Beers; o que suspender e o que manter (ramo 6)</td></tr>
+                <tr><td>Objetivos, preferências e apoio familiar</td><td>Decisão compartilhada; diretivas antecipadas; quem cuidará na alta</td></tr>
+                <tr><td>Exames</td><td>Somente os indicados pela condição clínica e pelo porte da cirurgia</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary><span class="sumtext">Os exames de Maria de Lourdes interpretados <span class="tico">📊 tabela</span> <span class="pill">Objetivo 2</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Leitura clínica da tabela do problema</caption>
+              <thead><tr><th>Exame</th><th>Resultado</th><th>Interpretação</th><th>Implicação perioperatória</th></tr></thead>
+              <tbody>
+                <tr><td>Hemoglobina</td><td>11,5 g/dL</td><td><b>Anemia leve</b> (mulher &lt; 12 g/dL) — anemia não é normal do envelhecimento</td><td>Investigar (ferro, B12, folato, função renal) e corrigir antes da cirurgia eletiva; reduz transfusão e complicações</td></tr>
+                <tr><td>Glicemia de jejum</td><td>85 mg/dL</td><td>Normal</td><td>Cuidado com hipoglicemia no jejum pré-operatório</td></tr>
+                <tr><td>HbA1c</td><td>6,0%</td><td>Diabetes bem controlado</td><td>Meta perioperatória de glicemia 100–180 mg/dL; a ADA recomenda HbA1c &lt; 8% antes de cirurgia eletiva sempre que possível</td></tr>
+                <tr><td>Creatinina e TFGe</td><td>1,0 mg/dL; 55 mL/min/1,73 m²</td><td>Creatinina “normal”, mas TFG reduzida (menor massa muscular)</td><td>Ajustar doses (heparinas, antibióticos); evitar AINE, contraste e hipotensão; risco de lesão renal aguda</td></tr>
+                <tr><td>Eletrólitos</td><td>Na 138, K 4,0, Cl 100, HCO₃ 24</td><td>Normais</td><td>Base para comparar após diuréticos e fluidos</td></tr>
+                <tr><td>Lipidograma e CK</td><td>Dentro das metas</td><td>Sem dislipidemia descontrolada; sem miopatia</td><td>Manter estatina, se em uso</td></tr>
+                <tr><td>INR</td><td>1,0</td><td>Coagulação normal (sem anticoagulante)</td><td>Permite anestesia neuroaxial e profilaxia de TEV com segurança</td></tr>
+                <tr><td>ECG</td><td>Ritmo sinusal</td><td>Sem arritmia ou isquemia evidente</td><td>Linha de base para comparar no pós-operatório</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Estratificação do risco: ASA, RCRI e capacidade funcional <span class="tico">🖼️ figura</span> <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Índice de Risco Cardíaco Revisado (RCRI, Lee et al., 1999) — 1 ponto cada</caption>
+              <thead><tr><th>Fator</th><th>Maria de Lourdes</th></tr></thead>
+              <tbody>
+                <tr><td>Cirurgia de alto risco (intraperitoneal, intratorácica, vascular suprainguinal)</td><td>Não (artroplastia de joelho)</td></tr>
+                <tr><td>Doença cardíaca isquêmica</td><td>Não</td></tr>
+                <tr><td>Insuficiência cardíaca</td><td>Não</td></tr>
+                <tr><td>Doença cerebrovascular</td><td>Não</td></tr>
+                <tr><td>Diabetes em uso de insulina</td><td>Não informado — pontua apenas se usar insulina</td></tr>
+                <tr><td>Creatinina &gt; 2,0 mg/dL</td><td>Não (1,0 mg/dL)</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="figure">
+              <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxo simplificado da avaliação cardíaca pré-operatória">
+                <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#0e7490"/></marker></defs>
+                <g font-size="10.5" text-anchor="middle">
+                  <rect x="10" y="20" width="140" height="60" rx="10" fill="#e0f7fa" stroke="#0891b2"/><text x="80" y="45" font-weight="700" fill="#0e7490">Cirurgia urgente?</text><text x="80" y="62" fill="#334">não → seguir</text>
+                  <rect x="170" y="20" width="140" height="60" rx="10" fill="#e0f7fa" stroke="#0891b2"/><text x="240" y="45" font-weight="700" fill="#0e7490">Condição cardíaca</text><text x="240" y="62" fill="#334">ativa? não</text>
+                  <rect x="330" y="20" width="140" height="60" rx="10" fill="#e0f7fa" stroke="#0891b2"/><text x="400" y="45" font-weight="700" fill="#0e7490">Risco estimado (RCRI)</text><text x="400" y="62" fill="#334">0–1: baixo → prosseguir</text>
+                  <rect x="490" y="20" width="140" height="60" rx="10" fill="#e0f7fa" stroke="#0891b2"/><text x="560" y="40" font-weight="700" fill="#0e7490">Se risco elevado:</text><text x="560" y="56" fill="#334">≥ 4 METs ou DASI ≥ 34?</text><text x="560" y="71" fill="#334">(subir 2 lances de escada)</text>
+                  <path d="M150 50 L168 50" stroke="#0e7490" stroke-width="3" marker-end="url(#a5)"/>
+                  <path d="M310 50 L328 50" stroke="#0e7490" stroke-width="3" marker-end="url(#a5)"/>
+                  <path d="M470 50 L488 50" stroke="#0e7490" stroke-width="3" marker-end="url(#a5)"/>
+                  <path d="M560 80 L560 112" stroke="#0e7490" stroke-width="3" marker-end="url(#a5)"/>
+                  <rect x="330" y="115" width="300" height="56" rx="10" fill="#1e293b"/>
+                  <text x="480" y="138" font-weight="700" fill="#fde047">Prosseguir com a cirurgia</text>
+                  <text x="480" y="156" fill="#e2e8f0">sem teste de estresse de rotina</text>
+                  <text x="165" y="130" fill="#334">Teste de estresse só se o resultado</text><text x="165" y="146" fill="#334">mudar a conduta; com risco elevado,</text><text x="165" y="162" fill="#334">BNP/NT-proBNP pode refinar o risco;</text><text x="165" y="178" fill="#334">a OA limita a caminhada: usar o DASI</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Avaliação cardíaca pré-operatória simplificada (AHA/ACC 2024): sem condição cardíaca ativa e com risco baixo, prossegue-se sem exames adicionais; com risco elevado, a capacidade funcional decide se há necessidade de investigação</div>
+            </div>
+            <ul>
+              <li><b>Classificação ASA</b>: Maria de Lourdes é <b>ASA II</b> (doenças sistêmicas leves e controladas: HAS, diabetes, sobrepeso; a idade sozinha não muda a classe); quanto maior o ASA, maior a mortalidade perioperatória.</li>
+              <li>A <b>artroplastia de joelho</b> tem risco cardíaco <b>baixo a intermediário</b> (não é “cirurgia de alto risco” no RCRI), mas é ortopédica de grande porte, com sangramento e imobilização que a tornam de <b>alto risco para TEV</b>.</li>
+              <li>A participação do <b>cirurgião vascular</b> no caso avalia circulação arterial e venosa do membro (pulsos, varizes, história de trombose), importante pelo uso de torniquete e pelo risco de TEV.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref6">Chow et al. — ACS NSQIP/AGS</a> · <a href="#ref7">Thompson et al. — AHA/ACC 2024</a> · <a href="#ref8">Lee et al. — RCRI</a> · <a href="#ref32">ADA — Standards of Care 2026</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 6 -->
+    <div class="branch b5" id="r6">
+      <div class="head"><span class="num">6</span> Riscos Pré-operatórios e Otimização <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Fatores de risco do paciente <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linha do tempo perioperatória com os principais riscos de cada fase">
+                <line x1="30" y1="60" x2="610" y2="60" stroke="#cbd5e1" stroke-width="6"/>
+                <g font-size="10.5" text-anchor="middle">
+                  <circle cx="120" cy="60" r="14" fill="#15803d"/><text x="120" y="30" font-weight="700" fill="#166534">PRÉ (ramo 6)</text>
+                  <circle cx="320" cy="60" r="14" fill="#0f766e"/><text x="320" y="30" font-weight="700" fill="#115e59">INTRA (ramo 7)</text>
+                  <circle cx="520" cy="60" r="14" fill="#a21caf"/><text x="520" y="30" font-weight="700" fill="#701a75">PÓS (ramo 8)</text>
+                </g>
+                <g font-size="10" fill="#334" text-anchor="middle">
+                  <text x="120" y="98">idade e fragilidade</text><text x="120" y="114">comorbidades (HAS, DM, DRC)</text><text x="120" y="130">polifarmácia</text><text x="120" y="146">anemia e desnutrição</text><text x="120" y="162">capacidade funcional baixa</text><text x="120" y="178">déficit cognitivo prévio</text>
+                  <text x="320" y="98">tipo de anestesia</text><text x="320" y="114">hipotensão e hipoxemia</text><text x="320" y="130">hipotermia</text><text x="320" y="146">sangramento</text><text x="320" y="162">arritmias, cimento ósseo</text><text x="320" y="178">duração da cirurgia</text>
+                  <text x="520" y="98">delirium e disfunção cognitiva</text><text x="520" y="114">complicações cardíacas</text><text x="520" y="130">complicações pulmonares</text><text x="520" y="146">tromboembolismo venoso</text><text x="520" y="162">dor, infecção, íleo</text><text x="520" y="178">declínio funcional e quedas</text>
+                </g>
+                <text x="320" y="214" text-anchor="middle" font-size="10.5" fill="#5b6472">A homeostenose (menor reserva) faz o idoso tolerar menos cada agressão — e as complicações se encadeiam</text>
+              </svg>
+              <div class="cap">Figura — Riscos cirúrgicos do idoso distribuídos nas três fases, como pedem os objetivos do problema</div>
+            </div>
+            <div class="twrap">
+            <table>
+              <caption>Fatores de risco pré-operatórios e como reduzi-los</caption>
+              <thead><tr><th>Fator</th><th>Por que aumenta o risco</th><th>Otimização</th></tr></thead>
+              <tbody>
+                <tr><td>Idade</td><td>Menor reserva cardiopulmonar, renal e cognitiva</td><td>Não contraindica sozinha; avaliar fragilidade e funcionalidade</td></tr>
+                <tr><td>Fragilidade e baixa capacidade funcional</td><td>Prediz complicações, delirium, institucionalização e morte</td><td><b>Pré-habilitação</b>: exercício resistido e aeróbio, proteína adequada</td></tr>
+                <tr><td>Comorbidades</td><td>HAS, diabetes e doença renal elevam risco cardiovascular, infeccioso e renal</td><td>Controle pressórico e glicêmico; ajustar doses à TFG</td></tr>
+                <tr><td>Polifarmácia</td><td>Interações, hipotensão, sedação, delirium, sangramento</td><td>Reconciliação medicamentosa; desprescrever o inapropriado (Beers)</td></tr>
+                <tr><td>Anemia</td><td>Menor oferta de O₂, mais transfusão e complicações</td><td>Investigar e repor ferro (oral ou endovenoso) antes da cirurgia eletiva</td></tr>
+                <tr><td>Desnutrição e sarcopenia</td><td>Pior cicatrização, infecção, perda funcional</td><td>Suplementação; abreviar o jejum (líquidos claros, inclusive com carboidrato, até 2 h antes — ASA 2023)</td></tr>
+                <tr><td>Déficit cognitivo ou sensorial</td><td>Maior risco de delirium</td><td>Registrar a cognição basal; levar óculos e aparelho auditivo</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Manejo dos medicamentos no perioperatório <span class="tico">📊 tabela</span> <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>O que manter e o que suspender (orientação geral; individualizar)</caption>
+              <thead><tr><th>Classe</th><th>Conduta usual</th><th>Motivo</th></tr></thead>
+              <tbody>
+                <tr><td>Betabloqueador, estatina</td><td><b>Manter</b> (não iniciar betabloqueador no dia da cirurgia)</td><td>Suspensão abrupta aumenta eventos cardíacos</td></tr>
+                <tr><td>IECA e BRA</td><td>Considerar suspender 24 h antes (manter na insuficiência cardíaca com fração de ejeção reduzida)</td><td>Hipotensão intraoperatória refratária</td></tr>
+                <tr><td>Diuréticos</td><td>Suspender na manhã da cirurgia</td><td>Hipovolemia e distúrbios eletrolíticos</td></tr>
+                <tr><td>Metformina</td><td>Suspender no dia da cirurgia</td><td>Risco de acidose lática com hipoperfusão ou contraste</td></tr>
+                <tr><td><b>Inibidores de SGLT2</b> (dapagliflozina, empagliflozina)</td><td>Suspender <b>3 dias</b> antes (ertugliflozina, 4 dias)</td><td>Cetoacidose diabética <b>euglicêmica</b> no jejum e no estresse cirúrgico</td></tr>
+                <tr><td>Insulina basal</td><td>Manter com redução de dose na noite anterior</td><td>Evitar hipoglicemia no jejum; meta de glicemia 100–180 mg/dL</td></tr>
+                <tr><td>AAS e anticoagulantes</td><td>Decidir conforme indicação e risco de sangramento</td><td>Equilíbrio entre trombose e sangramento; respeitar intervalos para raquianestesia</td></tr>
+                <tr><td>Benzodiazepínicos, anticolinérgicos, anti-histamínicos de 1ª geração</td><td>Evitar ou reduzir (Beers)</td><td>Delirium, quedas, retenção urinária</td></tr>
+                <tr><td>AINE oral</td><td>Evitar no perioperatório de idosos com TFG reduzida (contraindicado se depuração &lt; 30 mL/min)</td><td>Lesão renal aguda, sangramento digestivo, descompensação cardíaca</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q22):</b> homem de 49 anos com DM2 em uso irregular de metformina e <b>dapagliflozina</b>, com poliúria e polidipsia, glicemia de 460 mg/dL, pH 7,36, bicarbonato 22, osmolaridade 292 e cetonas ausentes: não preenche critérios de cetoacidose (exige acidose e cetose) nem de estado hiperosmolar (osmolaridade &gt; 320 mOsm/kg) — é <b>hiperglicemia sem crise metabólica</b>. No perioperatório, o mesmo raciocínio laboratorial distingue o descontrole simples das crises, e o uso de iSGLT2 alerta para a cetoacidose euglicêmica.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">Thompson et al. — AHA/ACC 2024</a> · <a href="#ref6">Chow et al. — ACS NSQIP/AGS</a> · <a href="#ref9">AGS — Beers 2023</a> · <a href="#ref32">ADA — Standards of Care 2026</a> · <a href="#ref33">ASA — jejum pré-operatório 2023</a> · <a href="#ref30">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 7 -->
+    <div class="branch b3" id="r7">
+      <div class="head"><span class="num">7</span> Riscos Intraoperatórios <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">O que pode dar errado na sala — e como prevenir <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Riscos intraoperatórios no idoso submetido a artroplastia</caption>
+              <thead><tr><th>Risco</th><th>Mecanismo no idoso</th><th>Prevenção</th></tr></thead>
+              <tbody>
+                <tr><td>Anestesia</td><td>Maior sensibilidade a anestésicos e opioides; menor clearance renal e hepático</td><td>Raquianestesia com sedação leve é muito usada na artroplastia de joelho; bloqueios periféricos (canal dos adutores) poupam opioide</td></tr>
+                <tr><td><b>Hipotensão</b></td><td>Rigidez arterial, ↓resposta barorreflexa, simpatectomia da raquianestesia, hipovolemia</td><td>Manter PAM ≥ 65 mmHg ou até 20% abaixo da basal; vasopressor e volume guiados; suspender IECA/BRA na véspera</td></tr>
+                <tr><td><b>Hipoxemia</b></td><td>↓Reserva pulmonar, ↑volume de oclusão, sedação</td><td>Oximetria contínua, O₂ suplementar, sedação mínima, cabeceira elevada</td></tr>
+                <tr><td>Hipotermia</td><td>↓Termorregulação</td><td>Aquecimento ativo; hipotermia aumenta sangramento, infecção e eventos cardíacos</td></tr>
+                <tr><td>Sangramento</td><td>Osteotomias e tecidos moles; anemia prévia</td><td>Ácido tranexâmico, hemostasia, correção prévia da anemia</td></tr>
+                <tr><td>Torniquete</td><td>Isquemia do membro, lesão nervosa e cutânea, dor</td><td>Tempo e pressão mínimos; avaliar circulação prévia (cirurgião vascular)</td></tr>
+                <tr><td>Cimento ósseo</td><td>Síndrome de implantação do cimento: hipotensão, hipoxemia, arritmia</td><td>Monitorização e comunicação entre cirurgião e anestesiologista</td></tr>
+                <tr><td>Arritmias e isquemia</td><td>Estresse cirúrgico, dor, distúrbios hidroeletrolíticos</td><td>Monitorização eletrocardiográfica; corrigir K⁺ e Mg²⁺</td></tr>
+                <tr><td>Infecção do sítio cirúrgico</td><td>Imunossenescência, diabetes, prótese (corpo estranho)</td><td>Cefazolina até 60 min antes da incisão; controle glicêmico; antissepsia</td></tr>
+                <tr><td>Lesões por posicionamento</td><td>Pele fina, osteoporose, articulações rígidas</td><td>Coxins e proteção de proeminências ósseas</td></tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q29):</b> mulher de 67 anos com fadiga e palpitação há 3 dias, hemodinamicamente estável, ECG com ritmo irregular, FC média de 90, sem onda P e com QRS estreito: <b>fibrilação atrial</b> estável, com frequência controlada e mais de 48 h de evolução — a conduta imediata é <b>anticoagular</b> (não cardioverter sem anticoagulação ou ecocardiograma transesofágico). A FA é a arritmia mais comum no peri e no pós-operatório do idoso.
+            </div>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref7">Thompson et al. — AHA/ACC 2024</a> · <a href="#ref6">Chow et al. — ACS NSQIP/AGS</a> · <a href="#ref30">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+    <!-- BRANCH 8 -->
+    <div class="branch b9" id="r8">
+      <div class="head"><span class="num">8</span> Complicações Pós-operatórias e Prevenção <span class="enamed">ENAMED</span></div>
+      <div class="body">
+
+        <details open>
+          <summary><span class="sumtext">Delirium e disfunção cognitiva pós-operatória <span class="tico">🖼️ figura</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="figure">
+              <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Algoritmo do Confusion Assessment Method">
+                <g font-size="10.5" text-anchor="middle">
+                  <rect x="20" y="20" width="270" height="52" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="155" y="42" font-weight="700" fill="#701a75">1. Início agudo e curso flutuante</text><text x="155" y="60" fill="#334">mudança em relação à cognição basal</text>
+                  <rect x="350" y="20" width="270" height="52" rx="10" fill="#fbe9fb" stroke="#a21caf"/><text x="485" y="42" font-weight="700" fill="#701a75">2. Desatenção</text><text x="485" y="60" fill="#334">não sustenta o foco (ex.: meses ao contrário)</text>
+                  <text x="320" y="50" font-weight="700" fill="#701a75">+</text>
+                  <rect x="20" y="100" width="270" height="52" rx="10" fill="#f2ebff" stroke="#7c3aed"/><text x="155" y="122" font-weight="700" fill="#5b21b6">3. Pensamento desorganizado</text><text x="155" y="140" fill="#334">discurso incoerente, ideias desconexas</text>
+                  <rect x="350" y="100" width="270" height="52" rx="10" fill="#f2ebff" stroke="#7c3aed"/><text x="485" y="122" font-weight="700" fill="#5b21b6">4. Nível de consciência alterado</text><text x="485" y="140" fill="#334">hiperalerta, letárgico ou sonolento</text>
+                  <text x="320" y="130" font-weight="700" fill="#5b21b6">ou</text>
+                  <rect x="140" y="170" width="360" height="40" rx="10" fill="#1e293b"/><text x="320" y="195" font-weight="700" fill="#fde047">DELIRIUM = 1 + 2 + (3 ou 4)</text>
+                </g>
+              </svg>
+              <div class="cap">Figura — Confusion Assessment Method (CAM): por isso a cognição basal deve ser registrada na AGA pré-operatória</div>
+            </div>
+            <ul>
+              <li><b>Delirium</b> é uma das complicações mais comuns do idoso cirúrgico: agudo, flutuante e frequentemente <b>hipoativo</b> (passa despercebido). Associa-se a maior mortalidade, perda funcional, institucionalização e demência posterior.</li>
+              <li><b>Prevenção multicomponente</b> (a mais eficaz): orientação temporal, óculos e aparelho auditivo, sono preservado, mobilização precoce, hidratação, nutrição, controle da dor, evitar contenção, sondas e fármacos deliriogênicos (benzodiazepínicos, anticolinérgicos, meperidina), retirar cateteres cedo e presença da família.</li>
+              <li><b>Disfunção cognitiva pós-operatória</b>: declínio de memória e atenção que persiste semanas a meses, distinto do delirium; mais frequente em idosos com baixa reserva cognitiva.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Complicações cardíacas, pulmonares e tromboembolismo <span class="tico">📊 tabela</span> <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <div class="twrap">
+            <table>
+              <caption>Principais complicações sistêmicas</caption>
+              <thead><tr><th>Complicação</th><th>Como se apresenta no idoso</th><th>Prevenção e conduta</th></tr></thead>
+              <tbody>
+                <tr><td>Cardíacas</td><td>Infarto perioperatório muitas vezes <b>sem dor</b> (lesão miocárdica detectada por troponina), FA, insuficiência cardíaca por sobrecarga de volume</td><td>Manter betabloqueador e estatina; evitar hipotensão e anemia; ECG e troponina se sintomas</td></tr>
+                <tr><td>Pulmonares</td><td>Atelectasia, pneumonia (inclusive aspirativa), hipoxemia, broncoespasmo</td><td>Mobilização e sentar precoce, espirometria de incentivo, fisioterapia respiratória, analgesia que permita tossir, cabeceira elevada</td></tr>
+                <tr><td><b>Tromboembolismo venoso</b> (TVP e TEP)</td><td>Artroplastia de joelho é de <b>alto risco</b>; TEP pode se manifestar só com dispneia, taquicardia ou hipoxemia</td><td>Profilaxia farmacológica (heparina de baixo peso molecular, anticoagulante oral direto ou AAS — a ASH 2019 aceita AAS ou anticoagulante na artroplastia de joelho) por no mínimo 10–14 dias, podendo chegar a 35 dias, + compressão pneumática + deambulação precoce; ajustar à TFG</td></tr>
+                <tr><td>Lesão renal aguda</td><td>Oligúria, aumento de creatinina</td><td>Evitar hipotensão, AINE e nefrotóxicos; hidratação adequada</td></tr>
+                <tr><td>Retenção e infecção urinária</td><td>Globo vesical, delirium</td><td>Retirar a sonda precocemente; evitar anticolinérgicos</td></tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Dor, ferida operatória, íleo e vigilância <span class="enamed">ENAMED</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li><b>Dor</b>: subtratada no idoso (especialmente com déficit cognitivo) e causa de delirium, imobilidade e TEV. Analgesia <b>multimodal</b>: paracetamol em horário fixo, bloqueios regionais, crioterapia, opioide na menor dose e pelo menor tempo; AINE só com cautela e por curto período quando a TFG está reduzida.</li>
+              <li><b>Mobilização precoce</b> (no mesmo dia ou no dia seguinte) e fisioterapia motora: previnem TEV, pneumonia, delirium, íleo e perda funcional — o caminho que levou Maria de Lourdes a abandonar a bengala em 1 mês.</li>
+            </ul>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q24):</b> 2º dia de pós-operatório de hemicolectomia, com distensão, sem flatos ou fezes, abdome timpânico e indolor, sem peritonite e radiografia com distensão difusa sem níveis hidroaéreos: <b>íleo pós-operatório</b> — conduta conservadora, com <b>deambulação precoce</b> e progressão da dieta conforme aceitação.
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q10):</b> 7 dias após hernioplastia com tela, tumefação, rubor e calor no terço médio da ferida, sem acometimento de fáscia: <b>infecção do sítio cirúrgico incisional superficial</b> — a conduta é <b>explorar localmente a ferida</b> (abrir e drenar); remover a tela não está indicado.
+            </div>
+            <div class="note-warn">
+              <b class="tag">ENAMED <span class="enamed">ENAMED</span> — Caderno 01, 2026 (Q93 e Q81):</b> na <b>Q93</b>, febre baixa, dor abdominal e FC 110 no 1º dia após colecistectomia foram atribuídas à “recuperação normal” e o paciente teve alta; voltou com fístula biliar — <b>negligência</b> (omissão de cuidado devido). Taquicardia e febre no pós-operatório exigem investigação, sobretudo no idoso, que tem sinais atenuados. Na <b>Q81</b>, febre e dor em hipocôndrio direito semanas após colecistectomia com CPRE, com lesão hepática hipodensa de 5 × 6 cm: <b>abscesso hepático</b> — além do antibiótico venoso, <b>drenagem percutânea guiada por imagem</b>.
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="sumtext">Declínio funcional, quedas e reabilitação <span class="pill">Objetivo 3</span></span><span class="chev">▸</span></summary>
+          <div class="content">
+            <ul>
+              <li>Cada dia no leito acelera a perda de massa muscular no idoso; o <b>declínio funcional</b> pós-operatório pode não se recuperar sem reabilitação ativa.</li>
+              <li><b>Quedas</b> pós-operatórias: dor, opioides, hipotensão ortostática, delirium e fraqueza do quadríceps. Reaplicar a <b>BARQ</b> na alta e orientar a <b>Segurança Doméstica</b>.</li>
+              <li><b>Úlceras por pressão</b>: mudança de decúbito, superfícies adequadas, nutrição.</li>
+              <li>Protocolos de recuperação acelerada (<b>ERAS</b>, <i>fast-track</i>): jejum abreviado, analgesia multimodal, mobilização e alimentação precoces, alta planejada com o apoio familiar.</li>
+              <li>Medir a recuperação com os mesmos instrumentos do pré-operatório (<b>GDLAM, goniometria do joelho, ETUG</b>) torna objetivo o ganho funcional — no caso, retomada das atividades sem bengala em 1 mês.</li>
+            </ul>
+          </div>
+        </details>
+
+        <p class="srcnote">Fontes: <a href="#ref10">Inouye et al. — CAM</a> · <a href="#ref11">AGS — delirium pós-operatório</a> · <a href="#ref34">ESAIC 2024 — delirium pós-operatório</a> · <a href="#ref28">Falck-Ytter et al. — ACCP</a> · <a href="#ref31">ASH 2019 — prevenção de TEV</a> · <a href="#ref7">Thompson et al. — AHA/ACC 2024</a> · <a href="#ref14">Manual BARQ</a> · <a href="#ref30">INEP — Enamed 2026, Caderno 01</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="refs-section">
+    <h3>Referências (ABNT)</h3>
+    <ol>
+      <li id="ref1">HUNTER, David J.; BIERMA-ZEINSTRA, Sita. Osteoarthritis. <i>The Lancet</i>, v. 393, n. 10182, p. 1745-1759, 2019. DOI: <a href="https://doi.org/10.1016/S0140-6736(19)30417-9" target="_blank" rel="noopener">10.1016/S0140-6736(19)30417-9</a>.</li>
+      <li id="ref2">KOLASINSKI, Sharon L. et al. 2019 American College of Rheumatology/Arthritis Foundation guideline for the management of osteoarthritis of the hand, hip, and knee. <i>Arthritis Care &amp; Research</i>, v. 72, n. 2, p. 149-162, 2020. DOI: <a href="https://doi.org/10.1002/acr.24131" target="_blank" rel="noopener">10.1002/acr.24131</a>.</li>
+      <li id="ref3">ALTMAN, R. et al. Development of criteria for the classification and reporting of osteoarthritis: classification of osteoarthritis of the knee. <i>Arthritis &amp; Rheumatism</i>, v. 29, n. 8, p. 1039-1049, 1986. DOI: <a href="https://doi.org/10.1002/art.1780290816" target="_blank" rel="noopener">10.1002/art.1780290816</a>.</li>
+      <li id="ref4">KELLGREN, J. H.; LAWRENCE, J. S. Radiological assessment of osteo-arthrosis. <i>Annals of the Rheumatic Diseases</i>, v. 16, n. 4, p. 494-502, 1957. DOI: <a href="https://doi.org/10.1136/ard.16.4.494" target="_blank" rel="noopener">10.1136/ard.16.4.494</a>.</li>
+      <li id="ref5">MORAES, Edgar Nunes de et al. Clinical-Functional Vulnerability Index-20 (IVCF-20): rapid recognition of frail older adults. <i>Revista de Saúde Pública</i>, v. 50, 81, 2016. DOI: <a href="https://doi.org/10.1590/S1518-8787.2016050006963" target="_blank" rel="noopener">10.1590/S1518-8787.2016050006963</a>.</li>
+      <li id="ref6">CHOW, Warren B. et al. Optimal preoperative assessment of the geriatric surgical patient: a best practices guideline from the American College of Surgeons National Surgical Quality Improvement Program and the American Geriatrics Society. <i>Journal of the American College of Surgeons</i>, v. 215, n. 4, p. 453-466, 2012. DOI: <a href="https://doi.org/10.1016/j.jamcollsurg.2012.06.017" target="_blank" rel="noopener">10.1016/j.jamcollsurg.2012.06.017</a>.</li>
+      <li id="ref7">THOMPSON, Annemarie et al. 2024 AHA/ACC/ACS/ASNC/HRS/SCA/SCCT/SCMR/SVM guideline for perioperative cardiovascular management for noncardiac surgery. <i>Circulation</i>, v. 150, n. 19, p. e351-e442, 2024. DOI: <a href="https://doi.org/10.1161/CIR.0000000000001285" target="_blank" rel="noopener">10.1161/CIR.0000000000001285</a>.</li>
+      <li id="ref8">LEE, Thomas H. et al. Derivation and prospective validation of a simple index for prediction of cardiac risk of major noncardiac surgery. <i>Circulation</i>, v. 100, n. 10, p. 1043-1049, 1999. DOI: <a href="https://doi.org/10.1161/01.CIR.100.10.1043" target="_blank" rel="noopener">10.1161/01.CIR.100.10.1043</a>.</li>
+      <li id="ref9">AMERICAN GERIATRICS SOCIETY BEERS CRITERIA® UPDATE EXPERT PANEL. American Geriatrics Society 2023 updated AGS Beers Criteria® for potentially inappropriate medication use in older adults. <i>Journal of the American Geriatrics Society</i>, v. 71, n. 7, p. 2052-2081, 2023. DOI: <a href="https://doi.org/10.1111/jgs.18372" target="_blank" rel="noopener">10.1111/jgs.18372</a>.</li>
+      <li id="ref10">INOUYE, Sharon K. et al. Clarifying confusion: the confusion assessment method. A new method for detection of delirium. <i>Annals of Internal Medicine</i>, v. 113, n. 12, p. 941-948, 1990. DOI: <a href="https://doi.org/10.7326/0003-4819-113-12-941" target="_blank" rel="noopener">10.7326/0003-4819-113-12-941</a>.</li>
+      <li id="ref11">AMERICAN GERIATRICS SOCIETY EXPERT PANEL ON POSTOPERATIVE DELIRIUM IN OLDER ADULTS. Postoperative delirium in older adults: best practice statement from the American Geriatrics Society. <i>Journal of the American College of Surgeons</i>, v. 220, n. 2, p. 136-148, 2015. DOI: <a href="https://doi.org/10.1016/j.jamcollsurg.2014.10.019" target="_blank" rel="noopener">10.1016/j.jamcollsurg.2014.10.019</a>.</li>
+      <li id="ref12">ARAÚJO-GOMES, Rafaela Cristina; VALE, Rodrigo Gomes de Souza; ABREU, Victoria Vieira; DANTAS, Estélio Henrique Martin. <i>Manual de instruções: Protocolo GDLAM — avaliação da autonomia funcional de pessoas idosas</i>. Aracaju: LABIMH/UNIT. Disponível em: <a href="https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/Material-GDLAM-LABIMH-1.pdf" target="_blank" rel="noopener">https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/Material-GDLAM-LABIMH-1.pdf</a>.</li>
+      <li id="ref13">DANTAS, Estélio Henrique Martin; REIS, Ana Valéria Santos dos; COSTA, Lúcio Flávio Gomes Ribeiro da; BEZERRA, Jani Cleria; SCARTONI, Fabiana Rodrigues. <i>Manual de instruções ICFI: avaliação do condicionamento físico de idosos</i>. Aracaju: LABIMH/UNIT. Disponível em: <a href="https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/LABIMH-ICFI-_20240916_131020_0000.pdf" target="_blank" rel="noopener">https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/LABIMH-ICFI-_20240916_131020_0000.pdf</a>.</li>
+      <li id="ref14">DANTAS, Estélio Henrique Martin; COSTA, Lúcio Flávio Gomes Ribeiro da; COSTA, Sávio Santana da; SANTOS, César Augusto de Souza. <i>Manual de instruções: Protocolo BARQ — avaliação do risco de quedas de idosos</i>. Aracaju: LABIMH/UNIT. Disponível em: <a href="https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/MANUAL-BARQ.pdf" target="_blank" rel="noopener">https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/02/MANUAL-BARQ.pdf</a>.</li>
+      <li id="ref15">DANTAS, Estélio Henrique Martin; OLIVEIRA, Lara Almeida; CONCEIÇÃO, Mario Cezar de Souza Costa. <i>Manual de instruções: avaliação da amplitude de movimento — protocolo LABIFIE</i>. Aracaju: LABIMH/UNIT. Disponível em: <a href="https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/08/1.MANUAL_GONIOMETRIA._LABIMH_LABIFIE.pdf" target="_blank" rel="noopener">https://portal.unit.br/labimh/wp-content/uploads/sites/41/2025/08/1.MANUAL_GONIOMETRIA._LABIMH_LABIFIE.pdf</a>.</li>
+      <li id="ref17">KATZ, Sidney et al. Studies of illness in the aged. The index of ADL: a standardized measure of biological and psychosocial function. <i>JAMA</i>, v. 185, n. 12, p. 914-919, 1963. DOI: <a href="https://doi.org/10.1001/jama.1963.03060120024016" target="_blank" rel="noopener">10.1001/jama.1963.03060120024016</a>.</li>
+      <li id="ref18">LAWTON, M. Powell; BRODY, Elaine M. Assessment of older people: self-maintaining and instrumental activities of daily living. <i>The Gerontologist</i>, v. 9, n. 3, p. 179-186, 1969. DOI: <a href="https://doi.org/10.1093/geront/9.3_Part_1.179" target="_blank" rel="noopener">10.1093/geront/9.3_Part_1.179</a>.</li>
+      <li id="ref19">FOLSTEIN, Marshal F.; FOLSTEIN, Susan E.; McHUGH, Paul R. “Mini-mental state”: a practical method for grading the cognitive state of patients for the clinician. <i>Journal of Psychiatric Research</i>, v. 12, n. 3, p. 189-198, 1975. DOI: <a href="https://doi.org/10.1016/0022-3956(75)90026-6" target="_blank" rel="noopener">10.1016/0022-3956(75)90026-6</a>.</li>
+      <li id="ref20">YESAVAGE, Jerome A. et al. Development and validation of a geriatric depression screening scale: a preliminary report. <i>Journal of Psychiatric Research</i>, v. 17, n. 1, p. 37-49, 1982. DOI: <a href="https://doi.org/10.1016/0022-3956(82)90033-4" target="_blank" rel="noopener">10.1016/0022-3956(82)90033-4</a>.</li>
+      <li id="ref21">VELLAS, Bruno et al. The Mini Nutritional Assessment (MNA) and its use in grading the nutritional state of elderly patients. <i>Nutrition</i>, v. 15, n. 2, p. 116-122, 1999. DOI: <a href="https://doi.org/10.1016/S0899-9007(98)00171-3" target="_blank" rel="noopener">10.1016/S0899-9007(98)00171-3</a>.</li>
+      <li id="ref22">CHARLSON, Mary E. et al. A new method of classifying prognostic comorbidity in longitudinal studies: development and validation. <i>Journal of Chronic Diseases</i>, v. 40, n. 5, p. 373-383, 1987. DOI: <a href="https://doi.org/10.1016/0021-9681(87)90171-8" target="_blank" rel="noopener">10.1016/0021-9681(87)90171-8</a>.</li>
+      <li id="ref23">FRIED, Linda P. et al. Frailty in older adults: evidence for a phenotype. <i>The Journals of Gerontology: Series A</i>, v. 56, n. 3, p. M146-M157, 2001. DOI: <a href="https://doi.org/10.1093/gerona/56.3.M146" target="_blank" rel="noopener">10.1093/gerona/56.3.M146</a>.</li>
+      <li id="ref24">ROCKWOOD, Kenneth et al. A global clinical measure of fitness and frailty in elderly people. <i>Canadian Medical Association Journal</i>, v. 173, n. 5, p. 489-495, 2005. DOI: <a href="https://doi.org/10.1503/cmaj.050051" target="_blank" rel="noopener">10.1503/cmaj.050051</a>.</li>
+      <li id="ref25">GUIMARÃES, Andrea et al. Battery for fall risk assessment in older adult people — BARQ: analysis of reliability and objectivity. <i>Frontiers in Public Health</i>, v. 12, 1456564, 2025. DOI: <a href="https://doi.org/10.3389/fpubh.2024.1456564" target="_blank" rel="noopener">10.3389/fpubh.2024.1456564</a>.</li>
+      <li id="ref26">DUNCAN, Pamela W. et al. Functional reach: a new clinical measure of balance. <i>Journal of Gerontology</i>, v. 45, n. 6, p. M192-M197, 1990. DOI: <a href="https://doi.org/10.1093/geronj/45.6.M192" target="_blank" rel="noopener">10.1093/geronj/45.6.M192</a>.</li>
+      <li id="ref27">PODSIADLO, Diane; RICHARDSON, Sandra. The timed “Up &amp; Go”: a test of basic functional mobility for frail elderly persons. <i>Journal of the American Geriatrics Society</i>, v. 39, n. 2, p. 142-148, 1991. DOI: <a href="https://doi.org/10.1111/j.1532-5415.1991.tb01616.x" target="_blank" rel="noopener">10.1111/j.1532-5415.1991.tb01616.x</a>.</li>
+      <li id="ref28">FALCK-YTTER, Yngve et al. Prevention of VTE in orthopedic surgery patients: antithrombotic therapy and prevention of thrombosis, 9th ed: American College of Chest Physicians evidence-based clinical practice guidelines. <i>Chest</i>, v. 141, n. 2, supl., p. e278S-e325S, 2012. DOI: <a href="https://doi.org/10.1378/chest.11-2404" target="_blank" rel="noopener">10.1378/chest.11-2404</a>.</li>
+      <li id="ref29">LABORATÓRIO DE BIOCIÊNCIAS DA MOTRICIDADE HUMANA (LABIMH). <i>Instrumentos de avaliação: baterias e manuais de avaliação</i>. Aracaju: UNIT. Disponível em: <a href="https://portal.unit.br/labimh/instrumentos-de-avaliacao/" target="_blank" rel="noopener">https://portal.unit.br/labimh/instrumentos-de-avaliacao/</a>. Acesso em: 5 nov. 2026.</li>
+      <li id="ref31">ANDERSON, David R. et al. American Society of Hematology 2019 guidelines for management of venous thromboembolism: prevention of venous thromboembolism in surgical hospitalized patients. <i>Blood Advances</i>, v. 3, n. 23, p. 3898-3944, 2019. DOI: <a href="https://doi.org/10.1182/bloodadvances.2019000975" target="_blank" rel="noopener">10.1182/bloodadvances.2019000975</a>.</li>
+      <li id="ref32">AMERICAN DIABETES ASSOCIATION PROFESSIONAL PRACTICE COMMITTEE. 16. Diabetes care in the hospital: Standards of Care in Diabetes—2026. <i>Diabetes Care</i>, v. 49, supl. 1, p. S339-S355, 2026. DOI: <a href="https://doi.org/10.2337/dc26-S016" target="_blank" rel="noopener">10.2337/dc26-S016</a>.</li>
+      <li id="ref33">JOSHI, Girish P. et al. 2023 American Society of Anesthesiologists practice guidelines for preoperative fasting: carbohydrate-containing clear liquids with or without protein, chewing gum, and pediatric fasting duration. <i>Anesthesiology</i>, v. 138, n. 2, p. 132-151, 2023. DOI: <a href="https://doi.org/10.1097/ALN.0000000000004381" target="_blank" rel="noopener">10.1097/ALN.0000000000004381</a>.</li>
+      <li id="ref34">ALDECOA, César et al. Update of the European Society of Anaesthesiology and Intensive Care Medicine evidence-based and consensus-based guideline on postoperative delirium in adult patients. <i>European Journal of Anaesthesiology</i>, v. 41, n. 2, p. 81-108, 2024. DOI: <a href="https://doi.org/10.1097/EJA.0000000000001876" target="_blank" rel="noopener">10.1097/EJA.0000000000001876</a>.</li>
+      <li id="ref30">INEP. <i>Enamed 2026 — Caderno 01</i>. Exame Nacional de Avaliação da Formação Médica. Brasília: Ministério da Educação, 2026. Documento fornecido pelo usuário.</li>
+    </ol>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:10px;">Nota: mapa elaborado a partir da bibliografia de reumatologia, geriatria e medicina perioperatória, no mesmo padrão editorial dos mapas anteriores, com tabelas que se reorganizam em fichas em telas estreitas (visualização completa, sem cortes), figuras explicativas e esquemas. Os instrumentos da AGA priorizam os protocolos validados do LABIMH (GDLAM, ICFI, BARQ e Goniometria). Pontos também identificados no Caderno 01 do Enamed 2026 recebem a marcação <span class="enamed">ENAMED</span>, com o número da questão.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:6px;">Cobertura e conteúdo auditados (5 nov. 2026; condutas conferidas com as diretrizes vigentes — ACR/AF 2019, AHA/ACC 2024, ADA 2026, ASA 2023, ASH 2019, ESAIC 2024 e Beers 2023 —, DOIs conferidos no Crossref e manuais conferidos no portal do LABIMH) contra os Objetivos do Problema 2 — Módulo 03: osteoartrite — conceito, epidemiologia, etiologia, fatores de risco, fisiopatologia, quadro clínico, diagnóstico e consequências (ramos 1 e 2); AGA e seus domínios, com um instrumento validado por domínio e os protocolos do LABIMH, e sua aplicação na avaliação pré-operatória (ramos 3, 4 e 5); riscos cirúrgicos no idoso no pré, intra e pós-operatório — idade, polifarmácia, comorbidades, capacidade funcional, hipoxemia, hipotensão, dor, complicações cardíacas e pulmonares, disfunção cognitiva, delirium e tromboembolismo venoso (ramos 6, 7 e 8). Cross-referência ao Caderno 01 do Enamed 2026: Q68 (ramo 2), Q22 (ramo 6), Q29 (ramo 7), Q10, Q24, Q81 e Q93 (ramo 8).</p>
+  </div>
+
+  <footer>Mapa mental de estudo · Tema central: Avaliação Cirúrgica (Perioperatória) do Idoso e Osteoartrite (Problema 2 — “Avaliando os riscos...”)<br>Mapa mental feito por IA (Claude) em processo (harness) estabelecido por Estélio H. M. Dantas, Ph.D.</footer>
+
+</div>
+<script>
+  // Rótulos para as tabelas em modo ficha (telas estreitas)
+  document.querySelectorAll('.twrap table').forEach(function(t){
+    var hs=[].map.call(t.querySelectorAll('thead th'),function(th){return th.textContent.trim();});
+    t.querySelectorAll('tbody tr').forEach(function(tr){
+      [].forEach.call(tr.children,function(td,i){ if(hs[i]) td.setAttribute('data-label',hs[i]); });
+    });
+  });
+</script>
+</body>
+</html>
